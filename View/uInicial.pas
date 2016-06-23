@@ -1,0 +1,55 @@
+unit uInicial;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf,
+  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
+  FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, Data.DB,
+  FireDAC.Comp.Client, uPadrao;
+
+type
+  TfrmInicial = class(TfrmPadrao)
+    MainMenu1: TMainMenu;
+    Cadastros1: TMenuItem;
+    Clientes1: TMenuItem;
+    FDConnection1: TFDConnection;
+    procedure Clientes1Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmInicial: TfrmInicial;
+
+implementation
+
+uses uCadastroClientes;
+
+{$R *.dfm}
+
+procedure TfrmInicial.Clientes1Click(Sender: TObject);
+begin
+  frmCadastroClientes := TfrmCadastroClientes.Create(nil);
+  frmCadastroClientes.Showmodal;
+  frmCadastroClientes.Release;
+end;
+
+procedure TfrmInicial.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if key = VK_ESCAPE then
+  begin
+    Case MessageDlg('Deseja realmente sair do sistema?', mtConfirmation, mbYesNo, 0) of
+      IDNO : Key := 0;
+    end;
+
+  end;
+  inherited;
+end;
+
+end.
