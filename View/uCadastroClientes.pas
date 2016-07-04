@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
-  Vcl.Mask, uPersistentObject;
+  Vcl.Mask, uPersistentObject, frameBuscaCidade;
 
 type
   TfrmCadastroClientes = class(TfrmCadastroPadrao)
@@ -27,6 +27,16 @@ type
     Label6: TLabel;
     qryID: TIntegerField;
     qryNOME_RAZAO: TStringField;
+    Shape1: TShape;
+    edtRua: TEdit;
+    Label7: TLabel;
+    edtNumero: TEdit;
+    Label8: TLabel;
+    edtBairro: TEdit;
+    Label9: TLabel;
+    memComplemento: TMemo;
+    Label10: TLabel;
+    BuscaCidade1: TBuscaCidade;
   private
 
   protected
@@ -107,6 +117,8 @@ begin
     edtFone1.Text     := Cliente.Fone1;
     edtFone2.Text     := Cliente.Fone2;
     edtEmail.Text     := Cliente.Email;
+    //edtRua.Text       := Cliente.Endereco.Rua;
+    BuscaCidade1.carregaDados(Cliente.Endereco.Cidade.ID);
   finally
     FreeAndNil(Cliente);
   end;

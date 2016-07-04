@@ -17,14 +17,14 @@ type
     tsListagem: TTabSheet;
     tsDados: TTabSheet;
     Panel1: TPanel;
-    btnIncluir: TBitBtn;
-    btnAlterar: TBitBtn;
-    btnCancelar: TBitBtn;
-    btnSalvar: TBitBtn;
     DBGrid1: TDBGrid;
     ds: TDataSource;
     qry: TFDQuery;
     edtID: TEdit;
+    btnIncluir: TSpeedButton;
+    btnAlterar: TSpeedButton;
+    btnCancelar: TSpeedButton;
+    btnSalvar: TSpeedButton;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
@@ -131,7 +131,7 @@ end;
 
 procedure TfrmCadastroPadrao.executaAntesAlterar;
 begin
-  CarregarRegistro;
+  //CarregarRegistro;
 end;
 
 procedure TfrmCadastroPadrao.executaAntesCancelar;

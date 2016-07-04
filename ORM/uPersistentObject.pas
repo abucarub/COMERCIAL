@@ -3,8 +3,9 @@ unit uPersistentObject;
 interface
 
 uses
-  Rtti,StrUtils,Variants,Classes,FireDAC.Comp.Client, dialogs, uAtrib,
-  FireDAC.VCLUI.Wait, FireDAC.DApt, uConnection,SysUtils, Generics.Collections;
+  Rtti,Variants,Classes,FireDAC.Comp.Client, dialogs, uAtrib,
+  FireDAC.VCLUI.Wait, FireDAC.DApt, uConnection,SysUtils, Generics.Collections,
+  System.StrUtils;
 
 type
   TPersistentObject = class
@@ -39,7 +40,7 @@ type
     {retorna uma query com todos os registros cadastrados correspondente a classe}
     procedure LoadAll(qry :TFDQuery);
     {retorna uma instancia, do tipo da classe passada por parametro, sendo essa classe "Detalhe" (Mestre-Detalhe)}
-    function LoadOne<T:class> : T;
+    function LoadOne<T:class>(const FK :Integer = 0): T;
     {retorna uma lista de instancias, do tipo da classe passada por parametro, sendo essa lista "Detalhe" (Mestre-Detalhe)}
     function LoadMany<T:class> : TObjectList<T>;
 
@@ -69,9 +70,9 @@ begin
     begin
        for Att in RTP.GetAttributes do
        begin
-         if Att is HasMany then
+         if (Att is HasOne) or (Att is HasMany) then
          begin
-           if Tclass(T).ClassName = RTP.PropertyType.GetIndexedProperties[0].PropertyType.ToString then
+           if Tclass(T).ClassName = RTP.PropertyType.ToString then
            begin
              campoFK := FieldName(ATT).Name;
              exit;
@@ -398,11 +399,11 @@ begin
   end;
 end;
 
-function TPersistentObject.LoadOne<T>: T;
+function TPersistentObject.LoadOne<T>(const FK :Integer = 0): T;
 var
   Ctx: TRttiContext;
   RTT: TRttiType;
-  fieldFK, PKClasseMaster: String;
+  fieldPK, fieldFK, PKClasseMae: String;
   Att: TCustomAttribute;
   SQL, condicao: String;
   attsPK: array[1..3] of String;
@@ -411,16 +412,24 @@ var
 begin
   Ctx := TRttiContext.Create;
   try
-    buscaFK<T>(fieldFK);
+    { Se não for passado uma chave por parametro (significando FK da classe mãe),
+    é buscado o campo na classe filha, que corresponde a PK na classe mãe }
+
+    if FK = 0 then
+      buscaFK<T>(fieldFK)
+    else
+      fieldPK := 'ID'; {"ID" é a nomenclatura fixa para o campo PK}
+
     RTT := CTX.GetType(ClassType);
     GetAttAndValuePK(attsPK, valuesPK, RTT);
 
-    PKClasseMaster := valuesPK[1];
+    PKClasseMae := valuesPK[1];
 
     RTT := CTX.GetType(T);
 
     SQL := 'SELECT ID FROM ' + GetTableName(RTT) +
-           ' WHERE ' + fieldFK + ' = ' + PKClasseMaster;
+           ' WHERE ' + IfThen(fieldPK = '',fieldFK, fieldPK) + ' = '
+                     + IfThen(FK = 0, PKClasseMae, IntToStr(FK));
 
     Reader := TConnection.GetInstance.ExecuteQuery(SQL);
 

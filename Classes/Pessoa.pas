@@ -2,7 +2,7 @@ unit Pessoa;
 
 interface
 
-uses uPersistentObject, uAtrib, {uEndereco,} Generics.Collections;
+uses uPersistentObject, uAtrib, Endereco, Generics.Collections, System.SysUtils;
 
 type
 
@@ -16,9 +16,9 @@ type
     FFone2: String;
     FFone1: String;
     FEmail: String;
-//    FEndereco: TEndereco;
+    FEndereco: TEndereco;
 
-//    function GetEndereco: TEndereco;
+    function GetEndereco: TEndereco;
 
   public
     [FieldName('ID', True, True)]
@@ -36,10 +36,10 @@ type
     [FieldName('EMAIL')]
     property Email: String read FEmail write FEmail;
 
+    [HasOne('ID_PESSOA')]
+    property Endereco: TEndereco read GetEndereco write FEndereco;
 
-    //[HasOne('ID_CLIENTE')]
-    //property Endereco: TEndereco read GetEndereco write FEndereco;
-
+  public
     procedure Load(const AValue: Integer); override;
     procedure Clear; override;
   end;
@@ -57,21 +57,21 @@ begin
   FFone2   := '';
   FFone1   := '';
   FEmail   := '';
+  FreeAndNil(FEndereco);
 end;
-         {
+
 function TPessoa.GetEndereco: TEndereco;
 begin
-  if not assigned(FEnderecos) then
+  if not assigned(FEndereco) then
     FEndereco := self.LoadOne<TEndereco>;
 
   Result := FEndereco;
 end;
-}
+
 
 procedure TPessoa.Load(const AValue: Integer);
 begin
   ID := AValue;
-
   inherited Load;
 end;
 

@@ -34,10 +34,12 @@ uses uCadastroClientes;
 {$R *.dfm}
 
 procedure TfrmInicial.Clientes1Click(Sender: TObject);
+var i :integer;
 begin
   frmCadastroClientes := TfrmCadastroClientes.Create(nil);
   frmCadastroClientes.Showmodal;
   frmCadastroClientes.Release;
+  frmCadastroClientes := nil;
 end;
 
 procedure TfrmInicial.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
