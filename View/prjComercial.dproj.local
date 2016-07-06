@@ -20,8 +20,8 @@
     <Transaction>2016/03/14 19:03:23.000.035,C:\Users\User\Desktop\COMERCIAL\Controller\uBaseController.pas=C:\Users\User\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
     <Transaction>2016/03/14 19:43:09.000.801,=C:\Users\User\Desktop\COMERCIAL\Classes\uCliente.pas</Transaction>
     <Transaction>2016/03/14 20:00:54.000.027,=C:\Users\User\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
-    <Transaction>2016/03/14 20:01:59.000.878,C:\Users\User\Desktop\COMERCIAL\View\uCadastroClientes.pas=C:\Users\User\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
     <Transaction>2016/03/14 20:01:59.000.878,C:\Users\User\Desktop\COMERCIAL\View\uCadastroClientes.dfm=C:\Users\User\Desktop\COMERCIAL\View\Unit1.dfm</Transaction>
+    <Transaction>2016/03/14 20:01:59.000.878,C:\Users\User\Desktop\COMERCIAL\View\uCadastroClientes.pas=C:\Users\User\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
     <Transaction>2016/03/14 20:24:42.000.544,=C:\Users\User\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
     <Transaction>2016/03/14 20:25:05.000.044,C:\Users\User\Desktop\COMERCIAL\View\uPadrao.pas=C:\Users\User\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
     <Transaction>2016/03/14 20:25:05.000.044,C:\Users\User\Desktop\COMERCIAL\View\uPadrao.dfm=C:\Users\User\Desktop\COMERCIAL\View\Unit1.dfm</Transaction>
@@ -39,11 +39,14 @@
     <Transaction>2016/06/28 16:24:16.000.676,=C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
     <Transaction>2016/06/28 16:25:37.000.521,C:\Users\Allan\Desktop\COMERCIAL\Classes\Estado.pas=C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
     <Transaction>2016/06/29 10:33:09.000.553,=C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
-    <Transaction>2016/06/29 10:40:34.000.253,C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.pas=C:\Users\Allan\Desktop\COMERCIAL\View\frameBusca.pas</Transaction>
     <Transaction>2016/06/29 10:40:34.000.253,C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.dfm=C:\Users\Allan\Desktop\COMERCIAL\View\frameBusca.dfm</Transaction>
+    <Transaction>2016/06/29 10:40:34.000.253,C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.pas=C:\Users\Allan\Desktop\COMERCIAL\View\frameBusca.pas</Transaction>
     <Transaction>2016/06/30 16:22:20.000.098,=C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
     <Transaction>2016/06/30 16:22:31.000.933,C:\Users\Allan\Desktop\COMERCIAL\View\frameBusca.pas=</Transaction>
-    <Transaction>2016/06/30 16:46:22.000.224,C:\Users\Allan\Desktop\COMERCIAL\View\frameBuscaCidade.pas=C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
     <Transaction>2016/06/30 16:46:22.000.224,C:\Users\Allan\Desktop\COMERCIAL\View\frameBuscaCidade.dfm=C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.dfm</Transaction>
+    <Transaction>2016/06/30 16:46:22.000.224,C:\Users\Allan\Desktop\COMERCIAL\View\frameBuscaCidade.pas=C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
+    <Transaction>2016/07/05 10:00:17.263,=C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
+    <Transaction>2016/07/05 10:09:58.624,C:\Users\Allan\Desktop\COMERCIAL\View\uPesquisa.dfm=C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.dfm</Transaction>
+    <Transaction>2016/07/05 10:09:58.624,C:\Users\Allan\Desktop\COMERCIAL\View\uPesquisa.pas=C:\Users\Allan\Desktop\COMERCIAL\View\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

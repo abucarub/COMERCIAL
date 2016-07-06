@@ -29,8 +29,8 @@ type
     function Update: Boolean;
     function Delete: Boolean;
     {Load na classe corrente}
-    procedure Load(const AValue: Integer); overload; virtual; abstract;
-    function Load: Boolean; overload;
+    //procedure Load(const AValue: Integer); overload; virtual; abstract;
+    function Load(parametro :variant; const atributo :String = 'ID'): Boolean; overload;
 
     procedure Clear; virtual; abstract;
 
@@ -255,7 +255,7 @@ begin
   end;
 end;
 
-function TPersistentObject.Load: Boolean;
+function TPersistentObject.Load(parametro :variant; const atributo :String): Boolean;
 var
   Ctx: TRttiContext;
   RTT: TRttiType;
@@ -275,7 +275,7 @@ begin
 
     SQL := 'SELECT * FROM ' + GetTableName(RTT);
 
-    GetAttAndValuePK(attsPK, valuesPK, RTT);
+  {  GetAttAndValuePK(attsPK, valuesPK, RTT);
 
     for i := 1 to 3 do
     begin
@@ -283,7 +283,13 @@ begin
          break;
 
        Where := Where + Ifthen(Trim(where)='','',' AND ') + attsPK[i] + ' = ' + valuesPK[i];
-    end;
+    end; }
+
+    { se parametro for string, coloca entre aspas}
+    if VarIsStr(parametro) then
+      parametro := QuotedStr(parametro);
+
+    Where := atributo + ' = ' + VarToStr(parametro);
 
     SQL := SQL + ' WHERE ' + Where;
 
@@ -320,6 +326,7 @@ begin
 
   finally
     CustomSQL := '';
+
     CTX.Free;
   end;
 end;

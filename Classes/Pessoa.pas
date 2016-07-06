@@ -40,7 +40,7 @@ type
     property Endereco: TEndereco read GetEndereco write FEndereco;
 
   public
-    procedure Load(const AValue: Integer); override;
+    procedure LoadClass(const AValue: Integer);
     procedure Clear; override;
   end;
 
@@ -69,10 +69,10 @@ begin
 end;
 
 
-procedure TPessoa.Load(const AValue: Integer);
+procedure TPessoa.LoadClass(const AValue: Integer);
 begin
-  ID := AValue;
-  inherited Load;
+ // ID := AValue;
+  inherited Load(AValue);
 end;
 
 end.

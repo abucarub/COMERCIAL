@@ -2,14 +2,17 @@ inherited frmCadastroClientes: TfrmCadastroClientes
   Caption = 'Cadastro de Clientes'
   ClientWidth = 713
   ExplicitWidth = 729
+  ExplicitHeight = 497
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcDados: TPageControl
     Width = 713
-    ActivePage = tsDados
     ExplicitWidth = 713
     inherited tsListagem: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 28
       ExplicitWidth = 705
+      ExplicitHeight = 368
       inherited DBGrid1: TDBGrid
         Width = 705
         Columns = <
@@ -28,7 +31,10 @@ inherited frmCadastroClientes: TfrmCadastroClientes
       end
     end
     inherited tsDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 28
       ExplicitWidth = 705
+      ExplicitHeight = 368
       object Label2: TLabel [0]
         Left = 12
         Top = 81
@@ -111,6 +117,7 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         Top = 40
         Width = 261
         Height = 25
+        CharCase = ecUpperCase
         TabOrder = 0
       end
       object edtCpf: TEdit [12]
@@ -118,13 +125,16 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         Top = 104
         Width = 261
         Height = 25
+        CharCase = ecUpperCase
         TabOrder = 1
+        OnEnter = edtCpfEnter
       end
       object edtRG: TEdit [13]
         Left = 12
         Top = 168
         Width = 261
         Height = 25
+        CharCase = ecUpperCase
         TabOrder = 2
       end
       object edtEmail: TEdit [14]
@@ -132,7 +142,8 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         Top = 296
         Width = 261
         Height = 25
-        TabOrder = 3
+        CharCase = ecUpperCase
+        TabOrder = 5
       end
       object edtFone1: TMaskEdit [15]
         Left = 13
@@ -141,7 +152,7 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         Height = 25
         EditMask = '!\(99\)9999-9999;1; '
         MaxLength = 13
-        TabOrder = 4
+        TabOrder = 3
         Text = '(  )    -    '
       end
       object edtfone2: TMaskEdit [16]
@@ -151,7 +162,7 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         Height = 25
         EditMask = '!\(99\)9999-9999;1; '
         MaxLength = 13
-        TabOrder = 5
+        TabOrder = 4
         Text = '(  )    -    '
       end
       inherited edtID: TEdit
@@ -164,35 +175,39 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         Top = 104
         Width = 370
         Height = 25
-        TabOrder = 7
+        CharCase = ecUpperCase
+        TabOrder = 8
       end
       object edtNumero: TEdit
         Left = 316
         Top = 168
         Width = 45
         Height = 25
-        TabOrder = 8
+        CharCase = ecUpperCase
+        TabOrder = 9
       end
       object edtBairro: TEdit
         Left = 380
         Top = 168
         Width = 308
         Height = 25
-        TabOrder = 9
+        CharCase = ecUpperCase
+        TabOrder = 10
       end
       object memComplemento: TMemo
         Left = 316
         Top = 232
         Width = 372
         Height = 89
-        TabOrder = 10
+        CharCase = ecUpperCase
+        TabOrder = 11
       end
       inline BuscaCidade1: TBuscaCidade
         Left = 307
         Top = 16
         Width = 387
         Height = 54
-        TabOrder = 11
+        TabOrder = 7
         ExplicitLeft = 307
         ExplicitTop = 16
         ExplicitWidth = 387

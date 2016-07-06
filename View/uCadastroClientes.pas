@@ -37,6 +37,7 @@ type
     memComplemento: TMemo;
     Label10: TLabel;
     BuscaCidade1: TBuscaCidade;
+    procedure edtCpfEnter(Sender: TObject);
   private
 
   protected
@@ -117,11 +118,24 @@ begin
     edtFone1.Text     := Cliente.Fone1;
     edtFone2.Text     := Cliente.Fone2;
     edtEmail.Text     := Cliente.Email;
-    //edtRua.Text       := Cliente.Endereco.Rua;
-    BuscaCidade1.carregaDados(Cliente.Endereco.Cidade.ID);
+
+    if Assigned(Cliente.Endereco) then
+    begin
+      BuscaCidade1.carregaDados(Cliente.Endereco.Cidade.ID);
+      edtRua.Text         := Cliente.Endereco.Rua;
+      edtNumero.Text      := Cliente.Endereco.Numero;
+      edtBairro.Text      := Cliente.Endereco.Bairro;
+      memComplemento.Text := Cliente.Endereco.Complemento;
+    end;
+
   finally
     FreeAndNil(Cliente);
   end;
+end;
+
+procedure TfrmCadastroClientes.edtCpfEnter(Sender: TObject);
+begin
+  edtCpf.Color := clGreen;
 end;
 
 procedure TfrmCadastroClientes.executaDepoisAlterar;
@@ -151,6 +165,11 @@ begin
   edtFone1.Clear;
   edtfone2.Clear;
   edtEmail.Clear;
+  BuscaCidade1.limpa;
+  edtRua.Clear;
+  edtNumero.Clear;
+  edtBairro.Clear;
+  memComplemento.Clear;
 end;
 
 function TfrmCadastroClientes.Salvar: Boolean;
