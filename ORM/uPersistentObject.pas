@@ -1,3 +1,7 @@
+{No LoadOne, quando é passado a FK, é 1-1. Do contrário, é 1-N
+ 1-1 (um para 1) = está definido quando a tabela mãe possui a FK da tabela filha
+ 1-N (um para muitos) = está definido quando a tabela filha que possui a FK da tabela mãe
+ }
 unit uPersistentObject;
 
 interface
@@ -10,8 +14,8 @@ uses
 type
   TPersistentObject = class
   private
-
     FSQL: WideString;
+    FID: Integer;
 
     {retorna o valor de uma determinada propriedade}
     function GetValue(const ARTP: TRttiProperty; const AFK: Boolean): String;
@@ -25,9 +29,16 @@ type
 
   public
     property CustomSQL: WideString read FSQL write FSQL;
-    function Insert: Boolean;
+
+    [FieldName('ID', True, True)]
+    property ID :integer read FID write FID;
+
+    function Insert(const attName :String = ''; const propValue :String = ''): Boolean;
     function Update: Boolean;
     function Delete: Boolean;
+    function Save(const attName :String = ''; const propValue :String = ''): Boolean;
+
+    function isEmpty :Boolean; overload; virtual;
     {Load na classe corrente}
     //procedure Load(const AValue: Integer); overload; virtual; abstract;
     function Load(parametro :variant; const atributo :String = 'ID'): Boolean; overload;
@@ -161,15 +172,22 @@ begin
     tkChar, tkString,
     tkWChar, tkLString,
     tkWString, tkUString: Result := QuotedStr(ARTP.GetValue(Self).ToString);
-    tkFloat: Result := StringReplace(FormatFloat('0.00',ARTP.GetValue(Self).AsCurrency)
-              ,FormatSettings.DecimalSeparator,'.',[rfReplaceAll,rfIgnoreCase]);
+    tkFloat: begin
+               if ARTP.PropertyType.Name = 'TDateTime' then
+                 Result := QuotedStr(FormatDateTime('dd.mm.yyyy', FloatToDateTime(ARTP.GetValue(Self).AsCurrency)))
+               else
+                 Result := StringReplace(FormatFloat('0.00',ARTP.GetValue(Self).AsCurrency)
+                                                           ,FormatSettings.DecimalSeparator,'.',[rfReplaceAll,rfIgnoreCase]);
+
+
+              end;
   end;
 
   if (AFK) and (Result = '0') then
     Result := 'null';
 end;
 
-function TPersistentObject.Insert: Boolean;
+function TPersistentObject.Insert(const attName :String; const propValue :String): Boolean;
 var
   Ctx: TRttiContext;
   RTT: TRttiType;
@@ -202,7 +220,11 @@ begin
              if not (FieldName(ATT).AutoInc) then {Auto incremento não pode entrar no insert}
              begin
                Field := Field + FieldName(ATT).Name + ',';
-               Value := Value + GetValue(RTP,FieldName(ATT).FK) + ',';
+
+               if (FieldName(ATT).Name = attName) then
+                 Value := Value + propValue + ','
+               else
+                 Value := Value + GetValue(RTP,FieldName(ATT).FK) + ',';
              end
              else
                FieldID := FieldName(ATT).Name;
@@ -237,6 +259,15 @@ begin
            end;
         end;
 
+        for RTP in RTT.GetProperties do
+        begin
+           for Att in RTP.GetAttributes do
+           begin
+             if (Att is HasOne) and (HasOne(Att).Upgradeable) and not (RTP.GetValue(Self).AsObject as TPersistentObject).isEmpty then
+               (RTP.GetValue(Self).AsObject as TPersistentObject).Save(HasOne(Att).ChildPropertyName, qry.Fields[0].AsString);
+           end;
+        end;              ver com o HasMany
+
       end
       else
           raise Exception.Create('Erro ao inserir.'+#13#10+Error);
@@ -253,6 +284,11 @@ begin
       raise Exception.Create(e.Message);
     end;
   end;
+end;
+
+function TPersistentObject.isEmpty: Boolean;
+begin
+  raise Exception.Create('Método isEmpty deve ser implementado');
 end;
 
 function TPersistentObject.Load(parametro :variant; const atributo :String): Boolean;
@@ -421,7 +457,6 @@ begin
   try
     { Se não for passado uma chave por parametro (significando FK da classe mãe),
     é buscado o campo na classe filha, que corresponde a PK na classe mãe }
-
     if FK = 0 then
       buscaFK<T>(fieldFK)
     else
@@ -494,6 +529,14 @@ begin
   end;
 end;
 
+function TPersistentObject.Save(const attName :String; const propValue :String): Boolean;
+begin
+  if self.FID > 0 then
+    self.Update
+  else
+    self.Insert(attName, propValue);
+end;
+
 procedure TPersistentObject.SetValue(P: TRttiProperty; S: Variant);
 var
   V: TValue;
@@ -522,7 +565,8 @@ var
   SQL,
   Field,
   Where,
-  Error: String;
+  Error,
+  ID: String;
 begin
   Field := '';
   Ctx := TRttiContext.Create;
@@ -542,7 +586,10 @@ begin
              Field := Field + FieldName(ATT).Name + ' = ' + GetValue(RTP,FieldName(ATT).FK) + ',';
            end
            else if (FieldName(ATT).PK) then
+           begin
              Where := Where + Ifthen(Trim(where)='','',' AND ') + FieldName(ATT).Name + ' = ' + GetValue(RTP,FieldName(ATT).FK);
+             ID    := GetValue(RTP,FieldName(ATT).FK);
+           end;
          end;
        end;
     end;
@@ -555,6 +602,21 @@ begin
       SQL := CustomSQL;
 
     Result := TConnection.GetInstance.Execute(SQL,Error);
+
+    if Result then
+      for RTP in RTT.GetProperties do
+      begin
+         for Att in RTP.GetAttributes do
+         begin
+           if (Att is HasOne) and (HasOne(Att).Upgradeable) and assigned((RTP.GetValue(Self).AsObject as TPersistentObject)) then
+             (RTP.GetValue(Self).AsObject as TPersistentObject).Save(HasOne(Att).ChildPropertyName, ID);
+              ver o hasMany
+             {if (RTP.GetValue(Self).AsObject as TPersistentObject).ID > 0 then
+               (RTP.GetValue(Self).AsObject as TPersistentObject).Update
+             else
+               (RTP.GetValue(Self).AsObject as TPersistentObject).Insert; }
+         end;
+      end;
 
     if not Result then
       raise Exception.Create(Error);

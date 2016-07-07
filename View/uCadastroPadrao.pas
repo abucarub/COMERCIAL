@@ -40,11 +40,11 @@ type
     procedure CarregarRegistro;virtual;
     procedure LimparCampos;virtual;
     procedure habilitaAbas(TF :Boolean);
-    procedure atualizaGrid;virtual;
+    procedure atualizaGrid(Obj: TPersistentObject);virtual;
 
     function Incluir :Boolean;virtual;
     function Alterar :Boolean;virtual;
-    function Salvar :Boolean;virtual;
+    function Salvar :TPersistentObject;virtual;
     function Cancelar :Boolean;virtual;
 
     function verificaObrigatorios :Boolean;virtual;
@@ -56,7 +56,7 @@ type
 
     procedure executaDepoisIncluir;virtual;
     procedure executaDepoisAlterar;virtual;
-    procedure executaDepoisSalvar;virtual;
+    procedure executaDepoisSalvar(Obj :TPersistentObject);virtual;
     procedure executaDepoisCancelar;virtual;
 
   private
@@ -82,7 +82,7 @@ begin
   CarregarRegistro;
 end;
 
-procedure TfrmCadastroPadrao.atualizaGrid;
+procedure TfrmCadastroPadrao.atualizaGrid(Obj: TPersistentObject);
 begin
   if StrToIntDef(edtID.Text, 0) > 0 then
     qry.Edit
@@ -167,12 +167,15 @@ begin
   pgcDados.ActivePageIndex := 1;
 end;
 
-procedure TfrmCadastroPadrao.executaDepoisSalvar;
+procedure TfrmCadastroPadrao.executaDepoisSalvar(Obj :TPersistentObject);
 begin
+  if not assigned(Obj) then
+    Exit;
+
   pgcDados.ActivePageIndex := 0;
   self.FestadoTela         := stNavegando;
   FRegistroCarregado       := 0;
-  atualizaGrid;
+  atualizaGrid(Obj);
 end;
 
 procedure TfrmCadastroPadrao.FormCreate(Sender: TObject);
@@ -184,9 +187,9 @@ end;
 procedure TfrmCadastroPadrao.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (key = VK_F4) and (FestadoTela = stNavegando) then
+  if (key = VK_F3) and (FestadoTela = stNavegando) then
     btnIncluir.Click
-  else if (key = VK_F3) and (FestadoTela = stNavegando) then
+  else if (key = VK_F4) and (FestadoTela = stNavegando) then
     btnAlterar.Click
   else if (key = VK_F1) and ((FestadoTela = stNavegando)or(FestadoTela = stPesquisando)) then
     pgcDados.ActivePageIndex := 0
@@ -229,9 +232,9 @@ begin
      CarregarRegistro;
 end;
 
-function TfrmCadastroPadrao.Salvar :Boolean;
+function TfrmCadastroPadrao.Salvar :TPersistentObject;
 begin
-  result := false;
+  result := nil;
 end;
 
 procedure TfrmCadastroPadrao.SetEstadoTela(const Value: TStdTela);
@@ -256,9 +259,7 @@ begin
                   end;
     stSalvando: begin
                   executaAntesSalvar;
-
-                  if Salvar then
-                    executaDepoisSalvar;
+                  executaDepoisSalvar(Salvar);
                 end;
     stCancelando: begin
                    executaAntesCancelar;

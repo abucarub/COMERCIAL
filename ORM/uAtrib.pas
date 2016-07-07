@@ -29,11 +29,17 @@ type
   TCustomRelationAttribute = class(TCustomAttribute)
   private
     FChildPropertyName: string;
-    FLazyLoad: boolean;
+    FUpgradeable: Boolean;
+    FLocalProperty: Boolean;
 
   public
-    constructor Create(const AChildPropertyName: string);
+    constructor Create(const AChildPropertyName: string; const ALocalProperty: Boolean = true; const AUpgradeable: Boolean = false);
+    {Nome do campo FK que identifica a classe filha }
     property ChildPropertyName: string read FChildPropertyName;
+    {Determina se a classe filha é atualizável, através da classe mãe}
+    property Upgradeable: boolean read FUpgradeable;
+    {Determina se o campo FK é local (PK da classe filha na mãe), ou ao contrário (PK da classe mãe na filha)}
+    property LocalProperty: boolean read FLocalProperty;
   end;
 
   HasOne = class(TCustomRelationAttribute);
@@ -62,10 +68,13 @@ end;
 
 { TCustomRelationAttribute }
 
-constructor TCustomRelationAttribute.Create(const AChildPropertyName: string);
+constructor TCustomRelationAttribute.Create(const AChildPropertyName: string;
+const ALocalProperty: Boolean; const AUpgradeable: Boolean);
 begin
    inherited Create;
    FChildPropertyName := AChildPropertyName;
+   FLocalProperty     := ALocalProperty;
+   FUpgradeable       := AUpgradeable;
 end;
 
 end.

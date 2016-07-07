@@ -1,20 +1,24 @@
 inherited frmCadastroClientes: TfrmCadastroClientes
   Caption = 'Cadastro de Clientes'
+  ClientHeight = 434
   ClientWidth = 713
   ExplicitWidth = 729
-  ExplicitHeight = 497
+  ExplicitHeight = 472
   PixelsPerInch = 96
   TextHeight = 13
   inherited pgcDados: TPageControl
     Width = 713
+    Height = 375
     ExplicitWidth = 713
+    ExplicitHeight = 375
     inherited tsListagem: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 28
       ExplicitWidth = 705
-      ExplicitHeight = 368
+      ExplicitHeight = 343
       inherited DBGrid1: TDBGrid
         Width = 705
+        Height = 343
         Columns = <
           item
             Expanded = False
@@ -31,10 +35,7 @@ inherited frmCadastroClientes: TfrmCadastroClientes
       end
     end
     inherited tsDados: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 28
       ExplicitWidth = 705
-      ExplicitHeight = 368
       object Label2: TLabel [0]
         Left = 12
         Top = 81
@@ -43,29 +44,29 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         Caption = 'CPF / CNPJ'
       end
       object Label3: TLabel [1]
-        Left = 12
-        Top = 145
+        Left = 156
+        Top = 81
         Width = 40
         Height = 17
         Caption = 'RG / IE'
       end
       object Label4: TLabel [2]
         Left = 12
-        Top = 273
+        Top = 209
         Width = 36
         Height = 17
         Caption = 'E-mail'
       end
       object Label5: TLabel [3]
         Left = 12
-        Top = 209
+        Top = 145
         Width = 94
         Height = 17
         Caption = 'Fone residencial'
       end
       object Label6: TLabel [4]
         Left = 172
-        Top = 209
+        Top = 145
         Width = 40
         Height = 17
         Caption = 'Celular'
@@ -81,7 +82,7 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         Left = 296
         Top = 8
         Width = 1
-        Height = 349
+        Height = 325
         Pen.Color = 13092807
       end
       object Label7: TLabel [7]
@@ -112,7 +113,21 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         Height = 17
         Caption = 'Complemento'
       end
-      object edtNomeRazao: TEdit [11]
+      object Label11: TLabel [11]
+        Left = 11
+        Top = 273
+        Width = 100
+        Height = 17
+        Caption = 'Data Nascimento'
+      end
+      object Label12: TLabel [12]
+        Left = 175
+        Top = 273
+        Width = 84
+        Height = 17
+        Caption = 'Data Cadastro'
+      end
+      object edtNomeRazao: TEdit [13]
         Left = 12
         Top = 40
         Width = 261
@@ -120,34 +135,34 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         CharCase = ecUpperCase
         TabOrder = 0
       end
-      object edtCpf: TEdit [12]
+      object edtCpf: TEdit [14]
         Left = 12
         Top = 104
-        Width = 261
+        Width = 122
         Height = 25
         CharCase = ecUpperCase
         TabOrder = 1
         OnEnter = edtCpfEnter
       end
-      object edtRG: TEdit [13]
-        Left = 12
-        Top = 168
-        Width = 261
+      object edtRG: TEdit [15]
+        Left = 156
+        Top = 104
+        Width = 117
         Height = 25
         CharCase = ecUpperCase
         TabOrder = 2
       end
-      object edtEmail: TEdit [14]
+      object edtEmail: TEdit [16]
         Left = 12
-        Top = 296
+        Top = 232
         Width = 261
         Height = 25
         CharCase = ecUpperCase
         TabOrder = 5
       end
-      object edtFone1: TMaskEdit [15]
+      object edtFone1: TMaskEdit [17]
         Left = 13
-        Top = 232
+        Top = 168
         Width = 100
         Height = 25
         EditMask = '!\(99\)9999-9999;1; '
@@ -155,9 +170,9 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         TabOrder = 3
         Text = '(  )    -    '
       end
-      object edtfone2: TMaskEdit [16]
+      object edtfone2: TMaskEdit [18]
         Left = 173
-        Top = 232
+        Top = 168
         Width = 100
         Height = 25
         EditMask = '!\(99\)9999-9999;1; '
@@ -167,7 +182,7 @@ inherited frmCadastroClientes: TfrmCadastroClientes
       end
       inherited edtID: TEdit
         Top = -5
-        TabOrder = 6
+        TabOrder = 13
         ExplicitTop = -5
       end
       object edtRua: TEdit
@@ -224,6 +239,35 @@ inherited frmCadastroClientes: TfrmCadastroClientes
           Left = 351
           ExplicitLeft = 351
         end
+      end
+      object edtNascimento: TMaskEdit
+        Left = 12
+        Top = 296
+        Width = 97
+        Height = 25
+        EditMask = '!99/99/0000;1; '
+        MaxLength = 10
+        TabOrder = 6
+        Text = '  /  /    '
+      end
+      object edtCadastro: TMaskEdit
+        Left = 176
+        Top = 296
+        Width = 97
+        Height = 25
+        Enabled = False
+        EditMask = '!99/99/0000;1; '
+        MaxLength = 10
+        TabOrder = 12
+        Text = '  /  /    '
+      end
+      object edtIDEndereco: TEdit
+        Left = 307
+        Top = -5
+        Width = 41
+        Height = 25
+        TabOrder = 14
+        Visible = False
       end
     end
   end

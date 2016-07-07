@@ -37,12 +37,12 @@ const
 
 procedure TfrmPadrao.FormCreate(Sender: TObject);
 begin
-  Screen.OnActiveControlChange := ControlColorChange;
+  //Screen.OnActiveControlChange := ControlColorChange;
 end;
 
 procedure TfrmPadrao.FormDestroy(Sender: TObject);
 begin
-  Screen.OnActiveControlChange := nil;
+//  Screen.OnActiveControlChange := nil;
 end;
 
 procedure TfrmPadrao.FormKeyDown(Sender: TObject; var Key: Word;

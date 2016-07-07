@@ -34,6 +34,10 @@ object frmCadastroPadrao: TfrmCadastroPadrao
     OnChange = pgcDadosChange
     object tsListagem: TTabSheet
       Caption = '[ F1 ] Listagem'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object DBGrid1: TDBGrid
         Left = 0
         Top = 0
@@ -52,6 +56,10 @@ object frmCadastroPadrao: TfrmCadastroPadrao
     object tsDados: TTabSheet
       Caption = '[ F2 ] Dados'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object edtID: TEdit
         Left = 3
         Top = 3

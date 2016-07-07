@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
-  Vcl.Mask, uPersistentObject, frameBuscaCidade;
+  Vcl.Mask, uPersistentObject, frameBuscaCidade, System.StrUtils;
 
 type
   TfrmCadastroClientes = class(TfrmCadastroPadrao)
@@ -37,6 +37,11 @@ type
     memComplemento: TMemo;
     Label10: TLabel;
     BuscaCidade1: TBuscaCidade;
+    edtNascimento: TMaskEdit;
+    Label11: TLabel;
+    edtCadastro: TMaskEdit;
+    Label12: TLabel;
+    edtIDEndereco: TEdit;
     procedure edtCpfEnter(Sender: TObject);
   private
 
@@ -47,11 +52,11 @@ type
     procedure carregarDados;override;
     procedure CarregarRegistro;override;
     procedure LimparCampos;override;
-    procedure atualizaGrid;override;
+    procedure atualizaGrid(Obj: TPersistentObject);override;
 
     function Incluir :Boolean;override;
     function Alterar :Boolean;override;
-    function Salvar :Boolean;override;
+    function Salvar :TPersistentObject;override;
     function Cancelar :Boolean;override;
 
     function verificaObrigatorios :Boolean;override;
@@ -74,14 +79,12 @@ begin
   inherited;
 end;
 
-procedure TfrmCadastroClientes.atualizaGrid;
+procedure TfrmCadastroClientes.atualizaGrid(Obj: TPersistentObject);
 var Cliente :TPessoa;
 begin
   inherited;
   try
-    Cliente := TPessoa.Create;
-    Cliente.Load(StrToint(edtID.Text));
-
+    Cliente                := TPessoa(Obj);
     qryID.AsInteger        := Cliente.ID;
     qryNOME_RAZAO.AsString := Cliente.Nome;
     qry.Post;
@@ -111,21 +114,24 @@ begin
     Cliente := TPessoa.Create;
     Cliente.Load(qry.FieldByName('ID').AsInteger);
 
-    edtID.Text        := IntToStr(Cliente.ID);
-    edtNomeRazao.Text := Cliente.Nome;
-    edtCpf.Text       := Cliente.CpfCnpj;
-    edtRG.Text        := Cliente.RgIe;
-    edtFone1.Text     := Cliente.Fone1;
-    edtFone2.Text     := Cliente.Fone2;
-    edtEmail.Text     := Cliente.Email;
+    edtID.Text         := IntToStr(Cliente.ID);
+    edtNomeRazao.Text  := Cliente.Nome;
+    edtCpf.Text        := Cliente.CpfCnpj;
+    edtRG.Text         := Cliente.RgIe;
+    edtFone1.Text      := Cliente.Fone1;
+    edtFone2.Text      := Cliente.Fone2;
+    edtEmail.Text      := Cliente.Email;
+    edtCadastro.Text   := IfThen(Cliente.DtCadastro > 0, DateToStr(Cliente.DtCadastro), '');
+    edtNascimento.Text := IfThen(Cliente.DtNascimento > 0, DateToStr(Cliente.DtNascimento), '');
 
-    if Assigned(Cliente.Endereco) then
+    if (Cliente.Endereco.ID > 0) then
     begin
+      edtIDEndereco.Text    := IntToStr(Cliente.Endereco.ID);
       BuscaCidade1.carregaDados(Cliente.Endereco.Cidade.ID);
-      edtRua.Text         := Cliente.Endereco.Rua;
-      edtNumero.Text      := Cliente.Endereco.Numero;
-      edtBairro.Text      := Cliente.Endereco.Bairro;
-      memComplemento.Text := Cliente.Endereco.Complemento;
+      edtRua.Text           := Cliente.Endereco.Rua;
+      edtNumero.Text        := Cliente.Endereco.Numero;
+      edtBairro.Text        := Cliente.Endereco.Bairro;
+      memComplemento.Text   := Cliente.Endereco.Complemento;
     end;
 
   finally
@@ -165,6 +171,9 @@ begin
   edtFone1.Clear;
   edtfone2.Clear;
   edtEmail.Clear;
+  edtCadastro.Text := DateToStr(Date);
+  edtNascimento.Clear;
+  edtIDEndereco.Clear;
   BuscaCidade1.limpa;
   edtRua.Clear;
   edtNumero.Clear;
@@ -172,27 +181,35 @@ begin
   memComplemento.Clear;
 end;
 
-function TfrmCadastroClientes.Salvar: Boolean;
+function TfrmCadastroClientes.Salvar: TPersistentObject;
 var Cliente :TPessoa;
 begin
   inherited;
   try
     Cliente := TPessoa.Create;
 
-    Cliente.ID      := strToIntDef(edtID.Text,0);
-    Cliente.Nome    := edtNomeRazao.Text;
-    Cliente.CpfCnpj := edtCpf.Text;
-    Cliente.RgIe    := edtRG.Text;
-    Cliente.Fone1   := edtFone1.Text;
-    Cliente.Fone2   := edtFone2.Text;
-    Cliente.Email   := edtEmail.Text;
+    Cliente.ID              := strToIntDef(edtID.Text,0);
+    Cliente.Nome            := edtNomeRazao.Text;
+    Cliente.CpfCnpj         := edtCpf.Text;
+    Cliente.RgIe            := edtRG.Text;
+    Cliente.Fone1           := edtFone1.Text;
+    Cliente.Fone2           := edtFone2.Text;
+    Cliente.Email           := edtEmail.Text;
+    Cliente.DtCadastro      := StrToDateDef(edtCadastro.Text,0);
+    Cliente.DtNascimento    := StrToDateDef(edtNascimento.Text,0);
 
-    if Cliente.ID > 0 then
-      Cliente.Update
-    else
-      Cliente.Insert;
+//    Cliente.Endereco.ID_Pessoa :=
+    Cliente.Endereco.ID     := StrToIntDef(edtIDEndereco.Text,0);
+    if assigned(BuscaCidade1.Cidade) then
+      Cliente.Endereco.ID_Cidade := BuscaCidade1.Cidade.ID;
+    Cliente.Endereco.Rua    := edtRua.Text;
+    Cliente.Endereco.Numero := edtNumero.Text;
+    Cliente.Endereco.Bairro := edtBairro.Text;
+    Cliente.Endereco.Complemento := memComplemento.Text;
 
-    result := True;
+    Cliente.Save;
+
+    result := Cliente;
   Except
     on e :Exception do
       MessageBox(frmCadastroClientes.Handle,PWideChar('Erro ao salvar Cliente'+#13#10+e.Message),'Atenção', MB_ICONINFORMATION + MB_OK);
