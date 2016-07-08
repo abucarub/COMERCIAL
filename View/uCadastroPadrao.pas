@@ -241,7 +241,7 @@ procedure TfrmCadastroPadrao.SetEstadoTela(const Value: TStdTela);
 begin
   FestadoTela := Value;
 
-  if qry.IsEmpty then
+  if (qry.IsEmpty) and (FestadoTela = stAlterando) then
     FestadoTela := stNavegando;
 
   habilitaAbas(FestadoTela in [stAlterando, stIncluindo]);

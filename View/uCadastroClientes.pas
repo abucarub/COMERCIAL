@@ -198,8 +198,8 @@ begin
     Cliente.DtCadastro      := StrToDateDef(edtCadastro.Text,0);
     Cliente.DtNascimento    := StrToDateDef(edtNascimento.Text,0);
 
-//    Cliente.Endereco.ID_Pessoa :=
     Cliente.Endereco.ID     := StrToIntDef(edtIDEndereco.Text,0);
+   // showmessage(intToStr(Cliente.EnderecoL.Count));
     if assigned(BuscaCidade1.Cidade) then
       Cliente.Endereco.ID_Cidade := BuscaCidade1.Cidade.ID;
     Cliente.Endereco.Rua    := edtRua.Text;

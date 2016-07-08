@@ -19,8 +19,10 @@ type
     FDtCadastro :TDateTime;
     FDtNascimento :TDateTime;
     FEndereco: TEndereco;
+  //  FEnderecoL: TList<TEndereco>;
 
     function GetEndereco: TEndereco;
+ //   function GetEnderecoL: TList<TEndereco>;
     function GetID: Integer;
     procedure SetID(const Value: Integer);
 
@@ -47,6 +49,9 @@ type
     [HasOne('ID_PESSOA', false, true)]
     property Endereco: TEndereco read GetEndereco write FEndereco;
 
+//    [HasMany('ID_PESSOA', false, true)]
+//    property EnderecoL: TList<TEndereco> read GetEnderecoL write FEnderecoL;
+
   private
     destructor destroy;
 
@@ -61,6 +66,8 @@ implementation
 { TCliente }
 
 procedure TPessoa.Clear;
+var
+ ListaDeOBjectsGenerics:TObjectList<TPessoa>;
 begin
   ID            := 0;
   FCpfCnpj      := '';
@@ -91,6 +98,14 @@ begin
   Result := FEndereco;
 end;
 
+ {
+function TPessoa.GetEnderecoL: TList<TEndereco>;
+begin
+  if not assigned(FEnderecoL) then
+    FEnderecoL := TList<TEndereco>.Create;
+
+  Result := FEnderecoL;
+end;  }
 
 function TPessoa.GetID: Integer;
 begin

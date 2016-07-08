@@ -35,7 +35,10 @@ inherited frmCadastroClientes: TfrmCadastroClientes
       end
     end
     inherited tsDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 28
       ExplicitWidth = 705
+      ExplicitHeight = 343
       object Label2: TLabel [0]
         Left = 12
         Top = 81

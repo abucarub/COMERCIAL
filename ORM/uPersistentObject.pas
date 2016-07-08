@@ -199,6 +199,7 @@ var
   FieldID,
   NomeTabela,Error: String;
   Qry: TFDQuery;
+  i: Integer;
 begin
   Field := '';
   Value := '';
@@ -263,10 +264,15 @@ begin
         begin
            for Att in RTP.GetAttributes do
            begin
-             if (Att is HasOne) and (HasOne(Att).Upgradeable) and not (RTP.GetValue(Self).AsObject as TPersistentObject).isEmpty then
+             if (Att is HasOne) and (HasOne(Att).Upgradeable) and assigned((RTP.GetValue(Self).AsObject as TPersistentObject))
+             and not (RTP.GetValue(Self).AsObject as TPersistentObject).isEmpty then
                (RTP.GetValue(Self).AsObject as TPersistentObject).Save(HasOne(Att).ChildPropertyName, qry.Fields[0].AsString);
+
+           {  else if (Att is HasMany) and (HasMany(Att).Upgradeable) and not ((RTP.GetValue(Self).AsType<TList> as TList<TPersistentObject>).Count <= 0) then
+               for i := 0 to (RTP.GetValue(Self).AsObject as TList<TPersistentObject>).Count - 1 do
+                 ((RTP.GetValue(Self).AsObject as TList<TPersistentObject>).Items[i] as TPersistentObject).Save(HasMany(Att).ChildPropertyName, qry.Fields[0].AsString)}
            end;
-        end;              ver com o HasMany
+        end;
 
       end
       else
@@ -608,9 +614,10 @@ begin
       begin
          for Att in RTP.GetAttributes do
          begin
-           if (Att is HasOne) and (HasOne(Att).Upgradeable) and assigned((RTP.GetValue(Self).AsObject as TPersistentObject)) then
+           if (Att is HasOne) and (HasOne(Att).Upgradeable) and assigned((RTP.GetValue(Self).AsObject as TPersistentObject))
+           and not (RTP.GetValue(Self).AsObject as TPersistentObject).isEmpty then
              (RTP.GetValue(Self).AsObject as TPersistentObject).Save(HasOne(Att).ChildPropertyName, ID);
-              ver o hasMany
+
              {if (RTP.GetValue(Self).AsObject as TPersistentObject).ID > 0 then
                (RTP.GetValue(Self).AsObject as TPersistentObject).Update
              else

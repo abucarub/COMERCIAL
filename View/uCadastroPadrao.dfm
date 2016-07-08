@@ -34,10 +34,6 @@ object frmCadastroPadrao: TfrmCadastroPadrao
     OnChange = pgcDadosChange
     object tsListagem: TTabSheet
       Caption = '[ F1 ] Listagem'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object DBGrid1: TDBGrid
         Left = 0
         Top = 0
@@ -45,6 +41,7 @@ object frmCadastroPadrao: TfrmCadastroPadrao
         Height = 368
         Align = alClient
         DataSource = ds
+        ReadOnly = True
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -56,10 +53,6 @@ object frmCadastroPadrao: TfrmCadastroPadrao
     object tsDados: TTabSheet
       Caption = '[ F2 ] Dados'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object edtID: TEdit
         Left = 3
         Top = 3
@@ -416,6 +409,7 @@ object frmCadastroPadrao: TfrmCadastroPadrao
     Top = 88
   end
   object qry: TFDQuery
+    CachedUpdates = True
     Left = 16
     Top = 144
   end
