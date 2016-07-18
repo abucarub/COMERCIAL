@@ -28,6 +28,13 @@ object frmInicial: TfrmInicial
         OnClick = Clientes1Click
       end
     end
+    object Agendamentos1: TMenuItem
+      Caption = 'Agendamentos'
+      object Fisioterapia1: TMenuItem
+        Caption = 'Fisioterapia'
+        OnClick = Fisioterapia1Click
+      end
+    end
   end
   object FDConnection1: TFDConnection
     Params.Strings = (

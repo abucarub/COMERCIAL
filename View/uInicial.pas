@@ -16,8 +16,11 @@ type
     Cadastros1: TMenuItem;
     Clientes1: TMenuItem;
     FDConnection1: TFDConnection;
+    Agendamentos1: TMenuItem;
+    Fisioterapia1: TMenuItem;
     procedure Clientes1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Fisioterapia1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -29,7 +32,7 @@ var
 
 implementation
 
-uses uCadastroClientes;
+uses uCadastroClientes, uAgendamentos;
 
 {$R *.dfm}
 
@@ -40,6 +43,14 @@ begin
   frmCadastroClientes.Showmodal;
   frmCadastroClientes.Release;
   frmCadastroClientes := nil;
+end;
+
+procedure TfrmInicial.Fisioterapia1Click(Sender: TObject);
+begin
+  frmAgendamentos := TfrmAgendamentos.Create(nil);
+  frmAgendamentos.Showmodal;
+  frmAgendamentos.Release;
+  frmAgendamentos := nil;
 end;
 
 procedure TfrmInicial.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);

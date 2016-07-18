@@ -23,8 +23,6 @@ type
 
     function GetEndereco: TEndereco;
  //   function GetEnderecoL: TList<TEndereco>;
-    function GetID: Integer;
-    procedure SetID(const Value: Integer);
 
   public
    { [FieldName('ID', True, True)]
@@ -66,8 +64,6 @@ implementation
 { TCliente }
 
 procedure TPessoa.Clear;
-var
- ListaDeOBjectsGenerics:TObjectList<TPessoa>;
 begin
   ID            := 0;
   FCpfCnpj      := '';
@@ -78,7 +74,8 @@ begin
   FEmail        := '';
   FDtCadastro   := 0;
   FDtNascimento := 0;
-  FreeAndNil(FEndereco);
+  if assigned(FEndereco) then
+    FreeAndNil(FEndereco);
 end;
 
 destructor TPessoa.destroy;
@@ -107,11 +104,6 @@ begin
   Result := FEnderecoL;
 end;  }
 
-function TPessoa.GetID: Integer;
-begin
-  result := ID;
-end;
-
 function TPessoa.isEmpty: Boolean;
 begin
   result := (ID = 0) and
@@ -129,11 +121,6 @@ procedure TPessoa.LoadClass(const AValue: Integer);
 begin
  // ID := AValue;
   inherited Load(AValue);
-end;
-
-procedure TPessoa.SetID(const Value: Integer);
-begin
-  ID := Value;
 end;
 
 end.

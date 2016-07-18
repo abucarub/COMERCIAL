@@ -131,6 +131,42 @@
             <Form>frmPesquisa</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="..\Classes\Agendamento.pas"/>
+        <DCCReference Include="..\Classes\Convenio.pas"/>
+        <DCCReference Include="..\Classes\Departamento.pas"/>
+        <DCCReference Include="..\Classes\SPA.pas"/>
+        <DCCReference Include="..\Classes\ServicoAgendado.pas"/>
+        <DCCReference Include="..\Classes\Conta.pas"/>
+        <DCCReference Include="..\Classes\Caixa.pas"/>
+        <DCCReference Include="..\Classes\Parcela.pas"/>
+        <DCCReference Include="..\Classes\Movimento.pas"/>
+        <DCCReference Include="uAgendamentos.pas">
+            <Form>frmAgendamentos</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\Classes\TIPOS\TipoPessoa.pas"/>
+        <DCCReference Include="frameBuscaConvenio.pas">
+            <Form>BuscaConvenio</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="..\Classes\Servico.pas"/>
+        <DCCReference Include="..\Classes\TabelaPreco.pas"/>
+        <DCCReference Include="frameBuscaTabelaPreco.pas">
+            <Form>BuscaTabelaPreco</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="frameBuscaPessoa.pas">
+            <Form>BuscaPessoa</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="frameHorarioMarcado.pas">
+            <Form>HorarioMarcado</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
