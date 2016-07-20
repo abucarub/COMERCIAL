@@ -72,6 +72,9 @@ type
     Shape2: TShape;
     procedure FormCreate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    procedure StringGrid1DrawCell(Sender: TObject; ACol, ARow: Integer;
+      Rect: TRect; State: TGridDrawState);
+    procedure btnCriaHorarioClick(Sender: TObject);
   private
     FID_Departamento :integer;
   public
@@ -90,10 +93,39 @@ begin
   //quando gera o numero de parcelas correspondente ao vezes na semana, o botao gerar restantes habilita
 end;
 
+procedure TfrmAgendamentos.btnCriaHorarioClick(Sender: TObject);
+begin
+  inherited;
+  StringGrid1.RowHeights[0] := 30;
+  StringGrid1.Cells[0,0] := '06:00 às 07:00 - MARCADO';
+end;
+
 procedure TfrmAgendamentos.FormCreate(Sender: TObject);
 begin
   inherited;
-  //BuscaCliente1.Tipo := tpCliente;
+ // BuscaPessoa1.Tipo := tpCliente;
+end;
+
+procedure TfrmAgendamentos.StringGrid1DrawCell(Sender: TObject; ACol,
+  ARow: Integer; Rect: TRect; State: TGridDrawState);
+var texto : string;
+    largurat : integer;
+    largurac : integer;
+    larguraTL : integer;
+    larguraCL : integer;
+begin
+ texto := StringGrid1.Cells[ACol, ARow];
+ largurat := Canvas.TextWidth(texto) div 2;
+ largurac := StringGrid1.ColWidths[ACol] div 2;
+ larguraTL := Canvas.TextHeight(texto) div 2;
+ larguraCL := StringGrid1.RowHeights[ARow] div 2;
+
+  if acol = 0 then
+    StringGrid1.Canvas.Brush.Color := clGreen;
+
+  StringGrid1.Canvas.FillRect(Rect); // redesenha a celula
+  StringGrid1.Canvas.TextOut(Rect.Left+largurac-largurat,Rect.Top+larguraCL-larguraTL, texto);
+
 end;
 
 end.

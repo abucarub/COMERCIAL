@@ -2,7 +2,7 @@ inherited frmAgendamentos: TfrmAgendamentos
   Caption = 'Agendamentos'
   ClientHeight = 690
   ClientWidth = 1075
-  ExplicitTop = -8
+  ExplicitTop = -168
   ExplicitWidth = 1091
   ExplicitHeight = 728
   PixelsPerInch = 96
@@ -126,7 +126,6 @@ inherited frmAgendamentos: TfrmAgendamentos
     ParentBackground = False
     ParentColor = False
     TabOrder = 3
-    ExplicitWidth = 883
     object Shape1: TShape
       Left = 384
       Top = 3
@@ -595,7 +594,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       Top = 116
       Width = 253
       Height = 218
-      Date = 42566.882705810190000000
+      Date = 42566.528105972230000000
       TabOrder = 0
     end
     object btnCriaHorario: TBitBtn
@@ -673,6 +672,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         20008F702E0094835E009B9B9B009B9B9B009B9B9B009B9B9B00}
       NumGlyphs = 2
       TabOrder = 1
+      OnClick = btnCriaHorarioClick
     end
     object BitBtn1: TBitBtn
       Left = 411
@@ -810,16 +810,21 @@ inherited frmAgendamentos: TfrmAgendamentos
       Top = 55
       Width = 307
       Height = 484
-      ColCount = 2
+      ColCount = 1
+      DefaultColWidth = 300
       DefaultRowHeight = 15
       FixedCols = 0
-      RowCount = 30
+      RowCount = 1
       FixedRows = 0
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -15
+      Font.Name = 'Microsoft Sans Serif'
+      Font.Style = [fsBold]
       GradientEndColor = clBtnFace
+      ParentFont = False
       TabOrder = 4
-      ColWidths = (
-        144
-        157)
+      OnDrawCell = StringGrid1DrawCell
     end
     object edtCodigo: TCurrencyEdit
       Left = 562
@@ -904,7 +909,7 @@ inherited frmAgendamentos: TfrmAgendamentos
           Expanded = False
           FieldName = 'DATA_HORA'
           Title.Caption = 'Data e Hora'
-          Width = 127
+          Width = 64
           Visible = True
         end
         item
