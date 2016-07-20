@@ -42,7 +42,6 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
  // TStyleManager.TrySetStyle('Sky');
-  TStyleManager.TrySetStyle('Turquoise Gray');
   Application.CreateForm(TfrmInicial, frmInicial);
   Application.Run;
 end.

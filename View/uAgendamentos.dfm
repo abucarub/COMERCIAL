@@ -1,193 +1,366 @@
 inherited frmAgendamentos: TfrmAgendamentos
   Caption = 'Agendamentos'
-  ClientHeight = 536
-  ClientWidth = 883
-  ExplicitTop = -8
-  ExplicitWidth = 899
-  ExplicitHeight = 574
+  ClientHeight = 690
+  ClientWidth = 1075
+  ExplicitTop = -168
+  ExplicitWidth = 1091
+  ExplicitHeight = 728
   PixelsPerInch = 96
   TextHeight = 18
-  object Label5: TLabel
-    Left = 528
-    Top = 74
-    Width = 56
-    Height = 17
-    Caption = 'Consultas'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-  end
-  object Label6: TLabel
-    Left = 616
-    Top = 74
-    Width = 101
-    Height = 17
-    Caption = 'Vezes na semana'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
+  object Shape2: TShape
+    Left = 0
+    Top = 0
+    Width = 1075
+    Height = 120
+    Align = alClient
+    Brush.Color = 15590611
+    Pen.Style = psClear
+    ExplicitLeft = 356
+    ExplicitWidth = 281
+    ExplicitHeight = 151
   end
   inline BuscaPessoa1: TBuscaPessoa
     Left = 8
-    Top = 8
-    Width = 421
+    Top = 0
+    Width = 385
     Height = 57
     TabOrder = 0
     ExplicitLeft = 8
-    ExplicitTop = 8
+    ExplicitWidth = 385
     ExplicitHeight = 57
+    inherited lbTipo: TLabel
+      Left = 88
+      ExplicitLeft = 88
+    end
+    inherited edtCodigo: TCurrencyEdit
+      Width = 43
+      ExplicitWidth = 43
+    end
+    inherited btnBusca: TBitBtn
+      Left = 57
+      ExplicitLeft = 57
+    end
+    inherited edtNome: TEdit
+      Left = 87
+      ExplicitLeft = 87
+    end
   end
   inline BuscaConvenio1: TBuscaConvenio
-    Left = 435
-    Top = 8
-    Width = 334
+    Left = 398
+    Top = 0
+    Width = 253
     Height = 56
     TabOrder = 1
-    ExplicitLeft = 435
-    ExplicitTop = 8
-    ExplicitWidth = 334
+    ExplicitLeft = 398
+    ExplicitWidth = 253
     inherited Label1: TLabel
       Left = 8
       ExplicitLeft = 8
     end
     inherited Label2: TLabel
-      Left = 117
-      ExplicitLeft = 117
+      Left = 85
+      ExplicitLeft = 85
     end
     inherited edtCodigo: TCurrencyEdit
       Left = 8
-      Width = 75
+      Width = 44
       ExplicitLeft = 8
-      ExplicitWidth = 75
+      ExplicitWidth = 44
     end
     inherited btnBusca: TBitBtn
-      Left = 87
-      ExplicitLeft = 87
+      Left = 55
+      ExplicitLeft = 55
     end
     inherited edtConvenio: TEdit
-      Left = 116
-      Width = 215
-      ExplicitLeft = 116
-      ExplicitWidth = 215
+      Left = 84
+      Width = 157
+      ExplicitLeft = 84
+      ExplicitWidth = 157
     end
   end
   inline BuscaTabelaPreco1: TBuscaTabelaPreco
-    Left = 8
-    Top = 71
-    Width = 514
+    Left = 648
+    Top = 0
+    Width = 433
     Height = 53
     TabOrder = 2
-    ExplicitLeft = 8
-    ExplicitTop = 71
+    ExplicitLeft = 648
+    ExplicitWidth = 433
     ExplicitHeight = 53
     inherited Label2: TLabel
-      Left = 98
-      ExplicitLeft = 98
+      Left = 89
+      ExplicitLeft = 89
     end
     inherited Label3: TLabel
-      Left = 405
-      ExplicitLeft = 405
+      Left = 337
+      ExplicitLeft = 337
     end
     inherited edtCodigo: TCurrencyEdit
-      Width = 52
-      ExplicitWidth = 52
+      Width = 44
+      ExplicitWidth = 44
     end
     inherited btnBusca: TBitBtn
-      Left = 67
-      ExplicitLeft = 67
+      Left = 58
+      ExplicitLeft = 58
     end
     inherited edtServico: TEdit
-      Left = 97
-      ExplicitLeft = 97
+      Left = 88
+      Width = 233
+      ExplicitLeft = 88
+      ExplicitWidth = 233
     end
     inherited edtValor: TCurrencyEdit
-      Left = 405
-      ExplicitLeft = 405
-    end
-  end
-  object pnlHorarios: TPanel
-    Left = 0
-    Top = 416
-    Width = 883
-    Height = 120
-    Align = alBottom
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    TabOrder = 3
-    inline HorarioMarcado1: THorarioMarcado
-      Left = 8
-      Top = 0
-      Width = 205
-      Height = 126
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Microsoft Sans Serif'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 0
-      ExplicitLeft = 8
-    end
-    inline HorarioMarcado2: THorarioMarcado
-      Left = 214
-      Top = 0
-      Width = 205
-      Height = 126
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Microsoft Sans Serif'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 1
-      ExplicitLeft = 214
-    end
-    inline HorarioMarcado3: THorarioMarcado
-      Left = 420
-      Top = 0
-      Width = 205
-      Height = 126
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Microsoft Sans Serif'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 2
-      ExplicitLeft = 420
+      Left = 337
+      Width = 51
+      ExplicitLeft = 337
+      ExplicitWidth = 51
     end
   end
   object rgpHorarios: TGroupBox
     Left = 0
-    Top = 133
-    Width = 883
-    Height = 283
+    Top = 120
+    Width = 1075
+    Height = 570
     Align = alBottom
-    TabOrder = 4
+    Color = clBtnFace
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 3
+    object Shape1: TShape
+      Left = 384
+      Top = 3
+      Width = 281
+      Height = 567
+      Brush.Color = 14737632
+      Pen.Style = psClear
+    end
     object Label2: TLabel
-      Left = 8
-      Top = 5
-      Width = 127
-      Height = 17
-      Caption = 'Hor'#225'rios dispon'#237'veis'
+      Left = 62
+      Top = 16
+      Width = 152
+      Height = 30
+      Caption = 'Hor'#225'rios do dia'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
+      Font.Color = 12481552
+      Font.Height = -21
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object Label4: TLabel
-      Left = 8
-      Top = 23
-      Width = 128
+    object Label6: TLabel
+      Left = 15
+      Top = 44
+      Width = 40
+      Height = 21
+      Caption = '06:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 15
+      Top = 76
+      Width = 40
+      Height = 21
+      Caption = '07:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label8: TLabel
+      Left = 15
+      Top = 108
+      Width = 40
+      Height = 21
+      Caption = '08:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label9: TLabel
+      Left = 15
+      Top = 140
+      Width = 40
+      Height = 21
+      Caption = '09:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label10: TLabel
+      Left = 15
+      Top = 172
+      Width = 40
+      Height = 21
+      Caption = '10:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label11: TLabel
+      Left = 15
+      Top = 204
+      Width = 40
+      Height = 21
+      Caption = '11:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label12: TLabel
+      Left = 15
+      Top = 236
+      Width = 40
+      Height = 21
+      Caption = '12:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label13: TLabel
+      Left = 15
+      Top = 268
+      Width = 40
+      Height = 21
+      Caption = '13:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label14: TLabel
+      Left = 15
+      Top = 300
+      Width = 40
+      Height = 21
+      Caption = '14:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label15: TLabel
+      Left = 15
+      Top = 332
+      Width = 40
+      Height = 21
+      Caption = '15:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label16: TLabel
+      Left = 15
+      Top = 364
+      Width = 40
+      Height = 21
+      Caption = '16:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label17: TLabel
+      Left = 15
+      Top = 396
+      Width = 40
+      Height = 21
+      Caption = '17:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label18: TLabel
+      Left = 15
+      Top = 428
+      Width = 40
+      Height = 21
+      Caption = '18:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label19: TLabel
+      Left = 15
+      Top = 460
+      Width = 40
+      Height = 21
+      Caption = '19:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label20: TLabel
+      Left = 15
+      Top = 492
+      Width = 40
+      Height = 21
+      Caption = '20:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label21: TLabel
+      Left = 15
+      Top = 524
+      Width = 40
+      Height = 21
+      Caption = '21:00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label22: TLabel
+      Left = 25
+      Top = 62
+      Width = 31
       Height = 17
-      Caption = 'Data e dia da semana'
+      Caption = '06:30'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -195,18 +368,239 @@ inherited frmAgendamentos: TfrmAgendamentos
       Font.Style = []
       ParentFont = False
     end
+    object Label23: TLabel
+      Left = 25
+      Top = 94
+      Width = 31
+      Height = 17
+      Caption = '07:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label24: TLabel
+      Left = 25
+      Top = 158
+      Width = 31
+      Height = 17
+      Caption = '09:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label25: TLabel
+      Left = 25
+      Top = 126
+      Width = 31
+      Height = 17
+      Caption = '08:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label26: TLabel
+      Left = 25
+      Top = 286
+      Width = 31
+      Height = 17
+      Caption = '13:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label27: TLabel
+      Left = 25
+      Top = 254
+      Width = 31
+      Height = 17
+      Caption = '12:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label28: TLabel
+      Left = 25
+      Top = 222
+      Width = 31
+      Height = 17
+      Caption = '11:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label29: TLabel
+      Left = 25
+      Top = 190
+      Width = 31
+      Height = 17
+      Caption = '10:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label30: TLabel
+      Left = 25
+      Top = 414
+      Width = 31
+      Height = 17
+      Caption = '17:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label31: TLabel
+      Left = 25
+      Top = 382
+      Width = 31
+      Height = 17
+      Caption = '16:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label32: TLabel
+      Left = 25
+      Top = 350
+      Width = 31
+      Height = 17
+      Caption = '15:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label33: TLabel
+      Left = 25
+      Top = 318
+      Width = 31
+      Height = 17
+      Caption = '14:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label34: TLabel
+      Left = 25
+      Top = 446
+      Width = 31
+      Height = 17
+      Caption = '18:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label35: TLabel
+      Left = 25
+      Top = 478
+      Width = 31
+      Height = 17
+      Caption = '19:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label36: TLabel
+      Left = 25
+      Top = 510
+      Width = 31
+      Height = 17
+      Caption = '20:30'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label5: TLabel
+      Left = 492
+      Top = 53
+      Width = 145
+      Height = 17
+      Caption = 'Quantidade de consultas'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label4: TLabel
+      Left = 680
+      Top = 16
+      Width = 184
+      Height = 30
+      Caption = 'Hor'#225'rios marcados'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4162331
+      Font.Height = -21
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label37: TLabel
+      Left = 400
+      Top = 20
+      Width = 237
+      Height = 25
+      Caption = 'Marcando hor'#225'rio  1 de 10'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
     object JvMonthCalendar1: TJvMonthCalendar
-      Left = 224
-      Top = 0
+      Left = 398
+      Top = 116
       Width = 253
-      Height = 254
-      Date = 42566.657358067130000000
+      Height = 218
+      Date = 42566.528105972230000000
       TabOrder = 0
     end
     object btnCriaHorario: TBitBtn
-      Left = 561
-      Top = 144
-      Width = 225
+      Left = 411
+      Top = 442
+      Width = 227
       Height = 29
       Caption = ' Criar Hor'#225'rio'
       Glyph.Data = {
@@ -278,11 +672,12 @@ inherited frmAgendamentos: TfrmAgendamentos
         20008F702E0094835E009B9B9B009B9B9B009B9B9B009B9B9B00}
       NumGlyphs = 2
       TabOrder = 1
+      OnClick = btnCriaHorarioClick
     end
     object BitBtn1: TBitBtn
-      Left = 561
-      Top = 184
-      Width = 225
+      Left = 411
+      Top = 482
+      Width = 227
       Height = 29
       Caption = ' Gerar Consultas Restantes'
       Glyph.Data = {
@@ -357,9 +752,9 @@ inherited frmAgendamentos: TfrmAgendamentos
       OnClick = BitBtn1Click
     end
     object GroupBox1: TGroupBox
-      Left = 562
-      Top = 47
-      Width = 223
+      Left = 412
+      Top = 345
+      Width = 225
       Height = 84
       TabOrder = 3
       object Label3: TLabel
@@ -393,8 +788,8 @@ inherited frmAgendamentos: TfrmAgendamentos
         Top = 40
         Width = 64
         Height = 28
-        MaxValue = 18
-        MinValue = 7
+        MaxValue = 21
+        MinValue = 6
         TabOrder = 0
         Value = 7
       end
@@ -410,51 +805,138 @@ inherited frmAgendamentos: TfrmAgendamentos
         Value = 0
       end
     end
-  end
-  object DBGrid1: TDBGrid
-    Left = 8
-    Top = 180
-    Width = 205
-    Height = 219
-    TabOrder = 5
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clWindowText
-    TitleFont.Height = -15
-    TitleFont.Name = 'Microsoft Sans Serif'
-    TitleFont.Style = []
-  end
-  object edtCodigo: TCurrencyEdit
-    Left = 528
-    Top = 95
-    Width = 75
-    Height = 24
-    DisplayFormat = '0'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 6
-  end
-  object CurrencyEdit1: TCurrencyEdit
-    Left = 616
-    Top = 95
-    Width = 101
-    Height = 24
-    DisplayFormat = '0'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 7
+    object StringGrid1: TStringGrid
+      Left = 62
+      Top = 55
+      Width = 307
+      Height = 484
+      ColCount = 1
+      DefaultColWidth = 300
+      DefaultRowHeight = 15
+      FixedCols = 0
+      RowCount = 1
+      FixedRows = 0
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -15
+      Font.Name = 'Microsoft Sans Serif'
+      Font.Style = [fsBold]
+      GradientEndColor = clBtnFace
+      ParentFont = False
+      TabOrder = 4
+      OnDrawCell = StringGrid1DrawCell
+    end
+    object edtCodigo: TCurrencyEdit
+      Left = 562
+      Top = 76
+      Width = 75
+      Height = 24
+      Ctl3D = True
+      DisplayFormat = '0'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      MinValue = 1.000000000000000000
+      ParentCtl3D = False
+      ParentFont = False
+      TabOrder = 5
+      Value = 1.000000000000000000
+    end
+    object DBGridCBN1: TDBGridCBN
+      Left = 680
+      Top = 55
+      Width = 377
+      Height = 484
+      Color = 14803425
+      DataSource = dsHorarios
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+      ParentFont = False
+      TabOrder = 6
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'MS Sans Serif'
+      TitleFont.Style = []
+      BuscaHabilitada = True
+      ConfCores.Normal.CorFonte = clWindowText
+      ConfCores.Normal.CorFundo = 14803425
+      ConfCores.Normal.Tipo.Charset = DEFAULT_CHARSET
+      ConfCores.Normal.Tipo.Color = clWindowText
+      ConfCores.Normal.Tipo.Height = -11
+      ConfCores.Normal.Tipo.Name = 'MS Sans Serif'
+      ConfCores.Normal.Tipo.Style = []
+      ConfCores.Zebrada.CorFonte = clWindowText
+      ConfCores.Zebrada.CorFundo = clWhite
+      ConfCores.Zebrada.Tipo.Charset = DEFAULT_CHARSET
+      ConfCores.Zebrada.Tipo.Color = clWindowText
+      ConfCores.Zebrada.Tipo.Height = -11
+      ConfCores.Zebrada.Tipo.Name = 'MS Sans Serif'
+      ConfCores.Zebrada.Tipo.Style = []
+      ConfCores.Selecao.CorFonte = clWindowText
+      ConfCores.Selecao.CorFundo = 16037533
+      ConfCores.Selecao.Tipo.Charset = DEFAULT_CHARSET
+      ConfCores.Selecao.Tipo.Color = clWindowText
+      ConfCores.Selecao.Tipo.Height = -11
+      ConfCores.Selecao.Tipo.Name = 'MS Sans Serif'
+      ConfCores.Selecao.Tipo.Style = []
+      ConfCores.Destacado.CorFonte = 8650884
+      ConfCores.Destacado.CorFundo = clWhite
+      ConfCores.Destacado.Tipo.Charset = DEFAULT_CHARSET
+      ConfCores.Destacado.Tipo.Color = 8650884
+      ConfCores.Destacado.Tipo.Height = -11
+      ConfCores.Destacado.Tipo.Name = 'Lucida Console'
+      ConfCores.Destacado.Tipo.Style = [fsBold]
+      ConfCores.Titulo.CorFonte = clWindowText
+      ConfCores.Titulo.CorFundo = clBtnFace
+      ConfCores.Titulo.Tipo.Charset = DEFAULT_CHARSET
+      ConfCores.Titulo.Tipo.Color = clWindowText
+      ConfCores.Titulo.Tipo.Height = -11
+      ConfCores.Titulo.Tipo.Name = 'MS Sans Serif'
+      ConfCores.Titulo.Tipo.Style = []
+      Ordenavel = True
+      TipoBusca.ListarApenasEncontrados = False
+      TipoBusca.QualquerParte = False
+      SalvaConfiguracoes = False
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'DATA_HORA'
+          Title.Caption = 'Data e Hora'
+          Width = 64
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'DIA_SEMANA'
+          Title.Caption = 'Dia da Semana'
+          Width = 206
+          Visible = True
+        end>
+    end
   end
   object cdsHorarios: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 352
-    Top = 184
+    Left = 712
+    Top = 256
+    object cdsHorariosDATA_HORA: TDateTimeField
+      FieldName = 'DATA_HORA'
+    end
+    object cdsHorariosDIA_SEMANA: TStringField
+      FieldName = 'DIA_SEMANA'
+      Size = 30
+    end
+  end
+  object dsHorarios: TDataSource
+    DataSet = cdsHorarios
+    Left = 768
+    Top = 256
   end
 end
