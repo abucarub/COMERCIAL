@@ -12,10 +12,13 @@ type
     FData_Hora: TDateTime;
     FCompareceu: String;
     FPago: String;
+    FID_TabelaPreco: Integer;
 
   public
     [FieldName('ID_AGENDAMENTO')]
     property ID_Agendamento: Integer read FID_Agendamento write FID_Agendamento;
+    [FieldName('ID_TABELA_PRECO')]
+    property ID_TabelaPreco: Integer read FID_TabelaPreco write FID_TabelaPreco;
     [FieldName('DATA_HORA')]
     property Data_Hora: TDateTime read FData_Hora write FData_Hora;
     [FieldName('COMPARECEU')]
@@ -37,6 +40,7 @@ procedure TSPA.Clear;
 begin
   ID              := 0;
   FID_Agendamento := 0;
+  FID_TabelaPreco := 0;
   FData_Hora      := 0;
   FCompareceu     := '';
   FPago           := '';
@@ -46,6 +50,7 @@ function TSPA.isEmpty: Boolean;
 begin
   result := (ID = 0) and
             (FID_Agendamento = 0) and
+            (FID_TabelaPreco = 0) and
             (FData_Hora = 0) and
             (FCompareceu = '') and
             (FPago = '');
