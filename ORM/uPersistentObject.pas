@@ -55,6 +55,7 @@ type
     {retorna uma lista de instancias, do tipo da classe passada por parametro, sendo essa lista "Detalhe" (Mestre-Detalhe)}
     function LoadMany<T:class> : TObjectList<T>;
 
+    function LoadList(where :String) :TObjectList<TPersistentObject>;
 
     {busca o nome do atributo (field), da propriedade, cujo tipo é o mesmo da classe T, passada por parametro }
     procedure buscaFK<T:class>(var campoFK :String);
@@ -390,6 +391,51 @@ begin
     qry.Connection := TConnection.GetInstance.Conexao;
     qry.SQL.Text   := SQL;
     qry.Open;
+
+    //Result := TConnection.GetInstance.ExecuteQuery(SQL);
+  finally
+    Ctx.Free;
+  end;
+end;
+
+function TPersistentObject.LoadList(where: String): TObjectList<TPersistentObject>;
+var
+  Ctx: TRttiContext;
+  RTT: TRttiType;
+  Att: TCustomAttribute;
+  SQl :String;
+  reader: TFDQuery;
+begin
+  Ctx := TRttiContext.Create;
+  try
+    RTT := CTX.GetType(ClassType);
+
+    SQL := 'SELECT ID FROM ' + GetTableName(RTT) +
+           where;
+    try
+      Reader := TConnection.GetInstance.ExecuteQuery(SQL);
+    Except
+      on e :Exception do
+        raise Exception.Create('Erro ao selecionar registros.'+#13#10+e.Message);
+    end;
+
+    if (Assigned(Reader)) and (Reader.RecordCount > 0) then
+    begin
+      Result := TObjectList<TPersistentObject>.Create(true);
+
+      with Reader do
+      begin
+        First;
+        while not EOF do                                        testar metodo
+        begin
+          Result.Add( getInstancia(Ctx, RTT, []) );
+
+          TPersistentObject(Result.items[Result.count-1]).Load( FieldByName('ID').Value );
+
+          Next;
+        end;
+      end;
+    end;
 
     //Result := TConnection.GetInstance.ExecuteQuery(SQL);
   finally

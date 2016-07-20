@@ -1,23 +1,21 @@
 inherited frmAgendamentos: TfrmAgendamentos
   Caption = 'Agendamentos'
-  ClientHeight = 690
+  ClientHeight = 620
   ClientWidth = 1075
-  ExplicitTop = -168
+  ExplicitTop = -13
   ExplicitWidth = 1091
-  ExplicitHeight = 728
+  ExplicitHeight = 658
   PixelsPerInch = 96
   TextHeight = 18
   object Shape2: TShape
     Left = 0
     Top = 0
     Width = 1075
-    Height = 120
+    Height = 70
     Align = alClient
     Brush.Color = 15590611
     Pen.Style = psClear
-    ExplicitLeft = 356
-    ExplicitWidth = 281
-    ExplicitHeight = 151
+    ExplicitHeight = 89
   end
   inline BuscaPessoa1: TBuscaPessoa
     Left = 8
@@ -118,14 +116,15 @@ inherited frmAgendamentos: TfrmAgendamentos
   end
   object rgpHorarios: TGroupBox
     Left = 0
-    Top = 120
+    Top = 70
     Width = 1075
-    Height = 570
+    Height = 550
     Align = alBottom
     Color = clBtnFace
     ParentBackground = False
     ParentColor = False
     TabOrder = 3
+    ExplicitTop = 80
     object Shape1: TShape
       Left = 384
       Top = 3
@@ -594,7 +593,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       Top = 116
       Width = 253
       Height = 218
-      Date = 42566.528105972230000000
+      Date = 42566.611074490740000000
       TabOrder = 0
     end
     object btnCriaHorario: TBitBtn
@@ -825,6 +824,10 @@ inherited frmAgendamentos: TfrmAgendamentos
       ParentFont = False
       TabOrder = 4
       OnDrawCell = StringGrid1DrawCell
+      ColWidths = (
+        300)
+      RowHeights = (
+        15)
     end
     object edtCodigo: TCurrencyEdit
       Left = 562
@@ -909,7 +912,6 @@ inherited frmAgendamentos: TfrmAgendamentos
           Expanded = False
           FieldName = 'DATA_HORA'
           Title.Caption = 'Data e Hora'
-          Width = 64
           Visible = True
         end
         item
