@@ -55,7 +55,7 @@ type
     {retorna uma lista de instancias, do tipo da classe passada por parametro, sendo essa lista "Detalhe" (Mestre-Detalhe)}
     function LoadMany<T:class> : TObjectList<T>;
 
-    function LoadList(where :String) :TObjectList<TPersistentObject>;
+    function LoadList<T:class>(where :String) :TObjectList<T>;
 
     {busca o nome do atributo (field), da propriedade, cujo tipo é o mesmo da classe T, passada por parametro }
     procedure buscaFK<T:class>(var campoFK :String);
@@ -398,7 +398,7 @@ begin
   end;
 end;
 
-function TPersistentObject.LoadList(where: String): TObjectList<TPersistentObject>;
+function TPersistentObject.LoadList<T>(where: String): TObjectList<T>;
 var
   Ctx: TRttiContext;
   RTT: TRttiType;
@@ -406,12 +406,13 @@ var
   SQl :String;
   reader: TFDQuery;
 begin
-  Ctx := TRttiContext.Create;
+  Result := nil;
+  Ctx    := TRttiContext.Create;
   try
     RTT := CTX.GetType(ClassType);
 
     SQL := 'SELECT ID FROM ' + GetTableName(RTT) +
-           where;
+           ' '+where;
     try
       Reader := TConnection.GetInstance.ExecuteQuery(SQL);
     Except
@@ -421,12 +422,12 @@ begin
 
     if (Assigned(Reader)) and (Reader.RecordCount > 0) then
     begin
-      Result := TObjectList<TPersistentObject>.Create(true);
+      Result := TObjectList<T>.Create(true);
 
       with Reader do
       begin
         First;
-        while not EOF do                                        testar metodo
+        while not EOF do
         begin
           Result.Add( getInstancia(Ctx, RTT, []) );
 
@@ -437,7 +438,6 @@ begin
       end;
     end;
 
-    //Result := TConnection.GetInstance.ExecuteQuery(SQL);
   finally
     Ctx.Free;
   end;

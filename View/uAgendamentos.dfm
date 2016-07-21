@@ -2,7 +2,6 @@ inherited frmAgendamentos: TfrmAgendamentos
   Caption = 'Agendamentos'
   ClientHeight = 620
   ClientWidth = 1075
-  ExplicitTop = -13
   ExplicitWidth = 1091
   ExplicitHeight = 658
   PixelsPerInch = 96
@@ -124,7 +123,6 @@ inherited frmAgendamentos: TfrmAgendamentos
     ParentBackground = False
     ParentColor = False
     TabOrder = 3
-    ExplicitTop = 80
     object Shape1: TShape
       Left = 384
       Top = 3
@@ -588,13 +586,14 @@ inherited frmAgendamentos: TfrmAgendamentos
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object JvMonthCalendar1: TJvMonthCalendar
+    object calendario: TJvMonthCalendar
       Left = 398
       Top = 116
       Width = 253
       Height = 218
-      Date = 42566.611074490740000000
+      Date = 42566.949660729170000000
       TabOrder = 0
+      OnClick = calendarioClick
     end
     object btnCriaHorario: TBitBtn
       Left = 411
@@ -805,29 +804,27 @@ inherited frmAgendamentos: TfrmAgendamentos
       end
     end
     object StringGrid1: TStringGrid
-      Left = 62
-      Top = 55
+      Left = 61
+      Top = 52
       Width = 307
       Height = 484
       ColCount = 1
       DefaultColWidth = 300
-      DefaultRowHeight = 15
+      DefaultRowHeight = 0
       FixedCols = 0
       RowCount = 1
       FixedRows = 0
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
-      Font.Height = -15
+      Font.Color = 3026478
+      Font.Height = -12
       Font.Name = 'Microsoft Sans Serif'
       Font.Style = [fsBold]
-      GradientEndColor = clBtnFace
+      GradientEndColor = clWhite
+      GridLineWidth = 0
       ParentFont = False
+      ScrollBars = ssNone
       TabOrder = 4
       OnDrawCell = StringGrid1DrawCell
-      ColWidths = (
-        300)
-      RowHeights = (
-        15)
     end
     object edtCodigo: TCurrencyEdit
       Left = 562
@@ -852,7 +849,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       Top = 55
       Width = 377
       Height = 484
-      Color = 14803425
+      Color = clWhite
       DataSource = dsHorarios
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -912,6 +909,7 @@ inherited frmAgendamentos: TfrmAgendamentos
           Expanded = False
           FieldName = 'DATA_HORA'
           Title.Caption = 'Data e Hora'
+          Width = 64
           Visible = True
         end
         item

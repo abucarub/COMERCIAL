@@ -9,7 +9,8 @@ type
   TSPA = class(TPersistentObject)
   private
     FID_Agendamento: Integer;
-    FData_Hora: TDateTime;
+    FData: TDateTime;
+    FHora: TDateTime;
     FCompareceu: String;
     FPago: String;
     FID_TabelaPreco: Integer;
@@ -19,8 +20,10 @@ type
     property ID_Agendamento: Integer read FID_Agendamento write FID_Agendamento;
     [FieldName('ID_TABELA_PRECO')]
     property ID_TabelaPreco: Integer read FID_TabelaPreco write FID_TabelaPreco;
-    [FieldName('DATA_HORA')]
-    property Data_Hora: TDateTime read FData_Hora write FData_Hora;
+    [FieldName('DATA')]
+    property Data: TDateTime read FData write FData;
+    [FieldName('HORA')]
+    property Hora: TDateTime read FHora write FHora;
     [FieldName('COMPARECEU')]
     property Compareceu: String read FCompareceu write FCompareceu;
     [FieldName('PAGO')]
@@ -41,7 +44,8 @@ begin
   ID              := 0;
   FID_Agendamento := 0;
   FID_TabelaPreco := 0;
-  FData_Hora      := 0;
+  FData           := 0;
+  FHora           := 0;
   FCompareceu     := '';
   FPago           := '';
 end;
@@ -51,7 +55,8 @@ begin
   result := (ID = 0) and
             (FID_Agendamento = 0) and
             (FID_TabelaPreco = 0) and
-            (FData_Hora = 0) and
+            (FData = 0) and
+            (FHora = 0) and
             (FCompareceu = '') and
             (FPago = '');
 end;

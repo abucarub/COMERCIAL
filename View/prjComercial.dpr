@@ -34,7 +34,8 @@ uses
   TabelaPreco in '..\Classes\TabelaPreco.pas',
   frameBuscaTabelaPreco in 'frameBuscaTabelaPreco.pas' {BuscaTabelaPreco: TFrame},
   frameBuscaPessoa in 'frameBuscaPessoa.pas' {BuscaPessoa: TFrame},
-  frameHorarioMarcado in 'frameHorarioMarcado.pas' {HorarioMarcado: TFrame};
+  frameHorarioMarcado in 'frameHorarioMarcado.pas' {HorarioMarcado: TFrame},
+  Utilitario in '..\Classes\Utilitario.pas';
 
 {$R *.res}
 
