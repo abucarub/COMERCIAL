@@ -31,7 +31,7 @@ type
     [FieldName('PAGO')]
     property Pago: String read FPago write FPago;
 
-    [HasOne('ID_TABELA_PRECO', true, true)]
+    [HasOne('ID_TABELA_PRECO')]
     property TabelaPreco: TTabelaPreco read GetTabelaPreco write FTabelaPreco;
 
   public
@@ -58,7 +58,7 @@ end;
 function TSPA.GetTabelaPreco: TTabelaPreco;
 begin
   if not assigned(FTabelaPreco) then
-    FTabelaPreco := self.LoadOne<TTabelaPreco>;
+    FTabelaPreco := self.LoadOne<TTabelaPreco>(FID_TabelaPreco);
 
   if not assigned(FTabelaPreco) then
     FTabelaPreco := TTabelaPreco.Create;
