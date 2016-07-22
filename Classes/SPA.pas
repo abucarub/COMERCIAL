@@ -2,7 +2,7 @@ unit SPA;
 
 interface
 
-uses uPersistentObject, uAtrib, System.SysUtils;
+uses uPersistentObject, uAtrib, System.SysUtils, TabelaPreco;
 
 type
   [TABLENAME('SPA')]
@@ -14,6 +14,8 @@ type
     FCompareceu: String;
     FPago: String;
     FID_TabelaPreco: Integer;
+    FTabelaPreco: TTabelaPreco;
+    function GetTabelaPreco: TTabelaPreco;
 
   public
     [FieldName('ID_AGENDAMENTO')]
@@ -28,6 +30,9 @@ type
     property Compareceu: String read FCompareceu write FCompareceu;
     [FieldName('PAGO')]
     property Pago: String read FPago write FPago;
+
+    [HasOne('ID_TABELA_PRECO', true, true)]
+    property TabelaPreco: TTabelaPreco read GetTabelaPreco write FTabelaPreco;
 
   public
     procedure LoadClass(const AValue: Integer);
@@ -48,6 +53,17 @@ begin
   FHora           := 0;
   FCompareceu     := '';
   FPago           := '';
+end;
+
+function TSPA.GetTabelaPreco: TTabelaPreco;
+begin
+  if not assigned(FTabelaPreco) then
+    FTabelaPreco := self.LoadOne<TTabelaPreco>;
+
+  if not assigned(FTabelaPreco) then
+    FTabelaPreco := TTabelaPreco.Create;
+
+  Result := FTabelaPreco;
 end;
 
 function TSPA.isEmpty: Boolean;

@@ -587,17 +587,17 @@ inherited frmAgendamentos: TfrmAgendamentos
       ParentFont = False
     end
     object calendario: TJvMonthCalendar
-      Left = 398
+      Left = 412
       Top = 116
-      Width = 253
-      Height = 218
-      Date = 42566.949660729170000000
+      Width = 225
+      Height = 161
+      Date = 42566.943065138890000000
       TabOrder = 0
       OnClick = calendarioClick
     end
     object btnCriaHorario: TBitBtn
       Left = 411
-      Top = 442
+      Top = 458
       Width = 227
       Height = 29
       Caption = ' Criar Hor'#225'rio'
@@ -670,11 +670,10 @@ inherited frmAgendamentos: TfrmAgendamentos
         20008F702E0094835E009B9B9B009B9B9B009B9B9B009B9B9B00}
       NumGlyphs = 2
       TabOrder = 1
-      OnClick = btnCriaHorarioClick
     end
     object BitBtn1: TBitBtn
       Left = 411
-      Top = 482
+      Top = 498
       Width = 227
       Height = 29
       Caption = ' Gerar Consultas Restantes'
@@ -751,13 +750,20 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object GroupBox1: TGroupBox
       Left = 412
-      Top = 345
+      Top = 285
       Width = 225
-      Height = 84
+      Height = 158
+      Caption = ' Hor'#225'rio da sess'#227'o '
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Microsoft Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
       TabOrder = 3
       object Label3: TLabel
         Left = 32
-        Top = 19
+        Top = 29
         Width = 29
         Height = 17
         Caption = 'Hora'
@@ -770,7 +776,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       end
       object Label1: TLabel
         Left = 128
-        Top = 19
+        Top = 29
         Width = 47
         Height = 17
         Caption = 'Minutos'
@@ -781,26 +787,105 @@ inherited frmAgendamentos: TfrmAgendamentos
         Font.Style = []
         ParentFont = False
       end
+      object Label38: TLabel
+        Left = 10
+        Top = 131
+        Width = 114
+        Height = 17
+        Caption = 'Hor'#225'rio m'#225'ximo >'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 5197647
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label39: TLabel
+        Left = 10
+        Top = 107
+        Width = 112
+        Height = 17
+        Caption = 'Hor'#225'rio m'#237'nimo >'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 5197647
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lbHMinimo: TLabel
+        Left = 138
+        Top = 109
+        Width = 32
+        Height = 17
+        Caption = '00:00'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 4227072
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object lbHMaximo: TLabel
+        Left = 138
+        Top = 131
+        Width = 32
+        Height = 17
+        Caption = '00:00'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 16744448
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Label42: TLabel
+        Left = 2
+        Top = 82
+        Width = 225
+        Height = 17
+        Caption = '____________________________________________-'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        ParentFont = False
+      end
       object speHoras: TSpinEdit
         Left = 31
-        Top = 40
+        Top = 48
         Width = 64
         Height = 28
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = -1
+        Font.Height = -15
+        Font.Name = 'Microsoft Sans Serif'
+        Font.Style = [fsBold]
         MaxValue = 21
         MinValue = 6
+        ParentFont = False
         TabOrder = 0
-        Value = 7
+        Value = 6
+        OnChange = speHorasChange
       end
       object speMinutos: TSpinEdit
         Left = 127
-        Top = 40
+        Top = 48
         Width = 64
         Height = 28
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = -1
+        Font.Height = -15
+        Font.Name = 'Microsoft Sans Serif'
+        Font.Style = [fsBold]
         Increment = 10
         MaxValue = 50
         MinValue = 0
+        ParentFont = False
         TabOrder = 1
         Value = 0
+        OnChange = speHorasChange
       end
     end
     object StringGrid1: TStringGrid
@@ -825,6 +910,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       ScrollBars = ssNone
       TabOrder = 4
       OnDrawCell = StringGrid1DrawCell
+      OnSelectCell = StringGrid1SelectCell
     end
     object edtCodigo: TCurrencyEdit
       Left = 562
@@ -849,7 +935,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       Top = 55
       Width = 377
       Height = 484
-      Color = clWhite
+      Color = 14803425
       DataSource = dsHorarios
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
