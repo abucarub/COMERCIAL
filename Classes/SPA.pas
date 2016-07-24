@@ -30,8 +30,8 @@ type
     property Compareceu: String read FCompareceu write FCompareceu;
     [FieldName('PAGO')]
     property Pago: String read FPago write FPago;
-
-    [HasOne('ID_TABELA_PRECO')]
+                                                       CRIAR AQUI HASMANY DE SERVICOAGENDADO
+    [HasOne('ID_TABELA_PRECO')]            CRIAR CLASSE SERVICOAGENDADO
     property TabelaPreco: TTabelaPreco read GetTabelaPreco write FTabelaPreco;
 
   public

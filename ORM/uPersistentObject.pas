@@ -330,7 +330,12 @@ begin
 
     { se parametro for string, coloca entre aspas}
     if VarIsStr(parametro) then
+    begin
+      if parametro = '' then
+        parametro := '0';
+
       parametro := QuotedStr(parametro);
+    end;
 
     Where := atributo + ' = ' + VarToStr(parametro);
 

@@ -856,41 +856,41 @@ object HorarioMarcado: THorarioMarcado
   object lbServico: TLabel
     Left = 75
     Top = 9
-    Width = 53
-    Height = 17
+    Width = 66
+    Height = 16
     Alignment = taCenter
     Caption = 'SERVI'#199'O'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
-    Font.Name = 'Segoe UI'
+    Font.Name = 'Microsoft Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
   end
   object lbValor: TLabel
     Left = 79
     Top = 30
-    Width = 43
-    Height = 17
+    Width = 50
+    Height = 16
     Alignment = taCenter
     Caption = 'VALOR'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
-    Font.Name = 'Segoe UI'
+    Font.Name = 'Microsoft Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
   end
   object Label3: TLabel
     Left = 23
     Top = 60
-    Width = 71
-    Height = 17
+    Width = 73
+    Height = 16
     Caption = 'Data e Hora'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
-    Font.Name = 'Segoe UI'
+    Font.Name = 'Microsoft Sans Serif'
     Font.Style = []
     ParentFont = False
   end

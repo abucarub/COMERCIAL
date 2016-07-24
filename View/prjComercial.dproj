@@ -122,11 +122,6 @@
         <DCCReference Include="..\Classes\Endereco.pas"/>
         <DCCReference Include="..\Classes\Cidade.pas"/>
         <DCCReference Include="..\Classes\Estado.pas"/>
-        <DCCReference Include="frameBuscaCidade.pas">
-            <Form>BuscaCidade</Form>
-            <FormType>dfm</FormType>
-            <DesignClass>TFrame</DesignClass>
-        </DCCReference>
         <DCCReference Include="uPesquisa.pas">
             <Form>frmPesquisa</Form>
             <FormType>dfm</FormType>
@@ -145,15 +140,21 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\Classes\TIPOS\TipoPessoa.pas"/>
-        <DCCReference Include="frameBuscaConvenio.pas">
-            <Form>BuscaConvenio</Form>
+        <DCCReference Include="..\Classes\Servico.pas"/>
+        <DCCReference Include="..\Classes\TabelaPreco.pas"/>
+        <DCCReference Include="frameHorarioMarcado.pas">
+            <Form>HorarioMarcado</Form>
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\Classes\Servico.pas"/>
-        <DCCReference Include="..\Classes\TabelaPreco.pas"/>
-        <DCCReference Include="frameBuscaTabelaPreco.pas">
-            <Form>BuscaTabelaPreco</Form>
+        <DCCReference Include="..\Classes\Utilitario.pas"/>
+        <DCCReference Include="frameBusca.pas">
+            <Form>Busca</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="frameBuscaConvenio.pas">
+            <Form>BuscaConvenio</Form>
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
@@ -162,12 +163,16 @@
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
-        <DCCReference Include="frameHorarioMarcado.pas">
-            <Form>HorarioMarcado</Form>
+        <DCCReference Include="frameBuscaTabelaPreco.pas">
+            <Form>BuscaTabelaPreco</Form>
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\Classes\Utilitario.pas"/>
+        <DCCReference Include="frameBuscaCidade.pas">
+            <Form>BuscaCidade</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

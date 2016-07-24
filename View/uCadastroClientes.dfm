@@ -24,6 +24,7 @@ inherited frmCadastroClientes: TfrmCadastroClientes
           item
             Expanded = False
             FieldName = 'ID'
+            Width = 64
             Visible = True
           end
           item
@@ -221,29 +222,6 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         CharCase = ecUpperCase
         TabOrder = 11
       end
-      inline BuscaCidade1: TBuscaCidade
-        Left = 307
-        Top = 16
-        Width = 387
-        Height = 54
-        TabOrder = 7
-        ExplicitLeft = 307
-        ExplicitTop = 16
-        ExplicitWidth = 387
-        ExplicitHeight = 54
-        inherited Label3: TLabel
-          Left = 352
-          ExplicitLeft = 352
-        end
-        inherited edtDescricao: TEdit
-          Width = 226
-          ExplicitWidth = 226
-        end
-        inherited edtEstado: TEdit
-          Left = 351
-          ExplicitLeft = 351
-        end
-      end
       object edtNascimento: TMaskEdit
         Left = 12
         Top = 296
@@ -272,6 +250,38 @@ inherited frmCadastroClientes: TfrmCadastroClientes
         Height = 25
         TabOrder = 14
         Visible = False
+      end
+      inline BuscaCidade1: TBuscaCidade
+        Left = 307
+        Top = 16
+        Width = 399
+        Height = 59
+        TabOrder = 7
+        ExplicitLeft = 307
+        ExplicitTop = 16
+        ExplicitWidth = 399
+        ExplicitHeight = 59
+        inherited Label3: TLabel
+          Left = 356
+          ExplicitLeft = 356
+        end
+        inherited edtCodigo: TCurrencyEdit
+          OnChange = nil
+        end
+        inherited edtCidade: TEdit
+          Left = 116
+          Width = 233
+          OnEnter = nil
+          ExplicitLeft = 116
+          ExplicitWidth = 233
+        end
+        inherited edtEstado: TEdit
+          Left = 356
+          Width = 25
+          OnEnter = nil
+          ExplicitLeft = 356
+          ExplicitWidth = 25
+        end
       end
     end
   end

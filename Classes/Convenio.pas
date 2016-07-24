@@ -12,7 +12,7 @@ type
 
   public
     [FieldName('CONVENIO')]
-    property Convenio: String read FConvenio write FConvenio;
+    property convenio: String read FConvenio write FConvenio;
 
   public
     procedure LoadClass(const AValue: Integer);

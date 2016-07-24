@@ -3,69 +3,52 @@ unit frameBuscaPessoa;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Pessoa, Vcl.StdCtrls,
-  Vcl.Buttons, Vcl.Mask, RxToolEdit, RxCurrEdit, TipoPessoa;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, frameBusca, Vcl.StdCtrls, Vcl.Mask,
+  RxToolEdit, RxCurrEdit, Vcl.Buttons, Pessoa;
 
 type
-  TBuscaPessoa = class(TFrame)
+  TBuscaPessoa = class(TBusca)
     Label1: TLabel;
     lbTipo: TLabel;
     edtCodigo: TCurrencyEdit;
-    btnBusca: TBitBtn;
     edtNome: TEdit;
-    procedure edtNomeEnter(Sender: TObject);
-    procedure CurrencyEdit1Enter(Sender: TObject);
+    procedure FrameEnter(Sender: TObject);
+    procedure FrameExit(Sender: TObject);
   private
     FPessoa :TPessoa;
     FTipo: integer;
 
-    procedure efetuaBusca(parametro :Variant);
-    procedure abrePesquisa;
-
+    procedure pesquisa;override;
     procedure SetTipo(const Value: integer);
-
+  protected
+    procedure inicializa;override;
+    procedure efetuaBusca(parametro :Variant);override;
   public
-    procedure carregaDados(const ID :integer = 0);
-    procedure limpa;
+    procedure carregaDados(const ID :integer = 0);override;
+    procedure limpa;override;
 
-    property Pessoa :TPessoa read FPessoa write FPessoa;
+    property Pessoa :TPessoa read FPessoa;
     property Tipo   :integer read FTipo   write SetTipo;
   end;
 
+var
+  BuscaPessoa: TBuscaPessoa;
+
 implementation
 
-uses uPesquisa;
+uses TipoPessoa;
 
 {$R *.dfm}
 
-{ TFrame1 }
-
-procedure TBuscaPessoa.abrePesquisa;
-begin
-  if FTipo <= 0 then
-    raise Exception.Create('Tipo da pessoa não foi especificado para a busca');
-
-  frmPesquisa := TFrmPesquisa.Create(Self,'Select P.CODIGO, P.NOME_RAZAO, P.CPF_CNPJ from PESSOAS P'+
-                                          'WHERE P.TIPO = '+IntToStr(FTipo),
-                                          'Selecione o Pessoa desejado...');
-
-  if frmPesquisa.ShowModal = mrOk then
-    self.carregaDados(frmPesquisa.cdsRetorno.Fields[0].AsInteger)
-  else
-    limpa;
-
-  frmPesquisa.Release;
-  frmPesquisa := nil;
-end;
+{ TBuscaPessoa }
 
 procedure TBuscaPessoa.carregaDados(const ID: integer);
 begin
-    if ID > 0 then
-  begin
+  inherited;
+  if not assigned(FPessoa) then
     FPessoa := TPessoa.Create;
-    FPessoa.Load(ID);
-  end;
+  FPessoa.Load(ID);
 
   if not assigned(FPessoa) then
     exit;
@@ -74,36 +57,67 @@ begin
   edtNome.Text        := FPessoa.Nome;
 end;
 
-procedure TBuscaPessoa.CurrencyEdit1Enter(Sender: TObject);
-begin
-  keybd_event(VK_TAB,0,0,0);
-end;
-
-procedure TBuscaPessoa.edtNomeEnter(Sender: TObject);
-begin
-  efetuaBusca(edtCodigo.AsInteger);
-  keybd_event(VK_TAB,0,0,0);
-end;
-
 procedure TBuscaPessoa.efetuaBusca(parametro: Variant);
 begin
-  FPessoa := TPessoa.Create;
-  FPessoa.Load(parametro, 'CODIGO_IBGE');
+  FPessoa.Load(parametro);
 
   if FPessoa.ID > 0 then
   begin
     carregaDados;
+    keybd_event(VK_TAB,0,0,0);
   end
   else
-    abrePesquisa;
+    Pesquisa;
+end;
+
+procedure TBuscaPessoa.FrameEnter(Sender: TObject);
+begin
+  inicializa;
+end;
+
+procedure TBuscaPessoa.FrameExit(Sender: TObject);
+begin
+  if not assigned(FPessoa) or (FPessoa.ID = 0) then
+    edtCodigo.Clear;
+  if assigned(FPessoa) and FPessoa.isEmpty then
+    FreeAndNil(FPessoa);
+end;
+
+procedure TBuscaPessoa.inicializa;
+begin
+  inherited;
+  if FInicializou then
+    exit;
+
+  if not assigned(FPessoa) then
+    FPessoa                := TPessoa.Create;
+  self.edtCodigo.OnChange  := self.edtIdChange;
+  self.edtCodigo.OnEnter   := self.edtIdEnter;
+  self.edtNome.OnEnter     := self.edtEnter;
 end;
 
 procedure TBuscaPessoa.limpa;
 begin
-  edtCodigo.Clear;
+  if FcarregandoDados then
+  begin
+    FcarregandoDados := false;
+    Exit;
+  end;
+
+  if not (TForm(self.Owner).ActiveControl = self.edtCodigo) then
+    edtCodigo.Clear;
+  if Assigned(FPessoa) then
+    FPessoa.Clear;
   edtNome.Clear;
-  if assigned(FPessoa) then
-    FreeAndNil(FPessoa);
+end;
+
+procedure TBuscaPessoa.pesquisa;
+var SQL, titulo :String;
+begin
+  titulo := 'Selecione a pessoa desejada...';
+  SQL    := 'Select P.ID, P.NOME_RAZAO, P.CPF_CNPJ from PESSOAS P'+
+            ' WHERE P.TIPO = '+IntToStr(FTipo);
+  self.abrePesquisa(SQl, titulo);
 end;
 
 procedure TBuscaPessoa.SetTipo(const Value: integer);

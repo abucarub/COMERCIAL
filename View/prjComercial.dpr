@@ -16,7 +16,6 @@ uses
   Endereco in '..\Classes\Endereco.pas',
   Cidade in '..\Classes\Cidade.pas',
   Estado in '..\Classes\Estado.pas',
-  frameBuscaCidade in 'frameBuscaCidade.pas' {BuscaCidade: TFrame},
   uPesquisa in 'uPesquisa.pas' {frmPesquisa},
   Agendamento in '..\Classes\Agendamento.pas',
   Convenio in '..\Classes\Convenio.pas',
@@ -29,13 +28,15 @@ uses
   Movimento in '..\Classes\Movimento.pas',
   uAgendamentos in 'uAgendamentos.pas' {frmAgendamentos},
   TipoPessoa in '..\Classes\TIPOS\TipoPessoa.pas',
-  frameBuscaConvenio in 'frameBuscaConvenio.pas' {BuscaConvenio: TFrame},
   Servico in '..\Classes\Servico.pas',
   TabelaPreco in '..\Classes\TabelaPreco.pas',
-  frameBuscaTabelaPreco in 'frameBuscaTabelaPreco.pas' {BuscaTabelaPreco: TFrame},
-  frameBuscaPessoa in 'frameBuscaPessoa.pas' {BuscaPessoa: TFrame},
   frameHorarioMarcado in 'frameHorarioMarcado.pas' {HorarioMarcado: TFrame},
-  Utilitario in '..\Classes\Utilitario.pas';
+  Utilitario in '..\Classes\Utilitario.pas',
+  frameBusca in 'frameBusca.pas' {Busca: TFrame},
+  frameBuscaConvenio in 'frameBuscaConvenio.pas' {BuscaConvenio: TFrame},
+  frameBuscaPessoa in 'frameBuscaPessoa.pas' {BuscaPessoa: TFrame},
+  frameBuscaTabelaPreco in 'frameBuscaTabelaPreco.pas' {BuscaTabelaPreco: TFrame},
+  frameBuscaCidade in 'frameBuscaCidade.pas' {BuscaCidade: TFrame};
 
 {$R *.res}
 

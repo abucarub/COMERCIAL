@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
-  Vcl.Mask, uPersistentObject, frameBuscaCidade, System.StrUtils;
+  Vcl.Mask, uPersistentObject, System.StrUtils, frameBusca, frameBuscaCidade;
 
 type
   TfrmCadastroClientes = class(TfrmCadastroPadrao)
@@ -36,12 +36,12 @@ type
     Label9: TLabel;
     memComplemento: TMemo;
     Label10: TLabel;
-    BuscaCidade1: TBuscaCidade;
     edtNascimento: TMaskEdit;
     Label11: TLabel;
     edtCadastro: TMaskEdit;
     Label12: TLabel;
     edtIDEndereco: TEdit;
+    BuscaCidade1: TBuscaCidade;
     procedure edtCpfEnter(Sender: TObject);
   private
 
