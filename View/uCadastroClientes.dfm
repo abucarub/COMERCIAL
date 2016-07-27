@@ -265,20 +265,15 @@ inherited frmCadastroClientes: TfrmCadastroClientes
           Left = 356
           ExplicitLeft = 356
         end
-        inherited edtCodigo: TCurrencyEdit
-          OnChange = nil
-        end
         inherited edtCidade: TEdit
           Left = 116
           Width = 233
-          OnEnter = nil
           ExplicitLeft = 116
           ExplicitWidth = 233
         end
         inherited edtEstado: TEdit
           Left = 356
           Width = 25
-          OnEnter = nil
           ExplicitLeft = 356
           ExplicitWidth = 25
         end

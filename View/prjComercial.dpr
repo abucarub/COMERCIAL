@@ -21,7 +21,6 @@ uses
   Convenio in '..\Classes\Convenio.pas',
   Departamento in '..\Classes\Departamento.pas',
   SPA in '..\Classes\SPA.pas',
-  ServicoAgendado in '..\Classes\ServicoAgendado.pas',
   Conta in '..\Classes\Conta.pas',
   Caixa in '..\Classes\Caixa.pas',
   Parcela in '..\Classes\Parcela.pas',
@@ -36,7 +35,8 @@ uses
   frameBuscaConvenio in 'frameBuscaConvenio.pas' {BuscaConvenio: TFrame},
   frameBuscaPessoa in 'frameBuscaPessoa.pas' {BuscaPessoa: TFrame},
   frameBuscaTabelaPreco in 'frameBuscaTabelaPreco.pas' {BuscaTabelaPreco: TFrame},
-  frameBuscaCidade in 'frameBuscaCidade.pas' {BuscaCidade: TFrame};
+  frameBuscaCidade in 'frameBuscaCidade.pas' {BuscaCidade: TFrame},
+  ServicoAgendado in '..\Classes\ServicoAgendado.pas';
 
 {$R *.res}
 

@@ -62,9 +62,12 @@ type
     {cria uma instancia e a retorna}
     class function CreateInstance(instanceType: TRttiInstanceType; constructorMethod: TRttiMethod;
                                   const arguments: array of TValue): TObject;
+
   end;
 
 implementation
+
+uses ServicoAgendado;
 
 { TPersintentObject }
 
@@ -84,10 +87,21 @@ begin
        begin
          if (Att is HasOne) or (Att is HasMany) then
          begin
-           if Tclass(T).ClassName = RTP.PropertyType.ToString then
+           if pos('>',RTP.PropertyType.ToString) > 0 then
            begin
-             campoFK := FieldName(ATT).Name;
-             exit;
+             if pos(Tclass(T).ClassName+'>', RTP.PropertyType.ToString) > 0 then
+             begin
+               campoFK := FieldName(ATT).Name;
+               exit;
+             end;
+           end
+           else
+           begin
+             if Tclass(T).ClassName = RTP.PropertyType.ToString then
+             begin
+               campoFK := FieldName(ATT).Name;
+               exit;
+             end;
            end;
          end;
        end;
@@ -175,7 +189,11 @@ begin
     tkWString, tkUString: Result := QuotedStr(ARTP.GetValue(Self).ToString);
     tkFloat: begin
                if ARTP.PropertyType.Name = 'TDateTime' then
+                 Result := QuotedStr(FormatDateTime('dd.mm.yyyy hh:mm:ss', FloatToDateTime(ARTP.GetValue(Self).AsCurrency)))
+               else if ARTP.PropertyType.Name = 'TDate' then
                  Result := QuotedStr(FormatDateTime('dd.mm.yyyy', FloatToDateTime(ARTP.GetValue(Self).AsCurrency)))
+               else if ARTP.PropertyType.Name = 'TTime' then
+                 Result := QuotedStr(FormatDateTime('hh:mm:ss', FloatToDateTime(ARTP.GetValue(Self).AsCurrency)))
                else
                  Result := StringReplace(FormatFloat('0.00',ARTP.GetValue(Self).AsCurrency)
                                                            ,FormatSettings.DecimalSeparator,'.',[rfReplaceAll,rfIgnoreCase]);
@@ -201,6 +219,9 @@ var
   NomeTabela,Error: String;
   Qry: TFDQuery;
   i: Integer;
+  classe :TRttiInstanceType;
+  mClass :TObject;
+
 begin
   Field := '';
   Value := '';
@@ -267,11 +288,16 @@ begin
            begin
              if (Att is HasOne) and (HasOne(Att).Upgradeable) and assigned((RTP.GetValue(Self).AsObject as TPersistentObject))
              and not (RTP.GetValue(Self).AsObject as TPersistentObject).isEmpty then
-               (RTP.GetValue(Self).AsObject as TPersistentObject).Save(HasOne(Att).ChildPropertyName, qry.Fields[0].AsString);
+               (RTP.GetValue(Self).AsObject as TPersistentObject).Save(HasOne(Att).ChildPropertyName, qry.Fields[0].AsString)
 
-           {  else if (Att is HasMany) and (HasMany(Att).Upgradeable) and not ((RTP.GetValue(Self).AsType<TList> as TList<TPersistentObject>).Count <= 0) then
-               for i := 0 to (RTP.GetValue(Self).AsObject as TList<TPersistentObject>).Count - 1 do
-                 ((RTP.GetValue(Self).AsObject as TList<TPersistentObject>).Items[i] as TPersistentObject).Save(HasMany(Att).ChildPropertyName, qry.Fields[0].AsString)}
+             else if (Att is HasMany) and (HasMany(Att).Upgradeable) and not ((RTP.GetValue(Self).AsType<TObjectList<TServicoAgendado>> as TObjectList<TServicoAgendado>).Count <= 0) then
+             begin
+               classe := ctx.FindType('ServicoAgendado.TServicoAgendado').AsInstance;
+               mClass := ((RTP.GetValue(Self).AsObject as TObjectList<TObject>).Items[i] as classe.MetaclassType);
+
+               for i := 0 to (RTP.GetValue(Self).AsObject as TObjectList<TServicoAgendado>).Count - 1 do
+                 (((RTP.GetValue(Self).AsObject as TObjectList<TServicoAgendado>).Items[i] as classe.MetaclassType) as TPersistentObject).Save(HasMany(Att).ChildPropertyName, qry.Fields[0].AsString);
+             end;
            end;
         end;
 
@@ -288,7 +314,7 @@ begin
     on e :Exception do
     begin
       TConnection.GetInstance.Rollback;
-      raise Exception.Create(e.Message);
+      MessageDlg('Erro ao salvar.'+#13#10+e.Message, mtInformation,[mbOk],0);
     end;
   end;
 end;
@@ -460,6 +486,7 @@ var
   valuesPK: array[1..3] of String;
   reader: TFDQuery;
 begin
+  Result := nil;
   Ctx := TRttiContext.Create;
   try
     buscaFK<T>(fieldFK);
@@ -628,6 +655,7 @@ begin
   Field := '';
   Ctx := TRttiContext.Create;
   try
+  try
     RTT := CTX.GetType(ClassType);
 
     SQL := 'UPDATE ' + GetTableName(RTT) + ' SET';
@@ -678,6 +706,14 @@ begin
 
     if not Result then
       raise Exception.Create(Error);
+
+  Except
+    on e:Exception do
+    begin
+      TConnection.GetInstance.Rollback;
+      MessageDlg('Erro ao salvar.'+#13#10+e.Message, mtInformation,[mbOk],0);
+    end;
+  end;
   finally
     CustomSQL := '';
     CTX.Free;

@@ -1,17 +1,16 @@
 inherited frmAgendamentos: TfrmAgendamentos
   Caption = 'Agendamentos'
-  ClientHeight = 734
-  ClientWidth = 1075
-  ExplicitTop = -83
-  ExplicitWidth = 1091
-  ExplicitHeight = 772
+  ClientHeight = 617
+  ClientWidth = 964
+  ExplicitWidth = 980
+  ExplicitHeight = 655
   PixelsPerInch = 96
   TextHeight = 18
   object Shape2: TShape
     Left = 299
     Top = 0
-    Width = 776
-    Height = 734
+    Width = 665
+    Height = 617
     Align = alClient
     Brush.Color = 15590611
     Pen.Style = psClear
@@ -24,16 +23,16 @@ inherited frmAgendamentos: TfrmAgendamentos
     Left = 0
     Top = 0
     Width = 299
-    Height = 734
+    Height = 617
     Align = alLeft
     Color = clBtnFace
     ParentBackground = False
     ParentColor = False
     TabOrder = 0
-    ExplicitLeft = 776
+    ExplicitHeight = 734
     object Label6: TLabel
       Left = 16
-      Top = 166
+      Top = 46
       Width = 40
       Height = 21
       Caption = '06:00'
@@ -46,7 +45,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label7: TLabel
       Left = 16
-      Top = 202
+      Top = 82
       Width = 40
       Height = 21
       Caption = '07:00'
@@ -59,7 +58,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label8: TLabel
       Left = 16
-      Top = 238
+      Top = 118
       Width = 40
       Height = 21
       Caption = '08:00'
@@ -72,7 +71,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label9: TLabel
       Left = 16
-      Top = 274
+      Top = 154
       Width = 40
       Height = 21
       Caption = '09:00'
@@ -85,7 +84,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label10: TLabel
       Left = 16
-      Top = 310
+      Top = 190
       Width = 40
       Height = 21
       Caption = '10:00'
@@ -98,7 +97,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label11: TLabel
       Left = 16
-      Top = 346
+      Top = 226
       Width = 40
       Height = 21
       Caption = '11:00'
@@ -111,7 +110,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label12: TLabel
       Left = 16
-      Top = 382
+      Top = 262
       Width = 40
       Height = 21
       Caption = '12:00'
@@ -124,7 +123,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label13: TLabel
       Left = 16
-      Top = 418
+      Top = 298
       Width = 40
       Height = 21
       Caption = '13:00'
@@ -137,7 +136,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label14: TLabel
       Left = 16
-      Top = 454
+      Top = 334
       Width = 40
       Height = 21
       Caption = '14:00'
@@ -150,7 +149,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label15: TLabel
       Left = 16
-      Top = 490
+      Top = 370
       Width = 40
       Height = 21
       Caption = '15:00'
@@ -163,7 +162,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label16: TLabel
       Left = 16
-      Top = 526
+      Top = 406
       Width = 40
       Height = 21
       Caption = '16:00'
@@ -176,7 +175,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label17: TLabel
       Left = 16
-      Top = 562
+      Top = 442
       Width = 40
       Height = 21
       Caption = '17:00'
@@ -189,7 +188,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label18: TLabel
       Left = 16
-      Top = 598
+      Top = 478
       Width = 40
       Height = 21
       Caption = '18:00'
@@ -202,7 +201,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label19: TLabel
       Left = 16
-      Top = 634
+      Top = 514
       Width = 40
       Height = 21
       Caption = '19:00'
@@ -215,7 +214,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label20: TLabel
       Left = 16
-      Top = 670
+      Top = 550
       Width = 40
       Height = 21
       Caption = '20:00'
@@ -228,7 +227,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label21: TLabel
       Left = 16
-      Top = 706
+      Top = 586
       Width = 40
       Height = 21
       Caption = '21:00'
@@ -241,7 +240,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label22: TLabel
       Left = 26
-      Top = 186
+      Top = 66
       Width = 31
       Height = 17
       Caption = '06:30'
@@ -254,7 +253,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label23: TLabel
       Left = 26
-      Top = 222
+      Top = 102
       Width = 31
       Height = 17
       Caption = '07:30'
@@ -267,7 +266,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label24: TLabel
       Left = 26
-      Top = 294
+      Top = 174
       Width = 31
       Height = 17
       Caption = '09:30'
@@ -280,7 +279,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label25: TLabel
       Left = 26
-      Top = 258
+      Top = 138
       Width = 31
       Height = 17
       Caption = '08:30'
@@ -293,7 +292,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label26: TLabel
       Left = 26
-      Top = 438
+      Top = 318
       Width = 31
       Height = 17
       Caption = '13:30'
@@ -306,7 +305,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label27: TLabel
       Left = 26
-      Top = 402
+      Top = 282
       Width = 31
       Height = 17
       Caption = '12:30'
@@ -319,7 +318,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label28: TLabel
       Left = 26
-      Top = 366
+      Top = 246
       Width = 31
       Height = 17
       Caption = '11:30'
@@ -332,7 +331,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label29: TLabel
       Left = 26
-      Top = 330
+      Top = 210
       Width = 31
       Height = 17
       Caption = '10:30'
@@ -345,7 +344,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label30: TLabel
       Left = 26
-      Top = 582
+      Top = 462
       Width = 31
       Height = 17
       Caption = '17:30'
@@ -358,7 +357,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label31: TLabel
       Left = 26
-      Top = 546
+      Top = 426
       Width = 31
       Height = 17
       Caption = '16:30'
@@ -371,7 +370,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label32: TLabel
       Left = 26
-      Top = 510
+      Top = 390
       Width = 31
       Height = 17
       Caption = '15:30'
@@ -384,7 +383,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label33: TLabel
       Left = 26
-      Top = 474
+      Top = 354
       Width = 31
       Height = 17
       Caption = '14:30'
@@ -397,7 +396,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label34: TLabel
       Left = 26
-      Top = 618
+      Top = 498
       Width = 31
       Height = 17
       Caption = '18:30'
@@ -410,7 +409,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label35: TLabel
       Left = 26
-      Top = 654
+      Top = 534
       Width = 31
       Height = 17
       Caption = '19:30'
@@ -423,7 +422,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object Label36: TLabel
       Left = 26
-      Top = 690
+      Top = 570
       Width = 31
       Height = 17
       Caption = '20:30'
@@ -435,21 +434,21 @@ inherited frmAgendamentos: TfrmAgendamentos
       ParentFont = False
     end
     object Label2: TLabel
-      Left = 9
-      Top = 139
-      Width = 146
-      Height = 25
+      Left = 61
+      Top = 15
+      Width = 120
+      Height = 23
       Caption = 'Hor'#225'rios do dia'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 12481552
-      Font.Height = -21
-      Font.Name = 'Microsoft Sans Serif'
-      Font.Style = []
+      Font.Color = 13261071
+      Font.Height = -19
+      Font.Name = 'Calibri'
+      Font.Style = [fsBold]
       ParentFont = False
     end
     object StringGrid1: TStringGrid
       Left = 62
-      Top = 176
+      Top = 56
       Width = 226
       Height = 547
       ColCount = 1
@@ -471,48 +470,39 @@ inherited frmAgendamentos: TfrmAgendamentos
       OnDrawCell = StringGrid1DrawCell
       OnSelectCell = StringGrid1SelectCell
     end
-    object calendario: TJvMonthCalendar
-      Left = 62
-      Top = 7
-      Width = 225
-      Height = 161
-      Date = 42566.515015497690000000
-      TabOrder = 1
-      OnClick = calendarioClick
-    end
   end
   object Panel1: TPanel
     Left = 299
     Top = 0
-    Width = 776
-    Height = 734
+    Width = 665
+    Height = 617
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitLeft = 368
-    ExplicitTop = 152
-    ExplicitWidth = 185
-    ExplicitHeight = 41
+    ExplicitWidth = 776
+    ExplicitHeight = 734
     object Shape1: TShape
       Left = 0
-      Top = 222
-      Width = 776
-      Height = 512
+      Top = 117
+      Width = 665
+      Height = 500
       Align = alBottom
       Brush.Color = 14737632
       Pen.Style = psClear
+      ExplicitTop = 116
+      ExplicitWidth = 776
     end
     object Label4: TLabel
       Left = 275
-      Top = 234
-      Width = 181
-      Height = 25
+      Top = 138
+      Width = 148
+      Height = 23
       Caption = 'Hor'#225'rios marcados'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 4162331
-      Font.Height = -21
-      Font.Name = 'Microsoft Sans Serif'
-      Font.Style = []
+      Font.Color = 13261071
+      Font.Height = -19
+      Font.Name = 'Calibri'
+      Font.Style = [fsBold]
       ParentFont = False
     end
     object Label5: TLabel
@@ -526,6 +516,19 @@ inherited frmAgendamentos: TfrmAgendamentos
       Font.Height = -13
       Font.Name = 'Microsoft Sans Serif'
       Font.Style = []
+      ParentFont = False
+    end
+    object Label37: TLabel
+      Left = 20
+      Top = 138
+      Width = 204
+      Height = 23
+      Caption = 'Selecione a data desejada'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 3815994
+      Font.Height = -19
+      Font.Name = 'Calibri'
+      Font.Style = [fsBold]
       ParentFont = False
     end
     inline BuscaPessoa1: TBuscaPessoa
@@ -647,12 +650,13 @@ inherited frmAgendamentos: TfrmAgendamentos
         ExplicitWidth = 51
       end
     end
-    object GroupBox1: TGroupBox
-      Left = 22
-      Top = 310
+    object gpbHorario: TGroupBox
+      Left = 20
+      Top = 342
       Width = 225
       Height = 158
       Caption = ' Hor'#225'rio da sess'#227'o '
+      Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -15
@@ -784,9 +788,9 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object DBGridCBN1: TDBGridCBN
       Left = 275
-      Top = 265
-      Width = 491
-      Height = 458
+      Top = 169
+      Width = 364
+      Height = 434
       Color = 14803425
       DataSource = dsHorarios
       Font.Charset = DEFAULT_CHARSET
@@ -845,16 +849,18 @@ inherited frmAgendamentos: TfrmAgendamentos
       Columns = <
         item
           Expanded = False
-          FieldName = 'DATA_HORA'
-          Title.Caption = 'Data e Hora'
-          Width = 106
+          FieldName = 'DATA'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'HORA'
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'DIA_SEMANA'
-          Title.Caption = 'Dia da Semana'
-          Width = 263
+          Title.Caption = 'DIA DA SEMANA'
           Visible = True
         end>
     end
@@ -870,10 +876,11 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object btnCriaHorario: TBitBtn
       Left = 20
-      Top = 511
+      Top = 519
       Width = 227
       Height = 29
       Caption = ' Criar Hor'#225'rio'
+      Enabled = False
       Glyph.Data = {
         36080000424D3608000000000000360000002800000020000000100000000100
         2000000000000008000000000000000000000000000000000000FFFFFF00FFFF
@@ -943,6 +950,16 @@ inherited frmAgendamentos: TfrmAgendamentos
         20008F702E0094835E009B9B9B009B9B9B009B9B9B009B9B9B00}
       NumGlyphs = 2
       TabOrder = 6
+      OnClick = btnCriaHorarioClick
+    end
+    object calendario: TJvMonthCalendar
+      Left = 20
+      Top = 169
+      Width = 225
+      Height = 161
+      Date = 42566.916623101850000000
+      TabOrder = 7
+      OnClick = calendarioClick
     end
   end
   object cdsHorarios: TClientDataSet
@@ -950,12 +967,15 @@ inherited frmAgendamentos: TfrmAgendamentos
     Params = <>
     Left = 712
     Top = 376
-    object cdsHorariosDATA_HORA: TDateTimeField
-      FieldName = 'DATA_HORA'
-    end
     object cdsHorariosDIA_SEMANA: TStringField
       FieldName = 'DIA_SEMANA'
       Size = 30
+    end
+    object cdsHorariosDATA: TDateField
+      FieldName = 'DATA'
+    end
+    object cdsHorariosHORA: TTimeField
+      FieldName = 'HORA'
     end
   end
   object dsHorarios: TDataSource

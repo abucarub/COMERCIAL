@@ -48,16 +48,14 @@ type
     Label34: TLabel;
     Label35: TLabel;
     Label36: TLabel;
-    cdsHorariosDATA_HORA: TDateTimeField;
     cdsHorariosDIA_SEMANA: TStringField;
     dsHorarios: TDataSource;
     Shape2: TShape;
-    calendario: TJvMonthCalendar;
     Panel1: TPanel;
     BuscaPessoa1: TBuscaPessoa;
     BuscaConvenio1: TBuscaConvenio;
     BuscaTabelaPreco1: TBuscaTabelaPreco;
-    GroupBox1: TGroupBox;
+    gpbHorario: TGroupBox;
     Shape3: TShape;
     Label3: TLabel;
     Label1: TLabel;
@@ -77,6 +75,10 @@ type
     cdsServicos: TClientDataSet;
     cdsServicosHORARIO: TStringField;
     Label2: TLabel;
+    calendario: TJvMonthCalendar;
+    Label37: TLabel;
+    cdsHorariosDATA: TDateField;
+    cdsHorariosHORA: TTimeField;
     procedure FormCreate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure StringGrid1DrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -87,8 +89,7 @@ type
     procedure speHorasChange(Sender: TObject);
     procedure BuscaConvenio1Exit(Sender: TObject);
     procedure BuscaTabelaPreco1Exit(Sender: TObject);
-    procedure dbgHorariosDisponiveisDrawColumnCell(Sender: TObject; const [Ref] Rect: TRect;
-      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure btnCriaHorarioClick(Sender: TObject);
   private
     FID_Departamento :integer;
     FPrimeiroHorarioDisponivel :TTime;
@@ -101,6 +102,8 @@ type
     procedure mostrarHorarios;
     procedure defineHorarioMinMax(textoCelula :String);
     procedure setaHorario(horario :TTime);
+    function marcaHorario :boolean;
+    procedure insereHorarioGrid(spa :TSPA);
   public
     { Public declarations }
   end;
@@ -110,7 +113,7 @@ var
 
 implementation
 
-uses Utilitario, TipoPessoa;
+uses Utilitario, TipoPessoa, ServicoAgendado;
 
 {$R *.dfm}
 
@@ -120,6 +123,12 @@ begin
     //MessageDlg('Deseja realmente sair do sistema?', mtInformation,[mbOk],0);
 
   //quando gera o numero de parcelas correspondente ao vezes na semana, o botao gerar restantes habilita
+end;
+
+procedure TfrmAgendamentos.btnCriaHorarioClick(Sender: TObject);
+begin
+ if marcaHorario then
+   MessageDlg('Horário criado com sucesso!', mtInformation,[mbOk],0);
 end;
 
 procedure TfrmAgendamentos.BuscaConvenio1Exit(Sender: TObject);
@@ -184,21 +193,21 @@ begin
       StringGrid1.RowHeights[StringGrid1.RowCount-1] := alturaLinha;
 
       {Se o intervalo entre as sessoes (em min.) for maior que a duração do serviço selecionado, o intervalo é disponível}
-      if (minutos*10) >= TUtilitario.dataParaMinutos(sessao.TabelaPreco.Servico.Duracao) then
+      if (minutos*10) >= TUtilitario.dataParaMinutos(sessao.duracaoServicos) then
         StringGrid1.Cells[0,StringGrid1.RowCount-1] := formatDatetime('hh:mm',fimHorario) + ' às ' +
                                                        formatDatetime('hh:mm',sessao.Hora) + ' DISPONÍVEL';
     end;
 
     StringGrid1.RowCount := StringGrid1.RowCount +1;
 
-    minutos     := TUtilitario.dataParaMinutos(sessao.TabelaPreco.Servico.Duracao); //pega a duração do serviço pela sessao
+    minutos     := TUtilitario.dataParaMinutos(sessao.duracaoServicos); //pega a duração do serviço pela sessao
     alturaLinha := trunc(minutos/10)*6;
     StringGrid1.RowHeights[StringGrid1.RowCount-1] := alturaLinha;
     StringGrid1.Cells[0,StringGrid1.RowCount-1]    := formatDatetime('hh:mm',sessao.Hora) + ' às ' +
-                                                      formatDatetime('hh:mm',sessao.Hora + sessao.TabelaPreco.Servico.Duracao) +
+                                                      formatDatetime('hh:mm',sessao.Hora + sessao.duracaoServicos) +
                                                       ' MARCADO';
 
-    fimHorario := Sessao.Hora + sessao.TabelaPreco.Servico.Duracao;
+    fimHorario := Sessao.Hora + sessao.duracaoServicos;
   end;
 
   if fimHorario < limiteHorario then
@@ -209,18 +218,11 @@ begin
     minutos     := trunc((min1-min2)/10);
     alturaLinha := minutos * 6;
     StringGrid1.RowHeights[StringGrid1.RowCount-1] := alturaLinha;
-    if (minutos*10) >= TUtilitario.dataParaMinutos(sessao.TabelaPreco.Servico.Duracao) then
+    if (minutos*10) >= TUtilitario.dataParaMinutos(sessao.duracaoServicos) then
       StringGrid1.Cells[0,StringGrid1.RowCount-1] := formatDatetime('hh:mm',fimHorario) + ' às ' +
                                                      formatDatetime('hh:mm',limiteHorario) + ' DISPONÍVEL';
   end;
 
-end;
-
-procedure TfrmAgendamentos.dbgHorariosDisponiveisDrawColumnCell(Sender: TObject;
-  const [Ref] Rect: TRect; DataCol: Integer; Column: TColumn;
-  State: TGridDrawState);
-begin
-  ShowScrollBar(dbgHorariosDisponiveis.Handle,SB_VERT,False);
 end;
 
 procedure TfrmAgendamentos.FormCreate(Sender: TObject);
@@ -230,6 +232,43 @@ begin
   BuscaTabelaPreco1.IDDepartamento := 1;
   FPrimeiroHorarioDia := StrToTime('06:00:00');
   FUltimoHorarioDia   := StrToTime('21:00:00');
+  cdsHorarios.CreateDataSet;
+end;
+
+procedure TfrmAgendamentos.insereHorarioGrid(spa: TSPA);
+begin
+  cdsHorarios.Append;
+  cdsHorariosDATA.AsDateTime     := spa.Data;
+  cdsHorariosHORA.AsDateTime     := spa.Hora;
+  cdsHorariosDIA_SEMANA.AsString := TUtilitario.diaSemanaExtenso(spa.Data);
+  cdsHorarios.Post;
+end;
+
+function TfrmAgendamentos.marcaHorario :boolean;
+var SPA :TSPA;
+    Servico :TServicoAgendado;
+begin
+  try
+    SPA := TSPA.Create;
+    SPA.Data      := calendario.Date;
+    SPA.Hora      := StrToTime(speHoras.Text+':'+speMinutos.Text+':00');
+    SPA.ID_Pessoa := BuscaPessoa1.Pessoa.ID;
+
+    Servico := TServicoAgendado.Create;
+    Servico.ID_TabelaPreco := BuscaTabelaPreco1.TabelaPreco.ID;
+    SPA.ServicosAgendados.Add(Servico);
+    SPA.Save;
+
+    insereHorarioGrid(SPA);
+    speHoras.Value         := 0;
+    speMinutos.Value       := 0;
+    gpbHorario.Enabled     := false;
+    btnCriaHorario.Enabled := false;
+    calendarioClick(nil);
+  finally
+    FreeAndNil(SPA);
+    FreeAndNil(Servico);
+  end;
 end;
 
 procedure TfrmAgendamentos.mostrarHorarios;
@@ -249,12 +288,12 @@ begin
 end;
 
 procedure TfrmAgendamentos.defineHorarioMinMax(textoCelula: String);
-var min1, min2 :integer;
+//var min1, min2 :integer;
 begin
-  min1 :=  TUtilitario.dataParaMinutos(FPrimeiroHorarioDia);
+{  min1 :=  TUtilitario.dataParaMinutos(FPrimeiroHorarioDia);
   min2 :=  TUtilitario.dataParaMinutos(FUltimoHorarioDia);
   showmessage(intToStr(trunc((min2-min1)/TUtilitario.dataParaMinutos(BuscaTabelaPreco1.TabelaPreco.Servico.Duracao))));
-
+}
   FPrimeiroHorarioDisponivel       := StrToTime(copy(textoCelula,1,5));
   FUltimoHorarioDisponivel         := StrToTime(copy(textoCelula,10,5)) - BuscaTabelaPreco1.TabelaPreco.Servico.Duracao;
   lbHMinimo.Caption      := formatDateTime('hh:mm',FPrimeiroHorarioDisponivel);
@@ -311,6 +350,8 @@ procedure TfrmAgendamentos.StringGrid1SelectCell(Sender: TObject; ACol,
   ARow: Integer; var CanSelect: Boolean);
 begin
   defineHorarioMinMax(StringGrid1.Cells[ACol, ARow]);
+  gpbHorario.Enabled     := true;
+  btnCriaHorario.Enabled := true;
 end;
 
 end.
