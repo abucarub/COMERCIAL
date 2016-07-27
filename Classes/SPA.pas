@@ -47,11 +47,22 @@ type
     procedure LoadClass(const AValue: Integer);
     procedure Clear; override;
     function isEmpty :Boolean; overload; override;
+    procedure afterSave; overload; override;
   end;
 
 implementation
 
 { TSPA }
+
+procedure TSPA.afterSave;
+var Servico :TServicoAgendado;
+begin
+  for Servico in FServicosAgendados do
+  begin
+    Servico.ID_SPA := ID;
+    Servico.Save();
+  end;
+end;
 
 procedure TSPA.Clear;
 begin

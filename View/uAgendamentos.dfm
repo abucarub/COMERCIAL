@@ -29,7 +29,6 @@ inherited frmAgendamentos: TfrmAgendamentos
     ParentBackground = False
     ParentColor = False
     TabOrder = 0
-    ExplicitHeight = 734
     object Label6: TLabel
       Left = 16
       Top = 46
@@ -455,8 +454,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       DefaultColWidth = 220
       DefaultRowHeight = 0
       FixedCols = 0
-      RowCount = 1
-      FixedRows = 0
+      RowCount = 2
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 3026478
       Font.Height = -12
@@ -469,6 +467,8 @@ inherited frmAgendamentos: TfrmAgendamentos
       TabOrder = 0
       OnDrawCell = StringGrid1DrawCell
       OnSelectCell = StringGrid1SelectCell
+      ColWidths = (
+        220)
     end
   end
   object Panel1: TPanel
@@ -479,8 +479,6 @@ inherited frmAgendamentos: TfrmAgendamentos
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
-    ExplicitWidth = 776
-    ExplicitHeight = 734
     object Shape1: TShape
       Left = 0
       Top = 117
@@ -957,7 +955,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       Top = 169
       Width = 225
       Height = 161
-      Date = 42566.916623101850000000
+      Date = 42566.621640289360000000
       TabOrder = 7
       OnClick = calendarioClick
     end

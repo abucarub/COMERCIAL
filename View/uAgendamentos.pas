@@ -162,8 +162,8 @@ var time :TTime;
     primeiroCriado :Boolean;
 
 begin
-  StringGrid1.RowCount := 1;
-  StringGrid1.RowHeights[0] := 0;
+  StringGrid1.RowCount := 2;
+  StringGrid1.RowHeights[1] := 0;
 
   if not assigned(sessoes) then
   begin

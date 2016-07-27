@@ -2,7 +2,7 @@ unit Pessoa;
 
 interface
 
-uses uPersistentObject, uAtrib, Endereco, Generics.Collections, System.SysUtils;
+uses uPersistentObject, uAtrib, Endereco, Generics.Collections, System.SysUtils, SPA;
 
 type
 
@@ -46,6 +46,8 @@ type
 
     [HasOne('ID_PESSOA', false, true)]
     property Endereco: TEndereco read GetEndereco write FEndereco;
+    [HasMany('ID_SPA',false)]
+    property Horarios: TObjectList<TSPA> read GetServicosAgendados write FServicosAgendados;
 
 //    [HasMany('ID_PESSOA', false, true)]
 //    property EnderecoL: TList<TEndereco> read GetEnderecoL write FEnderecoL;

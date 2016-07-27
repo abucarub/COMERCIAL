@@ -37,6 +37,7 @@ type
     function Update: Boolean;
     function Delete: Boolean;
     function Save(const attName :String = ''; const propValue :String = ''): Boolean;
+    procedure AfterSave; overload; virtual;
 
     function isEmpty :Boolean; overload; virtual;
     {Load na classe corrente}
@@ -70,6 +71,11 @@ implementation
 uses ServicoAgendado;
 
 { TPersintentObject }
+
+procedure TPersistentObject.AfterSave;
+begin
+
+end;
 
 procedure TPersistentObject.buscaFK<T>(var campoFK: String);
 var
@@ -288,18 +294,20 @@ begin
            begin
              if (Att is HasOne) and (HasOne(Att).Upgradeable) and assigned((RTP.GetValue(Self).AsObject as TPersistentObject))
              and not (RTP.GetValue(Self).AsObject as TPersistentObject).isEmpty then
-               (RTP.GetValue(Self).AsObject as TPersistentObject).Save(HasOne(Att).ChildPropertyName, qry.Fields[0].AsString)
+               (RTP.GetValue(Self).AsObject as TPersistentObject).Save(HasOne(Att).ChildPropertyName, qry.Fields[0].AsString);
 
-             else if (Att is HasMany) and (HasMany(Att).Upgradeable) and not ((RTP.GetValue(Self).AsType<TObjectList<TServicoAgendado>> as TObjectList<TServicoAgendado>).Count <= 0) then
+             {else if (Att is HasMany) and (HasMany(Att).Upgradeable) and not ((RTP.GetValue(Self).AsType<TObjectList<TServicoAgendado>> as TObjectList<TServicoAgendado>).Count <= 0) then
              begin
                classe := ctx.FindType('ServicoAgendado.TServicoAgendado').AsInstance;
                mClass := ((RTP.GetValue(Self).AsObject as TObjectList<TObject>).Items[i] as classe.MetaclassType);
 
                for i := 0 to (RTP.GetValue(Self).AsObject as TObjectList<TServicoAgendado>).Count - 1 do
                  (((RTP.GetValue(Self).AsObject as TObjectList<TServicoAgendado>).Items[i] as classe.MetaclassType) as TPersistentObject).Save(HasMany(Att).ChildPropertyName, qry.Fields[0].AsString);
-             end;
+             end;  }
            end;
         end;
+
+        AfterSave;
 
       end
       else
