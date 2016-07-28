@@ -2,7 +2,7 @@ unit Pessoa;
 
 interface
 
-uses uPersistentObject, uAtrib, Endereco, Generics.Collections, System.SysUtils, SPA;
+uses uPersistentObject, uAtrib, Endereco, Generics.Collections, System.SysUtils;//, SPA;
 
 type
 
@@ -19,14 +19,11 @@ type
     FDtCadastro :TDateTime;
     FDtNascimento :TDateTime;
     FEndereco: TEndereco;
-  //  FEnderecoL: TList<TEndereco>;
+
 
     function GetEndereco: TEndereco;
- //   function GetEnderecoL: TList<TEndereco>;
 
   public
-   { [FieldName('ID', True, True)]
-    property ID: Integer read GetID write SetID;    }
     [FieldName('NOME_RAZAO')]
     property Nome: String read FNome write FNome;
     [FieldName('CPF_CNPJ')]
@@ -46,11 +43,8 @@ type
 
     [HasOne('ID_PESSOA', false, true)]
     property Endereco: TEndereco read GetEndereco write FEndereco;
-    [HasMany('ID_SPA',false)]
-    property Horarios: TObjectList<TSPA> read GetServicosAgendados write FServicosAgendados;
-
-//    [HasMany('ID_PESSOA', false, true)]
-//    property EnderecoL: TList<TEndereco> read GetEnderecoL write FEnderecoL;
+//    [HasMany('ID_SPA',false)]
+//    property Horarios: TObjectList<TSPA> read GetServicosAgendados write FServicosAgendados;
 
   private
     destructor destroy;

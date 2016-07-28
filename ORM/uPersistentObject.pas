@@ -195,11 +195,11 @@ begin
     tkWString, tkUString: Result := QuotedStr(ARTP.GetValue(Self).ToString);
     tkFloat: begin
                if ARTP.PropertyType.Name = 'TDateTime' then
-                 Result := QuotedStr(FormatDateTime('dd.mm.yyyy hh:mm:ss', FloatToDateTime(ARTP.GetValue(Self).AsCurrency)))
+                 Result := QuotedStr(FormatDateTime('dd.mm.yyyy hh:mm:ss', FloatToDateTime(ARTP.GetValue(Self).AsExtended)))
                else if ARTP.PropertyType.Name = 'TDate' then
-                 Result := QuotedStr(FormatDateTime('dd.mm.yyyy', FloatToDateTime(ARTP.GetValue(Self).AsCurrency)))
+                 Result := QuotedStr(FormatDateTime('dd.mm.yyyy', FloatToDateTime(ARTP.GetValue(Self).AsExtended)))
                else if ARTP.PropertyType.Name = 'TTime' then
-                 Result := QuotedStr(FormatDateTime('hh:mm:ss', FloatToDateTime(ARTP.GetValue(Self).AsCurrency)))
+                 Result := QuotedStr(FormatDateTime('hh:mm:ss', FloatToDateTime(ARTP.GetValue(Self).AsExtended)))
                else
                  Result := StringReplace(FormatFloat('0.00',ARTP.GetValue(Self).AsCurrency)
                                                            ,FormatSettings.DecimalSeparator,'.',[rfReplaceAll,rfIgnoreCase]);
@@ -450,7 +450,7 @@ begin
   try
     RTT := CTX.GetType(ClassType);
 
-    SQL := 'SELECT ID FROM ' + GetTableName(RTT) +
+    SQL := 'SELECT '+GetTableName(RTT)+'.ID FROM ' + GetTableName(RTT) +
            ' '+where;
     try
       Reader := TConnection.GetInstance.ExecuteQuery(SQL);
