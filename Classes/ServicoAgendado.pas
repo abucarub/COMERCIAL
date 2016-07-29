@@ -38,6 +38,8 @@ begin
   ID              := 0;
   FID_SPA         := 0;
   FID_TabelaPreco := 0;
+  if assigned(FTabelaPreco) then
+    FreeAndNil(FTabelaPreco);
 end;
 
 function TServicoAgendado.GetTabelaPreco: TTabelaPreco;

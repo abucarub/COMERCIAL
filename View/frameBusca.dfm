@@ -3,6 +3,12 @@ object Busca: TBusca
   Top = 0
   Width = 260
   Height = 69
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = 2697513
+  Font.Height = -16
+  Font.Name = 'Calibri'
+  Font.Style = []
+  ParentFont = False
   TabOrder = 0
   object btnBusca: TBitBtn
     Left = 52

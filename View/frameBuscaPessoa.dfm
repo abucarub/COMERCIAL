@@ -6,27 +6,27 @@ inherited BuscaPessoa: TBuscaPessoa
   object Label1: TLabel [0]
     Left = 11
     Top = 3
-    Width = 44
-    Height = 16
+    Width = 47
+    Height = 19
     Caption = 'C'#243'digo'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
-    Font.Style = []
+    Font.Color = 2697513
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object lbTipo: TLabel [1]
     Left = 117
     Top = 3
-    Width = 47
-    Height = 16
+    Width = 46
+    Height = 19
     Caption = 'Pessoa'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
-    Font.Style = []
+    Font.Color = 2697513
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
     ParentFont = False
   end
   inherited btnBusca: TBitBtn

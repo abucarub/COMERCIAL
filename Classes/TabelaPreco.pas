@@ -46,6 +46,10 @@ begin
   FID_Servico  := 0;
   FID_Convenio := 0;
   FValor       := 0;
+  if assigned(FServico) then
+    FreeAndNil(FServico);
+  if assigned(FConvenio) then
+    FreeAndNil(FConvenio);
 end;
 
 function TTabelaPreco.GetConvenio: TConvenio;

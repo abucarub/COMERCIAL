@@ -6,27 +6,27 @@ inherited BuscaDepartamento: TBuscaDepartamento
   object Label1: TLabel [0]
     Left = 79
     Top = 3
-    Width = 44
-    Height = 16
+    Width = 47
+    Height = 19
     Caption = 'C'#243'digo'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
-    Font.Style = []
+    Font.Color = 2697513
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label2: TLabel [1]
     Left = 161
     Top = 3
-    Width = 86
-    Height = 16
+    Width = 100
+    Height = 19
     Caption = 'Departamento'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
-    Font.Style = []
+    Font.Color = 2697513
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object imgPilates: TImage [2]
@@ -3860,6 +3860,7 @@ inherited BuscaDepartamento: TBuscaDepartamento
   end
   inherited btnBusca: TBitBtn
     Left = 132
+    TabOrder = 1
     ExplicitLeft = 132
   end
   object edtCodigo: TCurrencyEdit
@@ -3874,7 +3875,7 @@ inherited BuscaDepartamento: TBuscaDepartamento
     Font.Name = 'Microsoft Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 0
   end
   object edtDepartamento: TEdit
     Left = 160

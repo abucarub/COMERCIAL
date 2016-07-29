@@ -24,8 +24,9 @@ type
   protected
     procedure efetuaBusca(parametro :Variant);override;
     procedure inicializa;override;
+    procedure carregar(const ID :integer = 0);override;
   public
-    procedure carregaDados(const ID :integer = 0);override;
+    procedure BeforeDestruction; override;
     procedure limpa;override;
 
     property Cidade :TCidade read FCidade;
@@ -40,7 +41,14 @@ implementation
 
 { TBuscaCidade }
 
-procedure TBuscaCidade.carregaDados(const ID: integer);
+procedure TBuscaCidade.BeforeDestruction;
+begin
+  inherited;
+  if Assigned(FCidade) then
+    FreeAndNil(FCidade);
+end;
+
+procedure TBuscaCidade.carregar(const ID: integer);
 begin
   inherited;
   if not assigned(FCidade) then

@@ -22,8 +22,9 @@ type
   protected
     procedure inicializa;override;
     procedure efetuaBusca(parametro :Variant);override;
+    procedure carregar(const ID :integer = 0);override;
   public
-    procedure carregaDados(const ID :integer = 0);override;
+    procedure BeforeDestruction; override;
     procedure limpa;override;
 
     property Convenio :TConvenio read FConvenio;
@@ -38,7 +39,14 @@ implementation
 
 { TBusca1 }
 
-procedure TBuscaConvenio.carregaDados(const ID: integer);
+procedure TBuscaConvenio.BeforeDestruction;
+begin
+  inherited;
+  if Assigned(FConvenio) then
+    FreeAndNil(FConvenio);
+end;
+
+procedure TBuscaConvenio.carregar(const ID: integer);
 begin
   inherited;
   if not assigned(FConvenio) then

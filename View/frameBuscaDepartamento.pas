@@ -27,11 +27,12 @@ type
   protected
     procedure inicializa;override;
     procedure efetuaBusca(parametro :Variant);override;
+    procedure carregar(const ID :integer = 0);override;
   public
-    procedure carregaDados(const ID :integer = 0);override;
+    procedure BeforeDestruction; override;
     procedure limpa;override;
 
-    property Convenio :TDepartamento read FDepartamento;
+    property Departamento :TDepartamento read FDepartamento;
   end;
 
 var
@@ -43,7 +44,14 @@ implementation
 
 { TBuscaDepartamento }
 
-procedure TBuscaDepartamento.carregaDados(const ID: integer);
+procedure TBuscaDepartamento.BeforeDestruction;
+begin
+  inherited;
+  if Assigned(FDepartamento) then
+    FreeAndNil(FDepartamento);
+end;
+
+procedure TBuscaDepartamento.carregar(const ID: integer);
 begin
   inherited;
   if not assigned(FDepartamento) then

@@ -11,7 +11,7 @@ uses
   JvDateTimePicker, JvExMask, JvToolEdit, Vcl.Mask, RxToolEdit, Data.DB,
   Datasnap.DBClient, JvTimer, JvTimerList, RxSpin, Vcl.Samples.Spin, RxCurrEdit,
   Vcl.Buttons, Vcl.DBGrids, DBGridCBN, SPA, frameBusca, Vcl.Imaging.pngimage,
-  frameBuscaDepartamento;
+  frameBuscaDepartamento, frameMostraServico, Servico;
 
 type
   TfrmAgendamentos = class(TfrmPadrao)
@@ -91,12 +91,15 @@ type
     Label5: TLabel;
     edtTempoDuracao: TMaskEdit;
     BuscaPessoa2: TBuscaPessoa;
-    BitBtn1: TBitBtn;
+    btnAddServico: TBitBtn;
     pnlServicos: TPanel;
-    imgSelecione: TImage;
-    Image5: TImage;
-    Image6: TImage;
-    Image7: TImage;
+    MostraServico1: TMostraServico;
+    MostraServico5: TMostraServico;
+    MostraServico4: TMostraServico;
+    MostraServico3: TMostraServico;
+    MostraServico2: TMostraServico;
+    btnIncMin: TBitBtn;
+    btnDecMin: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure StringGrid1DrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -109,14 +112,20 @@ type
     procedure BuscaTabelaPreco1Exit(Sender: TObject);
     procedure btnCriaHorarioClick(Sender: TObject);
     procedure BuscaPessoa1Exit(Sender: TObject);
+    procedure btnAddServicoClick(Sender: TObject);
+    procedure BuscaDepartamento1Exit(Sender: TObject);
+    procedure MostraServico1btnLimpaClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnIncMinClick(Sender: TObject);
+    procedure btnDecMinClick(Sender: TObject);
   private
-    FID_Departamento :integer;
     FPrimeiroHorarioDisponivel :TTime;
     FUltimoHorarioDisponivel   :TTime;
     FPrimeiroHorarioDia :TTime;
     FUltimoHorarioDia   :TTime;
     fimHorario, limiteHorario :TTime;
 
+    function tempoServicosSelecionados :TTime;
     procedure carregarHorariosDia;
     procedure mostrarHorariosDia(horarios: TObjectList<TSPA>);
     procedure carregarHorariosCliente;
@@ -126,6 +135,10 @@ type
     function marcaHorario :boolean;
     procedure insereHorarioGrid(spa :TSPA);
     procedure habilitaMarcacao(habilita :boolean);
+    procedure adicionaServicos(Horario :TSPA);
+
+    function adicionaServico(servico :TServico) :Boolean;
+    function servicoAdicionado(servico :TServico):boolean;
   public
     { Public declarations }
   end;
@@ -139,6 +152,46 @@ uses Utilitario, TipoPessoa, ServicoAgendado;
 
 {$R *.dfm}
 
+function TfrmAgendamentos.adicionaServico(servico: TServico) :Boolean;
+begin
+  result := false;
+  if not servicoAdicionado(servico)  then
+  begin
+    result := true;
+    if not assigned(MostraServico1.Servico) then
+      MostraServico1.carregaServico(servico.ID, strToTime(edtTempoDuracao.Text))
+    else if not assigned(MostraServico2.Servico) then
+      MostraServico2.carregaServico(servico.ID, strToTime(edtTempoDuracao.Text))
+    else if not assigned(MostraServico3.Servico) then
+      MostraServico3.carregaServico(servico.ID, strToTime(edtTempoDuracao.Text))
+    else if not assigned(MostraServico4.Servico) then
+      MostraServico4.carregaServico(servico.ID, strToTime(edtTempoDuracao.Text))
+    else if not assigned(MostraServico5.Servico) then
+      MostraServico5.carregaServico(servico.ID, strToTime(edtTempoDuracao.Text))
+    else
+    begin
+      result := false;
+      MessageDlg('O máximo de serviços por horário já foi atingido.', mtInformation,[mbOk],0);
+    end;
+  end;
+
+  BuscaTabelaPreco1.edtCodigo.SetFocus;
+end;
+
+procedure TfrmAgendamentos.adicionaServicos(Horario: TSPA);
+begin
+  if assigned(MostraServico1.Servico) then
+    Horario.ServicosAgendados.Add(MostraServico1.Servico, passar horario para salvar na tabela servico_agendado);
+  if assigned(MostraServico2.Servico) then
+    Horario.ServicosAgendados.Add(MostraServico2.Servico);
+  if assigned(MostraServico3.Servico) then
+    Horario.ServicosAgendados.Add(MostraServico3.Servico);
+  if assigned(MostraServico4.Servico) then
+    Horario.ServicosAgendados.Add(MostraServico4.Servico);
+  if assigned(MostraServico5.Servico) then
+    Horario.ServicosAgendados.Add(MostraServico5.Servico);
+end;
+
 procedure TfrmAgendamentos.BitBtn1Click(Sender: TObject);
 begin
 
@@ -147,10 +200,38 @@ begin
   //quando gera o numero de parcelas correspondente ao vezes na semana, o botao gerar restantes habilita
 end;
 
+procedure TfrmAgendamentos.btnAddServicoClick(Sender: TObject);
+begin
+  if adicionaServico(BuscaTabelaPreco1.TabelaPreco.Servico) then
+  begin
+    BuscaTabelaPreco1.limpa;
+    edtTempoDuracao.Clear;
+  end;
+end;
+
 procedure TfrmAgendamentos.btnCriaHorarioClick(Sender: TObject);
 begin
  if marcaHorario then
    MessageDlg('Horário criado com sucesso!', mtInformation,[mbOk],0);
+end;
+
+procedure TfrmAgendamentos.btnDecMinClick(Sender: TObject);
+begin
+  if not assigned(BuscaTabelaPreco1.TabelaPreco) then
+    exit;
+
+  edtTempoDuracao.Text := TimeToStr(strToTime(edtTempoDuracao.Text)-strToTime('00:10:00'));
+
+  if strToTime(edtTempoDuracao.Text) < strToTime('00:10:00') then
+    edtTempoDuracao.Text := ('00:10:00');
+end;
+
+procedure TfrmAgendamentos.btnIncMinClick(Sender: TObject);
+begin
+  if not assigned(BuscaTabelaPreco1.TabelaPreco) then
+    exit;
+
+  edtTempoDuracao.Text := TimeToStr(strToTime(edtTempoDuracao.Text)+strToTime('00:10:00'));
 end;
 
 procedure TfrmAgendamentos.BuscaConvenio1Exit(Sender: TObject);
@@ -159,6 +240,14 @@ begin
   BuscaConvenio1.FrameExit(Sender);
   if assigned(BuscaConvenio1.Convenio) then
     BuscaTabelaPreco1.IDConvenio := BuscaConvenio1.Convenio.ID;
+end;
+
+procedure TfrmAgendamentos.BuscaDepartamento1Exit(Sender: TObject);
+begin
+  inherited;
+  BuscaDepartamento1.FrameExit(Sender);
+  if assigned(BuscaDepartamento1.Departamento) then
+    BuscaTabelaPreco1.IDDepartamento := BuscaDepartamento1.Departamento.ID;
 end;
 
 procedure TfrmAgendamentos.BuscaPessoa1Exit(Sender: TObject);
@@ -248,7 +337,7 @@ begin
       StringGrid1.RowHeights[StringGrid1.RowCount-1] := alturaLinha;
 
       {Se o intervalo entre as sessoes (em min.) for maior que a duração do serviço selecionado, o intervalo é disponível}
-      if (minutos*10) >= TUtilitario.dataParaMinutos(horario.duracaoServicos) then
+      if (minutos*10) >= TUtilitario.dataParaMinutos(tempoServicosSelecionados) then
         StringGrid1.Cells[0,StringGrid1.RowCount-1] := formatDatetime('hh:mm',fimHorario) + ' às ' +
                                                        formatDatetime('hh:mm',horario.Hora) + ' DISPONÍVEL'
       else
@@ -275,25 +364,37 @@ begin
     minutos     := trunc((min1-min2)/10);
     alturaLinha := minutos * 6;
     StringGrid1.RowHeights[StringGrid1.RowCount-1] := alturaLinha;
-    if (minutos*10) >= TUtilitario.dataParaMinutos(horario.duracaoServicos) then
+    if (minutos*10) >= TUtilitario.dataParaMinutos(tempoServicosSelecionados) then
       StringGrid1.Cells[0,StringGrid1.RowCount-1] := formatDatetime('hh:mm',fimHorario) + ' às ' +
                                                      formatDatetime('hh:mm',limiteHorario) + ' DISPONÍVEL';
   end;
 
 end;
 
+procedure TfrmAgendamentos.MostraServico1btnLimpaClick(Sender: TObject);
+begin
+  inherited;
+  TMostraServico(TSpeedButton(Sender).Owner).btnLimpaClick(Sender);
+  TMostraServico(TSpeedButton(Sender).Owner).Visible := false;
+  TMostraServico(TSpeedButton(Sender).Owner).Align   := alNone;
+  TMostraServico(TSpeedButton(Sender).Owner).Left    := 700;
+end;
+
 procedure TfrmAgendamentos.FormCreate(Sender: TObject);
 begin
   inherited;
-  FID_Departamento := 1;
   BuscaPessoa1.Tipo := 1;    //trocar por get numerico
-  BuscaTabelaPreco1.IDDepartamento := FID_Departamento;
   FPrimeiroHorarioDia := StrToTime('06:00:00');
   FUltimoHorarioDia   := StrToTime('21:00:00');
   cdsHorarios.CreateDataSet;
   habilitaMarcacao(false);
   calendario.Date := Date;
   calendarioClick(nil);
+end;
+
+procedure TfrmAgendamentos.FormShow(Sender: TObject);
+begin
+  BuscaDepartamento1.edtCodigo.SetFocus;
 end;
 
 procedure TfrmAgendamentos.habilitaMarcacao(habilita: boolean);
@@ -329,18 +430,15 @@ end;
 
 function TfrmAgendamentos.marcaHorario :boolean;
 var SPA :TSPA;
-    Servico :TServicoAgendado;
 begin
   try
     SPA := TSPA.Create;
     SPA.Data            := calendario.Date;
     SPA.Hora            := StrToTime(speHoras.Text+':'+speMinutos.Text+':00');
     SPA.ID_Pessoa       := BuscaPessoa1.Pessoa.ID;
-    SPA.ID_Departamento := FID_Departamento;
+    SPA.ID_Departamento := BuscaDepartamento1.Departamento.ID;
 
-    Servico := TServicoAgendado.Create;
-    Servico.ID_TabelaPreco := BuscaTabelaPreco1.TabelaPreco.ID;
-    SPA.ServicosAgendados.Add(Servico);
+    adicionaServicos(SPA);
     SPA.Save;
 
     insereHorarioGrid(SPA);
@@ -348,7 +446,6 @@ begin
     calendarioClick(nil);
   finally
     FreeAndNil(SPA);
-    FreeAndNil(Servico);
   end;
 end;
 
@@ -358,7 +455,7 @@ var Horario  :TSPA;
 begin
  try
    Horario  := TSPA.Create;
-   Horarios := Horario.Horarios(BuscaPessoa1.Pessoa.ID, FID_Departamento,'');
+   Horarios := Horario.Horarios(BuscaPessoa1.Pessoa.ID, BuscaDepartamento1.Departamento.ID,'');
 
    mostrarHorariosCliente(Horarios);
 
@@ -401,6 +498,20 @@ begin
     hora := time;
 
   setaHorario(hora);
+end;
+
+function TfrmAgendamentos.servicoAdicionado(servico: TServico): boolean;
+begin
+  result := true;
+
+  if (assigned(MostraServico1.Servico) and (MostraServico1.Servico.ID = servico.ID)) or
+     (assigned(MostraServico2.Servico) and (MostraServico2.Servico.ID = servico.ID)) or
+     (assigned(MostraServico3.Servico) and (MostraServico3.Servico.ID = servico.ID)) or
+     (assigned(MostraServico4.Servico) and (MostraServico4.Servico.ID = servico.ID)) or
+     (assigned(MostraServico5.Servico) and (MostraServico5.Servico.ID = servico.ID)) then
+    MessageDlg('Serviço já inserido', mtInformation,[mbOk],0)
+  else
+    result := false;
 end;
 
 procedure TfrmAgendamentos.setaHorario(horario: TTime);
@@ -462,7 +573,7 @@ begin
     habilitaMarcacao(true);
     speHoras.SetFocus;
     FPrimeiroHorarioDisponivel       := StrToTime(copy(StringGrid1.Cells[ACol, ARow],1,5));
-    FUltimoHorarioDisponivel         := StrToTime(copy(StringGrid1.Cells[ACol, ARow],10,5)) - BuscaTabelaPreco1.TabelaPreco.Servico.Duracao;
+    FUltimoHorarioDisponivel         := StrToTime(copy(StringGrid1.Cells[ACol, ARow],10,5)) - tempoServicosSelecionados;
 
     if (calendario.Date = date) and (FUltimoHorarioDisponivel < time) then
       habilitaMarcacao(false)
@@ -473,6 +584,20 @@ begin
   begin
     habilitaMarcacao(false);
   end;
+end;
+
+function TfrmAgendamentos.tempoServicosSelecionados: TTime;
+begin
+  if assigned(MostraServico1.Servico) then
+    result := result + MostraServico1.TempoServico;
+  if assigned(MostraServico2.Servico) then
+    result := result + MostraServico2.TempoServico;
+  if assigned(MostraServico3.Servico) then
+    result := result + MostraServico3.TempoServico;
+  if assigned(MostraServico4.Servico) then
+    result := result + MostraServico4.TempoServico;
+  if assigned(MostraServico5.Servico) then
+    result := result + MostraServico5.TempoServico;
 end;
 
 end.

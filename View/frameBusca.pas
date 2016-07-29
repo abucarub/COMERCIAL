@@ -25,6 +25,7 @@ type
     procedure abrePesquisa(SQl :String; const titulo :String = 'Pesquisa');
     procedure efetuaBusca(parametro :Variant);virtual;abstract;
     procedure inicializa;virtual;abstract;
+    procedure carregar(const ID: integer);virtual;
   public
     procedure carregaDados(const ID :integer = 0);virtual;
     procedure limpa; virtual;abstract;
@@ -66,6 +67,13 @@ begin
   FcarregandoDados := true;
   if not FInicializou then
     inicializa;
+  self.carregar(ID);
+  FcarregandoDados := false;
+end;
+
+procedure TBusca.carregar(const ID: integer);
+begin
+
 end;
 
 procedure TBusca.edtEnter(Sender: TObject);

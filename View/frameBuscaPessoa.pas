@@ -24,8 +24,9 @@ type
   protected
     procedure inicializa;override;
     procedure efetuaBusca(parametro :Variant);override;
+    procedure carregar(const ID :integer = 0);override;
   public
-    procedure carregaDados(const ID :integer = 0);override;
+    procedure BeforeDestruction; override;
     procedure limpa;override;
 
     property Pessoa :TPessoa read FPessoa;
@@ -43,7 +44,14 @@ uses TipoPessoa;
 
 { TBuscaPessoa }
 
-procedure TBuscaPessoa.carregaDados(const ID: integer);
+procedure TBuscaPessoa.BeforeDestruction;
+begin
+  inherited;
+  if Assigned(FPessoa) then
+    FreeAndNil(FPessoa);
+end;
+
+procedure TBuscaPessoa.carregar(const ID: integer);
 begin
   inherited;
   if not assigned(FPessoa) then

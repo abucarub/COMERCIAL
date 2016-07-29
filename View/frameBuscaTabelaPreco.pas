@@ -27,8 +27,9 @@ type
   protected
     procedure efetuaBusca(parametro :Variant);override;
     procedure inicializa;override;
+    procedure carregar(const ID :integer = 0);override;
   public
-    procedure carregaDados(const ID :integer = 0);override;
+    procedure BeforeDestruction; override;
     procedure limpa;override;
 
     property TabelaPreco :TTabelaPreco read FTabelaPreco;
@@ -45,7 +46,14 @@ implementation
 
 { TBuscaTabelaPreco }
 
-procedure TBuscaTabelaPreco.carregaDados(const ID: integer);
+procedure TBuscaTabelaPreco.BeforeDestruction;
+begin
+  inherited;
+  if Assigned(FTabelaPreco) then
+    FreeAndNil(FTabelaPreco);
+end;
+
+procedure TBuscaTabelaPreco.carregar(const ID: integer);
 begin
   inherited;
   if not assigned(FTabelaPreco) then
@@ -106,6 +114,7 @@ end;
 
 procedure TBuscaTabelaPreco.limpa;
 begin
+
   if FcarregandoDados then
   begin
     FcarregandoDados := false;

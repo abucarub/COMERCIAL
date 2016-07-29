@@ -86,6 +86,12 @@ begin
   FHora           := 0;
   FCompareceu     := '';
   FPago           := '';
+  if assigned(FPessoa) then
+    FreeAndNil(FPessoa);
+  if assigned(FDepartamento) then
+    FreeAndNil(FDepartamento);
+  if assigned(FServicosAgendados) then
+    FServicosAgendados.Free;
 end;
 
 function TSPA.GetDepartamento: TDepartamento;

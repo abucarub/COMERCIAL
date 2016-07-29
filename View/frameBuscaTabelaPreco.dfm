@@ -1,45 +1,45 @@
 inherited BuscaTabelaPreco: TBuscaTabelaPreco
-  Width = 571
+  Width = 509
   OnEnter = FrameEnter
   OnExit = FrameExit
-  ExplicitWidth = 571
+  ExplicitWidth = 509
   object Label1: TLabel [0]
     Left = 11
     Top = 3
-    Width = 44
-    Height = 16
+    Width = 47
+    Height = 19
     Caption = 'C'#243'digo'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
-    Font.Style = []
+    Font.Color = 2697513
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label2: TLabel [1]
     Left = 117
     Top = 3
-    Width = 46
-    Height = 16
+    Width = 50
+    Height = 19
     Caption = 'Servi'#231'o'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
-    Font.Style = []
+    Font.Color = 2697513
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
     ParentFont = False
   end
   object Label3: TLabel [2]
     Left = 424
     Top = 3
-    Width = 32
-    Height = 16
+    Width = 35
+    Height = 19
     Caption = 'Valor'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
-    Font.Style = []
+    Font.Color = 2697513
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
     ParentFont = False
   end
   inherited btnBusca: TBitBtn
