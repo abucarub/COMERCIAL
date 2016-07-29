@@ -36,7 +36,8 @@ uses
   frameBuscaPessoa in 'frameBuscaPessoa.pas' {BuscaPessoa: TFrame},
   frameBuscaTabelaPreco in 'frameBuscaTabelaPreco.pas' {BuscaTabelaPreco: TFrame},
   frameBuscaCidade in 'frameBuscaCidade.pas' {BuscaCidade: TFrame},
-  ServicoAgendado in '..\Classes\ServicoAgendado.pas';
+  ServicoAgendado in '..\Classes\ServicoAgendado.pas',
+  frameBuscaDepartamento in 'frameBuscaDepartamento.pas' {BuscaDepartamento: TFrame};
 
 {$R *.res}
 

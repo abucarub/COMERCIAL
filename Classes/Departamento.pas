@@ -5,7 +5,7 @@ interface
 uses uPersistentObject, uAtrib, System.SysUtils;
 
 type
-  [TEBLENAME('DEPARTAMENTOS')]
+  [TABLENAME('DEPARTAMENTOS')]
   TDepartamento = class(TPersistentObject)
   private
     FDepartamento: String;

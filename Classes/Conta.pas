@@ -13,7 +13,6 @@ type
     FValorPago: Real;
     FQtdParcelas: Integer;
     FStatus: String;
-    FID_Caixa: Integer;
 
   public
     [FieldName('ID_SPA')]
@@ -26,8 +25,6 @@ type
     property QtdParcelas: Integer read FQtdParcelas write FQtdParcelas;
     [FieldName('STATUS')]
     property Status: String read FStatus write FStatus;
-    [FieldName('ID_CAIXA')]
-    property ID_Caixa: Integer read FID_Caixa write FID_Caixa;
 
   public
     procedure LoadClass(const AValue: Integer);
@@ -46,7 +43,6 @@ begin
   FValorPago   := 0;
   FQtdParcelas := 0;
   FStatus      := '';
-  FID_Caixa    := 0;
 end;
 
 function TConta.isEmpty: Boolean;
@@ -55,8 +51,7 @@ begin
             (FTotalConta = 0) and
             (FValorPago = 0) and
             (FQtdParcelas = 0) and
-            (FStatus = '') and
-            (FID_Caixa = 0);
+            (FStatus = '');
 end;
 
 procedure TConta.LoadClass(const AValue: Integer);

@@ -10,7 +10,8 @@ uses
   JvExComCtrls, JvMonthCalendar, Vcl.Grids, Vcl.Samples.Calendar,
   JvDateTimePicker, JvExMask, JvToolEdit, Vcl.Mask, RxToolEdit, Data.DB,
   Datasnap.DBClient, JvTimer, JvTimerList, RxSpin, Vcl.Samples.Spin, RxCurrEdit,
-  Vcl.Buttons, Vcl.DBGrids, DBGridCBN, SPA, frameBusca, Vcl.Imaging.pngimage;
+  Vcl.Buttons, Vcl.DBGrids, DBGridCBN, SPA, frameBusca, Vcl.Imaging.pngimage,
+  frameBuscaDepartamento;
 
 type
   TfrmAgendamentos = class(TfrmPadrao)
@@ -51,9 +52,6 @@ type
     cdsHorariosDIA_SEMANA: TStringField;
     dsHorarios: TDataSource;
     Panel1: TPanel;
-    BuscaPessoa1: TBuscaPessoa;
-    BuscaConvenio1: TBuscaConvenio;
-    BuscaTabelaPreco1: TBuscaTabelaPreco;
     gpbHorario: TGroupBox;
     Shape3: TShape;
     Label3: TLabel;
@@ -67,8 +65,6 @@ type
     Shape1: TShape;
     Label4: TLabel;
     DBGridCBN1: TDBGridCBN;
-    edtTempoDuracao: TMaskEdit;
-    Label5: TLabel;
     dsServicos: TDataSource;
     cdsServicos: TClientDataSet;
     cdsServicosHORARIO: TStringField;
@@ -87,7 +83,20 @@ type
     lbDiaSemana: TLabel;
     Shape6: TShape;
     Image4: TImage;
-    Label2: TLabel;
+    Panel2: TPanel;
+    BuscaConvenio1: TBuscaConvenio;
+    BuscaDepartamento1: TBuscaDepartamento;
+    BuscaPessoa1: TBuscaPessoa;
+    BuscaTabelaPreco1: TBuscaTabelaPreco;
+    Label5: TLabel;
+    edtTempoDuracao: TMaskEdit;
+    BuscaPessoa2: TBuscaPessoa;
+    BitBtn1: TBitBtn;
+    pnlServicos: TPanel;
+    imgSelecione: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    Image7: TImage;
     procedure FormCreate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure StringGrid1DrawCell(Sender: TObject; ACol, ARow: Integer;
@@ -387,7 +396,8 @@ begin
   lbHMaximo.Caption      := formatDateTime('hh:mm',FUltimoHorarioDisponivel);
 
   hora := FPrimeiroHorarioDisponivel;
-  if FPrimeiroHorarioDisponivel < time then
+
+  if (calendario.Date = date) and (FPrimeiroHorarioDisponivel < time) then
     hora := time;
 
   setaHorario(hora);
@@ -413,6 +423,9 @@ begin
     setaHorario(FPrimeiroHorarioDisponivel)
   else if horarioInformado > FUltimoHorarioDisponivel then
     setaHorario(FUltimoHorarioDisponivel);
+
+  speHoras.Text   := FormatFloat('00', speHoras.Value);
+  speMinutos.Text := FormatFloat('00', speMinutos.Value);
 end;
 
 procedure TfrmAgendamentos.StringGrid1DrawCell(Sender: TObject; ACol,
@@ -436,7 +449,6 @@ begin
   else
     StringGrid1.Canvas.Brush.Color := clWhite;
 
-
   StringGrid1.Canvas.FillRect(Rect); // redesenha a celula
   StringGrid1.Canvas.TextOut(Rect.Left+largurac-largurat,Rect.Top+larguraCL-larguraTL, texto);
 
@@ -452,10 +464,10 @@ begin
     FPrimeiroHorarioDisponivel       := StrToTime(copy(StringGrid1.Cells[ACol, ARow],1,5));
     FUltimoHorarioDisponivel         := StrToTime(copy(StringGrid1.Cells[ACol, ARow],10,5)) - BuscaTabelaPreco1.TabelaPreco.Servico.Duracao;
 
-    if FUltimoHorarioDisponivel > time then
-      defineHorarioMinMax
+    if (calendario.Date = date) and (FUltimoHorarioDisponivel < time) then
+      habilitaMarcacao(false)
     else
-      habilitaMarcacao(false);
+      defineHorarioMinMax;
   end
   else
   begin
