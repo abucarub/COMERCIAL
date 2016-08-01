@@ -3,7 +3,7 @@ inherited frmAgendamentos: TfrmAgendamentos
   ClientHeight = 681
   ClientWidth = 1019
   OnShow = FormShow
-  ExplicitTop = -30
+  ExplicitTop = -9
   ExplicitWidth = 1035
   ExplicitHeight = 719
   PixelsPerInch = 96
@@ -569,6 +569,8 @@ inherited frmAgendamentos: TfrmAgendamentos
       TabOrder = 0
       OnDrawCell = StringGrid1DrawCell
       OnSelectCell = StringGrid1SelectCell
+      ColWidths = (
+        220)
     end
   end
   object Panel1: TPanel
@@ -945,9 +947,11 @@ inherited frmAgendamentos: TfrmAgendamentos
         MaxValue = 21
         MinValue = 6
         ParentFont = False
+        ReadOnly = True
         TabOrder = 0
         Value = 6
         OnChange = speHorasChange
+        OnEnter = speHorasEnter
       end
       object speMinutos: TSpinEdit
         Left = 183
@@ -964,9 +968,11 @@ inherited frmAgendamentos: TfrmAgendamentos
         MaxValue = 50
         MinValue = 0
         ParentFont = False
+        ReadOnly = True
         TabOrder = 1
         Value = 0
         OnChange = speHorasChange
+        OnEnter = speHorasEnter
       end
       object btnCriaHorario: TBitBtn
         Left = 59
@@ -1053,7 +1059,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       Height = 160
       CalColors.TextColor = clBlue
       CalColors.MonthBackColor = clTeal
-      Date = 42566.490104398150000000
+      Date = 42566.358211053240000000
       TabOrder = 2
       OnClick = calendarioClick
     end
@@ -1121,7 +1127,6 @@ inherited frmAgendamentos: TfrmAgendamentos
         item
           Expanded = False
           FieldName = 'DATA'
-          Width = 64
           Visible = True
         end
         item

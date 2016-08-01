@@ -119,6 +119,7 @@ type
     procedure btnIncMinClick(Sender: TObject);
     procedure btnDecMinClick(Sender: TObject);
     procedure BuscaTabelaPreco1edtCodigoChange(Sender: TObject);
+    procedure speHorasEnter(Sender: TObject);
   private
     FPrimeiroHorarioDisponivel :TTime;
     FUltimoHorarioDisponivel   :TTime;
@@ -311,17 +312,18 @@ var time :TTime;
     minutos,min1,min2 :integer;
     alturaLinha :integer;
     primeiroCriado :Boolean;
-
+    tempo_minimo :TTime;
 begin
   StringGrid1.RowCount := 1;
   StringGrid1.RowHeights[StringGrid1.RowCount-1] := 0;
+  tempo_minimo := strToTime('00:10:00');
 
   if not assigned(horarios) then
   begin
     min1 :=  TUtilitario.dataParaMinutos(FUltimoHorarioDia);
     min2 :=  TUtilitario.dataParaMinutos(FPrimeiroHorarioDia);
-    minutos     := trunc((min1-min2)/10);
-    alturaLinha := minutos * 6;
+    minutos     := trunc((min1-min2)/5);
+    alturaLinha := minutos * 3;
     StringGrid1.RowHeights[StringGrid1.RowCount-1] := alturaLinha;
     StringGrid1.Cells[0,StringGrid1.RowCount-1] := formatDatetime('hh:mm',FPrimeiroHorarioDia) + ' às ' +
                                                        formatDatetime('hh:mm',FUltimoHorarioDia) + ' DISPONÍVEL';
@@ -340,12 +342,12 @@ begin
       StringGrid1.RowCount := StringGrid1.RowCount +1;
       min1 :=  TUtilitario.dataParaMinutos(horario.Hora);
       min2 :=  TUtilitario.dataParaMinutos(fimHorario);
-      minutos     := trunc((min1-min2)/10);
-      alturaLinha := minutos * 6;
+      minutos     := trunc((min1-min2)/5);
+      alturaLinha := minutos * 3;
       StringGrid1.RowHeights[StringGrid1.RowCount-1] := alturaLinha;
 
       {Se o intervalo entre as sessoes (em min.) for maior que a duração do serviço selecionado, o intervalo é disponível}
-      if (minutos*10) >= TUtilitario.dataParaMinutos(tempoServicosSelecionados) then
+      if ((minutos*5) > TUtilitario.dataParaMinutos(tempo_minimo)) and ((minutos*5) >= TUtilitario.dataParaMinutos(tempoServicosSelecionados)) then
         StringGrid1.Cells[0,StringGrid1.RowCount-1] := formatDatetime('hh:mm',fimHorario) + ' às ' +
                                                        formatDatetime('hh:mm',horario.Hora) + ' DISPONÍVEL'
       else
@@ -355,7 +357,7 @@ begin
     StringGrid1.RowCount := StringGrid1.RowCount +1;
 
     minutos     := TUtilitario.dataParaMinutos(horario.duracaoServicos); //pega a duração do serviço pela sessao
-    alturaLinha := trunc(minutos/10)*6;
+    alturaLinha := trunc(minutos/5)*3;
     StringGrid1.RowHeights[StringGrid1.RowCount-1] := alturaLinha;
     StringGrid1.Cells[0,StringGrid1.RowCount-1]    := formatDatetime('hh:mm',horario.Hora) + ' às ' +
                                                       formatDatetime('hh:mm',horario.Hora + horario.duracaoServicos) +
@@ -369,10 +371,10 @@ begin
     StringGrid1.RowCount := StringGrid1.RowCount +1;
     min1 :=  TUtilitario.dataParaMinutos(limiteHorario);
     min2 :=  TUtilitario.dataParaMinutos(fimHorario);
-    minutos     := trunc((min1-min2)/10);
-    alturaLinha := minutos * 6;
+    minutos     := trunc((min1-min2)/5);
+    alturaLinha := minutos * 3;
     StringGrid1.RowHeights[StringGrid1.RowCount-1] := alturaLinha;
-    if (minutos*10) >= TUtilitario.dataParaMinutos(tempoServicosSelecionados) then
+    if ((minutos*5) > TUtilitario.dataParaMinutos(tempo_minimo)) and ((minutos*5) >= TUtilitario.dataParaMinutos(tempoServicosSelecionados)) then
       StringGrid1.Cells[0,StringGrid1.RowCount-1] := formatDatetime('hh:mm',fimHorario) + ' às ' +
                                                      formatDatetime('hh:mm',limiteHorario) + ' DISPONÍVEL'
     else
@@ -567,6 +569,11 @@ begin
 
   speHoras.Text   := FormatFloat('00', speHoras.Value);
   speMinutos.Text := FormatFloat('00', speMinutos.Value);
+end;
+
+procedure TfrmAgendamentos.speHorasEnter(Sender: TObject);
+begin
+  TSpinEdit(Sender).SelectAll;
 end;
 
 procedure TfrmAgendamentos.StringGrid1DrawCell(Sender: TObject; ACol,
