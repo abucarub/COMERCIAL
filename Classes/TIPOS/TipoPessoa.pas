@@ -4,7 +4,7 @@ interface
 
 uses System.SysUtils;
 
-type TTipoPessoa = (tpCliente=1, tpFuncionario=2);
+type TTipoPessoa = (tpCliente=1, tpProfissional=2);
 
 type
   TTipoPessoaGet = class
@@ -20,7 +20,7 @@ class function TTipoPessoaGet.getDescricaoTipo(tipo: integer): String;
 begin
   case tipo of
     1 : result := 'Cliente';
-    2 : result := 'Funcionário';
+    2 : result := 'Profissional';
     else
       raise Exception.Create('Tipo de pessoa inválido');
   end;

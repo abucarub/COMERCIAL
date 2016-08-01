@@ -19,12 +19,15 @@ type
     FPessoa: TPessoa;
     FID_Departamento: Integer;
     FDepartamento: TDepartamento;
+    FProfissional: TPessoa;
+    FID_Profissional: Integer;
 
     function GetServicosAgendados: TObjectList<TServicoAgendado>;
     function GetDuracaoServicos: TDateTime;
     function GetPessoa: TPessoa;
     function GetDepartamento: TDepartamento;
     function GetHorarioPassado: Boolean;
+    function GetProfissional: TPessoa;
 
   public
   {  [FieldName('ID_AGENDAMENTO')]
@@ -33,6 +36,8 @@ type
     property ID_Pessoa: Integer read FID_Pessoa write FID_Pessoa;
     [FieldName('ID_DEPARTAMENTO')]
     property ID_Departamento: Integer read FID_Departamento write FID_Departamento;
+    [FieldName('ID_PROFISSIONAL')]
+    property ID_Profissional: Integer read FID_Profissional write FID_Profissional;
     [FieldName('DATA')]
     property Data: TDate read FData write FData;
     [FieldName('HORA')]
@@ -44,6 +49,8 @@ type
 
     [HasOne('ID_PESSOA')]
     property Pessoa: TPessoa read GetPessoa write FPessoa;
+    [HasOne('ID_FUNCIONARIO')]
+    property Profissional: TPessoa read GetProfissional write FProfissional;
     [HasOne('ID_DEPARTAMENTO')]
     property Departamento: TDepartamento read GetDepartamento write FDepartamento;
 
@@ -81,7 +88,6 @@ end;
 procedure TSPA.Clear;
 begin
   ID              := 0;
- // FID_Agendamento := 0;
   FData           := 0;
   FHora           := 0;
   FCompareceu     := '';
@@ -121,12 +127,23 @@ end;
 function TSPA.GetPessoa: TPessoa;
 begin
   if not assigned(FPessoa) then
-    FPessoa := self.LoadOne<TPessoa>;
+    FPessoa := self.LoadOne<TPessoa>(FID_PESSOA);
 
   if not assigned(FPessoa) then
     FPessoa := TPessoa.Create;
 
   Result := FPessoa;
+end;
+
+function TSPA.GetProfissional: TPessoa;
+begin
+  if not assigned(FProfissional) then
+    FProfissional := self.LoadOne<TPessoa>(FID_Profissional);
+
+  if not assigned(FProfissional) then
+    FProfissional := TPessoa.Create;
+
+  Result := FProfissional;
 end;
 
 function TSPA.GetServicosAgendados: TObjectList<TServicoAgendado>;

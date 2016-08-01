@@ -1,608 +1,38 @@
 inherited frmAgendamentos: TfrmAgendamentos
   Caption = 'Agendamentos'
-  ClientHeight = 681
-  ClientWidth = 1019
+  ClientHeight = 640
+  ClientWidth = 1121
   OnShow = FormShow
-  ExplicitTop = -9
-  ExplicitWidth = 1035
-  ExplicitHeight = 719
+  ExplicitWidth = 1137
+  ExplicitHeight = 678
   PixelsPerInch = 96
   TextHeight = 18
-  object rgpHorarios: TGroupBox
+  object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 285
-    Height = 681
-    Align = alLeft
-    Color = clBtnFace
-    ParentBackground = False
-    ParentColor = False
-    TabOrder = 1
-    object Shape4: TShape
-      Left = 0
-      Top = 45
-      Width = 64
-      Height = 640
-      Brush.Color = 15263976
-      Pen.Color = clBtnFace
-      Pen.Style = psClear
-    end
-    object Shape5: TShape
-      Left = 1
-      Top = 2
-      Width = 283
-      Height = 47
-      Pen.Color = clBtnFace
-      Pen.Style = psClear
-    end
-    object Label6: TLabel
-      Left = 16
-      Top = 78
-      Width = 40
-      Height = 21
-      Caption = '06:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label7: TLabel
-      Left = 16
-      Top = 114
-      Width = 40
-      Height = 21
-      Caption = '07:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label8: TLabel
-      Left = 16
-      Top = 150
-      Width = 40
-      Height = 21
-      Caption = '08:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label9: TLabel
-      Left = 16
-      Top = 186
-      Width = 40
-      Height = 21
-      Caption = '09:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label10: TLabel
-      Left = 16
-      Top = 222
-      Width = 40
-      Height = 21
-      Caption = '10:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label11: TLabel
-      Left = 16
-      Top = 258
-      Width = 40
-      Height = 21
-      Caption = '11:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label12: TLabel
-      Left = 16
-      Top = 294
-      Width = 40
-      Height = 21
-      Caption = '12:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label13: TLabel
-      Left = 16
-      Top = 330
-      Width = 40
-      Height = 21
-      Caption = '13:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label14: TLabel
-      Left = 16
-      Top = 366
-      Width = 40
-      Height = 21
-      Caption = '14:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label15: TLabel
-      Left = 16
-      Top = 402
-      Width = 40
-      Height = 21
-      Caption = '15:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label16: TLabel
-      Left = 16
-      Top = 438
-      Width = 40
-      Height = 21
-      Caption = '16:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label17: TLabel
-      Left = 16
-      Top = 474
-      Width = 40
-      Height = 21
-      Caption = '17:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label18: TLabel
-      Left = 16
-      Top = 510
-      Width = 40
-      Height = 21
-      Caption = '18:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label19: TLabel
-      Left = 16
-      Top = 546
-      Width = 40
-      Height = 21
-      Caption = '19:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label20: TLabel
-      Left = 16
-      Top = 582
-      Width = 40
-      Height = 21
-      Caption = '20:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label21: TLabel
-      Left = 16
-      Top = 618
-      Width = 40
-      Height = 21
-      Caption = '21:00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -16
-      Font.Name = 'Segoe UI'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Label22: TLabel
-      Left = 26
-      Top = 98
-      Width = 31
-      Height = 17
-      Caption = '06:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label23: TLabel
-      Left = 26
-      Top = 134
-      Width = 31
-      Height = 17
-      Caption = '07:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label24: TLabel
-      Left = 26
-      Top = 206
-      Width = 31
-      Height = 17
-      Caption = '09:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label25: TLabel
-      Left = 26
-      Top = 170
-      Width = 31
-      Height = 17
-      Caption = '08:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label26: TLabel
-      Left = 26
-      Top = 350
-      Width = 31
-      Height = 17
-      Caption = '13:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label27: TLabel
-      Left = 26
-      Top = 314
-      Width = 31
-      Height = 17
-      Caption = '12:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label28: TLabel
-      Left = 26
-      Top = 278
-      Width = 31
-      Height = 17
-      Caption = '11:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label29: TLabel
-      Left = 26
-      Top = 242
-      Width = 31
-      Height = 17
-      Caption = '10:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label30: TLabel
-      Left = 26
-      Top = 494
-      Width = 31
-      Height = 17
-      Caption = '17:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label31: TLabel
-      Left = 26
-      Top = 458
-      Width = 31
-      Height = 17
-      Caption = '16:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label32: TLabel
-      Left = 26
-      Top = 422
-      Width = 31
-      Height = 17
-      Caption = '15:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label33: TLabel
-      Left = 26
-      Top = 386
-      Width = 31
-      Height = 17
-      Caption = '14:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label34: TLabel
-      Left = 26
-      Top = 530
-      Width = 31
-      Height = 17
-      Caption = '18:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label35: TLabel
-      Left = 26
-      Top = 566
-      Width = 31
-      Height = 17
-      Caption = '19:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label36: TLabel
-      Left = 26
-      Top = 602
-      Width = 31
-      Height = 17
-      Caption = '20:30'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lbHorarioDia: TLabel
-      Left = 58
-      Top = 4
-      Width = 107
-      Height = 21
-      Caption = 'Hor'#225'rios do dia'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = 13261071
-      Font.Height = -17
-      Font.Name = 'Calibri'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
-    object Image3: TImage
-      Left = 12
-      Top = 7
-      Width = 35
-      Height = 33
-      Picture.Data = {
-        0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
-        00200806000000737A7AF4000009064944415478DAB5570B7493E5197EFE3F7F
-        AEE4D6240D695A69AD6DA9A08220501822C200658A3BBAE9E61C7215C7B50C91
-        097801063804445664789BD4C10474DC14810D752A22052D605A28BDA729692E
-        4D9334D7E64FE2FBA714F17A0A73DF39EFF972CE97BCCFF3DEDF30F8690E2B48
-        CF9E3D65191966191D2E180CF056AB35E4F3F93AE82D7151BE73989F005832E5
-        D1D903860E1BF6F07539D923D52A5516CB329250381C71B77AEA6AEB1B0E7EF2
-        D1C76FECDEB9ED3C7D97FF3691AB26A0542AD97E030799A73DF2E8CAE143873C
-        98613470C964121DD128A21D51241209C4E309844261D8EC8EC0C953674AB694
-        BCF05C435D8DF77212574B80BD73C2BD05C5C5F3768C183AE42620890B0E173C
-        A12462AC04F2560BFCF24C84223CD8901B3D0D7A448858B9E5EC81174B364EFD
-        B2FC73671789AB21C0E6175E6F5CFBFCC6BDE3468D181C8D44506DF743A23141
-        2563211501BAB7C6C3D56F2EACA67170876270588E2257C940DE4385B2F2536F
-        2E5E583C231C0AF9AF9680E4D9E74B56CC98FCD0E34202543923D019D2A19532
-        9070645612884623F0C5A5704592F0C700B7AB05A1965AE488C9239C147BDEDD
-        3F75D3FABF940A3971A504D8FE0307E56E7A71F3B17E7D0B0DD5363794E9D740
-        AF602026361D7120C82711A0BCF7C7E826F507B6FD0DB5E5C7F058C956580EBE
-        851BAF2D40555DF599598F3C7C7B2412F65C29016EDEE38B1F5D583CFBAF9465
-        68896B718D5E01B9180893A5DE683225212242170E6FDF828A4F8FE08F1B5EC1
-        2D995A9C6BB6C376E273A8B4FAC4E697368EDBFFF68EF7AF94806CF3ABAFFFFD
-        BEBBC7FFA6D9E583C8908B0C8A2D435A3CE1249C24BE681CB5674FA19AACAE3A
-        F11166AE7B0586340D0A540C44E4A57D3BFE85DC5EBDB1F7C0AE27D63FBB7CED
-        951250BFF9D6EEBD23860D1979BEB90D85AE3D88F79F8C98A227DC146F5704F8
-        CF8E9731383B0DA55B4BA1CFEF0B854A89813F1B81BB6FEE0DDD1BABB0376F2C
-        CCA61B70E8FDDD1B972F5DB0F08A09FCE3CD5DFB6F1D3A78C4978D6EF46FD986
-        B69BE7A24395954AB600C5FF839D2FA3B786C5479F9D407A5E21584218503414
-        77F5CE8472D322EC1F321119A65BF0DE917F962C5B327FC19512506ED8B465DB
-        F831B74FA8B0BAC1670D86520288A8F4083BD5E618260EEBD972F4CACB87264D
-        0B8E2A43276670AD8C4995DCEEBDFF46B6790076ED7971D5BAD54F2DEB0E01F6
-        A2700281E933E72C9935635AB1DDDE02977938E43209C4F4C2B282302940B1E8
-        EB5B485033914CA7CFDE481887F61D47665621D6AC9BFBDB7776EFDAC95C0682
-        8B2082C8264F18D72BEF1A73814AA128D0C8987CA3B4234F2BE67394E2A4B9F5
-        C607A0D2A5A3AC3904D30D45504B182448539211BCD1092EF40439C7404F044C
-        740BA138FCC18748EB31100D4D16DBB4C977DC1E68F7D70904B895B3A6DC61D0
-        2847A7B3E1023DD791AB11C7735489B04CC5FBA18AF9208B06A8C8A9B8797272
-        228ED3B9E3111D391517EC76F0D90350949F8938B5633FDF49822312320A8B96
-        C0356C2778759315955F386036F745E9F6956B366D58B582B0030201F53BABE7
-        FCF70EBDBDBFA8A21270B41250A2138C864BCA3722E6A2B048883878B26E4259
-        D12CE88C26D4355AA1E9DD0F030AF3A0235733F1389857974374CF14B01939A0
-        7E044B7515CE9FB6233F6F384E961F3AB5A0F8C107C8FA1AD22C380EDA9D4F4C
-        79EFD7DCB92234350117DCA4854D01074DB9247968371792F44120FD3A048DD7
-        D19B08B14808097B2D740A191C0E27BC7C0CB97DFAA020873AE3CA29884E5C84
-        7A4E89AACA5A28445914F7EB71B6EAB3BA152B664EAFAAB47C42B8C29E904A4C
-        F5AB0B67BC7D6F3AFFF3A4D78D0B8563103015A03DB30F1262D90F6626432E67
-        A241842FD493BB3948C572B4B5B5C1E3F180114BC1311218F4D930A467231C09
-        E0F889439F946C5CB6A4B1BEAE8C7E1EF95A0F65F60B4FCCDF3A72CE33F786C3
-        5104932CA9FEE69412277988123C38BAA56C126A99180ACA8FB854039D4685EA
-        7315A8698D23110C24143DB42C279253F458B4070281FAC62ACB9123FB761D7E
-        77CF1EDA116C5D965F4E40B666DEF4CDA3E6AF9A14EBE0D1C1492E3D28E24164
-        A9A510D34CE7150618D472F8DC0E2868000925E66A6D83D16884BDC5812A871F
-        A5CF14979EA8B71F91C9E51C8DDB80CDDA60F3FB7C02A8FBA2D589EF7A922A66
-        C51F26AD1B3DFBE9D9094604510F25BA5CA0880570632E65386D38BE40086969
-        6929170B47D878C840F4502810F4B4C021CD40CBD103EE8AE31FAF5EFED21BAF
-        C778DE7F19E0F7EE8397082C9DF6BBA7474FFFD36246A6805AA7EB7C4826C045
-        FD306995E08940A4230605359D98CF05B539173DA41C5CB606F246165A5B5BE1
-        63E488311C62AD2DA87C67DBF6694FAD9E7A79AC7F8C00B770E2FDC5A326CD7F
-        4EA4D422B3671AD56F92924A84B0C70E536E1FA0DD015F420A5D9A0E9E5657AA
-        4A05378582414A3223142C6D3D4E5AC9C47AF81AAAF0DADA3FCF7B6DEFC197BA
-        4B809DFDC03DD3C6FE7ECE16566D407E8E11D9461D2412095C4E27F40643CAD5
-        4286CBE5725A3A23D0EB0DA916DCD6540DA5392FB501B9BCED7037DB681A6EDD
-        B964C3E6F9A4B7E5C75CFF0D02137F31E6571326CDDEC16A33D0BF6F36B494E5
-        428C7D1EDA78346990515B8D51CBD011B0D7D90C85C60089540ADAF9E1F5F911
-        F47AD068B1E0C3C3FBB63F57BAEB49D2D9D01DF04B04EEBAB568EC438F14BF07
-        5D16860FBA1E2C1F85812C6F733B916E32234E4DC6474069941F4212F2D42579
-        22D876C186E63A2B1ADB24E05905AC475F59B466EB8EF5E81C8CDD3A290237F7
-        CE2B7A6CE1D2A3715D2FDC39720018AA791D813929046AB51A418A7520100427
-        16531314C1676F428DA51A6E6F54F00CDFEE6E6CF0396ABFF8BCF2DC0B078E96
-        7DD65DEBBB08402A11F77979434905AFCBC17DE387C1DBE68158DC19062117A4
-        3219843F1DCEFA6AD49C389AA8AFB736D85D6E4B4D63E3F183C74E9679DB0356
-        5223D4A7507A1DDD05BF44804ECE6BEBD69EE68D85EA077F795B6AAEA772C069
-        87BBA931517BBECA5671FA94E57C43E3C9439F9E3CE66CF30A31169A4B005FFF
-        DDEAB6D5DF474079FF98DB268E1E35E6C9A261434C0D35D5B68A33A72AABEA1A
-        4E1E292B3F6673B8EA2E03ECF85F007F888030741506ADA6304DAD34565B9BAD
-        1701BB5CFA9301FE1081AED3B57EFDDF00BF7DBE024684F46AA4A40E54000000
-        0049454E44AE426082}
-    end
-    object lbDiaSemana: TLabel
-      Left = 114
-      Top = 24
-      Width = 64
-      Height = 15
-      Alignment = taCenter
-      Caption = 'dia semana'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = 13261071
-      Font.Height = -13
-      Font.Name = 'Calibri'
-      Font.Style = []
-      ParentFont = False
-    end
-    object StringGrid1: TStringGrid
-      Left = 62
-      Top = 88
-      Width = 206
-      Height = 547
-      ColCount = 1
-      DefaultColWidth = 220
-      DefaultRowHeight = 0
-      FixedCols = 0
-      RowCount = 2
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = 3026478
-      Font.Height = -15
-      Font.Name = 'Calibri'
-      Font.Style = [fsBold]
-      GradientEndColor = clWhite
-      GridLineWidth = 0
-      ParentFont = False
-      ScrollBars = ssNone
-      TabOrder = 0
-      OnDrawCell = StringGrid1DrawCell
-      OnSelectCell = StringGrid1SelectCell
-      ColWidths = (
-        220)
-    end
-  end
-  object Panel1: TPanel
-    Left = 285
-    Top = 0
-    Width = 734
-    Height = 681
+    Width = 1121
+    Height = 640
     Align = alClient
     BevelOuter = bvNone
     Color = 16250871
     ParentBackground = False
     TabOrder = 0
     object Shape1: TShape
-      Left = -2
-      Top = 239
-      Width = 708
-      Height = 487
+      Left = 0
+      Top = 185
+      Width = 768
+      Height = 455
+      Align = alClient
       Brush.Color = 14737632
       Pen.Style = psClear
-    end
-    object Shape2: TShape
-      Left = 327
-      Top = 238
-      Width = 408
-      Height = 487
-      Brush.Color = 13948116
-      Pen.Color = clBtnFace
-      Pen.Style = psInsideFrame
+      ExplicitLeft = -26
+      ExplicitTop = 183
+      ExplicitWidth = 743
+      ExplicitHeight = 487
     end
     object Label37: TLabel
-      Left = 76
-      Top = 258
+      Left = 564
+      Top = 197
       Width = 182
       Height = 21
       Caption = 'Selecione a data desejada'
@@ -614,8 +44,8 @@ inherited frmAgendamentos: TfrmAgendamentos
       ParentFont = False
     end
     object Image2: TImage
-      Left = 31
-      Top = 254
+      Left = 519
+      Top = 193
       Width = 35
       Height = 33
       Picture.Data = {
@@ -664,20 +94,12 @@ inherited frmAgendamentos: TfrmAgendamentos
         D9D981CFE7AF3AC0E4E42473842F0D909B9BBB9934A6AB7EF739931100995E80
         FFDAFE06DE90265D364FBAA20000000049454E44AE426082}
     end
-    object Shape6: TShape
-      Left = 328
-      Top = 239
-      Width = 406
-      Height = 51
-      Pen.Color = clBtnFace
-      Pen.Style = psClear
-    end
-    object Label4: TLabel
-      Left = 390
-      Top = 252
-      Width = 148
+    object lbHorarioDia: TLabel
+      Left = 14
+      Top = 195
+      Width = 124
       Height = 23
-      Caption = 'Hor'#225'rios marcados'
+      Caption = 'Hor'#225'rios do dia '
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 13261071
       Font.Height = -19
@@ -685,94 +107,25 @@ inherited frmAgendamentos: TfrmAgendamentos
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object Image4: TImage
-      Left = 343
-      Top = 249
-      Width = 35
-      Height = 33
-      Picture.Data = {
-        0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
-        00200806000000737A7AF4000009064944415478DAB5570B7493E5197EFE3F7F
-        AEE4D6240D695A69AD6DA9A08220501822C200658A3BBAE9E61C7215C7B50C91
-        097801063804445664789BD4C10474DC14810D752A22052D605A28BDA729692E
-        4D9334D7E64FE2FBA714F17A0A73DF39EFF972CE97BCCFF3DEDF30F8690E2B48
-        CF9E3D65191966191D2E180CF056AB35E4F3F93AE82D7151BE73989F005832E5
-        D1D903860E1BF6F07539D923D52A5516CB329250381C71B77AEA6AEB1B0E7EF2
-        D1C76FECDEB9ED3C7D97FF3691AB26A0542AD97E030799A73DF2E8CAE143873C
-        98613470C964121DD128A21D51241209C4E309844261D8EC8EC0C953674AB694
-        BCF05C435D8DF77212574B80BD73C2BD05C5C5F3768C183AE42620890B0E173C
-        A12462AC04F2560BFCF24C84223CD8901B3D0D7A448858B9E5EC81174B364EFD
-        B2FC73671789AB21C0E6175E6F5CFBFCC6BDE3468D181C8D44506DF743A23141
-        2563211501BAB7C6C3D56F2EACA67170876270588E2257C940DE4385B2F2536F
-        2E5E583C231C0AF9AF9680E4D9E74B56CC98FCD0E34202543923D019D2A19532
-        9070645612884623F0C5A5704592F0C700B7AB05A1965AE488C9239C147BDEDD
-        3F75D3FABF940A3971A504D8FE0307E56E7A71F3B17E7D0B0DD5363794E9D740
-        AF602026361D7120C82711A0BCF7C7E826F507B6FD0DB5E5C7F058C956580EBE
-        851BAF2D40555DF599598F3C7C7B2412F65C29016EDEE38B1F5D583CFBAF9465
-        68896B718D5E01B9180893A5DE683225212242170E6FDF828A4F8FE08F1B5EC1
-        2D995A9C6BB6C376E273A8B4FAC4E697368EDBFFF68EF7AF94806CF3ABAFFFFD
-        BEBBC7FFA6D9E583C8908B0C8A2D435A3CE1249C24BE681CB5674FA19AACAE3A
-        F11166AE7B0586340D0A540C44E4A57D3BFE85DC5EBDB1F7C0AE27D63FBB7CED
-        951250BFF9D6EEBD23860D1979BEB90D85AE3D88F79F8C98A227DC146F5704F8
-        CF8E9731383B0DA55B4BA1CFEF0B854A89813F1B81BB6FEE0DDD1BABB0376F2C
-        CCA61B70E8FDDD1B972F5DB0F08A09FCE3CD5DFB6F1D3A78C4978D6EF46FD986
-        B69BE7A24395954AB600C5FF839D2FA3B786C5479F9D407A5E21584218503414
-        77F5CE8472D322EC1F321119A65BF0DE917F962C5B327FC19512506ED8B465DB
-        F831B74FA8B0BAC1670D86520288A8F4083BD5E618260EEBD972F4CACB87264D
-        0B8E2A43276670AD8C4995DCEEBDFF46B6790076ED7971D5BAD54F2DEB0E01F6
-        A2700281E933E72C9935635AB1DDDE02977938E43209C4F4C2B282302940B1E8
-        EB5B485033914CA7CFDE481887F61D47665621D6AC9BFBDB7776EFDAC95C0682
-        8B2082C8264F18D72BEF1A73814AA128D0C8987CA3B4234F2BE67394E2A4B9F5
-        C607A0D2A5A3AC3904D30D45504B182448539211BCD1092EF40439C7404F044C
-        740BA138FCC18748EB31100D4D16DBB4C977DC1E68F7D70904B895B3A6DC61D0
-        2847A7B3E1023DD791AB11C7735489B04CC5FBA18AF9208B06A8C8A9B8797272
-        228ED3B9E3111D391517EC76F0D90350949F8938B5633FDF49822312320A8B96
-        C0356C2778759315955F386036F745E9F6956B366D58B582B0030201F53BABE7
-        FCF70EBDBDBFA8A21270B41250A2138C864BCA3722E6A2B048883878B26E4259
-        D12CE88C26D4355AA1E9DD0F030AF3A0235733F1389857974374CF14B01939A0
-        7E044B7515CE9FB6233F6F384E961F3AB5A0F8C107C8FA1AD22C380EDA9D4F4C
-        79EFD7DCB92234350117DCA4854D01074DB9247968371792F44120FD3A048DD7
-        D19B08B14808097B2D740A191C0E27BC7C0CB97DFAA020873AE3CA29884E5C84
-        7A4E89AACA5A28445914F7EB71B6EAB3BA152B664EAFAAB47C42B8C29E904A4C
-        F5AB0B67BC7D6F3AFFF3A4D78D0B8563103015A03DB30F1262D90F6626432E67
-        A241842FD493BB3948C572B4B5B5C1E3F180114BC1311218F4D930A467231C09
-        E0F889439F946C5CB6A4B1BEAE8C7E1EF95A0F65F60B4FCCDF3A72CE33F786C3
-        5104932CA9FEE69412277988123C38BAA56C126A99180ACA8FB854039D4685EA
-        7315A8698D23110C24143DB42C279253F458B4070281FAC62ACB9123FB761D7E
-        77CF1EDA116C5D965F4E40B666DEF4CDA3E6AF9A14EBE0D1C1492E3D28E24164
-        A9A510D34CE7150618D472F8DC0E2868000925E66A6D83D16884BDC5812A871F
-        A5CF14979EA8B71F91C9E51C8DDB80CDDA60F3FB7C02A8FBA2D589EF7A922A66
-        C51F26AD1B3DFBE9D9094604510F25BA5CA0880570632E65386D38BE40086969
-        6929170B47D878C840F4502810F4B4C021CD40CBD103EE8AE31FAF5EFED21BAF
-        C778DE7F19E0F7EE8397082C9DF6BBA7474FFFD36246A6805AA7EB7C4826C045
-        FD306995E08940A4230605359D98CF05B539173DA41C5CB606F246165A5B5BE1
-        63E488311C62AD2DA87C67DBF6694FAD9E7A79AC7F8C00B770E2FDC5A326CD7F
-        4EA4D422B3671AD56F92924A84B0C70E536E1FA0DD015F420A5D9A0E9E5657AA
-        4A05378582414A3223142C6D3D4E5AC9C47AF81AAAF0DADA3FCF7B6DEFC197BA
-        4B809DFDC03DD3C6FE7ECE16566D407E8E11D9461D2412095C4E27F40643CAD5
-        4286CBE5725A3A23D0EB0DA916DCD6540DA5392FB501B9BCED7037DB681A6EDD
-        B964C3E6F9A4B7E5C75CFF0D02137F31E6571326CDDEC16A33D0BF6F36B494E5
-        428C7D1EDA78346990515B8D51CBD011B0D7D90C85C60089540ADAF9E1F5F911
-        F47AD068B1E0C3C3FBB63F57BAEB49D2D9D01DF04B04EEBAB568EC438F14BF07
-        5D16860FBA1E2C1F85812C6F733B916E32234E4DC6474069941F4212F2D42579
-        22D876C186E63A2B1ADB24E05905AC475F59B466EB8EF5E81C8CDD3A290237F7
-        CE2B7A6CE1D2A3715D2FDC39720018AA791D813929046AB51A418A7520100427
-        16531314C1676F428DA51A6E6F54F00CDFEE6E6CF0396ABFF8BCF2DC0B078E96
-        7DD65DEBBB08402A11F77979434905AFCBC17DE387C1DBE68158DC19062117A4
-        3219843F1DCEFA6AD49C389AA8AFB736D85D6E4B4D63E3F183C74E9679DB0356
-        5223D4A7507A1DDD05BF44804ECE6BEBD69EE68D85EA077F795B6AAEA772C069
-        87BBA931517BBECA5671FA94E57C43E3C9439F9E3CE66CF30A31169A4B005FFF
-        DDEAB6D5DF474079FF98DB268E1E35E6C9A261434C0D35D5B68A33A72AABEA1A
-        4E1E292B3F6673B8EA2E03ECF85F007F888030741506ADA6304DAD34565B9BAD
-        1701BB5CFA9301FE1081AED3B57EFDDF00BF7DBE024684F46AA4A40E54000000
-        0049454E44AE426082}
+    object lbDiaSemana: TLabel
+      Left = 259
+      Top = 195
+      Width = 110
+      Height = 23
+      Caption = 'dia da semana'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 13261071
+      Font.Height = -19
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentFont = False
     end
     object gpbHorario: TGroupBox
-      Left = -5
-      Top = 474
-      Width = 334
-      Height = 253
-      Caption = '                   Hor'#225'rio da sess'#227'o '
+      Left = 521
+      Top = 419
+      Width = 225
+      Height = 197
+      Caption = '             Hor'#225'rio da sess'#227'o '
       Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -781,16 +134,9 @@ inherited frmAgendamentos: TfrmAgendamentos
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 0
-      object Shape3: TShape
-        Left = 3
-        Top = 104
-        Width = 330
-        Height = 53
-        Pen.Style = psClear
-      end
       object Label3: TLabel
-        Left = 88
-        Top = 41
+        Left = 31
+        Top = 57
         Width = 30
         Height = 16
         Caption = 'Hora'
@@ -802,8 +148,8 @@ inherited frmAgendamentos: TfrmAgendamentos
         ParentFont = False
       end
       object Label1: TLabel
-        Left = 184
-        Top = 41
+        Left = 127
+        Top = 57
         Width = 46
         Height = 16
         Caption = 'Minutos'
@@ -814,60 +160,8 @@ inherited frmAgendamentos: TfrmAgendamentos
         Font.Style = []
         ParentFont = False
       end
-      object Label38: TLabel
-        Left = 58
-        Top = 131
-        Width = 102
-        Height = 16
-        Caption = 'Hor'#225'rio m'#225'ximo >'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 5197647
-        Font.Height = -13
-        Font.Name = 'Microdoft san'
-        Font.Style = [fsItalic]
-        ParentFont = False
-      end
-      object Label39: TLabel
-        Left = 58
-        Top = 107
-        Width = 99
-        Height = 16
-        Caption = 'Hor'#225'rio m'#237'nimo >'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 5197647
-        Font.Height = -13
-        Font.Name = 'Microdoft san'
-        Font.Style = [fsItalic]
-        ParentFont = False
-      end
-      object lbHMinimo: TLabel
-        Left = 194
-        Top = 107
-        Width = 32
-        Height = 17
-        Caption = '00:00'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 15365376
-        Font.Height = -13
-        Font.Name = 'Segoe UI'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object lbHMaximo: TLabel
-        Left = 194
-        Top = 131
-        Width = 32
-        Height = 17
-        Caption = '00:00'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 15365376
-        Font.Height = -13
-        Font.Name = 'Segoe UI'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
       object Image1: TImage
-        Left = 38
+        Left = 19
         Top = -2
         Width = 35
         Height = 33
@@ -935,8 +229,8 @@ inherited frmAgendamentos: TfrmAgendamentos
           C7FF007375EA3F262634440000000049454E44AE426082}
       end
       object speHoras: TSpinEdit
-        Left = 87
-        Top = 60
+        Left = 30
+        Top = 76
         Width = 64
         Height = 28
         Font.Charset = DEFAULT_CHARSET
@@ -947,15 +241,14 @@ inherited frmAgendamentos: TfrmAgendamentos
         MaxValue = 21
         MinValue = 6
         ParentFont = False
-        ReadOnly = True
         TabOrder = 0
         Value = 6
         OnChange = speHorasChange
         OnEnter = speHorasEnter
       end
       object speMinutos: TSpinEdit
-        Left = 183
-        Top = 60
+        Left = 126
+        Top = 76
         Width = 64
         Height = 28
         Color = clWhite
@@ -968,16 +261,15 @@ inherited frmAgendamentos: TfrmAgendamentos
         MaxValue = 50
         MinValue = 0
         ParentFont = False
-        ReadOnly = True
         TabOrder = 1
         Value = 0
         OnChange = speHorasChange
         OnEnter = speHorasEnter
       end
       object btnCriaHorario: TBitBtn
-        Left = 59
-        Top = 165
-        Width = 227
+        Left = 17
+        Top = 131
+        Width = 192
         Height = 29
         Caption = ' Criar Hor'#225'rio'
         Glyph.Data = {
@@ -1053,105 +345,26 @@ inherited frmAgendamentos: TfrmAgendamentos
       end
     end
     object calendario: TJvMonthCalendar
-      Left = 33
-      Top = 293
+      Left = 521
+      Top = 232
       Width = 225
       Height = 160
       CalColors.TextColor = clBlue
       CalColors.MonthBackColor = clTeal
-      Date = 42566.358211053240000000
-      TabOrder = 2
-      OnClick = calendarioClick
-    end
-    object DBGridCBN1: TDBGridCBN
-      Left = 358
-      Top = 299
-      Width = 349
-      Height = 367
-      Color = 14803425
-      DataSource = dsHorarios
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
-      ParentFont = False
+      Date = 42566.708104722220000000
       TabOrder = 1
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -11
-      TitleFont.Name = 'MS Sans Serif'
-      TitleFont.Style = []
-      BuscaHabilitada = True
-      ConfCores.Normal.CorFonte = clWindowText
-      ConfCores.Normal.CorFundo = 14803425
-      ConfCores.Normal.Tipo.Charset = DEFAULT_CHARSET
-      ConfCores.Normal.Tipo.Color = clWindowText
-      ConfCores.Normal.Tipo.Height = -11
-      ConfCores.Normal.Tipo.Name = 'MS Sans Serif'
-      ConfCores.Normal.Tipo.Style = []
-      ConfCores.Zebrada.CorFonte = clWindowText
-      ConfCores.Zebrada.CorFundo = clWhite
-      ConfCores.Zebrada.Tipo.Charset = DEFAULT_CHARSET
-      ConfCores.Zebrada.Tipo.Color = clWindowText
-      ConfCores.Zebrada.Tipo.Height = -11
-      ConfCores.Zebrada.Tipo.Name = 'MS Sans Serif'
-      ConfCores.Zebrada.Tipo.Style = []
-      ConfCores.Selecao.CorFonte = clWindowText
-      ConfCores.Selecao.CorFundo = 16037533
-      ConfCores.Selecao.Tipo.Charset = DEFAULT_CHARSET
-      ConfCores.Selecao.Tipo.Color = clWindowText
-      ConfCores.Selecao.Tipo.Height = -11
-      ConfCores.Selecao.Tipo.Name = 'MS Sans Serif'
-      ConfCores.Selecao.Tipo.Style = []
-      ConfCores.Destacado.CorFonte = 8650884
-      ConfCores.Destacado.CorFundo = clWhite
-      ConfCores.Destacado.Tipo.Charset = DEFAULT_CHARSET
-      ConfCores.Destacado.Tipo.Color = 8650884
-      ConfCores.Destacado.Tipo.Height = -11
-      ConfCores.Destacado.Tipo.Name = 'Lucida Console'
-      ConfCores.Destacado.Tipo.Style = [fsBold]
-      ConfCores.Titulo.CorFonte = clWindowText
-      ConfCores.Titulo.CorFundo = clBtnFace
-      ConfCores.Titulo.Tipo.Charset = DEFAULT_CHARSET
-      ConfCores.Titulo.Tipo.Color = clWindowText
-      ConfCores.Titulo.Tipo.Height = -11
-      ConfCores.Titulo.Tipo.Name = 'MS Sans Serif'
-      ConfCores.Titulo.Tipo.Style = []
-      Ordenavel = True
-      TipoBusca.ListarApenasEncontrados = False
-      TipoBusca.QualquerParte = False
-      SalvaConfiguracoes = False
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'DATA'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'HORA'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'DIA_SEMANA'
-          Title.Caption = 'DIA DA SEMANA'
-          Width = 156
-          Visible = True
-        end>
+      OnClick = calendarioClick
     end
     object Panel2: TPanel
       Left = 0
       Top = 0
-      Width = 734
-      Height = 239
+      Width = 1121
+      Height = 185
       Align = alTop
-      TabOrder = 3
+      TabOrder = 2
       object Label5: TLabel
-        Left = 355
-        Top = 129
+        Left = 697
+        Top = 61
         Width = 44
         Height = 16
         Caption = 'Tempo'
@@ -1163,8 +376,8 @@ inherited frmAgendamentos: TfrmAgendamentos
         ParentFont = False
       end
       inline BuscaConvenio1: TBuscaConvenio
-        Left = 456
-        Top = 70
+        Left = 77
+        Top = 58
         Width = 252
         Height = 56
         Font.Charset = DEFAULT_CHARSET
@@ -1173,10 +386,10 @@ inherited frmAgendamentos: TfrmAgendamentos
         Font.Name = 'Microsoft Sans Serif'
         Font.Style = []
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 3
         OnExit = BuscaConvenio1Exit
-        ExplicitLeft = 456
-        ExplicitTop = 70
+        ExplicitLeft = 77
+        ExplicitTop = 58
         ExplicitWidth = 252
         ExplicitHeight = 56
         inherited Label1: TLabel
@@ -1213,16 +426,16 @@ inherited frmAgendamentos: TfrmAgendamentos
         end
         inherited edtConvenio: TEdit
           Left = 84
-          Width = 157
+          Width = 151
           ExplicitLeft = 84
-          ExplicitWidth = 157
+          ExplicitWidth = 151
         end
       end
       inline BuscaDepartamento1: TBuscaDepartamento
-        Left = 23
+        Left = 7
         Top = 2
         Width = 307
-        Height = 64
+        Height = 63
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 2697513
         Font.Height = -15
@@ -1231,32 +444,32 @@ inherited frmAgendamentos: TfrmAgendamentos
         ParentFont = False
         TabOrder = 0
         OnExit = BuscaDepartamento1Exit
-        ExplicitLeft = 23
+        ExplicitLeft = 7
         ExplicitTop = 2
         ExplicitWidth = 307
-        ExplicitHeight = 64
+        ExplicitHeight = 63
         inherited edtDepartamento: TEdit
           Width = 145
           ExplicitWidth = 145
         end
       end
       inline BuscaPessoa1: TBuscaPessoa
-        Left = 13
-        Top = 70
-        Width = 437
-        Height = 57
+        Left = 705
+        Top = 2
+        Width = 407
+        Height = 54
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 2697513
         Font.Height = -15
         Font.Name = 'Microsoft Sans Serif'
         Font.Style = []
         ParentFont = False
-        TabOrder = 1
+        TabOrder = 2
         OnExit = BuscaPessoa1Exit
-        ExplicitLeft = 13
-        ExplicitTop = 70
-        ExplicitWidth = 437
-        ExplicitHeight = 57
+        ExplicitLeft = 705
+        ExplicitTop = 2
+        ExplicitWidth = 407
+        ExplicitHeight = 54
         inherited lbTipo: TLabel
           Left = 88
           ExplicitLeft = 88
@@ -1271,15 +484,15 @@ inherited frmAgendamentos: TfrmAgendamentos
         end
         inherited edtNome: TEdit
           Left = 87
-          Width = 340
+          Width = 310
           ExplicitLeft = 87
-          ExplicitWidth = 340
+          ExplicitWidth = 310
         end
       end
       inline BuscaTabelaPreco1: TBuscaTabelaPreco
-        Left = 13
-        Top = 126
-        Width = 346
+        Left = 325
+        Top = 58
+        Width = 365
         Height = 53
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 2697513
@@ -1287,19 +500,19 @@ inherited frmAgendamentos: TfrmAgendamentos
         Font.Name = 'Microsoft Sans Serif'
         Font.Style = []
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 4
         OnExit = BuscaTabelaPreco1Exit
-        ExplicitLeft = 13
-        ExplicitTop = 126
-        ExplicitWidth = 346
+        ExplicitLeft = 325
+        ExplicitTop = 58
+        ExplicitWidth = 365
         ExplicitHeight = 53
         inherited Label2: TLabel
           Left = 89
           ExplicitLeft = 89
         end
         inherited Label3: TLabel
-          Left = 281
-          ExplicitLeft = 281
+          Left = 305
+          ExplicitLeft = 305
         end
         inherited btnBusca: TBitBtn
           Left = 58
@@ -1312,20 +525,20 @@ inherited frmAgendamentos: TfrmAgendamentos
         end
         inherited edtServico: TEdit
           Left = 88
-          Width = 183
+          Width = 201
           ExplicitLeft = 88
-          ExplicitWidth = 183
+          ExplicitWidth = 201
         end
         inherited edtValor: TCurrencyEdit
-          Left = 281
+          Left = 305
           Width = 51
-          ExplicitLeft = 281
+          ExplicitLeft = 305
           ExplicitWidth = 51
         end
       end
       object edtTempoDuracao: TMaskEdit
-        Left = 354
-        Top = 150
+        Left = 696
+        Top = 82
         Width = 63
         Height = 24
         EditMask = '!90:00:00;1;_'
@@ -1336,27 +549,26 @@ inherited frmAgendamentos: TfrmAgendamentos
         Font.Style = []
         MaxLength = 8
         ParentFont = False
-        TabOrder = 4
+        TabOrder = 5
         Text = '  :  :  '
       end
-      inline BuscaPessoa2: TBuscaPessoa
-        Left = 349
+      inline BuscaProfissional: TBuscaPessoa
+        Left = 325
         Top = 2
         Width = 372
-        Height = 57
+        Height = 54
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 2697513
         Font.Height = -15
         Font.Name = 'Microsoft Sans Serif'
         Font.Style = []
         ParentFont = False
-        TabOrder = 5
-        Visible = False
+        TabOrder = 1
         OnExit = BuscaPessoa1Exit
-        ExplicitLeft = 349
+        ExplicitLeft = 325
         ExplicitTop = 2
         ExplicitWidth = 372
-        ExplicitHeight = 57
+        ExplicitHeight = 54
         inherited lbTipo: TLabel
           Left = 88
           ExplicitLeft = 88
@@ -1377,9 +589,9 @@ inherited frmAgendamentos: TfrmAgendamentos
         end
       end
       object btnAddServico: TBitBtn
-        Left = 464
-        Top = 146
-        Width = 237
+        Left = 807
+        Top = 80
+        Width = 295
         Height = 27
         Caption = ' Adicionar servi'#231'o'
         Glyph.Data = {
@@ -1455,20 +667,55 @@ inherited frmAgendamentos: TfrmAgendamentos
       end
       object pnlServicos: TPanel
         Left = 1
-        Top = 188
-        Width = 732
+        Top = 134
+        Width = 1119
         Height = 50
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 7
-        inline MostraServico1: TMostraServico
+        object Splitter1: TSplitter
           Left = 0
+          Top = 0
+          Width = 13
+          Height = 50
+          ExplicitLeft = -3
+        end
+        object Label2: TLabel
+          Left = 904
+          Top = -5
+          Width = 143
+          Height = 23
+          Caption = 'Tempo de dura'#231#227'o'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 13261071
+          Font.Height = -19
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbTempoDuracao: TLabel
+          Left = 935
+          Top = 19
+          Width = 83
+          Height = 26
+          Alignment = taCenter
+          Caption = '00:00:00 '
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 6630663
+          Font.Height = -21
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
+        end
+        inline MostraServico1: TMostraServico
+          Left = 13
           Top = 0
           Width = 147
           Height = 50
           Align = alLeft
           TabOrder = 0
           Visible = False
+          ExplicitLeft = 13
           ExplicitHeight = 50
           inherited btnLimpa: TSpeedButton
             Left = 123
@@ -1477,56 +724,56 @@ inherited frmAgendamentos: TfrmAgendamentos
           end
         end
         inline MostraServico5: TMostraServico
-          Left = 588
+          Left = 601
           Top = 0
           Width = 147
           Height = 50
           Align = alLeft
           TabOrder = 1
           Visible = False
-          ExplicitLeft = 588
+          ExplicitLeft = 601
           ExplicitHeight = 50
           inherited btnLimpa: TSpeedButton
             OnClick = MostraServico1btnLimpaClick
           end
         end
         inline MostraServico4: TMostraServico
-          Left = 441
+          Left = 454
           Top = 0
           Width = 147
           Height = 50
           Align = alLeft
           TabOrder = 2
           Visible = False
-          ExplicitLeft = 441
+          ExplicitLeft = 454
           ExplicitHeight = 50
           inherited btnLimpa: TSpeedButton
             OnClick = MostraServico1btnLimpaClick
           end
         end
         inline MostraServico3: TMostraServico
-          Left = 294
+          Left = 307
           Top = 0
           Width = 147
           Height = 50
           Align = alLeft
           TabOrder = 3
           Visible = False
-          ExplicitLeft = 294
+          ExplicitLeft = 307
           ExplicitHeight = 50
           inherited btnLimpa: TSpeedButton
             OnClick = MostraServico1btnLimpaClick
           end
         end
         inline MostraServico2: TMostraServico
-          Left = 147
+          Left = 160
           Top = 0
           Width = 147
           Height = 50
           Align = alLeft
           TabOrder = 4
           Visible = False
-          ExplicitLeft = 147
+          ExplicitLeft = 160
           ExplicitHeight = 50
           inherited lbServico: TLabel
             Width = 127
@@ -1538,8 +785,8 @@ inherited frmAgendamentos: TfrmAgendamentos
         end
       end
       object btnIncMin: TBitBtn
-        Left = 420
-        Top = 146
+        Left = 762
+        Top = 78
         Width = 25
         Height = 17
         Caption = '+'
@@ -1548,8 +795,8 @@ inherited frmAgendamentos: TfrmAgendamentos
         OnClick = btnIncMinClick
       end
       object btnDecMin: TBitBtn
-        Left = 420
-        Top = 162
+        Left = 762
+        Top = 94
         Width = 25
         Height = 17
         Caption = '-'
@@ -1564,12 +811,290 @@ inherited frmAgendamentos: TfrmAgendamentos
         OnClick = btnDecMinClick
       end
     end
+    object DBGridCBN2: TDBGridCBN
+      Left = 13
+      Top = 224
+      Width = 468
+      Height = 409
+      Color = 14803425
+      DataSource = dsHorariosDia
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Style = []
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+      ParentFont = False
+      TabOrder = 3
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'MS Sans Serif'
+      TitleFont.Style = []
+      BuscaHabilitada = False
+      ConfCores.Normal.CorFonte = clWindowText
+      ConfCores.Normal.CorFundo = 14803425
+      ConfCores.Normal.Tipo.Charset = DEFAULT_CHARSET
+      ConfCores.Normal.Tipo.Color = clWindowText
+      ConfCores.Normal.Tipo.Height = -11
+      ConfCores.Normal.Tipo.Name = 'MS Sans Serif'
+      ConfCores.Normal.Tipo.Style = []
+      ConfCores.Zebrada.CorFonte = clWindowText
+      ConfCores.Zebrada.CorFundo = clWhite
+      ConfCores.Zebrada.Tipo.Charset = DEFAULT_CHARSET
+      ConfCores.Zebrada.Tipo.Color = clWindowText
+      ConfCores.Zebrada.Tipo.Height = -11
+      ConfCores.Zebrada.Tipo.Name = 'MS Sans Serif'
+      ConfCores.Zebrada.Tipo.Style = []
+      ConfCores.Selecao.CorFonte = clWindowText
+      ConfCores.Selecao.CorFundo = 16037533
+      ConfCores.Selecao.Tipo.Charset = DEFAULT_CHARSET
+      ConfCores.Selecao.Tipo.Color = clWindowText
+      ConfCores.Selecao.Tipo.Height = -11
+      ConfCores.Selecao.Tipo.Name = 'MS Sans Serif'
+      ConfCores.Selecao.Tipo.Style = []
+      ConfCores.Destacado.CorFonte = 8650884
+      ConfCores.Destacado.CorFundo = clWhite
+      ConfCores.Destacado.Tipo.Charset = DEFAULT_CHARSET
+      ConfCores.Destacado.Tipo.Color = 8650884
+      ConfCores.Destacado.Tipo.Height = -11
+      ConfCores.Destacado.Tipo.Name = 'Lucida Console'
+      ConfCores.Destacado.Tipo.Style = [fsBold]
+      ConfCores.Titulo.CorFonte = clWindowText
+      ConfCores.Titulo.CorFundo = clBtnFace
+      ConfCores.Titulo.Tipo.Charset = DEFAULT_CHARSET
+      ConfCores.Titulo.Tipo.Color = clWindowText
+      ConfCores.Titulo.Tipo.Height = -11
+      ConfCores.Titulo.Tipo.Name = 'MS Sans Serif'
+      ConfCores.Titulo.Tipo.Style = []
+      Ordenavel = True
+      TipoBusca.ListarApenasEncontrados = False
+      TipoBusca.QualquerParte = False
+      SalvaConfiguracoes = False
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'INICIO'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'FIM'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NOME'
+          Width = 281
+          Visible = True
+        end>
+    end
+    object pnlHorarioCliente: TPanel
+      Left = 768
+      Top = 185
+      Width = 353
+      Height = 455
+      Align = alRight
+      BevelOuter = bvNone
+      TabOrder = 4
+      object Shape2: TShape
+        Left = -4
+        Top = -42
+        Width = 408
+        Height = 499
+        Brush.Color = 13948116
+        Pen.Color = clBtnFace
+        Pen.Style = psInsideFrame
+      end
+      object Shape6: TShape
+        Left = -2
+        Top = -3
+        Width = 406
+        Height = 51
+        Pen.Color = clBtnFace
+        Pen.Style = psClear
+      end
+      object Image4: TImage
+        Left = 22
+        Top = 5
+        Width = 35
+        Height = 33
+        Picture.Data = {
+          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
+          00200806000000737A7AF4000009064944415478DAB5570B7493E5197EFE3F7F
+          AEE4D6240D695A69AD6DA9A08220501822C200658A3BBAE9E61C7215C7B50C91
+          097801063804445664789BD4C10474DC14810D752A22052D605A28BDA729692E
+          4D9334D7E64FE2FBA714F17A0A73DF39EFF972CE97BCCFF3DEDF30F8690E2B48
+          CF9E3D65191966191D2E180CF056AB35E4F3F93AE82D7151BE73989F005832E5
+          D1D903860E1BF6F07539D923D52A5516CB329250381C71B77AEA6AEB1B0E7EF2
+          D1C76FECDEB9ED3C7D97FF3691AB26A0542AD97E030799A73DF2E8CAE143873C
+          98613470C964121DD128A21D51241209C4E309844261D8EC8EC0C953674AB694
+          BCF05C435D8DF77212574B80BD73C2BD05C5C5F3768C183AE42620890B0E173C
+          A12462AC04F2560BFCF24C84223CD8901B3D0D7A448858B9E5EC81174B364EFD
+          B2FC73671789AB21C0E6175E6F5CFBFCC6BDE3468D181C8D44506DF743A23141
+          2563211501BAB7C6C3D56F2EACA67170876270588E2257C940DE4385B2F2536F
+          2E5E583C231C0AF9AF9680E4D9E74B56CC98FCD0E34202543923D019D2A19532
+          9070645612884623F0C5A5704592F0C700B7AB05A1965AE488C9239C147BDEDD
+          3F75D3FABF940A3971A504D8FE0307E56E7A71F3B17E7D0B0DD5363794E9D740
+          AF602026361D7120C82711A0BCF7C7E826F507B6FD0DB5E5C7F058C956580EBE
+          851BAF2D40555DF599598F3C7C7B2412F65C29016EDEE38B1F5D583CFBAF9465
+          68896B718D5E01B9180893A5DE683225212242170E6FDF828A4F8FE08F1B5EC1
+          2D995A9C6BB6C376E273A8B4FAC4E697368EDBFFF68EF7AF94806CF3ABAFFFFD
+          BEBBC7FFA6D9E583C8908B0C8A2D435A3CE1249C24BE681CB5674FA19AACAE3A
+          F11166AE7B0586340D0A540C44E4A57D3BFE85DC5EBDB1F7C0AE27D63FBB7CED
+          951250BFF9D6EEBD23860D1979BEB90D85AE3D88F79F8C98A227DC146F5704F8
+          CF8E9731383B0DA55B4BA1CFEF0B854A89813F1B81BB6FEE0DDD1BABB0376F2C
+          CCA61B70E8FDDD1B972F5DB0F08A09FCE3CD5DFB6F1D3A78C4978D6EF46FD986
+          B69BE7A24395954AB600C5FF839D2FA3B786C5479F9D407A5E21584218503414
+          77F5CE8472D322EC1F321119A65BF0DE917F962C5B327FC19512506ED8B465DB
+          F831B74FA8B0BAC1670D86520288A8F4083BD5E618260EEBD972F4CACB87264D
+          0B8E2A43276670AD8C4995DCEEBDFF46B6790076ED7971D5BAD54F2DEB0E01F6
+          A2700281E933E72C9935635AB1DDDE02977938E43209C4F4C2B282302940B1E8
+          EB5B485033914CA7CFDE481887F61D47665621D6AC9BFBDB7776EFDAC95C0682
+          8B2082C8264F18D72BEF1A73814AA128D0C8987CA3B4234F2BE67394E2A4B9F5
+          C607A0D2A5A3AC3904D30D45504B182448539211BCD1092EF40439C7404F044C
+          740BA138FCC18748EB31100D4D16DBB4C977DC1E68F7D70904B895B3A6DC61D0
+          2847A7B3E1023DD791AB11C7735489B04CC5FBA18AF9208B06A8C8A9B8797272
+          228ED3B9E3111D391517EC76F0D90350949F8938B5633FDF49822312320A8B96
+          C0356C2778759315955F386036F745E9F6956B366D58B582B0030201F53BABE7
+          FCF70EBDBDBFA8A21270B41250A2138C864BCA3722E6A2B048883878B26E4259
+          D12CE88C26D4355AA1E9DD0F030AF3A0235733F1389857974374CF14B01939A0
+          7E044B7515CE9FB6233F6F384E961F3AB5A0F8C107C8FA1AD22C380EDA9D4F4C
+          79EFD7DCB92234350117DCA4854D01074DB9247968371792F44120FD3A048DD7
+          D19B08B14808097B2D740A191C0E27BC7C0CB97DFAA020873AE3CA29884E5C84
+          7A4E89AACA5A28445914F7EB71B6EAB3BA152B664EAFAAB47C42B8C29E904A4C
+          F5AB0B67BC7D6F3AFFF3A4D78D0B8563103015A03DB30F1262D90F6626432E67
+          A241842FD493BB3948C572B4B5B5C1E3F180114BC1311218F4D930A467231C09
+          E0F889439F946C5CB6A4B1BEAE8C7E1EF95A0F65F60B4FCCDF3A72CE33F786C3
+          5104932CA9FEE69412277988123C38BAA56C126A99180ACA8FB854039D4685EA
+          7315A8698D23110C24143DB42C279253F458B4070281FAC62ACB9123FB761D7E
+          77CF1EDA116C5D965F4E40B666DEF4CDA3E6AF9A14EBE0D1C1492E3D28E24164
+          A9A510D34CE7150618D472F8DC0E2868000925E66A6D83D16884BDC5812A871F
+          A5CF14979EA8B71F91C9E51C8DDB80CDDA60F3FB7C02A8FBA2D589EF7A922A66
+          C51F26AD1B3DFBE9D9094604510F25BA5CA0880570632E65386D38BE40086969
+          6929170B47D878C840F4502810F4B4C021CD40CBD103EE8AE31FAF5EFED21BAF
+          C778DE7F19E0F7EE8397082C9DF6BBA7474FFFD36246A6805AA7EB7C4826C045
+          FD306995E08940A4230605359D98CF05B539173DA41C5CB606F246165A5B5BE1
+          63E488311C62AD2DA87C67DBF6694FAD9E7A79AC7F8C00B770E2FDC5A326CD7F
+          4EA4D422B3671AD56F92924A84B0C70E536E1FA0DD015F420A5D9A0E9E5657AA
+          4A05378582414A3223142C6D3D4E5AC9C47AF81AAAF0DADA3FCF7B6DEFC197BA
+          4B809DFDC03DD3C6FE7ECE16566D407E8E11D9461D2412095C4E27F40643CAD5
+          4286CBE5725A3A23D0EB0DA916DCD6540DA5392FB501B9BCED7037DB681A6EDD
+          B964C3E6F9A4B7E5C75CFF0D02137F31E6571326CDDEC16A33D0BF6F36B494E5
+          428C7D1EDA78346990515B8D51CBD011B0D7D90C85C60089540ADAF9E1F5F911
+          F47AD068B1E0C3C3FBB63F57BAEB49D2D9D01DF04B04EEBAB568EC438F14BF07
+          5D16860FBA1E2C1F85812C6F733B916E32234E4DC6474069941F4212F2D42579
+          22D876C186E63A2B1ADB24E05905AC475F59B466EB8EF5E81C8CDD3A290237F7
+          CE2B7A6CE1D2A3715D2FDC39720018AA791D813929046AB51A418A7520100427
+          16531314C1676F428DA51A6E6F54F00CDFEE6E6CF0396ABFF8BCF2DC0B078E96
+          7DD65DEBBB08402A11F77979434905AFCBC17DE387C1DBE68158DC19062117A4
+          3219843F1DCEFA6AD49C389AA8AFB736D85D6E4B4D63E3F183C74E9679DB0356
+          5223D4A7507A1DDD05BF44804ECE6BEBD69EE68D85EA077F795B6AAEA772C069
+          87BBA931517BBECA5671FA94E57C43E3C9439F9E3CE66CF30A31169A4B005FFF
+          DDEAB6D5DF474079FF98DB268E1E35E6C9A261434C0D35D5B68A33A72AABEA1A
+          4E1E292B3F6673B8EA2E03ECF85F007F888030741506ADA6304DAD34565B9BAD
+          1701BB5CFA9301FE1081AED3B57EFDDF00BF7DBE024684F46AA4A40E54000000
+          0049454E44AE426082}
+      end
+      object Label4: TLabel
+        Left = 84
+        Top = 11
+        Width = 148
+        Height = 23
+        Caption = 'Hor'#225'rios marcados'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 13261071
+        Font.Height = -19
+        Font.Name = 'Calibri'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object DBGridCBN1: TDBGridCBN
+        Left = 21
+        Top = 64
+        Width = 323
+        Height = 367
+        Color = 14803425
+        DataSource = dsHorarios
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+        ParentFont = False
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        BuscaHabilitada = True
+        ConfCores.Normal.CorFonte = clWindowText
+        ConfCores.Normal.CorFundo = 14803425
+        ConfCores.Normal.Tipo.Charset = DEFAULT_CHARSET
+        ConfCores.Normal.Tipo.Color = clWindowText
+        ConfCores.Normal.Tipo.Height = -11
+        ConfCores.Normal.Tipo.Name = 'MS Sans Serif'
+        ConfCores.Normal.Tipo.Style = []
+        ConfCores.Zebrada.CorFonte = clWindowText
+        ConfCores.Zebrada.CorFundo = clWhite
+        ConfCores.Zebrada.Tipo.Charset = DEFAULT_CHARSET
+        ConfCores.Zebrada.Tipo.Color = clWindowText
+        ConfCores.Zebrada.Tipo.Height = -11
+        ConfCores.Zebrada.Tipo.Name = 'MS Sans Serif'
+        ConfCores.Zebrada.Tipo.Style = []
+        ConfCores.Selecao.CorFonte = clWindowText
+        ConfCores.Selecao.CorFundo = 16037533
+        ConfCores.Selecao.Tipo.Charset = DEFAULT_CHARSET
+        ConfCores.Selecao.Tipo.Color = clWindowText
+        ConfCores.Selecao.Tipo.Height = -11
+        ConfCores.Selecao.Tipo.Name = 'MS Sans Serif'
+        ConfCores.Selecao.Tipo.Style = []
+        ConfCores.Destacado.CorFonte = 8650884
+        ConfCores.Destacado.CorFundo = clWhite
+        ConfCores.Destacado.Tipo.Charset = DEFAULT_CHARSET
+        ConfCores.Destacado.Tipo.Color = 8650884
+        ConfCores.Destacado.Tipo.Height = -11
+        ConfCores.Destacado.Tipo.Name = 'Lucida Console'
+        ConfCores.Destacado.Tipo.Style = [fsBold]
+        ConfCores.Titulo.CorFonte = clWindowText
+        ConfCores.Titulo.CorFundo = clBtnFace
+        ConfCores.Titulo.Tipo.Charset = DEFAULT_CHARSET
+        ConfCores.Titulo.Tipo.Color = clWindowText
+        ConfCores.Titulo.Tipo.Height = -11
+        ConfCores.Titulo.Tipo.Name = 'MS Sans Serif'
+        ConfCores.Titulo.Tipo.Style = []
+        Ordenavel = True
+        TipoBusca.ListarApenasEncontrados = False
+        TipoBusca.QualquerParte = False
+        SalvaConfiguracoes = False
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'DATA'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'HORA'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DIA_SEMANA'
+            Title.Caption = 'DIA DA SEMANA'
+            Width = 130
+            Visible = True
+          end>
+      end
+    end
   end
   object cdsHorarios: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 712
-    Top = 376
+    Left = 872
+    Top = 304
     object cdsHorariosDIA_SEMANA: TStringField
       FieldName = 'DIA_SEMANA'
       Size = 30
@@ -1583,8 +1108,8 @@ inherited frmAgendamentos: TfrmAgendamentos
   end
   object dsHorarios: TDataSource
     DataSet = cdsHorarios
-    Left = 768
-    Top = 376
+    Left = 928
+    Top = 304
   end
   object dsServicos: TDataSource
     DataSet = cdsServicos
@@ -1600,5 +1125,36 @@ inherited frmAgendamentos: TfrmAgendamentos
       FieldName = 'HORARIO'
       Size = 60
     end
+  end
+  object cdsHorariosDia: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 48
+    Top = 320
+    object cdsHorariosDiaNOME: TStringField
+      FieldName = 'NOME'
+      Size = 40
+    end
+    object cdsHorariosDiaINICIO: TTimeField
+      FieldName = 'INICIO'
+    end
+    object cdsHorariosDiaFIM: TTimeField
+      FieldName = 'FIM'
+    end
+    object cdsHorariosDiaCODIGO_HORARIO: TIntegerField
+      FieldName = 'CODIGO_HORARIO'
+    end
+  end
+  object dsHorariosDia: TDataSource
+    DataSet = cdsHorariosDia
+    Left = 104
+    Top = 320
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 2000
+    OnTimer = Timer1Timer
+    Left = 712
+    Top = 440
   end
 end
