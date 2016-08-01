@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,
-  Vcl.StdCtrls, Vcl.Imaging.pngimage, Servico, Vcl.Buttons;
+  Vcl.StdCtrls, Vcl.Imaging.pngimage, TabelaPreco, Vcl.Buttons;
 
 type
   TMostraServico = class(TFrame)
@@ -17,15 +17,15 @@ type
     btnLimpa: TSpeedButton;
     procedure btnLimpaClick(Sender: TObject);
   private
-    FServico: TServico;
+    FTabelaPreco: TTabelaPreco;
     FTempoServico: TTime;
     { Private declarations }
   public
     procedure BeforeDestruction; override;
-    procedure carregaServico(codigoServico :integer; tempoServico :TTime);
+    procedure carregaServico(idTabelaPreco :integer; tempoServico :TTime);
 
-    property Servico :TServico read FServico;
-    property TempoServico :TTime read FTempoServico;
+    property TabelaPreco :TTabelaPreco read FTabelaPreco;
+    property tempoServico :TTime read FTempoServico;
   end;
 
 implementation
@@ -37,28 +37,28 @@ implementation
 procedure TMostraServico.BeforeDestruction;
 begin
   inherited;
-  if Assigned(FServico) then
-    FreeAndNil(FServico);
+  if Assigned(FTabelaPreco) then
+    FreeAndNil(FTabelaPreco);
 end;
 
 procedure TMostraServico.btnLimpaClick(Sender: TObject);
 begin
-  if assigned(FServico) then
-    FreeAndNil(FServico);
+  if assigned(FTabelaPreco) then
+    FreeAndNil(FTabelaPreco);
   FTempoServico := 0;
 
   lbServico.Caption := '- - -';
   lbTempo.Caption   := '00:00';
 end;
 
-procedure TMostraServico.carregaServico(codigoServico: integer; tempoServico: TTime);
+procedure TMostraServico.carregaServico(idTabelaPreco: integer; tempoServico: TTime);
 begin
   self.Align := alLeft;
-  FServico := TServico.Create;
-  FServico.Load(codigoServico);
+  FTabelaPreco := TTabelaPreco.Create;
+  FTabelaPreco.Load(idTabelaPreco);
   FTempoServico := tempoServico;
 
-  lbServico.Caption := FServico.Servico;
+  lbServico.Caption := FTabelaPreco.Servico.Servico;
   lbTempo.Caption   := FormatDateTime('hh:mm',tempoServico)+' min';
   self.Visible      := true;
 end;

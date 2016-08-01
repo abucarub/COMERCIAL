@@ -118,6 +118,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnIncMinClick(Sender: TObject);
     procedure btnDecMinClick(Sender: TObject);
+    procedure BuscaTabelaPreco1edtCodigoChange(Sender: TObject);
   private
     FPrimeiroHorarioDisponivel :TTime;
     FUltimoHorarioDisponivel   :TTime;
@@ -125,20 +126,21 @@ type
     FUltimoHorarioDia   :TTime;
     fimHorario, limiteHorario :TTime;
 
-    function tempoServicosSelecionados :TTime;
     procedure carregarHorariosDia;
     procedure mostrarHorariosDia(horarios: TObjectList<TSPA>);
     procedure carregarHorariosCliente;
     procedure mostrarHorariosCliente(horarios: TObjectList<TSPA>);
     procedure defineHorarioMinMax;
     procedure setaHorario(horario :TTime);
-    function marcaHorario :boolean;
     procedure insereHorarioGrid(spa :TSPA);
     procedure habilitaMarcacao(habilita :boolean);
-    procedure adicionaServicos(Horario :TSPA);
+    procedure adicionaServicoHorario(Horario :TSPA; frameServico: TMostraServico);
+    procedure limpaServicosTela;
 
-    function adicionaServico(servico :TServico) :Boolean;
+    function tempoServicosSelecionados :TTime;
+    function adicionaServicoTela(servico :TServico) :Boolean;
     function servicoAdicionado(servico :TServico):boolean;
+    function marcaHorario :boolean;
   public
     { Public declarations }
   end;
@@ -152,21 +154,21 @@ uses Utilitario, TipoPessoa, ServicoAgendado;
 
 {$R *.dfm}
 
-function TfrmAgendamentos.adicionaServico(servico: TServico) :Boolean;
+function TfrmAgendamentos.adicionaServicoTela(servico: TServico) :Boolean;
 begin
   result := false;
   if not servicoAdicionado(servico)  then
   begin
     result := true;
-    if not assigned(MostraServico1.Servico) then
+    if not assigned(MostraServico1.TabelaPreco) then
       MostraServico1.carregaServico(servico.ID, strToTime(edtTempoDuracao.Text))
-    else if not assigned(MostraServico2.Servico) then
+    else if not assigned(MostraServico2.TabelaPreco) then
       MostraServico2.carregaServico(servico.ID, strToTime(edtTempoDuracao.Text))
-    else if not assigned(MostraServico3.Servico) then
+    else if not assigned(MostraServico3.TabelaPreco) then
       MostraServico3.carregaServico(servico.ID, strToTime(edtTempoDuracao.Text))
-    else if not assigned(MostraServico4.Servico) then
+    else if not assigned(MostraServico4.TabelaPreco) then
       MostraServico4.carregaServico(servico.ID, strToTime(edtTempoDuracao.Text))
-    else if not assigned(MostraServico5.Servico) then
+    else if not assigned(MostraServico5.TabelaPreco) then
       MostraServico5.carregaServico(servico.ID, strToTime(edtTempoDuracao.Text))
     else
     begin
@@ -174,22 +176,17 @@ begin
       MessageDlg('O máximo de serviços por horário já foi atingido.', mtInformation,[mbOk],0);
     end;
   end;
-
-  BuscaTabelaPreco1.edtCodigo.SetFocus;
 end;
 
-procedure TfrmAgendamentos.adicionaServicos(Horario: TSPA);
+procedure TfrmAgendamentos.adicionaServicoHorario(Horario: TSPA; frameServico: TMostraServico);
+var servicoAgendado :TServicoAgendado;
 begin
-  if assigned(MostraServico1.Servico) then
-    Horario.ServicosAgendados.Add(MostraServico1.Servico, passar horario para salvar na tabela servico_agendado);
-  if assigned(MostraServico2.Servico) then
-    Horario.ServicosAgendados.Add(MostraServico2.Servico);
-  if assigned(MostraServico3.Servico) then
-    Horario.ServicosAgendados.Add(MostraServico3.Servico);
-  if assigned(MostraServico4.Servico) then
-    Horario.ServicosAgendados.Add(MostraServico4.Servico);
-  if assigned(MostraServico5.Servico) then
-    Horario.ServicosAgendados.Add(MostraServico5.Servico);
+  servicoAgendado                := TServicoAgendado.Create;
+  servicoAgendado.ID_SPA         := Horario.ID;
+  servicoAgendado.ID_TabelaPreco := frameServico.TabelaPreco.ID;
+  servicoAgendado.duracao        := frameServico.tempoServico;
+
+  Horario.ServicosAgendados.Add(ServicoAgendado);
 end;
 
 procedure TfrmAgendamentos.BitBtn1Click(Sender: TObject);
@@ -202,11 +199,16 @@ end;
 
 procedure TfrmAgendamentos.btnAddServicoClick(Sender: TObject);
 begin
-  if adicionaServico(BuscaTabelaPreco1.TabelaPreco.Servico) then
+  if not assigned(BuscaTabelaPreco1.TabelaPreco) then
   begin
-    BuscaTabelaPreco1.limpa;
-    edtTempoDuracao.Clear;
+    exit;
+    BuscaTabelaPreco1.edtCodigo.SetFocus;
   end;
+  adicionaServicoTela(BuscaTabelaPreco1.TabelaPreco.Servico);
+  BuscaTabelaPreco1.limpa;
+  BuscaTabelaPreco1.edtCodigo.SetFocus;
+  edtTempoDuracao.Clear;
+  calendarioClick(nil);
 end;
 
 procedure TfrmAgendamentos.btnCriaHorarioClick(Sender: TObject);
@@ -257,6 +259,12 @@ begin
   cdsHorarios.EmptyDataSet;
   if assigned(BuscaPessoa1.Pessoa) then
     carregarHorariosCliente;
+end;
+
+procedure TfrmAgendamentos.BuscaTabelaPreco1edtCodigoChange(Sender: TObject);
+begin
+  inherited;
+  edtTempoDuracao.Clear;
 end;
 
 procedure TfrmAgendamentos.BuscaTabelaPreco1Exit(Sender: TObject);
@@ -366,7 +374,9 @@ begin
     StringGrid1.RowHeights[StringGrid1.RowCount-1] := alturaLinha;
     if (minutos*10) >= TUtilitario.dataParaMinutos(tempoServicosSelecionados) then
       StringGrid1.Cells[0,StringGrid1.RowCount-1] := formatDatetime('hh:mm',fimHorario) + ' às ' +
-                                                     formatDatetime('hh:mm',limiteHorario) + ' DISPONÍVEL';
+                                                     formatDatetime('hh:mm',limiteHorario) + ' DISPONÍVEL'
+    else
+        StringGrid1.Cells[0,StringGrid1.RowCount-1] := '';
   end;
 
 end;
@@ -378,6 +388,7 @@ begin
   TMostraServico(TSpeedButton(Sender).Owner).Visible := false;
   TMostraServico(TSpeedButton(Sender).Owner).Align   := alNone;
   TMostraServico(TSpeedButton(Sender).Owner).Left    := 700;
+  calendarioClick(nil);
 end;
 
 procedure TfrmAgendamentos.FormCreate(Sender: TObject);
@@ -428,6 +439,15 @@ begin
   cdsHorarios.Post;
 end;
 
+procedure TfrmAgendamentos.limpaServicosTela;
+begin
+  MostraServico1.btnLimpa.Click;
+  MostraServico2.btnLimpa.Click;
+  MostraServico3.btnLimpa.Click;
+  MostraServico4.btnLimpa.Click;
+  MostraServico5.btnLimpa.Click;
+end;
+
 function TfrmAgendamentos.marcaHorario :boolean;
 var SPA :TSPA;
 begin
@@ -438,12 +458,22 @@ begin
     SPA.ID_Pessoa       := BuscaPessoa1.Pessoa.ID;
     SPA.ID_Departamento := BuscaDepartamento1.Departamento.ID;
 
-    adicionaServicos(SPA);
+    if assigned(MostraServico1.TabelaPreco) then
+      adicionaServicoHorario(SPA,MostraServico1);
+    if assigned(MostraServico2.TabelaPreco) then
+      adicionaServicoHorario(SPA,MostraServico2);
+    if assigned(MostraServico3.TabelaPreco) then
+      adicionaServicoHorario(SPA,MostraServico3);
+    if assigned(MostraServico4.TabelaPreco) then
+      adicionaServicoHorario(SPA,MostraServico4);
+    if assigned(MostraServico5.TabelaPreco) then
+      adicionaServicoHorario(SPA,MostraServico5);
+
     SPA.Save;
 
     insereHorarioGrid(SPA);
     habilitaMarcacao(false);
-    calendarioClick(nil);
+    limpaServicosTela;
   finally
     FreeAndNil(SPA);
   end;
@@ -504,12 +534,12 @@ function TfrmAgendamentos.servicoAdicionado(servico: TServico): boolean;
 begin
   result := true;
 
-  if (assigned(MostraServico1.Servico) and (MostraServico1.Servico.ID = servico.ID)) or
-     (assigned(MostraServico2.Servico) and (MostraServico2.Servico.ID = servico.ID)) or
-     (assigned(MostraServico3.Servico) and (MostraServico3.Servico.ID = servico.ID)) or
-     (assigned(MostraServico4.Servico) and (MostraServico4.Servico.ID = servico.ID)) or
-     (assigned(MostraServico5.Servico) and (MostraServico5.Servico.ID = servico.ID)) then
-    MessageDlg('Serviço já inserido', mtInformation,[mbOk],0)
+  if (assigned(MostraServico1.TabelaPreco) and (MostraServico1.TabelaPreco.Servico.ID = servico.ID)) or
+     (assigned(MostraServico2.TabelaPreco) and (MostraServico2.TabelaPreco.Servico.ID = servico.ID)) or
+     (assigned(MostraServico3.TabelaPreco) and (MostraServico3.TabelaPreco.Servico.ID = servico.ID)) or
+     (assigned(MostraServico4.TabelaPreco) and (MostraServico4.TabelaPreco.Servico.ID = servico.ID)) or
+     (assigned(MostraServico5.TabelaPreco) and (MostraServico5.TabelaPreco.Servico.ID = servico.ID)) then
+    MessageDlg('Serviço '+BuscaTabelaPreco1.TabelaPreco.Servico.Servico+' já foi adicionado', mtInformation,[mbOk],0)
   else
     result := false;
 end;
@@ -588,15 +618,15 @@ end;
 
 function TfrmAgendamentos.tempoServicosSelecionados: TTime;
 begin
-  if assigned(MostraServico1.Servico) then
+  if assigned(MostraServico1.TabelaPreco) then
     result := result + MostraServico1.TempoServico;
-  if assigned(MostraServico2.Servico) then
+  if assigned(MostraServico2.TabelaPreco) then
     result := result + MostraServico2.TempoServico;
-  if assigned(MostraServico3.Servico) then
+  if assigned(MostraServico3.TabelaPreco) then
     result := result + MostraServico3.TempoServico;
-  if assigned(MostraServico4.Servico) then
+  if assigned(MostraServico4.TabelaPreco) then
     result := result + MostraServico4.TempoServico;
-  if assigned(MostraServico5.Servico) then
+  if assigned(MostraServico5.TabelaPreco) then
     result := result + MostraServico5.TempoServico;
 end;
 

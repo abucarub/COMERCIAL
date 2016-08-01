@@ -12,6 +12,8 @@ type
     FID_SPA: Integer;
     FTabelaPreco: TTabelaPreco;
     FID_Departamento: Integer;
+    FDuracao: TTime;
+
     function GetTabelaPreco: TTabelaPreco;
 
   public
@@ -19,6 +21,8 @@ type
     property ID_SPA: Integer read FID_SPA write FID_SPA;
     [FieldName('ID_TABELA_PRECO')]
     property ID_TabelaPreco: Integer read FID_TabelaPreco write FID_TabelaPreco;
+    [FieldName('DURACAO')]
+    property duracao: TTime read FDuracao write FDuracao;
 
     [HasOne('ID_TABELA_PRECO')]
     property TabelaPreco: TTabelaPreco read GetTabelaPreco write FTabelaPreco;
@@ -38,6 +42,7 @@ begin
   ID              := 0;
   FID_SPA         := 0;
   FID_TabelaPreco := 0;
+  FDuracao        := 0;
   if assigned(FTabelaPreco) then
     FreeAndNil(FTabelaPreco);
 end;
@@ -57,7 +62,8 @@ function TServicoAgendado.isEmpty: Boolean;
 begin
   result := (ID = 0) and
             (FID_SPA = 0) and
-            (FID_TabelaPreco = 0);
+            (FID_TabelaPreco = 0) and
+            (FDuracao = 0);
 end;
 
 procedure TServicoAgendado.LoadClass(const AValue: Integer);

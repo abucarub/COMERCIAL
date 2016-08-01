@@ -35,7 +35,7 @@ begin
   DiaDasemana [6]:= 'Sexta-feira';
   DiaDasemana [7]:= 'Sábado';
   NoDia := DayOfWeek(Data);
-  result := UPPERCASE(DiaDasemana[NoDia]);
+  result := AnsiUpperCase(DiaDasemana[NoDia]);
 end;
 
 end.

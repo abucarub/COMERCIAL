@@ -64,6 +64,8 @@ type
     class function CreateInstance(instanceType: TRttiInstanceType; constructorMethod: TRttiMethod;
                                   const arguments: array of TValue): TObject;
 
+    destructor destroy;override;
+
   end;
 
 implementation
@@ -127,6 +129,12 @@ end;
 function TPersistentObject.Delete: Boolean;
 begin
 
+end;
+
+destructor TPersistentObject.destroy;
+begin
+  self.Clear;
+  inherited;
 end;
 
 procedure TPersistentObject.GetAttAndValuePK(var atributos, valores :array of String; RTT: TRttiType);
@@ -715,6 +723,7 @@ begin
     if not Result then
       raise Exception.Create(Error);
 
+    afterSave;
   Except
     on e:Exception do
     begin

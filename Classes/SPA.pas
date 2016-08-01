@@ -110,7 +110,7 @@ var i :integer;
 begin
   result := 0;
   for i := 0 to ServicosAgendados.Count - 1 do
-    result := result + ServicosAgendados.Items[i].TabelaPreco.Servico.Duracao;
+    result := result + ServicosAgendados.Items[i].duracao;
 end;
 
 function TSPA.GetHorarioPassado: Boolean;

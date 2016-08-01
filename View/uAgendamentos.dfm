@@ -3,7 +3,7 @@ inherited frmAgendamentos: TfrmAgendamentos
   ClientHeight = 681
   ClientWidth = 1019
   OnShow = FormShow
-  ExplicitTop = -32
+  ExplicitTop = -30
   ExplicitWidth = 1035
   ExplicitHeight = 719
   PixelsPerInch = 96
@@ -18,7 +18,6 @@ inherited frmAgendamentos: TfrmAgendamentos
     ParentBackground = False
     ParentColor = False
     TabOrder = 1
-    ExplicitHeight = 683
     object Shape4: TShape
       Left = 0
       Top = 45
@@ -570,11 +569,6 @@ inherited frmAgendamentos: TfrmAgendamentos
       TabOrder = 0
       OnDrawCell = StringGrid1DrawCell
       OnSelectCell = StringGrid1SelectCell
-      ColWidths = (
-        220)
-      RowHeights = (
-        0
-        0)
     end
   end
   object Panel1: TPanel
@@ -587,8 +581,6 @@ inherited frmAgendamentos: TfrmAgendamentos
     Color = 16250871
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 733
-    ExplicitHeight = 683
     object Shape1: TShape
       Left = -2
       Top = 239
@@ -1055,13 +1047,13 @@ inherited frmAgendamentos: TfrmAgendamentos
       end
     end
     object calendario: TJvMonthCalendar
-      Left = 36
-      Top = 295
+      Left = 33
+      Top = 293
       Width = 225
       Height = 160
       CalColors.TextColor = clBlue
       CalColors.MonthBackColor = clTeal
-      Date = 42566.569499918980000000
+      Date = 42566.490104398150000000
       TabOrder = 2
       OnClick = calendarioClick
     end
@@ -1129,6 +1121,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         item
           Expanded = False
           FieldName = 'DATA'
+          Width = 64
           Visible = True
         end
         item
@@ -1151,7 +1144,6 @@ inherited frmAgendamentos: TfrmAgendamentos
       Height = 239
       Align = alTop
       TabOrder = 3
-      ExplicitWidth = 733
       object Label5: TLabel
         Left = 355
         Top = 129
@@ -1310,6 +1302,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         end
         inherited edtCodigo: TCurrencyEdit
           Width = 44
+          OnChange = BuscaTabelaPreco1edtCodigoChange
           ExplicitWidth = 44
         end
         inherited edtServico: TEdit
@@ -1463,7 +1456,6 @@ inherited frmAgendamentos: TfrmAgendamentos
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 7
-        ExplicitWidth = 731
         inline MostraServico1: TMostraServico
           Left = 0
           Top = 0
@@ -1472,8 +1464,7 @@ inherited frmAgendamentos: TfrmAgendamentos
           Align = alLeft
           TabOrder = 0
           Visible = False
-          ExplicitLeft = 40
-          ExplicitTop = 9
+          ExplicitHeight = 50
           inherited btnLimpa: TSpeedButton
             Left = 123
             OnClick = MostraServico1btnLimpaClick
@@ -1488,8 +1479,8 @@ inherited frmAgendamentos: TfrmAgendamentos
           Align = alLeft
           TabOrder = 1
           Visible = False
-          ExplicitLeft = 208
-          ExplicitTop = 9
+          ExplicitLeft = 588
+          ExplicitHeight = 50
           inherited btnLimpa: TSpeedButton
             OnClick = MostraServico1btnLimpaClick
           end
@@ -1502,8 +1493,7 @@ inherited frmAgendamentos: TfrmAgendamentos
           Align = alLeft
           TabOrder = 2
           Visible = False
-          ExplicitLeft = 208
-          ExplicitTop = 9
+          ExplicitLeft = 441
           ExplicitHeight = 50
           inherited btnLimpa: TSpeedButton
             OnClick = MostraServico1btnLimpaClick
@@ -1517,8 +1507,7 @@ inherited frmAgendamentos: TfrmAgendamentos
           Align = alLeft
           TabOrder = 3
           Visible = False
-          ExplicitLeft = 208
-          ExplicitTop = 9
+          ExplicitLeft = 294
           ExplicitHeight = 50
           inherited btnLimpa: TSpeedButton
             OnClick = MostraServico1btnLimpaClick
@@ -1532,8 +1521,7 @@ inherited frmAgendamentos: TfrmAgendamentos
           Align = alLeft
           TabOrder = 4
           Visible = False
-          ExplicitLeft = 208
-          ExplicitTop = 9
+          ExplicitLeft = 147
           ExplicitHeight = 50
           inherited lbServico: TLabel
             Width = 127
