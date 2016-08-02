@@ -60,12 +60,14 @@ begin
     FTabelaPreco := TabelaPreco.Create;
   FTabelaPreco.Load(ID);
 
-  if not assigned(FTabelaPreco) then
-    exit;
-
-  edtCodigo.AsInteger := FTabelaPreco.ID;
-  edtServico.Text     := FTabelaPreco.Servico.Servico;
-  edtValor.Value      := FTabelaPreco.Valor;
+  if assigned(FTabelaPreco) and ((FTabelaPreco.Servico.ID_Departamento <> self.IDDepartamento) or (FTabelaPreco.ID_Convenio <> self.FIDConvenio))then
+    FTabelaPreco.Clear
+  else if assigned(FTabelaPreco) then
+  begin
+    edtCodigo.AsInteger := FTabelaPreco.ID;
+    edtServico.Text     := FTabelaPreco.Servico.Servico;
+    edtValor.Value      := FTabelaPreco.Valor;
+  end;
 end;
 
 procedure TBuscaTabelaPreco.edtValorEnter(Sender: TObject);

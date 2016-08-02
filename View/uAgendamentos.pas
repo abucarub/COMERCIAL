@@ -80,9 +80,16 @@ type
     chkQuinta: TCheckBox;
     chkSexta: TCheckBox;
     lbDiasAula: TLabel;
+    cdsHorariosNDIA_SEMANA: TSmallintField;
+    btnSalvarHorarios: TBitBtn;
+    Label4: TLabel;
+    edtDiaPagamento: TCurrencyEdit;
+    Shape3: TShape;
+    rgpDiasSemana: TRadioGroup;
     procedure FormCreate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
-    procedure calendarioClick(Sender: TObject);
+    procedure fisioEsteticaClick(Sender: TObject);
+    procedure pilatesClick(Sender: TObject);
     procedure speHorasChange(Sender: TObject);
     procedure BuscaConvenio1Exit(Sender: TObject);
     procedure BuscaTabelaPreco1Exit(Sender: TObject);
@@ -102,6 +109,9 @@ type
     procedure BuscaProfissionalExit(Sender: TObject);
     procedure btnCancelarHorarioClick(Sender: TObject);
     procedure BuscaDepartamento1edtDepartamentoChange(Sender: TObject);
+    procedure chkSegundaClick(Sender: TObject);
+    procedure btnSalvarHorariosClick(Sender: TObject);
+    procedure rgpDiasSemanaClick(Sender: TObject);
   private
     FPrimeiroHorarioDisponivel :TTime;
     FUltimoHorarioDisponivel   :TTime;
@@ -110,6 +120,7 @@ type
     fimHorario, limiteHorario :TTime;
 
     procedure carregarHorariosDia;
+    procedure carregarHorariosDiaSemana;
     procedure mostrarHorariosDia(horarios: TObjectList<TSPA>);
     procedure carregarHorariosCliente;
     procedure mostrarHorariosCliente(horarios: TObjectList<TSPA>);
@@ -117,16 +128,26 @@ type
     procedure setaHorario(horario :TTime);
     procedure insereHorarioGrid(spa :TSPA);
     procedure habilitaMarcacao(habilita :boolean);
-    procedure adicionaServicoHorario(Horario :TSPA; frameServico: TMostraServico);
+    procedure adicionaServicoHorario(Horario :TSPA; ID_TabelaPreco :integer; tempoServico :TTime);
     procedure limpaServicosTela;
     procedure cancelaHorario;
     procedure zeraTela;
     procedure configuraTela;
-
+    procedure adicionaRemoveHorario(checkBox :TCheckBox);
+    procedure marcaHorarioPilates;
+    procedure preencheHorariosRestantes;
+    procedure carregaDadosAluno;
+    procedure limpaDadosAluno;
+    procedure salvaDadosAluno;
+    
+    function diasSemanaSelecionados :String;
+    function diaSemanaPreSelecionado(data:TDateTime) :Boolean;
     function tempoServicosSelecionados :TTime;
     function adicionaServicoTela(servico :TServico) :Boolean;
     function servicoAdicionado(servico :TServico):boolean;
     function marcaHorario :boolean;
+    function SalvaHorariosPilates :boolean;
+    
   public
     { Public declarations }
   end;
@@ -136,7 +157,7 @@ var
 
 implementation
 
-uses Utilitario, TipoPessoa, ServicoAgendado;
+uses Utilitario, TipoPessoa, ServicoAgendado, AlunoPilates;
 
 {$R *.dfm}
 
@@ -167,13 +188,33 @@ begin
   end;
 end;
 
-procedure TfrmAgendamentos.adicionaServicoHorario(Horario: TSPA; frameServico: TMostraServico);
+procedure TfrmAgendamentos.adicionaRemoveHorario(checkBox: TCheckBox);
+begin
+  if not checkBox.Checked then
+  begin
+    checkBox.Font.Style := [];
+    if cdsHorarios.Locate('DIA_SEMANA',UPPERCASE(checkBox.Caption),[]) then
+      cdsHorarios.Delete;
+  end
+  else
+  begin
+    checkBox.Font.Style := [fsBold];
+    cdsHorarios.Append;
+    cdsHorariosDIA_SEMANA.AsString   := ANSIUPPERCASE(checkBox.Caption)+'-FEIRA';
+    cdsHorariosNDIA_SEMANA.AsInteger := TUtilitario.numeroDiaSemana(checkBox.Caption);
+    cdsHorarios.Post;
+  end;
+
+  cdsHorarios.IndexFieldNames := 'NDIA_SEMANA';
+end;
+
+procedure TfrmAgendamentos.adicionaServicoHorario(Horario: TSPA; ID_TabelaPreco :integer; tempoServico :TTime);
 var servicoAgendado :TServicoAgendado;
 begin
   servicoAgendado                := TServicoAgendado.Create;
   servicoAgendado.ID_SPA         := Horario.ID;
-  servicoAgendado.ID_TabelaPreco := frameServico.TabelaPreco.ID;
-  servicoAgendado.duracao        := frameServico.tempoServico;
+  servicoAgendado.ID_TabelaPreco := ID_TabelaPreco;
+  servicoAgendado.duracao        := tempoServico;
 
   Horario.ServicosAgendados.Add(ServicoAgendado);
 end;
@@ -215,8 +256,13 @@ end;
 
 procedure TfrmAgendamentos.btnCriaHorarioClick(Sender: TObject);
 begin
- if marcaHorario then
+ if BuscaDepartamento1.Departamento.Departamento = 'PILATES' then
+   marcaHorarioPilates
+ else
+ begin   
+   if marcaHorario then
    MessageDlg('Horário criado com sucesso!', mtInformation,[mbOk],0);
+ end;
 end;
 
 procedure TfrmAgendamentos.btnDecMinClick(Sender: TObject);
@@ -236,6 +282,22 @@ begin
     exit;
 
   edtTempoDuracao.Text := TimeToStr(strToTime(edtTempoDuracao.Text)+strToTime('00:10:00'));
+end;
+
+procedure TfrmAgendamentos.btnSalvarHorariosClick(Sender: TObject);
+begin
+  if edtDiaPagamento.AsInteger = 0 then
+  begin
+    MessageDlg('Favor informar o dia do pagamento.', mtInformation,[mbOk],0);
+    edtDiaPagamento.SetFocus;
+    exit;
+  end;
+
+  if SalvaHorariosPilates then
+  begin
+    rgpDiasSemanaClick(nil);
+    MessageDlg('Horários salvos com sucesso!', mtInformation,[mbOk],0);
+  end;
 end;
 
 procedure TfrmAgendamentos.BuscaConvenio1Exit(Sender: TObject);
@@ -278,10 +340,12 @@ end;
 procedure TfrmAgendamentos.BuscaProfissionalExit(Sender: TObject);
 begin
   inherited;
+  BuscaProfissional.FrameExit(Sender);
   if assigned(BuscaProfissional.Pessoa) and (BuscaProfissional.Pessoa.ID > 0)then
   begin
     calendario.Enabled := true;
-    calendarioClick(nil);
+    if not (BuscaDepartamento1.Departamento.Departamento = 'PILATES') then
+      fisioEsteticaClick(nil);  
   end
   else
   begin
@@ -306,7 +370,7 @@ begin
     edtTempoDuracao.Clear;
 end;
 
-procedure TfrmAgendamentos.calendarioClick(Sender: TObject);
+procedure TfrmAgendamentos.fisioEsteticaClick(Sender: TObject);
 begin
   if calendario.Date < date then
   begin
@@ -314,7 +378,6 @@ begin
     exit;
   end;
 
-  habilitaMarcacao(false);
   carregarHorariosDia;
   lbHorarioDia.Caption := 'Horários do dia  '+DateToStr(calendario.Date);
   lbDiaSemana.Caption  := '('+TUtilitario.diaSemanaExtenso(calendario.Date)+')';
@@ -342,7 +405,7 @@ begin
 
   cdsHorarios.EmptyDataSet;
   for horario in horarios do
-    if not horario.horarioPassado then
+    if (BuscaDepartamento1.Departamento.Departamento = 'PILATES') or not horario.horarioPassado then
       insereHorarioGrid(horario);
 
   btnCancelarHorario.Enabled  := not cdsHorarios.IsEmpty;
@@ -378,6 +441,118 @@ begin
   //calendarioClick(nil);
   if TUtilitario.dataParaMinutos(tempoServicosSelecionados) = 0 then
     habilitaMarcacao(false);
+end;
+
+procedure TfrmAgendamentos.pilatesClick(Sender: TObject);
+begin
+  if diasSemanaSelecionados = '' then
+     MessageDlg('Nenhum dia da semana foi escolhido para a aula. Favor informar acima.', mtInformation,[mbOk],0)
+  else if not diaSemanaPreSelecionado(calendario.Date) then
+  begin
+    MessageDlg('Data selecionada deve corresponder a um dia da semana pre-selecionado.'+#13#10+
+                diasSemanaSelecionados, mtInformation,[mbOk],0);
+    habilitaMarcacao(false);
+  end
+  else
+    habilitaMarcacao(true);
+  //  carregarHorariosDiaSemana;
+end;
+
+procedure TfrmAgendamentos.preencheHorariosRestantes;
+var primeiroDia :integer; 
+    diferenca :integer;
+    ultimoDia :integer; 
+    ultimaData :TDateTime;                                             
+begin                                                                   
+  primeiroDia := cdsHorariosNDIA_SEMANA.AsInteger;
+  ultimoDia   := primeiroDia; 
+  ultimaData  := cdsHorariosDATA.AsDateTime;                     
+  cdsHorarios.Next;
+                                                                        
+  if cdsHorarios.Eof then                                               
+    cdsHorarios.First;                                                  
+                                                                        
+  while not cdsHorarios.Eof do                                          
+  begin                                                                 
+    if cdsHorariosNDIA_SEMANA.AsInteger = primeiroDia then              
+      break;
+      
+    if cdsHorariosNDIA_SEMANA.AsInteger > ultimoDia then 
+      diferenca := cdsHorariosNDIA_SEMANA.AsInteger - ultimoDia
+    else
+      diferenca := (7 - ultimoDia) + cdsHorariosNDIA_SEMANA.AsInteger; 
+
+    cdsHorarios.Edit;
+    cdsHorariosDATA.AsDateTime := ultimaData + diferenca;
+    cdsHorariosHORA.AsDateTime := StrToTime(speHoras.Text+':'+speMinutos.Text+':00');
+    cdsHorarios.Post;
+
+    ultimoDia   := cdsHorariosNDIA_SEMANA.AsInteger;
+    ultimaData  := cdsHorariosDATA.AsDateTime;    
+      
+    cdsHorarios.Next;  
+          
+    if cdsHorarios.Eof then                                               
+      cdsHorarios.First;   
+  end;
+  
+end;
+
+procedure TfrmAgendamentos.rgpDiasSemanaClick(Sender: TObject);
+begin
+  carregarHorariosDiaSemana;
+end;
+
+procedure TfrmAgendamentos.salvaDadosAluno;
+var AlunoPilates :TAlunoPilates;
+begin
+  try
+    AlunoPilates := TAlunoPilates.Create;
+    if BuscaPessoa1.Pessoa.AlunoPilates.isLoaded then
+      AlunoPilates.Load(BuscaPessoa1.Pessoa.AlunoPilates.ID);
+
+    AlunoPilates.ID_Pessoa := BuscaPessoa1.Pessoa.ID;
+    AlunoPilates.Segunda := IfThen(chkSegunda.Checked,'X','');
+    AlunoPilates.Terca   := IfThen(chkTerca.Checked,'X','');
+    AlunoPilates.Quarta  := IfThen(chkQuarta.Checked,'X','');
+    AlunoPilates.Quinta  := IfThen(chkQuinta.Checked,'X','');
+    AlunoPilates.Sexta   := IfThen(chkSexta.Checked,'X','');
+    AlunoPilates.DiaPagamento := edtDiaPagamento.AsInteger;
+    AlunoPilates.Save;
+  finally
+    FreeAndNil(AlunoPilates);
+  end;
+end;
+
+function TfrmAgendamentos.SalvaHorariosPilates: boolean;
+var SPA :TSPA;
+begin
+  try
+    cdsHorarios.First;
+    while not cdsHorarios.Eof do
+    begin
+      SPA := TSPA.Create;
+      SPA.Data            := cdsHorariosDATA.AsDateTime;
+      SPA.Hora            := cdsHorariosHORA.AsDateTime;
+      SPA.ID_Pessoa       := BuscaPessoa1.Pessoa.ID;
+      SPA.ID_Departamento := BuscaDepartamento1.Departamento.ID;
+      SPA.ID_Profissional := BuscaProfissional.Pessoa.ID;
+      adicionaServicoHorario(SPA,BuscaTabelaPreco1.TabelaPreco.ID, strToTime(edtTempoDuracao.Text));
+      SPA.Save;
+
+      cdsHorarios.Next;
+
+      FreeAndNil(SPA);
+    end;
+
+    salvaDadosAluno;
+
+    result := true;  
+    btnSalvarHorarios.Enabled := false;  
+  Except
+    raise Exception.Create('Erro ao salvar horários');
+    result := false;
+  end;
 end;
 
 procedure TfrmAgendamentos.FormCreate(Sender: TObject);
@@ -436,6 +611,16 @@ begin
   cdsHorarios.Post;
 end;
 
+procedure TfrmAgendamentos.limpaDadosAluno;
+begin
+  chkSegunda.Checked := false;
+  chkTerca.Checked := false;
+  chkQuarta.Checked := false;
+  chkQuinta.Checked := false;
+  chkSexta.Checked := false;
+  edtDiaPagamento.Clear;
+end;
+
 procedure TfrmAgendamentos.limpaServicosTela;
 begin
   MostraServico1.btnLimpa.Click;
@@ -457,25 +642,54 @@ begin
     SPA.ID_Profissional := BuscaProfissional.Pessoa.ID;
 
     if assigned(MostraServico1.TabelaPreco) then
-      adicionaServicoHorario(SPA,MostraServico1);
+      adicionaServicoHorario(SPA,MostraServico1.TabelaPreco.ID, MostraServico1.tempoServico);
     if assigned(MostraServico2.TabelaPreco) then
-      adicionaServicoHorario(SPA,MostraServico2);
+      adicionaServicoHorario(SPA,MostraServico2.TabelaPreco.ID, MostraServico2.tempoServico);
     if assigned(MostraServico3.TabelaPreco) then
-      adicionaServicoHorario(SPA,MostraServico3);
+      adicionaServicoHorario(SPA,MostraServico3.TabelaPreco.ID, MostraServico3.tempoServico);
     if assigned(MostraServico4.TabelaPreco) then
-      adicionaServicoHorario(SPA,MostraServico4);
+      adicionaServicoHorario(SPA,MostraServico4.TabelaPreco.ID, MostraServico4.tempoServico);
     if assigned(MostraServico5.TabelaPreco) then
-      adicionaServicoHorario(SPA,MostraServico5);
+      adicionaServicoHorario(SPA,MostraServico5.TabelaPreco.ID, MostraServico5.tempoServico);
 
     SPA.Save;
 
     insereHorarioGrid(SPA);
     habilitaMarcacao(false);
     limpaServicosTela;
-    calendarioClick(nil);
+    fisioEsteticaClick(nil);
   finally
     FreeAndNil(SPA);
   end;
+end;
+
+procedure TfrmAgendamentos.marcaHorarioPilates;
+begin      
+  if cdsHorarios.Locate('DIA_SEMANA',TUtilitario.diaSemanaExtenso(calendario.Date),[]) then
+  begin
+    cdsHorarios.Edit;
+    cdsHorariosDATA.AsDateTime := calendario.Date;
+    cdsHorariosHORA.AsDateTime := StrToTime(speHoras.Text+':'+speMinutos.Text+':00');
+    cdsHorarios.Post;
+    
+    if cdsHorarios.RecordCount > 1 then
+      preencheHorariosRestantes;
+      
+    MessageDlg('Horário(s) criado(s) com sucesso.', mtInformation,[mbOk],0);
+  end;  
+
+  habilitaMarcacao(false);
+  btnSalvarHorarios.Enabled := true;
+end;
+
+procedure TfrmAgendamentos.carregaDadosAluno;
+begin
+  chkSegunda.Checked := BuscaPessoa1.Pessoa.AlunoPilates.Segunda = 'X';
+  chkTerca.Checked   := BuscaPessoa1.Pessoa.AlunoPilates.Terca = 'X';
+  chkQuarta.Checked  := BuscaPessoa1.Pessoa.AlunoPilates.Quarta = 'X';
+  chkQuinta.Checked  := BuscaPessoa1.Pessoa.AlunoPilates.Quinta = 'X';
+  chkSexta.Checked   := BuscaPessoa1.Pessoa.AlunoPilates.Sexta = 'X';
+  edtDiaPagamento.asInteger := BuscaPessoa1.Pessoa.AlunoPilates.DiaPagamento;
 end;
 
 procedure TfrmAgendamentos.carregarHorariosCliente;
@@ -483,11 +697,14 @@ var Horario  :TSPA;
     Horarios :TObjectList<TSPA>;
 begin
  try
+   limpaDadosAluno;
+   if (BuscaPessoa1.Pessoa.AlunoPilates.isLoaded) and (BuscaDepartamento1.Departamento.Departamento = 'PILATES') then
+     carregaDadosAluno;
+
    Horario  := TSPA.Create;
    Horarios := Horario.Horarios(BuscaPessoa1.Pessoa.ID, BuscaDepartamento1.Departamento.ID,'');
 
    mostrarHorariosCliente(Horarios);
-
  finally
    FreeAndNil(Horario);
    FreeAndNil(Horarios);
@@ -500,7 +717,10 @@ var Horario  :TSPA;
 begin
  try
    Horario  := TSPA.Create;
-   Horarios := Horario.LoadList<TSPA>('WHERE DATA = '''+FormatDateTime('dd.mm.yyyy', calendario.Date)+''' order by HORA');
+   Horarios := Horario.LoadList<TSPA>('WHERE DATA = '''+FormatDateTime('dd.mm.yyyy', calendario.Date)+''' '+
+                                      'and ID_DEPARTAMENTO = '+IntToStr(BuscaDepartamento1.Departamento.ID)+
+                                      'and ID_PROFISSIONAL = '+IntToStr(BuscaProfissional.Pessoa.ID)+
+                                      ' order by HORA');
 
    mostrarHorariosDia(Horarios);
  finally
@@ -509,26 +729,54 @@ begin
  end;
 end;
 
+procedure TfrmAgendamentos.carregarHorariosDiaSemana;
+var Horario  :TSPA;
+    Horarios :TObjectList<TSPA>;
+begin
+ try
+   Horario  := TSPA.Create;
+   Horarios := Horario.LoadList<TSPA>('WHERE EXTRACT(weekday from SPA.data) = '+IntToStr(rgpDiasSemana.ItemIndex+1)+
+                                      '  AND SPA.ID_DEPARTAMENTO = '+IntToStr(BuscaDepartamento1.Departamento.ID));
+
+   mostrarHorariosDia(Horarios);
+
+   habilitaMarcacao(true);
+ finally
+   FreeAndNil(Horario);
+   FreeAndNil(Horarios);
+ end;
+end;
+
+procedure TfrmAgendamentos.chkSegundaClick(Sender: TObject);
+begin
+   adicionaRemoveHorario(TCheckBox(Sender));
+end;
+
 procedure TfrmAgendamentos.configuraTela;
 begin
   if BuscaDepartamento1.Departamento.Departamento = 'PILATES' then
   begin
     lbHorarioDia.Caption     := 'Horários';
-    lbDiaSemana.Left         := 120; //260
+    lbDiaSemana.Visible      := false;
     pnlServicos.Visible      := false;
     pnlDiasSemana.Visible    := true;
+    pnlDiasSemana.Align      := alBottom;
     lbCalendario.Caption     := 'Selecione a data de início';
-    gpbHorario.Caption       := 'Horário da aula';
     lbHorarioMarcado.Caption := 'Horário da aula';
+    calendario.OnClick       := pilatesClick;
+    rgpDiasSemana.Visible    := true;
+    rgpDiasSemana.ItemIndex  := 0;
   end
   else
   begin
     lbHorarioDia.Caption     := 'Horários do dia';
-    lbDiaSemana.Left         := 260;
+    lbDiaSemana.Visible      := true;
     pnlServicos.Visible      := true;
     pnlDiasSemana.Visible    := false;
     lbCalendario.Caption     := 'Selecione a data desejada';
     lbHorarioMarcado.Caption := 'Horários marcados';
+    calendario.OnClick       := fisioEsteticaClick;
+    rgpDiasSemana.Visible    := false;
   end;
 
   gpbHorario.Caption       := '            Horário '+IfThen(BuscaDepartamento1.Departamento.Departamento = 'PILATES', 'da aula',
@@ -563,6 +811,23 @@ begin
     hora := time;
 
   setaHorario(hora);
+end;
+
+function TfrmAgendamentos.diaSemanaPreSelecionado(data:TDateTime): Boolean;
+var diaExtenso :String;
+begin
+  diaExtenso := TUtilitario.diaSemanaExtenso(data);
+  result     := pos(diaExtenso, diasSemanaSelecionados) > 0;
+end;
+
+function TfrmAgendamentos.diasSemanaSelecionados: String;
+begin
+  result := result +IfThen(chkSegunda.Checked, 'ou "SEGUNDA-FEIRA" ');
+  result := result +IfThen(chkTerca.Checked, 'ou "TERÇA-FEIRA" ');
+  result := result +IfThen(chkQuarta.Checked, 'ou "QUARTA-FEIRA" ');
+  result := result +IfThen(chkQuinta.Checked, 'ou "QUINTA-FEIRA" ');
+  result := result +IfThen(chkSexta.Checked, 'ou "SEXTA-FEIRA" ');
+  result := TRIM('('+copy(result,4,length(result))+')');
 end;
 
 function TfrmAgendamentos.servicoAdicionado(servico: TServico): boolean;

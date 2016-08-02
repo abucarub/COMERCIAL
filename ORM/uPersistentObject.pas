@@ -40,6 +40,7 @@ type
     procedure AfterSave; overload; virtual;
 
     function isEmpty :Boolean; overload; virtual;
+    function isLoaded :Boolean;
     {Load na classe corrente}
     //procedure Load(const AValue: Integer); overload; virtual; abstract;
     function Load(parametro :variant; const atributo :String = 'ID'): Boolean; overload;
@@ -338,6 +339,11 @@ end;
 function TPersistentObject.isEmpty: Boolean;
 begin
   raise Exception.Create('Método isEmpty deve ser implementado');
+end;
+
+function TPersistentObject.isLoaded: Boolean;
+begin
+  result := not self.isEmpty;
 end;
 
 function TPersistentObject.Load(parametro :variant; const atributo :String): Boolean;

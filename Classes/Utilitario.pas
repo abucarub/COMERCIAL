@@ -2,13 +2,14 @@ unit Utilitario;
 
 interface
 
-uses System.SysUtils;
+uses System.SysUtils, System.StrUtils;
 
 type
   TUtilitario = class
   public
     class function dataParaMinutos(data :TDateTime) :integer;
     class function diaSemanaExtenso(data :TDateTime) :String;
+    class function numeroDiaSemana(diaSemana :String) :integer;
   end;
 
 implementation
@@ -36,6 +37,19 @@ begin
   DiaDasemana [7]:= 'Sábado';
   NoDia := DayOfWeek(Data);
   result := AnsiUpperCase(DiaDasemana[NoDia]);
+end;
+
+class function TUtilitario.numeroDiaSemana(diaSemana: String): integer;
+begin
+  case AnsiIndexStr(ANSIUpperCase(diaSemana), ['SEGUNDA','TERÇA','QUARTA','QUINTA','SEXTA','SÁBADO','DOMINGO']) of
+  0 : result := 1;
+  1 : result := 2;
+  2 : result := 3;
+  3 : result := 4;
+  4 : result := 5;
+  5 : result := 6;
+  6 : result := 7;
+end;
 end;
 
 end.

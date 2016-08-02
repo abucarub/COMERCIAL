@@ -2,10 +2,10 @@ unit Pessoa;
 
 interface
 
-uses uPersistentObject, uAtrib, Endereco, Generics.Collections, System.SysUtils;//, SPA;
+uses uPersistentObject, uAtrib, Endereco, Generics.Collections, System.SysUtils,
+     AlunoPilates, TipoPessoa;//, SPA;
 
 type
-
   [Tablename('PESSOAS')]
   TPessoa = class(TPersistentObject)
   private
@@ -17,11 +17,14 @@ type
     FFone1: String;
     FEmail: String;
     FDtCadastro :TDateTime;
-    FDtNascimento :TDateTime;                                 criar classe alunoPilates extendendo TPessoa
-    FEndereco: TEndereco;
+    FDtNascimento :TDateTime;
+    FTipo: integer;
 
+    FEndereco: TEndereco;
+    FAlunoPilates: TAlunoPilates;
 
     function GetEndereco: TEndereco;
+    function GetAlunoPilates: TAlunoPilates;
 
   public
     [FieldName('NOME_RAZAO')]
@@ -40,19 +43,28 @@ type
     property DtCadastro: TDateTime read FDtCadastro write FDtCadastro;
     [FieldName('DT_NASCIMENTO')]
     property DtNascimento: TDateTime read FDtNascimento write FDtNascimento;
+    [FieldName('TIPO')]
+    property Tipo: integer read FTipo write FTipo;
 
     [HasOne('ID_PESSOA', false, true)]
     property Endereco: TEndereco read GetEndereco write FEndereco;
+    [HasOne('ID_PESSOA', false, true)]
+    property AlunoPilates: TAlunoPilates read GetAlunoPilates write FAlunoPilates;
+
 //    [HasMany('ID_SPA',false)]
 //    property Horarios: TObjectList<TSPA> read GetServicosAgendados write FServicosAgendados;
 
   private
     destructor destroy;
+    function GetTipoPessoa: TTipoPessoa;
 
   public
     procedure LoadClass(const AValue: Integer);
     procedure Clear; override;
     function isEmpty :Boolean; overload; override;
+
+  public
+    property tipoPessoa :TTipoPessoa read GetTipoPessoa;
   end;
 
 implementation
@@ -70,14 +82,28 @@ begin
   FEmail        := '';
   FDtCadastro   := 0;
   FDtNascimento := 0;
+  FTipo         := 0;
   if assigned(FEndereco) then
     FreeAndNil(FEndereco);
+  if assigned(FAlunoPilates) then
+    FreeAndNil(FAlunoPilates)
 end;
 
 destructor TPessoa.destroy;
 begin
   if assigned(FEndereco) then
     FreeAndNil(FEndereco);
+end;
+
+function TPessoa.GetAlunoPilates: TAlunoPilates;
+begin
+  if not assigned(FAlunoPilates) then
+    FAlunoPilates := self.LoadOne<TAlunoPilates>;
+
+  if not assigned(FAlunoPilates) then
+    FAlunoPilates := TAlunoPilates.Create;
+
+  Result := FAlunoPilates;
 end;
 
 function TPessoa.GetEndereco: TEndereco;
@@ -91,7 +117,12 @@ begin
   Result := FEndereco;
 end;
 
- {
+ function TPessoa.GetTipoPessoa: TTipoPessoa;
+begin
+  result := TTipoPessoaGet.getTipoPorInteiro(self.FTipo);
+end;
+
+{
 function TPessoa.GetEnderecoL: TList<TEndereco>;
 begin
   if not assigned(FEnderecoL) then
@@ -110,7 +141,8 @@ begin
             (FFone1 = '') and
             (FEmail = '') and
             (FDtCadastro = 0) and
-            (FDtNascimento = 0);
+            (FDtNascimento = 0) and
+            (FTipo = 0);
 end;
 
 procedure TPessoa.LoadClass(const AValue: Integer);

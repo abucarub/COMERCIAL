@@ -60,11 +60,13 @@ begin
     FPessoa := TPessoa.Create;
   FPessoa.Load(ID);
 
-  if not assigned(FPessoa) then
-    exit;
-
-  edtCodigo.AsInteger := FPessoa.ID;
-  edtNome.Text        := FPessoa.Nome;
+  if assigned(FPessoa) and (FPessoa.Tipo <> FTipo) then
+    FPessoa.Clear
+  else if assigned(FPessoa) then
+  begin
+    edtCodigo.AsInteger := FPessoa.ID;
+    edtNome.Text        := FPessoa.Nome;
+  end;
 end;
 
 procedure TBuscaPessoa.efetuaBusca(parametro: Variant);

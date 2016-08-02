@@ -38,7 +38,8 @@ uses
   frameBuscaCidade in 'frameBuscaCidade.pas' {BuscaCidade: TFrame},
   ServicoAgendado in '..\Classes\ServicoAgendado.pas',
   frameBuscaDepartamento in 'frameBuscaDepartamento.pas' {BuscaDepartamento: TFrame},
-  frameMostraServico in 'frameMostraServico.pas' {MostraServico: TFrame};
+  frameMostraServico in 'frameMostraServico.pas' {MostraServico: TFrame},
+  AlunoPilates in '..\Classes\AlunoPilates.pas';
 
 {$R *.res}
 
