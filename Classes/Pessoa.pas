@@ -17,7 +17,7 @@ type
     FFone1: String;
     FEmail: String;
     FDtCadastro :TDateTime;
-    FDtNascimento :TDateTime;
+    FDtNascimento :TDateTime;                                 criar classe alunoPilates extendendo TPessoa
     FEndereco: TEndereco;
 
 

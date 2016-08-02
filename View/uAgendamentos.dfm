@@ -17,6 +17,9 @@ inherited frmAgendamentos: TfrmAgendamentos
     Color = 16250871
     ParentBackground = False
     TabOrder = 0
+    DesignSize = (
+      1121
+      640)
     object Shape1: TShape
       Left = 0
       Top = 185
@@ -30,11 +33,12 @@ inherited frmAgendamentos: TfrmAgendamentos
       ExplicitWidth = 743
       ExplicitHeight = 487
     end
-    object Label37: TLabel
+    object lbCalendario: TLabel
       Left = 564
       Top = 197
       Width = 182
       Height = 21
+      Alignment = taRightJustify
       Caption = 'Selecione a data desejada'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
@@ -110,9 +114,9 @@ inherited frmAgendamentos: TfrmAgendamentos
     object lbDiaSemana: TLabel
       Left = 259
       Top = 195
-      Width = 110
+      Width = 122
       Height = 23
-      Caption = 'dia da semana'
+      Caption = '(dia da semana)'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 13261071
       Font.Height = -19
@@ -125,7 +129,8 @@ inherited frmAgendamentos: TfrmAgendamentos
       Top = 419
       Width = 225
       Height = 197
-      Caption = '             Hor'#225'rio da sess'#227'o '
+      Anchors = [akLeft, akTop, akBottom]
+      Caption = '            Hor'#225'rio da sess'#227'o '
       Enabled = False
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -351,7 +356,8 @@ inherited frmAgendamentos: TfrmAgendamentos
       Height = 160
       CalColors.TextColor = clBlue
       CalColors.MonthBackColor = clTeal
-      Date = 42566.708104722220000000
+      Date = 42566.888148310190000000
+      Enabled = False
       TabOrder = 1
       OnClick = calendarioClick
     end
@@ -361,6 +367,8 @@ inherited frmAgendamentos: TfrmAgendamentos
       Width = 1121
       Height = 185
       Align = alTop
+      Color = 16316664
+      ParentBackground = False
       TabOrder = 2
       object Label5: TLabel
         Left = 697
@@ -450,6 +458,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         ExplicitHeight = 63
         inherited edtDepartamento: TEdit
           Width = 145
+          OnChange = BuscaDepartamento1edtDepartamentoChange
           ExplicitWidth = 145
         end
       end
@@ -564,7 +573,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         Font.Style = []
         ParentFont = False
         TabOrder = 1
-        OnExit = BuscaPessoa1Exit
+        OnExit = BuscaProfissionalExit
         ExplicitLeft = 325
         ExplicitTop = 2
         ExplicitWidth = 372
@@ -664,6 +673,124 @@ inherited frmAgendamentos: TfrmAgendamentos
         NumGlyphs = 2
         TabOrder = 6
         OnClick = btnAddServicoClick
+      end
+      object btnIncMin: TBitBtn
+        Left = 762
+        Top = 78
+        Width = 25
+        Height = 17
+        Caption = '+'
+        NumGlyphs = 2
+        TabOrder = 8
+        OnClick = btnIncMinClick
+      end
+      object btnDecMin: TBitBtn
+        Left = 762
+        Top = 94
+        Width = 25
+        Height = 17
+        Caption = '-'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Microsoft Sans Serif'
+        Font.Style = [fsBold]
+        NumGlyphs = 2
+        ParentFont = False
+        TabOrder = 9
+        OnClick = btnDecMinClick
+      end
+      object pnlDiasSemana: TPanel
+        Left = 16
+        Top = 118
+        Width = 408
+        Height = 60
+        BevelOuter = bvNone
+        TabOrder = 10
+        Visible = False
+        object lbDiasAula: TLabel
+          Left = 157
+          Top = 5
+          Width = 95
+          Height = 23
+          Caption = 'Dias de aula'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 13261071
+          Font.Height = -19
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object chkSegunda: TCheckBox
+          Left = 37
+          Top = 35
+          Width = 74
+          Height = 17
+          Caption = 'Segunda'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 0
+        end
+        object chkTerca: TCheckBox
+          Left = 125
+          Top = 35
+          Width = 63
+          Height = 17
+          Caption = 'Ter'#231'a'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+        end
+        object chkQuarta: TCheckBox
+          Left = 205
+          Top = 35
+          Width = 75
+          Height = 17
+          Caption = 'Quarta'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 2
+        end
+        object chkQuinta: TCheckBox
+          Left = 285
+          Top = 35
+          Width = 82
+          Height = 17
+          Caption = 'Quinta'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 3
+        end
+        object chkSexta: TCheckBox
+          Left = 356
+          Top = 35
+          Width = 84
+          Height = 17
+          Caption = 'Sexta'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
+        end
       end
       object pnlServicos: TPanel
         Left = 1
@@ -784,110 +911,6 @@ inherited frmAgendamentos: TfrmAgendamentos
           end
         end
       end
-      object btnIncMin: TBitBtn
-        Left = 762
-        Top = 78
-        Width = 25
-        Height = 17
-        Caption = '+'
-        NumGlyphs = 2
-        TabOrder = 8
-        OnClick = btnIncMinClick
-      end
-      object btnDecMin: TBitBtn
-        Left = 762
-        Top = 94
-        Width = 25
-        Height = 17
-        Caption = '-'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -15
-        Font.Name = 'Microsoft Sans Serif'
-        Font.Style = [fsBold]
-        NumGlyphs = 2
-        ParentFont = False
-        TabOrder = 9
-        OnClick = btnDecMinClick
-      end
-    end
-    object DBGridCBN2: TDBGridCBN
-      Left = 13
-      Top = 224
-      Width = 468
-      Height = 409
-      Color = 14803425
-      DataSource = dsHorariosDia
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Segoe UI'
-      Font.Style = []
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
-      ParentFont = False
-      TabOrder = 3
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -11
-      TitleFont.Name = 'MS Sans Serif'
-      TitleFont.Style = []
-      BuscaHabilitada = False
-      ConfCores.Normal.CorFonte = clWindowText
-      ConfCores.Normal.CorFundo = 14803425
-      ConfCores.Normal.Tipo.Charset = DEFAULT_CHARSET
-      ConfCores.Normal.Tipo.Color = clWindowText
-      ConfCores.Normal.Tipo.Height = -11
-      ConfCores.Normal.Tipo.Name = 'MS Sans Serif'
-      ConfCores.Normal.Tipo.Style = []
-      ConfCores.Zebrada.CorFonte = clWindowText
-      ConfCores.Zebrada.CorFundo = clWhite
-      ConfCores.Zebrada.Tipo.Charset = DEFAULT_CHARSET
-      ConfCores.Zebrada.Tipo.Color = clWindowText
-      ConfCores.Zebrada.Tipo.Height = -11
-      ConfCores.Zebrada.Tipo.Name = 'MS Sans Serif'
-      ConfCores.Zebrada.Tipo.Style = []
-      ConfCores.Selecao.CorFonte = clWindowText
-      ConfCores.Selecao.CorFundo = 16037533
-      ConfCores.Selecao.Tipo.Charset = DEFAULT_CHARSET
-      ConfCores.Selecao.Tipo.Color = clWindowText
-      ConfCores.Selecao.Tipo.Height = -11
-      ConfCores.Selecao.Tipo.Name = 'MS Sans Serif'
-      ConfCores.Selecao.Tipo.Style = []
-      ConfCores.Destacado.CorFonte = 8650884
-      ConfCores.Destacado.CorFundo = clWhite
-      ConfCores.Destacado.Tipo.Charset = DEFAULT_CHARSET
-      ConfCores.Destacado.Tipo.Color = 8650884
-      ConfCores.Destacado.Tipo.Height = -11
-      ConfCores.Destacado.Tipo.Name = 'Lucida Console'
-      ConfCores.Destacado.Tipo.Style = [fsBold]
-      ConfCores.Titulo.CorFonte = clWindowText
-      ConfCores.Titulo.CorFundo = clBtnFace
-      ConfCores.Titulo.Tipo.Charset = DEFAULT_CHARSET
-      ConfCores.Titulo.Tipo.Color = clWindowText
-      ConfCores.Titulo.Tipo.Height = -11
-      ConfCores.Titulo.Tipo.Name = 'MS Sans Serif'
-      ConfCores.Titulo.Tipo.Style = []
-      Ordenavel = True
-      TipoBusca.ListarApenasEncontrados = False
-      TipoBusca.QualquerParte = False
-      SalvaConfiguracoes = False
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'INICIO'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'FIM'
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'NOME'
-          Width = 281
-          Visible = True
-        end>
     end
     object pnlHorarioCliente: TPanel
       Left = 768
@@ -896,10 +919,13 @@ inherited frmAgendamentos: TfrmAgendamentos
       Height = 455
       Align = alRight
       BevelOuter = bvNone
-      TabOrder = 4
+      TabOrder = 3
+      DesignSize = (
+        353
+        455)
       object Shape2: TShape
-        Left = -4
-        Top = -42
+        Left = -13
+        Top = 0
         Width = 408
         Height = 499
         Brush.Color = 13948116
@@ -996,7 +1022,7 @@ inherited frmAgendamentos: TfrmAgendamentos
           1701BB5CFA9301FE1081AED3B57EFDDF00BF7DBE024684F46AA4A40E54000000
           0049454E44AE426082}
       end
-      object Label4: TLabel
+      object lbHorarioMarcado: TLabel
         Left = 84
         Top = 11
         Width = 148
@@ -1009,85 +1035,179 @@ inherited frmAgendamentos: TfrmAgendamentos
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object DBGridCBN1: TDBGridCBN
-        Left = 21
-        Top = 64
-        Width = 323
-        Height = 367
-        Color = 14803425
+      object DBGrid1: TDBGrid
+        Left = 11
+        Top = 60
+        Width = 333
+        Height = 357
+        Anchors = [akLeft, akTop, akBottom]
         DataSource = dsHorarios
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
-        Font.Name = 'Segoe UI'
+        Font.Name = 'Calibri'
         Font.Style = []
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         ParentFont = False
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
-        TitleFont.Height = -11
-        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Height = -15
+        TitleFont.Name = 'Calibri'
         TitleFont.Style = []
-        BuscaHabilitada = True
-        ConfCores.Normal.CorFonte = clWindowText
-        ConfCores.Normal.CorFundo = 14803425
-        ConfCores.Normal.Tipo.Charset = DEFAULT_CHARSET
-        ConfCores.Normal.Tipo.Color = clWindowText
-        ConfCores.Normal.Tipo.Height = -11
-        ConfCores.Normal.Tipo.Name = 'MS Sans Serif'
-        ConfCores.Normal.Tipo.Style = []
-        ConfCores.Zebrada.CorFonte = clWindowText
-        ConfCores.Zebrada.CorFundo = clWhite
-        ConfCores.Zebrada.Tipo.Charset = DEFAULT_CHARSET
-        ConfCores.Zebrada.Tipo.Color = clWindowText
-        ConfCores.Zebrada.Tipo.Height = -11
-        ConfCores.Zebrada.Tipo.Name = 'MS Sans Serif'
-        ConfCores.Zebrada.Tipo.Style = []
-        ConfCores.Selecao.CorFonte = clWindowText
-        ConfCores.Selecao.CorFundo = 16037533
-        ConfCores.Selecao.Tipo.Charset = DEFAULT_CHARSET
-        ConfCores.Selecao.Tipo.Color = clWindowText
-        ConfCores.Selecao.Tipo.Height = -11
-        ConfCores.Selecao.Tipo.Name = 'MS Sans Serif'
-        ConfCores.Selecao.Tipo.Style = []
-        ConfCores.Destacado.CorFonte = 8650884
-        ConfCores.Destacado.CorFundo = clWhite
-        ConfCores.Destacado.Tipo.Charset = DEFAULT_CHARSET
-        ConfCores.Destacado.Tipo.Color = 8650884
-        ConfCores.Destacado.Tipo.Height = -11
-        ConfCores.Destacado.Tipo.Name = 'Lucida Console'
-        ConfCores.Destacado.Tipo.Style = [fsBold]
-        ConfCores.Titulo.CorFonte = clWindowText
-        ConfCores.Titulo.CorFundo = clBtnFace
-        ConfCores.Titulo.Tipo.Charset = DEFAULT_CHARSET
-        ConfCores.Titulo.Tipo.Color = clWindowText
-        ConfCores.Titulo.Tipo.Height = -11
-        ConfCores.Titulo.Tipo.Name = 'MS Sans Serif'
-        ConfCores.Titulo.Tipo.Style = []
-        Ordenavel = True
-        TipoBusca.ListarApenasEncontrados = False
-        TipoBusca.QualquerParte = False
-        SalvaConfiguracoes = False
+        OnDrawColumnCell = DBGrid2DrawColumnCell
         Columns = <
           item
             Expanded = False
             FieldName = 'DATA'
+            Width = 88
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'HORA'
+            Width = 73
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'DIA_SEMANA'
-            Title.Caption = 'DIA DA SEMANA'
-            Width = 130
+            Width = 134
             Visible = True
           end>
       end
+      object btnCancelarHorario: TBitBtn
+        Left = 10
+        Top = 422
+        Width = 160
+        Height = 29
+        Caption = 'Cancelar hor'#225'rio'
+        Enabled = False
+        Glyph.Data = {
+          36080000424D3608000000000000360000002800000020000000100000000100
+          2000000000000008000000000000000000000000000000000000FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00E5CABB00CE976D00BF6D1F00C56C0B00C56C0B00C06D
+          1E00CD966C00E5CABA00FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
+          9B009B9B9B009B9B9B00816657006A3309005B09000061080000610800005C09
+          000069320800816656009B9B9B009B9B9B009B9B9B009B9B9B00FFFFFF00FFFF
+          FF00FCF9F700C7855300D6850B00E69C0A00E7AF2500F7C95900F7C85800E9AD
+          2300E5980800D0800500C5835300FCF9F700FFFFFF00FFFFFF009B9B9B009B9B
+          9B0098959300632100007221000082380000834B000093650000936400008549
+          0000813400006C1C0000611F0000989593009B9B9B009B9B9B00FFFFFF00FDFA
+          F800C97E3200E59E1200EBB43700F0D69F00DFB27300D0985600D0985600DFB2
+          7200F2D79D00EAB23300E0940700C77A2D00FDFAF800FFFFFF009B9B9B009996
+          9400651A0000813A0000875000008C723B007B4E0F006C3400006C3400007B4E
+          0E008E733900864E00007C30000063160000999694009B9B9B00FFFFFF00D093
+          5D00E9A82100EBC16400E4CBAA00DFDDDD00F1F0F10024232600D9D9DA00D9D9
+          DA00D0CECE00D7B69000F0C55F00E29C1100D0905A00FFFFFF009B9B9B006C2F
+          000085440000875D0000806746007B7979008D8C8D0000000000757576007575
+          76006C6A6A0073522C008C6100007E3800006C2C00009B9B9B00EBD1BF00E1A3
+          2F00EAB43D00EAD2B400FCFFFF0024232600F1F1F000EFEEED00EBEAE900D0CE
+          CE0024232600CDCFD300D0AD8700F1B83800DC971F00EBD1BF00876D5B007D3F
+          000086500000866E5000989B9B00000000008D8D8C008B8A8900878685006C6A
+          6A0000000000696B6F006C4923008D54000078330000876D5B00DCAB7900EEBE
+          3E00F2CF8300FCFFFF0024232600F0EFEF00ECEBEB00E6E4E300E1E0DF00D8D6
+          D500D3D1CF0024232600D3D1CF00EDC67200EDB43100DBA77800784715008A5A
+          00008E6B1F00989B9B00000000008C8B8B008887870082807F007D7C7B007472
+          71006F6D6B00000000006F6D6B0089620E008950000077431400DA9C4500EDBD
+          4200E9C18100F0EFEF00F0EFEF00F0EFEF00ECEBEB00E6E4E300E1E0DF00D8D6
+          D500D3D1CF00D3D1CF00D3D1CF00E5BB7900F1B93700D7953E00763800008959
+          0000855D1D008C8B8B008C8B8B008C8B8B008887870082807F007D7C7B007472
+          71006F6D6B006F6D6B006F6D6B00815715008D55000073310000E2AB4D00F9CD
+          5C00EFD2A10024232600FFFFFF00F0EFEF00ECEBEB0004030600040306001918
+          1B0019181B0019181B00D3D1CF00DDB67C00FBC95000DFA343007E4700009569
+          00008B6E3D00000000009B9B9B008C8B8B008887870000000000000000000000
+          000000000000000000006F6D6B0079521800976500007B3F0000E5B66300FDD7
+          7300E9BC6F00BDBBBE00FFFFFF00EFEEED00EDEDEC0019181B009C9A9B00FFFF
+          FF00FFFFFF00E6E4E300E1DFDE00D59A4800FDD36200E3B05700815200009973
+          0F0085580B0059575A009B9B9B008B8A89008989880000000000383637009B9B
+          9B009B9B9B0082807F007D7B7A0071360000996F00007F4C0000E4B16400F5D9
+          8600E9BE6A00FCFDFE00FCFBFA00F4F3F200F1F1F00019181B00B1AFB000E5E3
+          E200E1E0DF00D6D4D200D6D4D200E9C47A00F8E09900E1AE6100804D00009175
+          2200855A060098999A0098979600908F8E008D8D8C00000000004D4B4C00817F
+          7E007D7C7B0072706E0072706E0085601600947C35007D4A0000E9C18700FDF8
+          D500F2D99800F0F2F40024232600F4F3F200F1F1F00019181B00BDBBBE00E5E3
+          E200E1E0DF0024232600DAD9DC00F5D69100FEF9DA00E8C08900855D23009994
+          71008E7534008C8E900000000000908F8E008D8D8C000000000059575A00817F
+          7E007D7C7B00000000007675780091722D009A957600845C2500F4DEBF00F7E5
+          B600FBECC800F0DBB100FEFFFF00E9E8E700EDEBEC00F6F5F400EFEEED00E9E8
+          E700E1DFDE00DADCE200E7C89500FDEDC800F6E0AE00F3DEBF00907A5B009381
+          5200978864008C774D009A9B9B008584830089878800929190008B8A89008584
+          83007D7B7A0076787E008364310099896400927C4A008F7A5B00FFFFFF00EAC1
+          7600FDF9E500F9E5B300F4DFB50024232600CDCDCE0019181B00E1DFDE00E8E6
+          E50024232600E5CB9900FBE5B300FCF7E200EBBF7400FFFFFF009B9B9B00865D
+          12009995810095814F00907B51000000000069696A00000000007D7B7A008482
+          8100000000008167350097814F0098937E00875B10009B9B9B00FFFFFF00FEFC
+          F800EEC56F00FEFAE700FBF0D300F9E3A800F5D99100F4DEA900F4DDA900F2D6
+          8E00F8DEA300FFF3D900FDF9E400EDC26C00FEFCF800FFFFFF009B9B9B009A98
+          94008A610B009A968300978C6F00957F440091752D00907A4500907945008E72
+          2A00947A3F009B8F750099958000895E08009A9894009B9B9B00FFFFFF00FFFF
+          FF00FEFCF800EFC77700FAE8BC00FCFAEA00FCF1DF00FFF7D800FFF7D900FEF5
+          E000FFFBEB00F7E8BA00EDC67600FEFCF800FFFFFF00FFFFFF009B9B9B009B9B
+          9B009A9894008B6313009684580098968600988D7B009B9374009B9375009A91
+          7C009B97870093845600896212009A9894009B9B9B009B9B9B00FFFFFF00FFFF
+          FF00FFFFFF00FFFFFF00F8E7C200F3D59400F2D18400F4DB9700F4DB9700F2D1
+          8400F3D49200F8E7C200FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
+          9B009B9B9B009B9B9B0094835E008F7130008E6D200090773300907733008E6D
+          20008F702E0094835E009B9B9B009B9B9B009B9B9B009B9B9B00}
+        NumGlyphs = 2
+        TabOrder = 1
+        OnClick = btnCancelarHorarioClick
+      end
+    end
+    object DBGrid2: TDBGrid
+      Left = 14
+      Top = 224
+      Width = 481
+      Height = 407
+      Anchors = [akLeft, akTop, akRight, akBottom]
+      DataSource = dsHorariosDia
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Calibri'
+      Font.Style = []
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      ParentFont = False
+      TabOrder = 4
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -15
+      TitleFont.Name = 'Calibri'
+      TitleFont.Style = []
+      OnDrawColumnCell = DBGrid2DrawColumnCell
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'INICIO'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 3487029
+          Font.Height = -16
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'FIM'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 3487029
+          Font.Height = -16
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NOME'
+          Width = 283
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'CODIGO_HORARIO'
+          Visible = False
+        end>
     end
   end
   object cdsHorarios: TClientDataSet
@@ -1104,6 +1224,9 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object cdsHorariosHORA: TTimeField
       FieldName = 'HORA'
+    end
+    object cdsHorariosID_HORARIO: TIntegerField
+      FieldName = 'ID_HORARIO'
     end
   end
   object dsHorarios: TDataSource
@@ -1131,6 +1254,9 @@ inherited frmAgendamentos: TfrmAgendamentos
     Params = <>
     Left = 48
     Top = 320
+    object cdsHorariosDiaID_HORARIO: TIntegerField
+      FieldName = 'ID_HORARIO'
+    end
     object cdsHorariosDiaNOME: TStringField
       FieldName = 'NOME'
       Size = 40
@@ -1140,9 +1266,6 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     object cdsHorariosDiaFIM: TTimeField
       FieldName = 'FIM'
-    end
-    object cdsHorariosDiaCODIGO_HORARIO: TIntegerField
-      FieldName = 'CODIGO_HORARIO'
     end
   end
   object dsHorariosDia: TDataSource

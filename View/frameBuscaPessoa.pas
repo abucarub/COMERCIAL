@@ -21,6 +21,7 @@ type
 
     procedure pesquisa;override;
     procedure SetTipo(const Value: integer);
+    function GetTipoExtenso: String;
   protected
     procedure inicializa;override;
     procedure efetuaBusca(parametro :Variant);override;
@@ -31,6 +32,7 @@ type
 
     property Pessoa :TPessoa read FPessoa;
     property Tipo   :integer read FTipo   write SetTipo;
+    property DescricaoTipo :String read GetTipoExtenso;
   end;
 
 var
@@ -89,6 +91,11 @@ begin
     edtCodigo.Clear;
   if assigned(FPessoa) and FPessoa.isEmpty then
     FreeAndNil(FPessoa);
+end;
+
+function TBuscaPessoa.GetTipoExtenso: String;
+begin
+  result := TTipoPessoaGet.getDescricaoTipo(self.FTipo);
 end;
 
 procedure TBuscaPessoa.inicializa;

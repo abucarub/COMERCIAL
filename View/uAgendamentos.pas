@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uPadrao, Generics.Collections,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uPadrao, Generics.Collections, System.StrUtils,
   Vcl.StdCtrls, frameBuscaPessoa, frameBuscaTabelaPreco, frameBuscaConvenio,
   Vcl.ExtCtrls, frameHorarioMarcado, JvExControls, JvCalendar, Vcl.ComCtrls,
   JvExComCtrls, JvMonthCalendar, Vcl.Grids, Vcl.Samples.Calendar,
@@ -29,7 +29,7 @@ type
     cdsServicos: TClientDataSet;
     cdsServicosHORARIO: TStringField;
     calendario: TJvMonthCalendar;
-    Label37: TLabel;
+    lbCalendario: TLabel;
     cdsHorariosDATA: TDateField;
     cdsHorariosHORA: TTimeField;
     Image1: TImage;
@@ -53,24 +53,33 @@ type
     btnIncMin: TBitBtn;
     btnDecMin: TBitBtn;
     Splitter1: TSplitter;
-    DBGridCBN2: TDBGridCBN;
     cdsHorariosDia: TClientDataSet;
     dsHorariosDia: TDataSource;
     cdsHorariosDiaNOME: TStringField;
     pnlHorarioCliente: TPanel;
     Shape2: TShape;
-    DBGridCBN1: TDBGridCBN;
     Shape6: TShape;
     Image4: TImage;
-    Label4: TLabel;
+    lbHorarioMarcado: TLabel;
     lbHorarioDia: TLabel;
     cdsHorariosDiaINICIO: TTimeField;
     cdsHorariosDiaFIM: TTimeField;
+    lbDiaSemana: TLabel;
+    Timer1: TTimer;
+    DBGrid1: TDBGrid;
+    DBGrid2: TDBGrid;
+    btnCancelarHorario: TBitBtn;
+    cdsHorariosID_HORARIO: TIntegerField;
+    cdsHorariosDiaID_HORARIO: TIntegerField;
     Label2: TLabel;
     lbTempoDuracao: TLabel;
-    lbDiaSemana: TLabel;
-    cdsHorariosDiaCODIGO_HORARIO: TIntegerField;
-    Timer1: TTimer;
+    pnlDiasSemana: TPanel;
+    chkSegunda: TCheckBox;
+    chkTerca: TCheckBox;
+    chkQuarta: TCheckBox;
+    chkQuinta: TCheckBox;
+    chkSexta: TCheckBox;
+    lbDiasAula: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure calendarioClick(Sender: TObject);
@@ -88,6 +97,11 @@ type
     procedure BuscaTabelaPreco1edtCodigoChange(Sender: TObject);
     procedure speHorasEnter(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure DBGrid2DrawColumnCell(Sender: TObject; const [Ref] Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure BuscaProfissionalExit(Sender: TObject);
+    procedure btnCancelarHorarioClick(Sender: TObject);
+    procedure BuscaDepartamento1edtDepartamentoChange(Sender: TObject);
   private
     FPrimeiroHorarioDisponivel :TTime;
     FUltimoHorarioDisponivel   :TTime;
@@ -105,6 +119,9 @@ type
     procedure habilitaMarcacao(habilita :boolean);
     procedure adicionaServicoHorario(Horario :TSPA; frameServico: TMostraServico);
     procedure limpaServicosTela;
+    procedure cancelaHorario;
+    procedure zeraTela;
+    procedure configuraTela;
 
     function tempoServicosSelecionados :TTime;
     function adicionaServicoTela(servico :TServico) :Boolean;
@@ -187,6 +204,15 @@ begin
   edtTempoDuracao.Clear;
 end;
 
+procedure TfrmAgendamentos.btnCancelarHorarioClick(Sender: TObject);
+begin
+  if MessageBox(Handle, PWideChar('Deseja cancelar o horário do dia '+cdsHorariosDATA.AsString+' marcado às '+cdsHorariosHORA.AsString+#13#10+
+                        'referente ao '+BuscaPessoa1.DescricaoTipo+' '+ BuscaPessoa1.Pessoa.Nome+'?')
+                , '', MB_YESNO+MB_SYSTEMMODAL+MB_ICONQUESTION+MB_DEFBUTTON1) = ID_YES then
+    cancelaHorario;
+  MessageDlg('Horário cancelado com sucesso.', mtInformation,[mbOk],0);
+end;
+
 procedure TfrmAgendamentos.btnCriaHorarioClick(Sender: TObject);
 begin
  if marcaHorario then
@@ -216,8 +242,15 @@ procedure TfrmAgendamentos.BuscaConvenio1Exit(Sender: TObject);
 begin
   inherited;
   BuscaConvenio1.FrameExit(Sender);
-  if assigned(BuscaConvenio1.Convenio) then
+  if assigned(BuscaConvenio1.Convenio) and (BuscaConvenio1.Convenio.ID > 0) then
     BuscaTabelaPreco1.IDConvenio := BuscaConvenio1.Convenio.ID;
+end;
+
+procedure TfrmAgendamentos.BuscaDepartamento1edtDepartamentoChange(
+  Sender: TObject);
+begin
+  inherited;
+  zeraTela;
 end;
 
 procedure TfrmAgendamentos.BuscaDepartamento1Exit(Sender: TObject);
@@ -225,7 +258,10 @@ begin
   inherited;
   BuscaDepartamento1.FrameExit(Sender);
   if assigned(BuscaDepartamento1.Departamento) then
+  begin
     BuscaTabelaPreco1.IDDepartamento := BuscaDepartamento1.Departamento.ID;
+    configuraTela;
+  end;
 end;
 
 procedure TfrmAgendamentos.BuscaPessoa1Exit(Sender: TObject);
@@ -233,8 +269,25 @@ begin
   inherited;
   BuscaPessoa1.FrameExit(Sender);
   cdsHorarios.EmptyDataSet;
-  if assigned(BuscaPessoa1.Pessoa) then
+  if assigned(BuscaPessoa1.Pessoa) and (BuscaPessoa1.Pessoa.ID > 0) then
     carregarHorariosCliente;
+
+  btnCancelarHorario.Enabled  := not cdsHorarios.IsEmpty;
+end;
+
+procedure TfrmAgendamentos.BuscaProfissionalExit(Sender: TObject);
+begin
+  inherited;
+  if assigned(BuscaProfissional.Pessoa) and (BuscaProfissional.Pessoa.ID > 0)then
+  begin
+    calendario.Enabled := true;
+    calendarioClick(nil);
+  end
+  else
+  begin
+    calendario.Enabled := false;
+    cdsHorariosDia.EmptyDataSet;
+  end;
 end;
 
 procedure TfrmAgendamentos.BuscaTabelaPreco1edtCodigoChange(Sender: TObject);
@@ -247,7 +300,7 @@ procedure TfrmAgendamentos.BuscaTabelaPreco1Exit(Sender: TObject);
 begin
   inherited;
   BuscaTabelaPreco1.FrameExit(Sender);
-  if Assigned(BuscaTabelaPreco1.TabelaPreco) then
+  if Assigned(BuscaTabelaPreco1.TabelaPreco) and (BuscaTabelaPreco1.TabelaPreco.ID > 0) then
     edtTempoDuracao.Text := TimeToStr(BuscaTabelaPreco1.TabelaPreco.Servico.Duracao)
   else
     edtTempoDuracao.Clear;
@@ -267,6 +320,20 @@ begin
   lbDiaSemana.Caption  := '('+TUtilitario.diaSemanaExtenso(calendario.Date)+')';
 end;
 
+procedure TfrmAgendamentos.cancelaHorario;
+var horario :TSPA;
+begin
+  try
+  horario := TSPA.Create;
+  horario.Load(cdsHorariosID_HORARIO.AsInteger);
+  horario.tipo := 'C';
+  horario.Save;
+  Except
+    on e:Exception do
+      raise Exception.Create('Erro ao cancelar horário');
+  end;
+end;
+
 procedure TfrmAgendamentos.mostrarHorariosCliente(horarios: TObjectList<TSPA>);
 var horario :TSPA;
 begin
@@ -277,6 +344,8 @@ begin
   for horario in horarios do
     if not horario.horarioPassado then
       insereHorarioGrid(horario);
+
+  btnCancelarHorario.Enabled  := not cdsHorarios.IsEmpty;
 end;
 
 procedure TfrmAgendamentos.mostrarHorariosDia(horarios: TObjectList<TSPA>);
@@ -284,12 +353,16 @@ var
     horario :TSPA;
 begin
   cdsHorariosDia.EmptyDataSet;
+  if not assigned(horarios) then
+    Exit;
+
   for horario in horarios do
   begin
      cdsHorariosDia.Append;
-     cdsHorariosDiaNOME.AsString     := horario.Pessoa.Nome;
-     cdsHorariosDiaINICIO.AsDateTime := horario.Hora;
-     cdsHorariosDiaFIM.AsDateTime    := horario.Hora + horario.duracaoServicos;
+     cdsHorariosDiaID_HORARIO.AsInteger := horario.ID;
+     cdsHorariosDiaNOME.AsString        := horario.Pessoa.Nome;
+     cdsHorariosDiaINICIO.AsDateTime    := horario.Hora;
+     cdsHorariosDiaFIM.AsDateTime       := horario.Hora + horario.duracaoServicos;
      cdsHorariosDia.Post;
   end;
 
@@ -310,15 +383,14 @@ end;
 procedure TfrmAgendamentos.FormCreate(Sender: TObject);
 begin
   inherited;
-  BuscaPessoa1.Tipo := 1;    //trocar por get numerico
+  BuscaPessoa1.Tipo      := 1;    //trocar por get numerico
   BuscaProfissional.Tipo := 2;
-  FPrimeiroHorarioDia := StrToTime('06:00:00');
-  FUltimoHorarioDia   := StrToTime('21:00:00');
+  FPrimeiroHorarioDia    := StrToTime('06:00:00');
+  FUltimoHorarioDia      := StrToTime('21:00:00');
   cdsHorarios.CreateDataSet;
   cdsHorariosDia.CreateDataSet;
   habilitaMarcacao(false);
   calendario.Date := Date;
-  calendarioClick(nil);
 end;
 
 procedure TfrmAgendamentos.FormShow(Sender: TObject);
@@ -357,9 +429,10 @@ end;
 procedure TfrmAgendamentos.insereHorarioGrid(spa: TSPA);
 begin
   cdsHorarios.Append;
-  cdsHorariosDATA.AsDateTime     := spa.Data;
-  cdsHorariosHORA.AsDateTime     := spa.Hora;
-  cdsHorariosDIA_SEMANA.AsString := TUtilitario.diaSemanaExtenso(spa.Data);
+  cdsHorariosID_HORARIO.AsInteger := spa.ID;
+  cdsHorariosDATA.AsDateTime      := spa.Data;
+  cdsHorariosHORA.AsDateTime      := spa.Hora;
+  cdsHorariosDIA_SEMANA.AsString  := TUtilitario.diaSemanaExtenso(spa.Data);
   cdsHorarios.Post;
 end;
 
@@ -381,6 +454,7 @@ begin
     SPA.Hora            := StrToTime(speHoras.Text+':'+speMinutos.Text+':00');
     SPA.ID_Pessoa       := BuscaPessoa1.Pessoa.ID;
     SPA.ID_Departamento := BuscaDepartamento1.Departamento.ID;
+    SPA.ID_Profissional := BuscaProfissional.Pessoa.ID;
 
     if assigned(MostraServico1.TabelaPreco) then
       adicionaServicoHorario(SPA,MostraServico1);
@@ -429,11 +503,50 @@ begin
    Horarios := Horario.LoadList<TSPA>('WHERE DATA = '''+FormatDateTime('dd.mm.yyyy', calendario.Date)+''' order by HORA');
 
    mostrarHorariosDia(Horarios);
-
  finally
    FreeAndNil(Horario);
    FreeAndNil(Horarios);
  end;
+end;
+
+procedure TfrmAgendamentos.configuraTela;
+begin
+  if BuscaDepartamento1.Departamento.Departamento = 'PILATES' then
+  begin
+    lbHorarioDia.Caption     := 'Horários';
+    lbDiaSemana.Left         := 120; //260
+    pnlServicos.Visible      := false;
+    pnlDiasSemana.Visible    := true;
+    lbCalendario.Caption     := 'Selecione a data de início';
+    gpbHorario.Caption       := 'Horário da aula';
+    lbHorarioMarcado.Caption := 'Horário da aula';
+  end
+  else
+  begin
+    lbHorarioDia.Caption     := 'Horários do dia';
+    lbDiaSemana.Left         := 260;
+    pnlServicos.Visible      := true;
+    pnlDiasSemana.Visible    := false;
+    lbCalendario.Caption     := 'Selecione a data desejada';
+    lbHorarioMarcado.Caption := 'Horários marcados';
+  end;
+
+  gpbHorario.Caption       := '            Horário '+IfThen(BuscaDepartamento1.Departamento.Departamento = 'PILATES', 'da aula',
+                                                 IfThen(BuscaDepartamento1.Departamento.Departamento = 'FISIOTERAPIA', 'da sessão',
+                                                                                                                      'do procedimento'));
+end;
+
+procedure TfrmAgendamentos.DBGrid2DrawColumnCell(Sender: TObject;
+  const [Ref] Rect: TRect; DataCol: Integer; Column: TColumn;
+  State: TGridDrawState);
+begin
+  if not odd(TDBGrid(Sender).DataSource.DataSet.RecNo) then
+    if not (gdSelected in State) then
+      begin
+      TDBGrid(Sender).Canvas.Brush.Color := $00EEF3E2;
+      TDBGrid(Sender).Canvas.FillRect(Rect);
+      TDBGrid(Sender).DefaultDrawDataCell(rect,Column.Field,state);
+    end;
 end;
 
 procedure TfrmAgendamentos.defineHorarioMinMax;
@@ -469,10 +582,15 @@ end;
 procedure TfrmAgendamentos.setaHorario(horario: TTime);
 var minutos :integer;
 begin
-  speHoras.Text   := formatDateTime('hh',horario);
   minutos := strToInt(copy(formatDateTime('hh:mm',horario),4,2));
+
   if (minutos mod 10) <> 0 then
-    minutos := minutos + (10-(minutos mod 10));
+  begin
+    horario := horario + StrToTime('00:'+ '0'+intToStr((10-(minutos mod 10)))+':00');
+    minutos := strToInt(copy(formatDateTime('hh:mm',horario),4,2));
+  end;
+
+  speHoras.Text   := formatDateTime('hh',horario);
 
   speMinutos.Text := intToStr(minutos);
 end;
@@ -514,6 +632,22 @@ procedure TfrmAgendamentos.Timer1Timer(Sender: TObject);
 begin
   if (time > StrToTime(speHoras.Text+':'+speMinutos.Text+':00')) then
     setaHorario(time);
+end;
+
+procedure TfrmAgendamentos.zeraTela;
+begin
+  limpaServicosTela;
+  cdsHorarios.EmptyDataSet;
+  cdsHorariosDia.EmptyDataSet;
+  calendario.Enabled := false;
+  habilitaMarcacao(false);
+  btnCancelarHorario.Enabled := false;
+  BuscaProfissional.limpa;
+  BuscaPessoa1.limpa;
+  BuscaConvenio1.limpa;
+  BuscaTabelaPreco1.limpa;
+  edtTempoDuracao.Clear;
+  lbDiaSemana.Left := 260;
 end;
 
 end.

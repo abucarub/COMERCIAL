@@ -21,6 +21,7 @@ type
     FDepartamento: TDepartamento;
     FProfissional: TPessoa;
     FID_Profissional: Integer;
+    FTipo: String;
 
     function GetServicosAgendados: TObjectList<TServicoAgendado>;
     function GetDuracaoServicos: TDateTime;
@@ -39,13 +40,15 @@ type
     [FieldName('ID_PROFISSIONAL')]
     property ID_Profissional: Integer read FID_Profissional write FID_Profissional;
     [FieldName('DATA')]
-    property Data: TDate read FData write FData;
+    property data: TDate read FData write FData;
     [FieldName('HORA')]
-    property Hora: TTime read FHora write FHora;
+    property hora: TTime read FHora write FHora;
     [FieldName('COMPARECEU')]
-    property Compareceu: String read FCompareceu write FCompareceu;
+    property compareceu: String read FCompareceu write FCompareceu;
     [FieldName('PAGO')]
-    property Pago: String read FPago write FPago;
+    property pago: String read FPago write FPago;
+    [FieldName('TIPO')]
+    property tipo: String read FTipo write FTipo;
 
     [HasOne('ID_PESSOA')]
     property Pessoa: TPessoa read GetPessoa write FPessoa;
@@ -59,7 +62,7 @@ type
 
   public
     function Horarios(const ID_PESSOA: integer = 0; const ID_DEPARTAMENTO: integer = 0;
-                      const STATUS: String = 'T'):TObjectList<TSPA>;
+                      const STATUS: String = 'T';const TIPO :String = ''):TObjectList<TSPA>;
 
     property duracaoServicos :TDateTime read GetDuracaoServicos;
     property horarioPassado :Boolean read GetHorarioPassado;
@@ -92,6 +95,7 @@ begin
   FHora           := 0;
   FCompareceu     := '';
   FPago           := '';
+  Ftipo           := '';
   if assigned(FPessoa) then
     FreeAndNil(FPessoa);
   if assigned(FDepartamento) then
@@ -157,7 +161,8 @@ begin
   Result := FServicosAgendados;
 end;
 
-function TSPA.Horarios(const ID_PESSOA, ID_DEPARTAMENTO: integer; const STATUS: String): TObjectList<TSPA>;
+function TSPA.Horarios(const ID_PESSOA, ID_DEPARTAMENTO: integer; const STATUS: String;
+const TIPO :String): TObjectList<TSPA>;
 var where :String;
 begin
   where := IfThen(ID_PESSOA > 0, ' WHERE P.ID = '+intToStr(ID_PESSOA), '');
@@ -167,6 +172,8 @@ begin
 
   if STATUS <> 'T' then
     where := where + IfThen(where <> '',' AND ',' WHERE ')+' SPA.COMPARECEU = '+QuotedStr(STATUS);
+
+  where := where + IfThen(where <> '',' AND ',' WHERE ')+' SPA.TIPO <> '+QuotedStr('C');
 
   result := Self.LoadList<TSPA>(' INNER JOIN PESSOAS P ON P.ID = SPA.ID_PESSOA            '+
                                 ' INNER JOIN DEPARTAMENTOS D ON D.ID = SPA.ID_DEPARTAMENTO'+ where );
@@ -179,7 +186,8 @@ begin
             (FData = 0) and
             (FHora = 0) and
             (FCompareceu = '') and
-            (FPago = '');
+            (FPago = '') and
+            (FTipo = '');
 end;
 
 procedure TSPA.LoadClass(const AValue: Integer);
