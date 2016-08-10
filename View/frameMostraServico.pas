@@ -15,17 +15,21 @@ type
     lbTempo: TLabel;
     Shape1: TShape;
     btnLimpa: TSpeedButton;
+    Label2: TLabel;
+    lbValor: TLabel;
     procedure btnLimpaClick(Sender: TObject);
   private
     FTabelaPreco: TTabelaPreco;
     FTempoServico: TTime;
+    FValorServico: Real;
     { Private declarations }
   public
     procedure BeforeDestruction; override;
-    procedure carregaServico(idTabelaPreco :integer; tempoServico :TTime);
+    procedure carregaServico(idTabelaPreco :integer; tempoServico :TTime; valorServico :Real);
 
     property TabelaPreco :TTabelaPreco read FTabelaPreco;
     property tempoServico :TTime read FTempoServico;
+    property valorServico :Real read FValorServico;
   end;
 
 implementation
@@ -49,17 +53,20 @@ begin
 
   lbServico.Caption := '- - -';
   lbTempo.Caption   := '00:00';
+  lbValor.Caption   := 'R$ 0,00';
 end;
 
-procedure TMostraServico.carregaServico(idTabelaPreco: integer; tempoServico: TTime);
+procedure TMostraServico.carregaServico(idTabelaPreco: integer; tempoServico: TTime; valorServico :Real);
 begin
   self.Align := alLeft;
   FTabelaPreco := TTabelaPreco.Create;
   FTabelaPreco.Load(idTabelaPreco);
   FTempoServico := tempoServico;
+  FValorServico := valorServico;
 
   lbServico.Caption := FTabelaPreco.Servico.Servico;
   lbTempo.Caption   := FormatDateTime('hh:mm',tempoServico)+' min';
+  lbValor.Caption   := 'RS '+FormatFloat('#,0.00',valorServico);
   self.Visible      := true;
 end;
 

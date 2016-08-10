@@ -10,18 +10,20 @@ uses
 type
   TBuscaPessoa = class(TBusca)
     Label1: TLabel;
-    lbTipo: TLabel;
     edtCodigo: TCurrencyEdit;
     edtNome: TEdit;
+    lbTipo: TLabel;
     procedure FrameEnter(Sender: TObject);
     procedure FrameExit(Sender: TObject);
   private
     FPessoa :TPessoa;
     FTipo: integer;
+    FServico: String;
 
     procedure pesquisa;override;
     procedure SetTipo(const Value: integer);
     function GetTipoExtenso: String;
+    function GetTitulo: String;
   protected
     procedure inicializa;override;
     procedure efetuaBusca(parametro :Variant);override;
@@ -31,8 +33,10 @@ type
     procedure limpa;override;
 
     property Pessoa :TPessoa read FPessoa;
-    property Tipo   :integer read FTipo   write SetTipo;
-    property DescricaoTipo :String read GetTipoExtenso;
+    property tipo   :integer read FTipo   write SetTipo;
+    property descricaoTipo :String read GetTipoExtenso;
+    property servico :String write FServico;
+    property titulo :String read GetTitulo;
   end;
 
 var
@@ -61,7 +65,7 @@ begin
   FPessoa.Load(ID);
 
   if assigned(FPessoa) and (FPessoa.Tipo <> FTipo) then
-    FPessoa.Clear
+    Pesquisa
   else if assigned(FPessoa) then
   begin
     edtCodigo.AsInteger := FPessoa.ID;
@@ -98,6 +102,16 @@ end;
 function TBuscaPessoa.GetTipoExtenso: String;
 begin
   result := TTipoPessoaGet.getDescricaoTipo(self.FTipo);
+end;
+
+function TBuscaPessoa.GetTitulo: String;
+begin
+  if (FServico = '') then
+    lbTipo.Caption := 'Cliente'
+  else if FServico = 'PILATES' then
+    lbTipo.Caption := 'Aluno'
+  else
+    lbTipo.Caption := 'Paciente'
 end;
 
 procedure TBuscaPessoa.inicializa;
@@ -141,7 +155,7 @@ procedure TBuscaPessoa.SetTipo(const Value: integer);
 begin
   FTipo := Value;
 
-  lbTipo.Caption := TTipoPessoaGet.getDescricaoTipo(FTipo);
+  //lbTipo.Caption := GetTitulo;
 end;
 
 end.

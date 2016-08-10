@@ -39,6 +39,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       Width = 182
       Height = 21
       Alignment = taRightJustify
+      Anchors = [akTop, akRight]
       Caption = 'Selecione a data desejada'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
@@ -52,6 +53,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       Top = 193
       Width = 35
       Height = 33
+      Anchors = [akTop, akRight]
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
         00200806000000737A7AF4000005354944415478DAC5977B4C145714C6BFD987
@@ -130,7 +132,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       Top = 419
       Width = 225
       Height = 197
-      Anchors = [akLeft, akTop, akBottom]
+      Anchors = [akTop, akRight]
       Caption = '            Hor'#225'rio da sess'#227'o '
       Enabled = False
       Font.Charset = DEFAULT_CHARSET
@@ -244,6 +246,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         Font.Height = -15
         Font.Name = 'Microsoft Sans Serif'
         Font.Style = [fsBold]
+        MaxLength = 2
         MaxValue = 21
         MinValue = 6
         ParentFont = False
@@ -251,6 +254,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         Value = 6
         OnChange = speHorasChange
         OnEnter = speHorasEnter
+        OnExit = speHorasExit
       end
       object speMinutos: TSpinEdit
         Left = 126
@@ -264,6 +268,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         Font.Name = 'Microsoft Sans Serif'
         Font.Style = [fsBold]
         Increment = 10
+        MaxLength = 2
         MaxValue = 50
         MinValue = 0
         ParentFont = False
@@ -271,6 +276,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         Value = 0
         OnChange = speHorasChange
         OnEnter = speHorasEnter
+        OnExit = speMinutosExit
       end
       object btnCriaHorario: TBitBtn
         Left = 17
@@ -355,9 +361,10 @@ inherited frmAgendamentos: TfrmAgendamentos
       Top = 232
       Width = 225
       Height = 160
+      Anchors = [akTop, akRight]
       CalColors.TextColor = clBlue
       CalColors.MonthBackColor = clTeal
-      Date = 42566.622241840280000000
+      Date = 42566.895670972220000000
       Enabled = False
       TabOrder = 1
     end
@@ -435,6 +442,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         inherited edtConvenio: TEdit
           Left = 84
           Width = 151
+          OnChange = BuscaConvenio1edtConvenioChange
           ExplicitLeft = 84
           ExplicitWidth = 151
         end
@@ -480,8 +488,8 @@ inherited frmAgendamentos: TfrmAgendamentos
         ExplicitWidth = 407
         ExplicitHeight = 54
         inherited lbTipo: TLabel
-          Left = 88
-          ExplicitLeft = 88
+          Left = 87
+          ExplicitLeft = 87
         end
         inherited btnBusca: TBitBtn
           Left = 57
@@ -494,6 +502,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         inherited edtNome: TEdit
           Left = 87
           Width = 310
+          OnChange = BuscaPessoa1edtNomeChange
           ExplicitLeft = 87
           ExplicitWidth = 310
         end
@@ -558,6 +567,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         Font.Style = []
         MaxLength = 8
         ParentFont = False
+        ReadOnly = True
         TabOrder = 5
         Text = '  :  :  '
       end
@@ -579,8 +589,11 @@ inherited frmAgendamentos: TfrmAgendamentos
         ExplicitWidth = 372
         ExplicitHeight = 54
         inherited lbTipo: TLabel
-          Left = 88
-          ExplicitLeft = 88
+          Left = 87
+          Width = 79
+          Caption = 'Profissional'
+          ExplicitLeft = 87
+          ExplicitWidth = 79
         end
         inherited btnBusca: TBitBtn
           Left = 57
@@ -842,6 +855,13 @@ inherited frmAgendamentos: TfrmAgendamentos
         Align = alBottom
         BevelOuter = bvNone
         TabOrder = 7
+        object Shape4: TShape
+          Left = 792
+          Top = 0
+          Width = 297
+          Height = 50
+          Pen.Color = 7303023
+        end
         object Splitter1: TSplitter
           Left = 0
           Top = 0
@@ -850,25 +870,52 @@ inherited frmAgendamentos: TfrmAgendamentos
           ExplicitLeft = -3
         end
         object Label2: TLabel
-          Left = 904
-          Top = -5
-          Width = 143
+          Left = 816
+          Top = -1
+          Width = 151
           Height = 23
-          Caption = 'Tempo de dura'#231#227'o'
+          Caption = 'Tempo de dura'#231#227'o -'
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = 13261071
+          Font.Color = 2960685
           Font.Height = -19
           Font.Name = 'Calibri'
-          Font.Style = [fsBold]
+          Font.Style = []
           ParentFont = False
         end
         object lbTempoDuracao: TLabel
-          Left = 935
-          Top = 19
+          Left = 991
+          Top = -3
           Width = 83
           Height = 26
           Alignment = taCenter
           Caption = '00:00:00 '
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 6630663
+          Font.Height = -21
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label6: TLabel
+          Left = 816
+          Top = 25
+          Width = 149
+          Height = 23
+          Caption = 'Valor total                -'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = 2960685
+          Font.Height = -19
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ParentFont = False
+        end
+        object lbValorServicos: TLabel
+          Left = 1004
+          Top = 23
+          Width = 65
+          Height = 26
+          Alignment = taRightJustify
+          Caption = 'R$ 0,00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = 6630663
           Font.Height = -21
@@ -970,6 +1017,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         Top = 0
         Width = 408
         Height = 499
+        Anchors = [akLeft, akTop, akBottom]
         Brush.Color = 13948116
         Pen.Color = clBtnFace
         Pen.Style = psInsideFrame
@@ -1077,53 +1125,12 @@ inherited frmAgendamentos: TfrmAgendamentos
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object DBGrid1: TDBGrid
-        Left = 6
-        Top = 59
-        Width = 333
-        Height = 357
-        Anchors = [akLeft, akTop, akBottom]
-        DataSource = dsHorarios
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Calibri'
-        Font.Style = []
-        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 0
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -15
-        TitleFont.Name = 'Calibri'
-        TitleFont.Style = []
-        OnDrawColumnCell = DBGrid2DrawColumnCell
-        Columns = <
-          item
-            Expanded = False
-            FieldName = 'DATA'
-            Width = 88
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'HORA'
-            Width = 73
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'DIA_SEMANA'
-            Width = 134
-            Visible = True
-          end>
-      end
       object btnCancelarHorario: TBitBtn
         Left = 10
         Top = 422
         Width = 160
         Height = 29
+        Anchors = [akLeft, akBottom]
         Caption = 'Cancelar hor'#225'rio'
         Enabled = False
         Glyph.Data = {
@@ -1194,7 +1201,7 @@ inherited frmAgendamentos: TfrmAgendamentos
           9B009B9B9B009B9B9B0094835E008F7130008E6D200090773300907733008E6D
           20008F702E0094835E009B9B9B009B9B9B009B9B9B009B9B9B00}
         NumGlyphs = 2
-        TabOrder = 1
+        TabOrder = 0
         OnClick = btnCancelarHorarioClick
       end
       object btnSalvarHorarios: TBitBtn
@@ -1202,7 +1209,8 @@ inherited frmAgendamentos: TfrmAgendamentos
         Top = 422
         Width = 160
         Height = 29
-        Caption = 'Salvar hor'#225'rios'
+        Anchors = [akLeft, akBottom]
+        Caption = ' Salvar'
         Enabled = False
         Glyph.Data = {
           36080000424D3608000000000000360000002800000020000000100000000100
@@ -1272,11 +1280,63 @@ inherited frmAgendamentos: TfrmAgendamentos
           9B009B9B9B009B9B9B0094835E008F7130008E6D200090773300907733008E6D
           20008F702E0094835E009B9B9B009B9B9B009B9B9B009B9B9B00}
         NumGlyphs = 2
-        TabOrder = 2
+        TabOrder = 1
         OnClick = btnSalvarHorariosClick
       end
+      object DBGrid1: TDBGrid
+        Left = 9
+        Top = 56
+        Width = 335
+        Height = 358
+        Anchors = [akLeft, akTop, akBottom]
+        DataSource = dsHorarios
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Calibri'
+        Font.Style = []
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        ParentFont = False
+        TabOrder = 2
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -15
+        TitleFont.Name = 'Calibri'
+        TitleFont.Style = []
+        OnDrawColumnCell = dbgHorariosDiaDrawColumnCell
+        OnEnter = DBGrid1Enter
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'DATA'
+            Width = 64
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'HORA'
+            Width = 78
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_HORARIO'
+            Visible = False
+          end
+          item
+            Expanded = False
+            FieldName = 'DIA_SEMANA'
+            Width = 143
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NDIA_SEMANA'
+            Visible = False
+          end>
+      end
     end
-    object DBGrid2: TDBGrid
+    object dbgHorariosDia: TDBGrid
       Left = 14
       Top = 224
       Width = 481
@@ -1288,7 +1348,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       Font.Height = -15
       Font.Name = 'Calibri'
       Font.Style = []
-      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       ParentFont = False
       ReadOnly = True
       TabOrder = 4
@@ -1297,7 +1357,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       TitleFont.Height = -15
       TitleFont.Name = 'Calibri'
       TitleFont.Style = []
-      OnDrawColumnCell = DBGrid2DrawColumnCell
+      OnDrawColumnCell = dbgHorariosDiaDrawColumnCell
       Columns = <
         item
           Expanded = False
@@ -1307,6 +1367,7 @@ inherited frmAgendamentos: TfrmAgendamentos
           Font.Height = -16
           Font.Name = 'Calibri'
           Font.Style = [fsBold]
+          Width = 64
           Visible = True
         end
         item
@@ -1332,18 +1393,17 @@ inherited frmAgendamentos: TfrmAgendamentos
         end>
     end
     object rgpDiasSemana: TRadioGroup
-      Left = 144
-      Top = 185
-      Width = 351
-      Height = 36
-      Columns = 5
+      Left = 521
+      Top = 229
+      Width = 225
+      Height = 163
       ItemIndex = 0
       Items.Strings = (
-        'SEG'
-        'TER'
-        'QUA'
-        'QUI'
-        'SEX')
+        'SEGUNDA'
+        'TER'#199'A'
+        'QUARTA'
+        'QUINTA'
+        'SEXTA')
       TabOrder = 5
       Visible = False
       OnClick = rgpDiasSemanaClick
@@ -1417,7 +1477,6 @@ inherited frmAgendamentos: TfrmAgendamentos
   end
   object Timer1: TTimer
     Enabled = False
-    Interval = 2000
     OnTimer = Timer1Timer
     Left = 712
     Top = 440

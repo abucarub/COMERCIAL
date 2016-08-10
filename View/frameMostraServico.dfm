@@ -6,7 +6,7 @@ object MostraServico: TMostraServico
   TabOrder = 0
   object Image1: TImage
     Left = 3
-    Top = 9
+    Top = 5
     Width = 13
     Height = 13
     Picture.Data = {
@@ -799,7 +799,7 @@ object MostraServico: TMostraServico
   end
   object lbServico: TLabel
     Left = 16
-    Top = 6
+    Top = 3
     Width = 126
     Height = 15
     AutoSize = False
@@ -813,7 +813,7 @@ object MostraServico: TMostraServico
   end
   object Label1: TLabel
     Left = 17
-    Top = 20
+    Top = 18
     Width = 45
     Height = 14
     Caption = 'TEMPO >'
@@ -826,7 +826,7 @@ object MostraServico: TMostraServico
   end
   object lbTempo: TLabel
     Left = 68
-    Top = 20
+    Top = 18
     Width = 49
     Height = 14
     Caption = '00:00 min'
@@ -848,7 +848,7 @@ object MostraServico: TMostraServico
     Left = 122
     Top = 23
     Width = 19
-    Height = 18
+    Height = 19
     Flat = True
     Glyph.Data = {
       36080000424D3608000000000000360000002800000020000000100000000100
@@ -919,5 +919,32 @@ object MostraServico: TMostraServico
       8700211A8D00636097009B9B9B009B9B9B009B9B9B009B9B9B00}
     NumGlyphs = 2
     OnClick = btnLimpaClick
+  end
+  object Label2: TLabel
+    Left = 17
+    Top = 30
+    Width = 45
+    Height = 14
+    Caption = 'VALOR  >'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = 2960685
+    Font.Height = -12
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object lbValor: TLabel
+    Left = 79
+    Top = 30
+    Width = 37
+    Height = 14
+    Alignment = taRightJustify
+    Caption = 'R$ 0,00'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = 44544
+    Font.Height = -12
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
 end

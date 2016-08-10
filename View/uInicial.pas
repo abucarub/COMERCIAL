@@ -9,7 +9,9 @@ uses
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, Data.DB,
   FireDAC.Comp.Client, uPadrao, JvExControls, JvCalendar, JvExComCtrls,
-  JvMonthCalendar, Vcl.Grids, Vcl.Samples.Calendar, Vcl.ComCtrls;
+  JvMonthCalendar, Vcl.Grids, Vcl.Samples.Calendar, Vcl.ComCtrls,
+  VclTee.TeeGDIPlus, VCLTee.TeeData, VCLTee.TeEngine, Vcl.ExtCtrls,
+  VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series, VCLTee.GanttCh;
 
 type
   TfrmInicial = class(TfrmPadrao)
@@ -20,8 +22,8 @@ type
     Agendamentos1: TMenuItem;
     Fisioterapia1: TMenuItem;
     procedure Clientes1Click(Sender: TObject);
-    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Fisioterapia1Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -54,15 +56,12 @@ begin
   frmAgendamentos := nil;
 end;
 
-procedure TfrmInicial.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TfrmInicial.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
-  if key = VK_ESCAPE then
-  begin
-    Case MessageDlg('Deseja realmente sair do sistema?', mtConfirmation, mbYesNo, 0) of
-      IDNO : Key := 0;
-    end;
+  if MessageBox(Handle, PWideChar('Deseja realmente sair do sistema?'),'',MB_YESNO+MB_SYSTEMMODAL+MB_ICONQUESTION+MB_DEFBUTTON1) = ID_NO then
+    abort;
 
-  end;
   inherited;
 end;
 

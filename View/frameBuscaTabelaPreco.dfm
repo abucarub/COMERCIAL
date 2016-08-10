@@ -44,6 +44,7 @@ inherited BuscaTabelaPreco: TBuscaTabelaPreco
   end
   inherited btnBusca: TBitBtn
     Left = 88
+    TabOrder = 1
     ExplicitLeft = 88
   end
   object edtCodigo: TCurrencyEdit
@@ -58,7 +59,7 @@ inherited BuscaTabelaPreco: TBuscaTabelaPreco
     Font.Name = 'Microsoft Sans Serif'
     Font.Style = []
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 0
   end
   object edtServico: TEdit
     Left = 116

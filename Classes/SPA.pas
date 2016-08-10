@@ -81,6 +81,7 @@ implementation
 procedure TSPA.afterSave;
 var Servico :TServicoAgendado;
 begin
+  GetServicosAgendados;
   for Servico in FServicosAgendados do
   begin
     Servico.ID_SPA := ID;
