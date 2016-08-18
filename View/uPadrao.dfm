@@ -8,7 +8,7 @@ object frmPadrao: TfrmPadrao
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -15
-  Font.Name = 'Microsoft Sans Serif'
+  Font.Name = 'Calibri'
   Font.Style = []
   KeyPreview = True
   OldCreateOrder = False

@@ -9,10 +9,13 @@ type
   TDepartamento = class(TPersistentObject)
   private
     FDepartamento: String;
+    FTipoHorarios: String;
 
   public
     [FieldName('DEPARTAMENTO')]
-    property Departamento: String read FDepartamento write FDepartamento;
+    property departamento: String read FDepartamento write FDepartamento;
+    [FieldName('TIPO_HORARIOS')]
+    property tipoHorarios: String read FTipoHorarios write FTipoHorarios;
 
   public
     procedure LoadClass(const AValue: Integer);
@@ -28,12 +31,14 @@ procedure TDepartamento.Clear;
 begin
   ID            := 0;
   FDepartamento := '';
+  FTipoHorarios := '';
 end;
 
 function TDepartamento.isEmpty: Boolean;
 begin
   result := (ID = 0) and
-            (FDepartamento = '');
+            (FDepartamento = '') and
+            (FTipoHorarios = '');
 end;
 
 procedure TDepartamento.LoadClass(const AValue: Integer);

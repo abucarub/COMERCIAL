@@ -1,56 +1,29 @@
 inherited frmAgendamentos: TfrmAgendamentos
   Caption = 'Agendamentos'
-  ClientHeight = 640
-  ClientWidth = 1121
+  ClientHeight = 657
+  ClientWidth = 1209
   OnShow = FormShow
-  ExplicitWidth = 1137
-  ExplicitHeight = 678
+  ExplicitWidth = 1225
+  ExplicitHeight = 695
   PixelsPerInch = 96
   TextHeight = 18
-  object Panel1: TPanel
+  object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 1121
-    Height = 640
-    Align = alClient
-    BevelOuter = bvNone
-    Color = 16250871
+    Width = 372
+    Height = 657
+    Align = alLeft
+    Color = 16316664
     ParentBackground = False
     TabOrder = 0
+    ExplicitLeft = 1
+    ExplicitTop = 5
     DesignSize = (
-      1121
-      640)
-    object Shape1: TShape
-      Left = 0
-      Top = 185
-      Width = 768
-      Height = 455
-      Align = alClient
-      Brush.Color = 14737632
-      Pen.Style = psClear
-      ExplicitLeft = -26
-      ExplicitTop = 183
-      ExplicitWidth = 743
-      ExplicitHeight = 487
-    end
-    object lbCalendario: TLabel
-      Left = 564
-      Top = 197
-      Width = 182
-      Height = 21
-      Alignment = taRightJustify
-      Anchors = [akTop, akRight]
-      Caption = 'Selecione a data desejada'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -17
-      Font.Name = 'Calibri'
-      Font.Style = [fsBold]
-      ParentFont = False
-    end
+      372
+      657)
     object Image2: TImage
-      Left = 519
-      Top = 193
+      Left = 6
+      Top = 281
       Width = 35
       Height = 33
       Anchors = [akTop, akRight]
@@ -100,939 +73,815 @@ inherited frmAgendamentos: TfrmAgendamentos
         D9D981CFE7AF3AC0E4E42473842F0D909B9BBB9934A6AB7EF739931100995E80
         FFDAFE06DE90265D364FBAA20000000049454E44AE426082}
     end
-    object lbHorarioDia: TLabel
-      Left = 14
-      Top = 195
-      Width = 124
-      Height = 23
-      Caption = 'Hor'#225'rios do dia '
+    object rgpDiasSemana: TRadioGroup
+      Left = 6
+      Top = 308
+      Width = 360
+      Height = 210
+      Margins.Left = 10
+      Caption = ' '
+      Enabled = False
+      Items.Strings = (
+        'SEGUNDA-FEIRA'
+        'TER'#199'A-FEIRA'
+        'QUARTA-FEIRA'
+        'QUINTA-FEIRA'
+        'SEXTA-FEIRA'
+        'S'#193'BADO'
+        'DOMINGO')
+      TabOrder = 4
+      OnClick = rpbDiasSemanaClick
+    end
+    inline BuscaDepartamento1: TBuscaDepartamento
+      Left = 15
+      Top = 10
+      Width = 346
+      Height = 63
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 13261071
-      Font.Height = -19
+      Font.Color = 2697513
+      Font.Height = -15
+      Font.Name = 'Microsoft Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      OnExit = BuscaDepartamento1Exit
+      ExplicitLeft = 15
+      ExplicitTop = 10
+      ExplicitWidth = 346
+      ExplicitHeight = 63
+      inherited edtCodigo: TCurrencyEdit
+        Height = 22
+        Ctl3D = False
+        ParentCtl3D = False
+        ExplicitHeight = 22
+      end
+      inherited edtDepartamento: TEdit
+        Width = 177
+        Height = 22
+        Ctl3D = False
+        ParentCtl3D = False
+        OnChange = BuscaDepartamento1edtDepartamentoChange
+        ExplicitWidth = 177
+        ExplicitHeight = 22
+      end
+    end
+    inline BuscaPessoa1: TBuscaPessoa
+      Left = 5
+      Top = 149
+      Width = 356
+      Height = 54
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 2697513
+      Font.Height = -15
+      Font.Name = 'Microsoft Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+      OnExit = BuscaPessoa1Exit
+      ExplicitLeft = 5
+      ExplicitTop = 149
+      ExplicitWidth = 356
+      ExplicitHeight = 54
+      inherited lbTipo: TLabel
+        Left = 87
+        ExplicitLeft = 87
+      end
+      inherited btnBusca: TBitBtn
+        Left = 57
+        ExplicitLeft = 57
+      end
+      inherited edtCodigo: TCurrencyEdit
+        Width = 43
+        Height = 22
+        Ctl3D = False
+        ParentCtl3D = False
+        ExplicitWidth = 43
+        ExplicitHeight = 22
+      end
+      inherited edtNome: TEdit
+        Left = 87
+        Width = 260
+        Height = 22
+        Ctl3D = False
+        ParentCtl3D = False
+        OnChange = BuscaPessoa1edtNomeChange
+        ExplicitLeft = 87
+        ExplicitWidth = 260
+        ExplicitHeight = 22
+      end
+    end
+    inline BuscaProfissional: TBuscaPessoa
+      Left = 5
+      Top = 90
+      Width = 356
+      Height = 54
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 2697513
+      Font.Height = -15
+      Font.Name = 'Microsoft Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      OnExit = BuscaProfissionalExit
+      ExplicitLeft = 5
+      ExplicitTop = 90
+      ExplicitWidth = 356
+      ExplicitHeight = 54
+      inherited lbTipo: TLabel
+        Left = 87
+        Width = 79
+        Caption = 'Profissional'
+        ExplicitLeft = 87
+        ExplicitWidth = 79
+      end
+      inherited btnBusca: TBitBtn
+        Left = 57
+        ExplicitLeft = 57
+      end
+      inherited edtCodigo: TCurrencyEdit
+        Width = 43
+        Height = 22
+        Ctl3D = False
+        ParentCtl3D = False
+        ExplicitWidth = 43
+        ExplicitHeight = 22
+      end
+      inherited edtNome: TEdit
+        Left = 87
+        Width = 260
+        Height = 22
+        Ctl3D = False
+        ParentCtl3D = False
+        ExplicitLeft = 87
+        ExplicitWidth = 260
+        ExplicitHeight = 22
+      end
+    end
+    object gpbCalendario: TGroupBox
+      Left = 6
+      Top = 309
+      Width = 360
+      Height = 210
+      Caption = ' '
+      TabOrder = 5
+      DesignSize = (
+        360
+        210)
+      object calendario: TJvMonthCalendar
+        Left = 71
+        Top = 34
+        Width = 225
+        Height = 160
+        Anchors = [akTop, akRight]
+        CalColors.TextColor = clBlue
+        CalColors.MonthBackColor = clTeal
+        Date = 42566.587638692130000000
+        Enabled = False
+        TabOrder = 0
+        OnClick = calendarioClick
+      end
+    end
+    object StaticText1: TStaticText
+      Left = 44
+      Top = 292
+      Width = 177
+      Height = 22
+      Caption = ' Selecione o dia da consulta '
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
       Font.Name = 'Calibri'
       Font.Style = [fsBold]
       ParentFont = False
+      TabOrder = 7
     end
-    object lbDiaSemana: TLabel
-      Left = 259
-      Top = 195
-      Width = 122
-      Height = 23
-      Caption = '(dia da semana)'
+    object btnCriaHorario: TBitBtn
+      Left = 205
+      Top = 485
+      Width = 161
+      Height = 30
+      Caption = ' Criar hor'#225'rio'
+      Glyph.Data = {
+        36080000424D3608000000000000360000002800000020000000100000000100
+        2000000000000008000000000000000000000000000000000000FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
+        9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B
+        9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B00B97D4D00B671
+        3000B36F3100B5702F00B36E3000B36E3000B56E2F00B36E3100B3703200B56E
+        2D00B3703400B3702F00B4702E00B36E3100B7713000B87D4F0055190000520D
+        00004F0B0000510C00004F0A00004F0A0000510A00004F0A00004F0C0000510A
+        00004F0C00004F0C0000500C00004F0A0000530D000054190000B96F2200F7DB
+        B400EFD1B100D5881A00F1D4B400F0D3AF00D8922C00F3DDC500EAC79600D68B
+        2200F4E0C800EAC39500D7932B00F2DDC600F0C88700B5650A00550B00009377
+        50008B6D4D00712400008D7050008C6F4B00742E00008F796100866332007227
+        0000907C6400865F3100732F00008E7962008C64230051010000BE7D3D00FFFF
+        FF00FFFFFF00D6923100FFFFFF00FFFFFF00DDA14B00FFFFFF00FAF1E100D998
+        4500FFFFFF00FAF2EE00DD9F4D00FFFFFF00FFF1D300B86810005A1900009B9B
+        9B009B9B9B00722E00009B9B9B009B9B9B00793D00009B9B9B00968D7D007534
+        00009B9B9B00968E8A00793B00009B9B9B009B8D6F0054040000C0772400EBC0
+        8100E5B88400D8922900E5BA8800E2B17500D8912600E5BA8700E3B77B00D992
+        2800E6C29700E1AF6D00DA973300E6BE9600E9BA7300C07624005C130000875C
+        1D0081542000742E0000815624007E4D1100742D0000815623007F531700752E
+        0000825E33007D4B090076330000825A320085560F005C120000C5844200FFF9
+        ED00F7ECE200DE9F4100FAF3E900F9F3E900E1AA5900FCFBFC00F6E2C700DFA8
+        5600FDFAF800F3DFC800E0A95400FBF9F900FAE7C000C37A2700612000009B95
+        890093887E007A3B0000968F8500958F85007D46000098979800927E63007B44
+        0000999694008F7B64007C4500009795950096835C005F160000CE945C00FFFF
+        F800FAF2EA00E2A84E00FCF4EA00F9EDD800E2AB5300FDF8F300F5E3C500E2A8
+        4D00FDF8F200F6E1CB00E5B26400FEFEFE00FEF2D900CD8D4B006A3000009B9B
+        9400968E86007E44000098908600958974007E47000099948F00917F61007E44
+        000099948E00927D6700814E00009A9A9A009A8E750069290000D1945100FBE8
+        CD00F3DFC900EBBB7800F2DDC700F1D4B200E6B36100F1D6BB00EFD2AC00E5B4
+        6400F4E3D100EFD0A400EABF8300F5E4D600F9E0BF00D09451006D3000009784
+        69008F7B6500875714008E7963008D704E00824F00008D7257008B6E48008150
+        0000907F6D008B6C4000865B1F0091807200957C5B006C300000D59E6900FFFF
+        FF00FFFFFF00EFC99200FFFFFF00FFFFFF00F1D1A200FFFFFF00FDFAF700F0CE
+        A300FFFFFF00FDFAFC00F0CE9D00FFFFFF00FFFFF700D1944C00713A05009B9B
+        9B009B9B9B008B652E009B9B9B009B9B9B008D6D3E009B9B9B00999693008C6A
+        3F009B9B9B00999698008C6A39009B9B9B009B9B93006D300000D7A16400FFF7
+        DE00F8E6CF00F6D29A00F8E5C600F7E1C300F1CD9500F9E4CC00F6DDBB00F1CB
+        8E00F8E6CE00F6DFBC00F6D6A100FAEADA00FFF2D100D79D5B00733D00009B93
+        7A0094826B00926E360094816200937D5F008D69310095806800927957008D67
+        2A0094826A00927B580092723D00968676009B8E6D0073390000E4B57500CC95
+        570094360000C88B5100F9D79C00F2CD9000F4D09600F2CC8F00F2CE8F00F3D0
+        9400F1CD9100F9DA9B00C78A4E0094350000CE945A00E3B57800805111006831
+        00003000000064270000957338008E692C00906C32008E682B008E6A2B008F6C
+        30008D692D009576370063260000300000006A3000007F511400E6BE8400C892
+        5B00D3850C00C9884900FCE5BA00F8DDAF00F9DCAE00F9DEAE00FADEAF00F9DC
+        AF00FADCAD00FCE5BC00CA8B4D00D3850A00C78F5B00E7BE8400825A2000642E
+        00006F210000652400009881560094794B0095784A00957A4A00967A4B009578
+        4B009678490098815800662700006F210000632B0000835A2000E3C09700D7A6
+        6E00E5AB4D00CE925100E9CEAF00E8C7A300E7C8A400E8C7A400E7C7A300E7C7
+        A300E7C7A300EACDAF00CF975400E5AB4D00D3A26E00E3C097007F5C33007342
+        0A00814700006A2E0000856A4B0084633F00836440008463400083633F008363
+        3F0083633F0086694B006B330000814700006F3E0A007F5C3300FFFFFF00E4C0
+        9700F9D38400C6873F00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00CA924D00F7D38400E4BF9500FFFFFF009B9B9B00805C
+        3300956F2000622300009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B
+        9B009B9B9B009B9B9B00662E0000936F2000805B31009B9B9B00FFFFFF00E8CA
+        A200F1C87E00DDB58600FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00E2BE9100EFC67E00E7C7A100FFFFFF009B9B9B008466
+        3E008D641A00795122009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B
+        9B009B9B9B009B9B9B007E5A2D008B621A0083633D009B9B9B00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
+        9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B
+        9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B00}
+      NumGlyphs = 2
+      TabOrder = 6
+      OnClick = BitBtn3Click
+    end
+    inline BuscaConvenio1: TBuscaConvenio
+      Left = 8
+      Top = 208
+      Width = 358
+      Height = 53
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = 13261071
-      Font.Height = -19
+      Font.Color = 2697513
+      Font.Height = -16
       Font.Name = 'Calibri'
       Font.Style = []
       ParentFont = False
-      Visible = False
-    end
-    object gpbHorario: TGroupBox
-      Left = 521
-      Top = 419
-      Width = 225
-      Height = 197
-      Anchors = [akTop, akRight]
-      Caption = '            Hor'#225'rio da sess'#227'o '
-      Enabled = False
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -17
-      Font.Name = 'Calibri'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 0
-      object Label3: TLabel
-        Left = 31
-        Top = 57
-        Width = 30
-        Height = 16
-        Caption = 'Hora'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Microsoft Sans Serif'
-        Font.Style = []
-        ParentFont = False
-      end
-      object Label1: TLabel
-        Left = 127
-        Top = 57
-        Width = 46
-        Height = 16
-        Caption = 'Minutos'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Microsoft Sans Serif'
-        Font.Style = []
-        ParentFont = False
-      end
-      object Image1: TImage
-        Left = 19
-        Top = -2
-        Width = 35
-        Height = 33
-        Picture.Data = {
-          0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
-          00200806000000737A7AF4000007544944415478DAD5570B5094D715FE967DC1
-          82BB2C2CE20ACB43DEB2011F58A90A54505367128A454C3334D5B164749A8999
-          A16923B5681D5307A28933EA988CA9358E8D934806439CA191D8A19280B18CC8
-          C485F0D26C1757DE8F00FBFAF741CFFDDDA5BB80D84E3BCDF4CC7C73FF7BF6EE
-          7FBEFBDD73CFBDBF00DFB109FEDF098410B2097504F3FF9A4010E18E3B702DA1
-          CCEBB760C231C228E1B5FF1601954020F8557A7AFA3356AB55D2DBDBCB994CA6
-          C5E4BF44584AA8210C121E100E114484664213A1E13F2590B97AF5EA9AF2F2F2
-          C5F1F1F1BCE3DCB973282A2AC2E4E424868787313838889191110C0C0CA0AEAE
-          0ED1D1D1D6D1D1D187E4E7083A37B95EC2176EFCCB0444E1E1E1DD57AF5E8D91
-          C96433CEDADA5A884422E4E4E4C0E32785F8F6D2A54B282E2E9EE93B1C0E9E24
-          A98623478EA0A3A3E300B98F3E8940AE4C1E58149B1AB7411EA2D02A83959038
-          45888B88454141011A1B1B41CB81C8C8484824121F0295959558BF7E3DB2B3B3
-          677C9EF6ECD9B3A8A8A8E8A2C7A4C71148D624C59C7BB664DBBA4DF95B2097C9
-          F9610E971326BB059D5D9DB8FEC19F11E71F81977EF1123F7BEF20369B0D57AE
-          5CC1E6CD9B11161636E3F78CD9B973276EDCB8F1277A7C613E02B93F28DA5CB3
-          EFF5D2A0F8D058981D160C4F8E83B37098A691E200094442212638131A9B1AD1
-          5373076F1CA998B304168B05010101F0F3F3F3214039818C8C0CB6243F22F727
-          B3092453F0E6DFBC591E1419A4864EDF0DFBB71268941A98C706A00A5B0C07EC
-          E81AE9C103D110388103FDFA87E8AB6EC35B95C7F960B3E5F66E192E5EBC88B2
-          B2B209728513AC3E043489D18DC73F39BD2E459580E6F636C405AF40B43A9CA4
-          77C1659DC492B0500448C4B0700E5435D4A35BD44E9208A0BB7E1B79CA55282C
-          2C5C900033B66B9A9A9A66E4F72690BBF78D57FE52FCC24FD16DD023D67F25A2
-          D44B3069B3431528C1DF3BEE20293111C14A1586A76C308E5B70537703F7FC7B
-          7882B7DFAAC585937FE0657F1C01B64D99FC76BB7D1BB93EF6211010247BFBED
-          9B17F62A640A8CDC7720774536262C143C4802854C8CA6BF5EC3535A2DC2D451
-          E0EC2E8C514E7419C75077FF3226FCAD68A96A4079C1CB58B972E563099C3F7F
-          1EFBF7EF9F72CB6FF621A05D9F7EFBB53FFE6ED5B869125AC1F7B054BD148112
-          211F7CDA6EC3D7BA5628140A24246BE1744DC36473C0306AC667773F4597A007
-          469D1EEBB865D8BD7BB74FC67B5AA7D389EDDBB7B3AD7B99BACF79673D3F22F3
-          D9AC6F4A2A5F8E99FAD684154845A4261AE12A25A42221EEF7B463746C085652
-          2433730324527F983927BEFAAA152DFD3D68157561BC6F04B15F4B505A5A0AB1
-          583C8780C160C0DAB56B99FC45D4FD680E818CA733BB4B8EBF126F315991ADC8
-          42624C14A46221847E02F4F73D406BEB2D22C061E3C6A7B148A1E4091886C6F1
-          45D72DDCB4FE0DA38641687B95D8B76F1F5F946613387DFA340E1E3C3847FE19
-          02118951D7CAAA8E6EE1A864AE93AEC2AAE4543E38FB719A1F2480B1F71E3EA7
-          ECDFB4751B04D220E8474CA8D37D0C9DF31E0C5F76A25893C7CBCCCAB3273033
-          B3D9ECC9FE39F27BEF82570FD4541E53468421D42C47F1F70B6075B820A41789
-          457E202E982626C6DEFB68FCBC1EAB737F8CAE077DF874B80643DC1474E7EBF1
-          DE6F4F2291768A77706654F791959535AFFCDE04966CF8C9A66F9E297DCEDFE5
-          7421D69684C4D83484CBA59049441011034680A3DF0606FA3048227E69BC8E56
-          CB3D58286FA4D70650F1FA51A8542A9F97BB688B9E3A750A870E1D9A577E9F42
-          24148B8E95BCF3CB5797A44441E814208AB23A2A5C8B5045202C437A48E56170
-          8802D04F04DAC66EA1D5FAA806B4BD5B8F93A5BFE70F26CFA1E431567A77EDDA
-          858686866AEA16621E9B2120954A3FCBD9B271D3B2E733A08808E5671CEC9021
-          44180E31370D3FCAFE116E0806C743F45BC7E1A2ECE8F8E8265E5C5B88FCFC7C
-          2895CA392FBF7BF72EF2F2F2C071DCF3D4FD6021022B76ECD871E7C48913F8F5
-          81FD18D74C232EE729FE04E4E174B73463F6CC64EFB97C0B7B7F588CAD5BB7F2
-          A7DEECB567A7E299336770F8F06156F3D9B138B510810B24D3CFD2D2D268E6D3
-          A8AEAEC67BD5EFC3AE9620343902D26019381B87B1DE218CB619911A188D3D3F
-          7F110909097C819A1D9C595F5F1FF6ECD9B3A0FCDE046AAAAAAAF2D919EE3176
-          8B696F6F47737333FAFBFBF902A3D168B066CD1A84848460D1A245BC6F3E6393
-          686969E1D559487E6F02CBE938FD302525459B9A9A8AE5CB97C3D3AAD56A7E86
-          ECA5DE6576219B9898E0EF8C4F92DF2709DD1645D0BA914E48A3992693899292
-          92400479B0FDCEA46759CF54F05C3C3CB3D7EBF57C59AEAFAF67A7DEB685C8CE
-          26C0F611BBD3B32B8EBFBBCFDA6504761D4E602DA9104FCA2C8E8B8B03032347
-          24111313C32F5D6767274A4A4A40D777F6ADC03E5A98121C1ED50106762971CD
-          26C03E34129FA8EF3F4DEE1E9FE026174F5B399E6ED0FE46A391368B9325DF9B
-          2C9DE6F92FF3753052DE04FCDCB397BBC948F0EF1B7B87CA3D43EB6302B37C18
-          C7A3AFA605AFE57E5ECB20F2829F1B70F73DE69A070EB7F40E37A1396A7CE75F
-          C7FF007375EA3F262634440000000049454E44AE426082}
-      end
-      object speHoras: TSpinEdit
-        Left = 30
-        Top = 76
-        Width = 64
-        Height = 28
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = -1
-        Font.Height = -15
-        Font.Name = 'Microsoft Sans Serif'
+      TabOrder = 3
+      ExplicitLeft = 8
+      ExplicitTop = 208
+      ExplicitWidth = 358
+      ExplicitHeight = 53
+      inherited Label1: TLabel
+        Left = 9
+        Width = 47
+        Height = 19
+        Font.Color = 2697513
+        Font.Height = -16
+        Font.Name = 'Calibri'
         Font.Style = [fsBold]
-        MaxLength = 2
-        MaxValue = 21
-        MinValue = 6
-        ParentFont = False
-        TabOrder = 0
-        Value = 6
-        OnChange = speHorasChange
-        OnEnter = speHorasEnter
-        OnExit = speHorasExit
+        ExplicitLeft = 9
+        ExplicitWidth = 47
+        ExplicitHeight = 19
       end
-      object speMinutos: TSpinEdit
-        Left = 126
-        Top = 76
+      inherited Label2: TLabel
+        Left = 83
         Width = 64
-        Height = 28
+        Height = 19
+        Font.Color = 2697513
+        Font.Height = -16
+        Font.Name = 'Calibri'
+        Font.Style = [fsBold]
+        ExplicitLeft = 83
+        ExplicitWidth = 64
+        ExplicitHeight = 19
+      end
+      inherited btnBusca: TBitBtn
+        Left = 54
+        ExplicitLeft = 54
+      end
+      inherited edtCodigo: TCurrencyEdit
+        Width = 43
+        Height = 22
+        Ctl3D = False
+        ParentCtl3D = False
+        ExplicitWidth = 43
+        ExplicitHeight = 22
+      end
+      inherited edtConvenio: TEdit
+        Left = 84
+        Width = 260
+        Height = 22
+        Ctl3D = False
+        ParentCtl3D = False
+        ExplicitLeft = 84
+        ExplicitWidth = 260
+        ExplicitHeight = 22
+      end
+    end
+  end
+  object pnlCorpo: TPanel
+    Left = 372
+    Top = 0
+    Width = 837
+    Height = 657
+    Align = alClient
+    TabOrder = 1
+    object ScrollBox1: TScrollBox
+      Left = 1
+      Top = 38
+      Width = 835
+      Height = 618
+      VertScrollBar.Increment = 30
+      VertScrollBar.Style = ssHotTrack
+      Align = alClient
+      BevelInner = bvNone
+      BevelOuter = bvNone
+      BorderStyle = bsNone
+      TabOrder = 0
+      OnMouseWheelDown = ScrollBox1MouseWheelDown
+      OnMouseWheelUp = ScrollBox1MouseWheelUp
+      DesignSize = (
+        818
+        618)
+      object pnlHorarios: TPanel
+        Left = 0
+        Top = 0
+        Width = 827
+        Height = 919
+        Anchors = [akLeft, akTop, akRight]
+        BevelOuter = bvNone
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = -1
-        Font.Height = -15
-        Font.Name = 'Microsoft Sans Serif'
-        Font.Style = [fsBold]
-        Increment = 10
-        MaxLength = 2
-        MaxValue = 50
-        MinValue = 0
-        ParentFont = False
-        TabOrder = 1
-        Value = 0
-        OnChange = speHorasChange
-        OnEnter = speHorasEnter
-        OnExit = speMinutosExit
-      end
-      object btnCriaHorario: TBitBtn
-        Left = 17
-        Top = 131
-        Width = 192
-        Height = 29
-        Caption = ' Criar Hor'#225'rio'
-        Glyph.Data = {
-          36080000424D3608000000000000360000002800000020000000100000000100
-          2000000000000008000000000000000000000000000000000000FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00E5CABB00CE976D00BF6D1F00C56C0B00C56C0B00C06D
-          1E00CD966C00E5CABA00FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
-          9B009B9B9B009B9B9B00816657006A3309005B09000061080000610800005C09
-          000069320800816656009B9B9B009B9B9B009B9B9B009B9B9B00FFFFFF00FFFF
-          FF00FCF9F700C7855300D6850B00E69C0A00E7AF2500F7C95900F7C85800E9AD
-          2300E5980800D0800500C5835300FCF9F700FFFFFF00FFFFFF009B9B9B009B9B
-          9B0098959300632100007221000082380000834B000093650000936400008549
-          0000813400006C1C0000611F0000989593009B9B9B009B9B9B00FFFFFF00FDFA
-          F800C97E3200E59E1200EBB43700F0D69F00DFB27300D0985600D0985600DFB2
-          7200F2D79D00EAB23300E0940700C77A2D00FDFAF800FFFFFF009B9B9B009996
-          9400651A0000813A0000875000008C723B007B4E0F006C3400006C3400007B4E
-          0E008E733900864E00007C30000063160000999694009B9B9B00FFFFFF00D093
-          5D00E9A82100EBC16400E4CBAA00DFDDDD00F1F0F10024232600D9D9DA00D9D9
-          DA00D0CECE00D7B69000F0C55F00E29C1100D0905A00FFFFFF009B9B9B006C2F
-          000085440000875D0000806746007B7979008D8C8D0000000000757576007575
-          76006C6A6A0073522C008C6100007E3800006C2C00009B9B9B00EBD1BF00E1A3
-          2F00EAB43D00EAD2B400FCFFFF0024232600F1F1F000EFEEED00EBEAE900D0CE
-          CE0024232600CDCFD300D0AD8700F1B83800DC971F00EBD1BF00876D5B007D3F
-          000086500000866E5000989B9B00000000008D8D8C008B8A8900878685006C6A
-          6A0000000000696B6F006C4923008D54000078330000876D5B00DCAB7900EEBE
-          3E00F2CF8300FCFFFF0024232600F0EFEF00ECEBEB00E6E4E300E1E0DF00D8D6
-          D500D3D1CF0024232600D3D1CF00EDC67200EDB43100DBA77800784715008A5A
-          00008E6B1F00989B9B00000000008C8B8B008887870082807F007D7C7B007472
-          71006F6D6B00000000006F6D6B0089620E008950000077431400DA9C4500EDBD
-          4200E9C18100F0EFEF00F0EFEF00F0EFEF00ECEBEB00E6E4E300E1E0DF00D8D6
-          D500D3D1CF00D3D1CF00D3D1CF00E5BB7900F1B93700D7953E00763800008959
-          0000855D1D008C8B8B008C8B8B008C8B8B008887870082807F007D7C7B007472
-          71006F6D6B006F6D6B006F6D6B00815715008D55000073310000E2AB4D00F9CD
-          5C00EFD2A10024232600FFFFFF00F0EFEF00ECEBEB0004030600040306001918
-          1B0019181B0019181B00D3D1CF00DDB67C00FBC95000DFA343007E4700009569
-          00008B6E3D00000000009B9B9B008C8B8B008887870000000000000000000000
-          000000000000000000006F6D6B0079521800976500007B3F0000E5B66300FDD7
-          7300E9BC6F00BDBBBE00FFFFFF00EFEEED00EDEDEC0019181B009C9A9B00FFFF
-          FF00FFFFFF00E6E4E300E1DFDE00D59A4800FDD36200E3B05700815200009973
-          0F0085580B0059575A009B9B9B008B8A89008989880000000000383637009B9B
-          9B009B9B9B0082807F007D7B7A0071360000996F00007F4C0000E4B16400F5D9
-          8600E9BE6A00FCFDFE00FCFBFA00F4F3F200F1F1F00019181B00B1AFB000E5E3
-          E200E1E0DF00D6D4D200D6D4D200E9C47A00F8E09900E1AE6100804D00009175
-          2200855A060098999A0098979600908F8E008D8D8C00000000004D4B4C00817F
-          7E007D7C7B0072706E0072706E0085601600947C35007D4A0000E9C18700FDF8
-          D500F2D99800F0F2F40024232600F4F3F200F1F1F00019181B00BDBBBE00E5E3
-          E200E1E0DF0024232600DAD9DC00F5D69100FEF9DA00E8C08900855D23009994
-          71008E7534008C8E900000000000908F8E008D8D8C000000000059575A00817F
-          7E007D7C7B00000000007675780091722D009A957600845C2500F4DEBF00F7E5
-          B600FBECC800F0DBB100FEFFFF00E9E8E700EDEBEC00F6F5F400EFEEED00E9E8
-          E700E1DFDE00DADCE200E7C89500FDEDC800F6E0AE00F3DEBF00907A5B009381
-          5200978864008C774D009A9B9B008584830089878800929190008B8A89008584
-          83007D7B7A0076787E008364310099896400927C4A008F7A5B00FFFFFF00EAC1
-          7600FDF9E500F9E5B300F4DFB50024232600CDCDCE0019181B00E1DFDE00E8E6
-          E50024232600E5CB9900FBE5B300FCF7E200EBBF7400FFFFFF009B9B9B00865D
-          12009995810095814F00907B51000000000069696A00000000007D7B7A008482
-          8100000000008167350097814F0098937E00875B10009B9B9B00FFFFFF00FEFC
-          F800EEC56F00FEFAE700FBF0D300F9E3A800F5D99100F4DEA900F4DDA900F2D6
-          8E00F8DEA300FFF3D900FDF9E400EDC26C00FEFCF800FFFFFF009B9B9B009A98
-          94008A610B009A968300978C6F00957F440091752D00907A4500907945008E72
-          2A00947A3F009B8F750099958000895E08009A9894009B9B9B00FFFFFF00FFFF
-          FF00FEFCF800EFC77700FAE8BC00FCFAEA00FCF1DF00FFF7D800FFF7D900FEF5
-          E000FFFBEB00F7E8BA00EDC67600FEFCF800FFFFFF00FFFFFF009B9B9B009B9B
-          9B009A9894008B6313009684580098968600988D7B009B9374009B9375009A91
-          7C009B97870093845600896212009A9894009B9B9B009B9B9B00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00F8E7C200F3D59400F2D18400F4DB9700F4DB9700F2D1
-          8400F3D49200F8E7C200FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
-          9B009B9B9B009B9B9B0094835E008F7130008E6D200090773300907733008E6D
-          20008F702E0094835E009B9B9B009B9B9B009B9B9B009B9B9B00}
-        NumGlyphs = 2
-        TabOrder = 2
-        OnClick = btnCriaHorarioClick
-      end
-    end
-    object calendario: TJvMonthCalendar
-      Left = 521
-      Top = 232
-      Width = 225
-      Height = 160
-      Anchors = [akTop, akRight]
-      CalColors.TextColor = clBlue
-      CalColors.MonthBackColor = clTeal
-      Date = 42566.895670972220000000
-      Enabled = False
-      TabOrder = 1
-    end
-    object Panel2: TPanel
-      Left = 0
-      Top = 0
-      Width = 1121
-      Height = 185
-      Align = alTop
-      Color = 16316664
-      ParentBackground = False
-      TabOrder = 2
-      object Label5: TLabel
-        Left = 697
-        Top = 61
-        Width = 44
-        Height = 16
-        Caption = 'Tempo'
-        Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Microsoft Sans Serif'
-        Font.Style = []
-        ParentFont = False
-      end
-      inline BuscaConvenio1: TBuscaConvenio
-        Left = 77
-        Top = 58
-        Width = 252
-        Height = 56
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 2697513
         Font.Height = -15
-        Font.Name = 'Microsoft Sans Serif'
+        Font.Name = 'Calibri'
         Font.Style = []
-        ParentFont = False
-        TabOrder = 3
-        OnExit = BuscaConvenio1Exit
-        ExplicitLeft = 77
-        ExplicitTop = 58
-        ExplicitWidth = 252
-        ExplicitHeight = 56
-        inherited Label1: TLabel
-          Left = 8
-          Width = 47
-          Height = 19
-          Font.Color = 2697513
-          Font.Height = -16
-          Font.Name = 'Calibri'
-          Font.Style = [fsBold]
-          ExplicitLeft = 8
-          ExplicitWidth = 47
-          ExplicitHeight = 19
-        end
-        inherited Label2: TLabel
-          Left = 85
-          Width = 64
-          Height = 19
-          Font.Color = 2697513
-          Font.Height = -16
-          Font.Name = 'Calibri'
-          Font.Style = [fsBold]
-          ExplicitLeft = 85
-          ExplicitWidth = 64
-          ExplicitHeight = 19
-        end
-        inherited btnBusca: TBitBtn
-          Left = 55
-          ExplicitLeft = 55
-        end
-        inherited edtCodigo: TCurrencyEdit
-          Width = 44
-          ExplicitWidth = 44
-        end
-        inherited edtConvenio: TEdit
-          Left = 84
-          Width = 151
-          OnChange = BuscaConvenio1edtConvenioChange
-          ExplicitLeft = 84
-          ExplicitWidth = 151
-        end
-      end
-      inline BuscaDepartamento1: TBuscaDepartamento
-        Left = 7
-        Top = 2
-        Width = 307
-        Height = 63
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 2697513
-        Font.Height = -15
-        Font.Name = 'Microsoft Sans Serif'
-        Font.Style = []
+        ParentBackground = False
         ParentFont = False
         TabOrder = 0
-        OnExit = BuscaDepartamento1Exit
-        ExplicitLeft = 7
-        ExplicitTop = 2
-        ExplicitWidth = 307
-        ExplicitHeight = 63
-        inherited edtDepartamento: TEdit
-          Width = 145
-          OnChange = BuscaDepartamento1edtDepartamentoChange
-          ExplicitWidth = 145
-        end
-      end
-      inline BuscaPessoa1: TBuscaPessoa
-        Left = 705
-        Top = 2
-        Width = 407
-        Height = 54
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 2697513
-        Font.Height = -15
-        Font.Name = 'Microsoft Sans Serif'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 2
-        OnExit = BuscaPessoa1Exit
-        ExplicitLeft = 705
-        ExplicitTop = 2
-        ExplicitWidth = 407
-        ExplicitHeight = 54
-        inherited lbTipo: TLabel
-          Left = 87
-          ExplicitLeft = 87
-        end
-        inherited btnBusca: TBitBtn
-          Left = 57
-          ExplicitLeft = 57
-        end
-        inherited edtCodigo: TCurrencyEdit
-          Width = 43
-          ExplicitWidth = 43
-        end
-        inherited edtNome: TEdit
-          Left = 87
-          Width = 310
-          OnChange = BuscaPessoa1edtNomeChange
-          ExplicitLeft = 87
-          ExplicitWidth = 310
-        end
-      end
-      inline BuscaTabelaPreco1: TBuscaTabelaPreco
-        Left = 325
-        Top = 58
-        Width = 365
-        Height = 53
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 2697513
-        Font.Height = -15
-        Font.Name = 'Microsoft Sans Serif'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 4
-        OnExit = BuscaTabelaPreco1Exit
-        ExplicitLeft = 325
-        ExplicitTop = 58
-        ExplicitWidth = 365
-        ExplicitHeight = 53
-        inherited Label2: TLabel
-          Left = 89
-          ExplicitLeft = 89
-        end
-        inherited Label3: TLabel
-          Left = 305
-          ExplicitLeft = 305
-        end
-        inherited btnBusca: TBitBtn
-          Left = 58
-          ExplicitLeft = 58
-        end
-        inherited edtCodigo: TCurrencyEdit
-          Width = 44
-          OnChange = BuscaTabelaPreco1edtCodigoChange
-          ExplicitWidth = 44
-        end
-        inherited edtServico: TEdit
-          Left = 88
-          Width = 201
-          ExplicitLeft = 88
-          ExplicitWidth = 201
-        end
-        inherited edtValor: TCurrencyEdit
-          Left = 305
-          Width = 51
-          ExplicitLeft = 305
-          ExplicitWidth = 51
-        end
-      end
-      object edtTempoDuracao: TMaskEdit
-        Left = 696
-        Top = 82
-        Width = 63
-        Height = 24
-        EditMask = '!90:00:00;1;_'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Microsoft Sans Serif'
-        Font.Style = []
-        MaxLength = 8
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 5
-        Text = '  :  :  '
-      end
-      inline BuscaProfissional: TBuscaPessoa
-        Left = 325
-        Top = 2
-        Width = 372
-        Height = 54
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 2697513
-        Font.Height = -15
-        Font.Name = 'Microsoft Sans Serif'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 1
-        OnExit = BuscaProfissionalExit
-        ExplicitLeft = 325
-        ExplicitTop = 2
-        ExplicitWidth = 372
-        ExplicitHeight = 54
-        inherited lbTipo: TLabel
-          Left = 87
-          Width = 79
-          Caption = 'Profissional'
-          ExplicitLeft = 87
-          ExplicitWidth = 79
-        end
-        inherited btnBusca: TBitBtn
-          Left = 57
-          ExplicitLeft = 57
-        end
-        inherited edtCodigo: TCurrencyEdit
-          Width = 43
-          ExplicitWidth = 43
-        end
-        inherited edtNome: TEdit
-          Left = 87
-          Width = 279
-          ExplicitLeft = 87
-          ExplicitWidth = 279
-        end
-      end
-      object btnAddServico: TBitBtn
-        Left = 807
-        Top = 80
-        Width = 295
-        Height = 27
-        Caption = ' Adicionar servi'#231'o'
-        Glyph.Data = {
-          36080000424D3608000000000000360000002800000020000000100000000100
-          2000000000000008000000000000000000000000000000000000FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00BBE4C20070CF850027B747001EBA40001EBA400027B7
-          470070CF8500BBE4C200FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
-          9B009B9B9B009B9B9B0057805E000C6B21000053000000560000005600000053
-          00000C6B210057805E009B9B9B009B9B9B009B9B9B009B9B9B00FFFFFF00FFFF
-          FF00FAFDFA004FB9620019C140001FCE4C0024DC580027DD5C0027DD5C0024DC
-          58001FCE4C0019C140004FB96200FAFDFA00FFFFFF00FFFFFF009B9B9B009B9B
-          9B009699960000550000005D0000006A00000078000000790000007900000078
-          0000006A0000005D000000550000969996009B9B9B009B9B9B00FFFFFF00FBFD
-          FB0021A93A001ED04E0022D5550021D3550003B82C0000A7120000A7120003B8
-          2C0021D3550022D555001ED04E0021A93A00FBFDFB00FFFFFF009B9B9B009799
-          970000450000006C000000710000006F00000054000000430000004300000054
-          0000006F000000710000006C000000450000979997009B9B9B00FFFFFF004EB1
-          5B001ECE4D0021D354001FCC4D000FCC450000AD1300FFFFFF00FFFFFF0000AD
-          13000FCC45001FCC4D0021D354001ECE4D004EB15B00FFFFFF009B9B9B00004D
-          0000006A0000006F00000068000000680000004900009B9B9B009B9B9B000049
-          00000068000000680000006F0000006A0000004D00009B9B9B00BDDEBE0017BA
-          3F0021DA5A001ECC510020D053000DC7420000BE2500FFFFFF00FFFFFF0000BE
-          25000DC7420020D053001ECC510021DA5A0017BA3F00BDDEBE00597A5A000056
-          00000076000000680000006C000000630000005A00009B9B9B009B9B9B00005A
-          000000630000006C0000006800000076000000560000597A5A006ABC740017D1
-          510020D45F000BCC4A0004CA430000C1330000BC2200FFFFFF00FFFFFF0000BD
-          270000C23B0010CA4B000ECC4C0020D45F0017D151006ABC740006581000006D
-          0000007000000068000000660000005D0000005800009B9B9B009B9B9B000059
-          0000005E0000006600000068000000700000006D00000658100030A03F0033E6
-          7A0000B62D0000AD130000AD130000AD130000AD1300FFFFFF00FFFFFF0000AD
-          130000BD270000BD230000AD130000B62D0033E67A0030A14100003C00000082
-          160000520000004900000049000000490000004900009B9B9B009B9B9B000049
-          00000059000000590000004900000052000000821600003D000030A3430081FC
-          C30000AF2100FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF0000AF210081FCC40030A14200003F00001D98
-          5F00004B00009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B
-          9B009B9B9B009B9B9B009B9B9B00004B00001D986000003D00002395370085FD
-          CC002AC26200FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00FFFFFF002AC2620085FDCC0023953500003100002199
-          6800005E00009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B9B009B9B
-          9B009B9B9B009B9B9B009B9B9B00005E0000219968000031000033933D007BFA
-          C3003CD07D0071C780001EBF590021C05B000ABA4D00FFFFFF00FFFFFF0010BC
-          510022C05C001EBF590071C780003CD07D007BFAC30033933D00002F00001796
-          5F00006C19000D631C00005B0000005C0000005600009B9B9B009B9B9B000058
-          0000005C0000005B00000D631C00006C190017965F00002F000067AB66008AE5
-          B90065EAB00050DF970056DF9C0041DB8D0022C05C00FFFFFF00FFFFFF0022C0
-          5C0049DC930056DF9C0050DF970065EAB0008AE5B90067AB6600034702002681
-          550001864C00007B3300007B380000772900005C00009B9B9B009B9B9B00005C
-          000000782F00007B3800007B330001864C002681550003470200B9D4B9004EB0
-          6800AFFFEA005EE0A10056E19F0045DE970066D58900FFFFFF00FFFFFF0023C0
-          5B0050E09E0056E19F005EE0A100AFFFEA004EB06800B9D4B90055705500004C
-          04004B9B8600007C3D00007D3B00007A3300027125009B9B9B009B9B9B00005C
-          0000007C3A00007D3B00007C3D004B9B8600004C040055705500FFFFFF004589
-          45007BDCA800B6FFEF0076E5B50051DFA30066D58900FFFFFF00FFFFFF0024BF
-          590056E2A80076E5B500B6FFEF007BDCA80045894500FFFFFF009B9B9B000025
-          000017784400529B8B0012815100007B3F00027125009B9B9B009B9B9B00005B
-          0000007E440012815100529B8B0017784400002500009B9B9B00FFFFFF00FAFD
-          FA00157215006DD6A300B7FFF500AAF7E30070E0B00022C05C0022C05C0074E2
-          B300ABF7E400B7FFF5006DD6A30015721500FAFDFA00FFFFFF009B9B9B009699
-          9600000E000009723F00539B910046937F000C7C4C00005C0000005C0000107E
-          4F0047938000539B910009723F00000E0000969996009B9B9B00FFFFFF00FFFF
-          FF00F9FCF9004586450038A75E007FE1B800A9FFEC00B9FFFB00B9FFFB00A9FF
-          EC007FE1B80038A75E0045864500F9FCF900FFFFFF00FFFFFF009B9B9B009B9B
-          9B009598950000220000004300001B7D5400459B8800559B9700559B9700459B
-          88001B7D54000043000000220000959895009B9B9B009B9B9B00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00B7CEB70067A56700247D33002887380028873800247D
-          330067A56700B7CEB700FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
-          9B009B9B9B009B9B9B00536A5300034103000019000000230000002300000019
-          000003410300536A53009B9B9B009B9B9B009B9B9B009B9B9B00}
-        NumGlyphs = 2
-        TabOrder = 6
-        OnClick = btnAddServicoClick
-      end
-      object btnIncMin: TBitBtn
-        Left = 762
-        Top = 78
-        Width = 25
-        Height = 17
-        Caption = '+'
-        NumGlyphs = 2
-        TabOrder = 8
-        OnClick = btnIncMinClick
-      end
-      object btnDecMin: TBitBtn
-        Left = 762
-        Top = 94
-        Width = 25
-        Height = 17
-        Caption = '-'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -15
-        Font.Name = 'Microsoft Sans Serif'
-        Font.Style = [fsBold]
-        NumGlyphs = 2
-        ParentFont = False
-        TabOrder = 9
-        OnClick = btnDecMinClick
-      end
-      object pnlDiasSemana: TPanel
-        Left = 16
-        Top = 93
-        Width = 695
-        Height = 60
-        BevelOuter = bvNone
-        TabOrder = 10
-        Visible = False
-        object lbDiasAula: TLabel
-          Left = 157
-          Top = 5
-          Width = 95
-          Height = 23
-          Caption = 'Dias de aula'
+        OnMouseMove = pnlHorariosMouseMove
+        object Label2: TLabel
+          Left = 6
+          Top = 0
+          Width = 32
+          Height = 15
+          Caption = '06:00'
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = 13261071
-          Font.Height = -19
+          Font.Color = clWindowText
+          Font.Height = -13
           Font.Name = 'Calibri'
           Font.Style = [fsBold]
           ParentFont = False
         end
         object Label4: TLabel
-          Left = 515
-          Top = 5
-          Width = 151
-          Height = 23
-          Caption = 'Dias do pagamento'
+          Left = 6
+          Top = 60
+          Width = 32
+          Height = 15
+          Caption = '07:00'
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = 13261071
-          Font.Height = -19
+          Font.Color = clWindowText
+          Font.Height = -13
           Font.Name = 'Calibri'
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object Shape3: TShape
-          Left = 0
-          Top = 0
-          Width = 695
-          Height = 1
-          Align = alTop
-          Pen.Color = 12895428
-          ExplicitTop = -8
-        end
-        object chkSegunda: TCheckBox
-          Left = 37
-          Top = 35
-          Width = 74
-          Height = 17
-          Caption = 'Segunda'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Calibri'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-          OnClick = chkSegundaClick
-        end
-        object chkTerca: TCheckBox
-          Left = 125
-          Top = 35
-          Width = 63
-          Height = 17
-          Caption = 'Ter'#231'a'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Calibri'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 1
-          OnClick = chkSegundaClick
-        end
-        object chkQuarta: TCheckBox
-          Left = 205
-          Top = 35
-          Width = 75
-          Height = 17
-          Caption = 'Quarta'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Calibri'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 2
-          OnClick = chkSegundaClick
-        end
-        object chkQuinta: TCheckBox
-          Left = 285
-          Top = 35
-          Width = 82
-          Height = 17
-          Caption = 'Quinta'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Calibri'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 3
-          OnClick = chkSegundaClick
-        end
-        object chkSexta: TCheckBox
-          Left = 356
-          Top = 35
-          Width = 84
-          Height = 17
-          Caption = 'Sexta'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -15
-          Font.Name = 'Calibri'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 4
-          OnClick = chkSegundaClick
-        end
-        object edtDiaPagamento: TCurrencyEdit
-          Left = 565
-          Top = 32
-          Width = 43
-          Height = 24
-          DisplayFormat = '0'
+        object Label5: TLabel
+          Left = 6
+          Top = 120
+          Width = 32
+          Height = 15
+          Caption = '08:00'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -13
-          Font.Name = 'Microsoft Sans Serif'
-          Font.Style = []
-          MaxValue = 30.000000000000000000
-          ParentFont = False
-          TabOrder = 5
-        end
-      end
-      object pnlServicos: TPanel
-        Left = 1
-        Top = 134
-        Width = 1119
-        Height = 50
-        Align = alBottom
-        BevelOuter = bvNone
-        TabOrder = 7
-        object Shape4: TShape
-          Left = 792
-          Top = 0
-          Width = 297
-          Height = 50
-          Pen.Color = 7303023
-        end
-        object Splitter1: TSplitter
-          Left = 0
-          Top = 0
-          Width = 13
-          Height = 50
-          ExplicitLeft = -3
-        end
-        object Label2: TLabel
-          Left = 816
-          Top = -1
-          Width = 151
-          Height = 23
-          Caption = 'Tempo de dura'#231#227'o -'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 2960685
-          Font.Height = -19
           Font.Name = 'Calibri'
-          Font.Style = []
-          ParentFont = False
-        end
-        object lbTempoDuracao: TLabel
-          Left = 991
-          Top = -3
-          Width = 83
-          Height = 26
-          Alignment = taCenter
-          Caption = '00:00:00 '
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 6630663
-          Font.Height = -21
-          Font.Name = 'Calibri'
-          Font.Style = []
+          Font.Style = [fsBold]
           ParentFont = False
         end
         object Label6: TLabel
-          Left = 816
-          Top = 25
-          Width = 149
-          Height = 23
-          Caption = 'Valor total                -'
+          Left = 6
+          Top = 180
+          Width = 32
+          Height = 15
+          Caption = '09:00'
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = 2960685
-          Font.Height = -19
+          Font.Color = clWindowText
+          Font.Height = -13
           Font.Name = 'Calibri'
-          Font.Style = []
+          Font.Style = [fsBold]
           ParentFont = False
         end
-        object lbValorServicos: TLabel
-          Left = 1004
-          Top = 23
-          Width = 65
-          Height = 26
-          Alignment = taRightJustify
-          Caption = 'R$ 0,00'
+        object Label7: TLabel
+          Left = 6
+          Top = 240
+          Width = 32
+          Height = 15
+          Caption = '10:00'
           Font.Charset = DEFAULT_CHARSET
-          Font.Color = 6630663
-          Font.Height = -21
+          Font.Color = clWindowText
+          Font.Height = -13
           Font.Name = 'Calibri'
-          Font.Style = []
+          Font.Style = [fsBold]
           ParentFont = False
         end
-        inline MostraServico1: TMostraServico
-          Left = 13
-          Top = 0
-          Width = 147
-          Height = 50
-          Align = alLeft
+        object Label8: TLabel
+          Left = 6
+          Top = 300
+          Width = 32
+          Height = 15
+          Caption = '11:00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label9: TLabel
+          Left = 6
+          Top = 360
+          Width = 32
+          Height = 15
+          Caption = '12:00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label10: TLabel
+          Left = 6
+          Top = 420
+          Width = 32
+          Height = 15
+          Caption = '13:00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label11: TLabel
+          Left = 6
+          Top = 480
+          Width = 32
+          Height = 15
+          Caption = '14:00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label12: TLabel
+          Left = 6
+          Top = 540
+          Width = 32
+          Height = 15
+          Caption = '15:00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label13: TLabel
+          Left = 6
+          Top = 600
+          Width = 32
+          Height = 15
+          Caption = '16:00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label14: TLabel
+          Left = 6
+          Top = 660
+          Width = 32
+          Height = 15
+          Caption = '17:00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label15: TLabel
+          Left = 5
+          Top = 720
+          Width = 32
+          Height = 15
+          Caption = '18:00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label16: TLabel
+          Left = 6
+          Top = 780
+          Width = 32
+          Height = 15
+          Caption = '19:00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label17: TLabel
+          Left = 5
+          Top = 840
+          Width = 32
+          Height = 15
+          Caption = '20:00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label18: TLabel
+          Left = 6
+          Top = 900
+          Width = 32
+          Height = 15
+          Caption = '21:00'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label19: TLabel
+          Left = 6
+          Top = 30
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label20: TLabel
+          Left = 6
+          Top = 90
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label21: TLabel
+          Left = 6
+          Top = 150
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label22: TLabel
+          Left = 6
+          Top = 210
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label23: TLabel
+          Left = 6
+          Top = 270
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label24: TLabel
+          Left = 6
+          Top = 330
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label25: TLabel
+          Left = 6
+          Top = 390
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label26: TLabel
+          Left = 6
+          Top = 450
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label27: TLabel
+          Left = 6
+          Top = 510
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label28: TLabel
+          Left = 6
+          Top = 570
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label29: TLabel
+          Left = 6
+          Top = 630
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label30: TLabel
+          Left = 6
+          Top = 690
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label31: TLabel
+          Left = 5
+          Top = 750
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label32: TLabel
+          Left = 6
+          Top = 810
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label33: TLabel
+          Left = 6
+          Top = 870
+          Width = 4
+          Height = 15
+          Caption = '-'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Calibri'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object pnlHorarioCliente: TPanel
+          Left = 862
+          Top = 157
+          Width = 353
+          Height = 152
+          BevelOuter = bvNone
           TabOrder = 0
-          Visible = False
-          ExplicitLeft = 13
-          ExplicitHeight = 50
-          inherited btnLimpa: TSpeedButton
-            Left = 123
-            OnClick = MostraServico1btnLimpaClick
-            ExplicitLeft = 123
-          end
-        end
-        inline MostraServico5: TMostraServico
-          Left = 601
-          Top = 0
-          Width = 147
-          Height = 50
-          Align = alLeft
-          TabOrder = 1
-          Visible = False
-          ExplicitLeft = 601
-          ExplicitHeight = 50
-          inherited btnLimpa: TSpeedButton
-            OnClick = MostraServico1btnLimpaClick
-          end
-        end
-        inline MostraServico4: TMostraServico
-          Left = 454
-          Top = 0
-          Width = 147
-          Height = 50
-          Align = alLeft
-          TabOrder = 2
-          Visible = False
-          ExplicitLeft = 454
-          ExplicitHeight = 50
-          inherited btnLimpa: TSpeedButton
-            OnClick = MostraServico1btnLimpaClick
-          end
-        end
-        inline MostraServico3: TMostraServico
-          Left = 307
-          Top = 0
-          Width = 147
-          Height = 50
-          Align = alLeft
-          TabOrder = 3
-          Visible = False
-          ExplicitLeft = 307
-          ExplicitHeight = 50
-          inherited btnLimpa: TSpeedButton
-            OnClick = MostraServico1btnLimpaClick
-          end
-        end
-        inline MostraServico2: TMostraServico
-          Left = 160
-          Top = 0
-          Width = 147
-          Height = 50
-          Align = alLeft
-          TabOrder = 4
-          Visible = False
-          ExplicitLeft = 160
-          ExplicitHeight = 50
-          inherited lbServico: TLabel
-            Width = 127
-            ExplicitWidth = 127
-          end
-          inherited btnLimpa: TSpeedButton
-            OnClick = MostraServico1btnLimpaClick
+          object Shape6: TShape
+            Left = -2
+            Top = -3
+            Width = 406
+            Height = 51
+            Pen.Color = clBtnFace
+            Pen.Style = psClear
           end
         end
       end
     end
-    object pnlHorarioCliente: TPanel
-      Left = 768
-      Top = 185
-      Width = 353
-      Height = 455
-      Align = alRight
-      BevelOuter = bvNone
-      TabOrder = 3
-      DesignSize = (
-        353
-        455)
-      object Shape2: TShape
-        Left = -13
-        Top = 0
-        Width = 408
-        Height = 499
-        Anchors = [akLeft, akTop, akBottom]
-        Brush.Color = 13948116
-        Pen.Color = clBtnFace
-        Pen.Style = psInsideFrame
-      end
-      object Shape6: TShape
-        Left = -2
-        Top = -3
-        Width = 406
-        Height = 51
-        Pen.Color = clBtnFace
-        Pen.Style = psClear
+    object pnlTopo: TPanel
+      Left = 1
+      Top = 1
+      Width = 835
+      Height = 37
+      Align = alTop
+      ParentBackground = False
+      TabOrder = 1
+      object lbHorarios: TLabel
+        Left = 48
+        Top = 6
+        Width = 74
+        Height = 23
+        Caption = 'Hor'#225'rios'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = 11569442
+        Font.Height = -19
+        Font.Name = 'Calibri Light'
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       object Image4: TImage
-        Left = 22
-        Top = 5
+        Left = 6
+        Top = 1
         Width = 35
         Height = 33
         Picture.Data = {
@@ -1112,301 +961,6 @@ inherited frmAgendamentos: TfrmAgendamentos
           1701BB5CFA9301FE1081AED3B57EFDDF00BF7DBE024684F46AA4A40E54000000
           0049454E44AE426082}
       end
-      object lbHorarioMarcado: TLabel
-        Left = 84
-        Top = 11
-        Width = 148
-        Height = 23
-        Caption = 'Hor'#225'rios marcados'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = 13261071
-        Font.Height = -19
-        Font.Name = 'Calibri'
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
-      object btnCancelarHorario: TBitBtn
-        Left = 10
-        Top = 422
-        Width = 160
-        Height = 29
-        Anchors = [akLeft, akBottom]
-        Caption = 'Cancelar hor'#225'rio'
-        Enabled = False
-        Glyph.Data = {
-          36080000424D3608000000000000360000002800000020000000100000000100
-          2000000000000008000000000000000000000000000000000000FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00E5CABB00CE976D00BF6D1F00C56C0B00C56C0B00C06D
-          1E00CD966C00E5CABA00FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
-          9B009B9B9B009B9B9B00816657006A3309005B09000061080000610800005C09
-          000069320800816656009B9B9B009B9B9B009B9B9B009B9B9B00FFFFFF00FFFF
-          FF00FCF9F700C7855300D6850B00E69C0A00E7AF2500F7C95900F7C85800E9AD
-          2300E5980800D0800500C5835300FCF9F700FFFFFF00FFFFFF009B9B9B009B9B
-          9B0098959300632100007221000082380000834B000093650000936400008549
-          0000813400006C1C0000611F0000989593009B9B9B009B9B9B00FFFFFF00FDFA
-          F800C97E3200E59E1200EBB43700F0D69F00DFB27300D0985600D0985600DFB2
-          7200F2D79D00EAB23300E0940700C77A2D00FDFAF800FFFFFF009B9B9B009996
-          9400651A0000813A0000875000008C723B007B4E0F006C3400006C3400007B4E
-          0E008E733900864E00007C30000063160000999694009B9B9B00FFFFFF00D093
-          5D00E9A82100EBC16400E4CBAA00DFDDDD00F1F0F10024232600D9D9DA00D9D9
-          DA00D0CECE00D7B69000F0C55F00E29C1100D0905A00FFFFFF009B9B9B006C2F
-          000085440000875D0000806746007B7979008D8C8D0000000000757576007575
-          76006C6A6A0073522C008C6100007E3800006C2C00009B9B9B00EBD1BF00E1A3
-          2F00EAB43D00EAD2B400FCFFFF0024232600F1F1F000EFEEED00EBEAE900D0CE
-          CE0024232600CDCFD300D0AD8700F1B83800DC971F00EBD1BF00876D5B007D3F
-          000086500000866E5000989B9B00000000008D8D8C008B8A8900878685006C6A
-          6A0000000000696B6F006C4923008D54000078330000876D5B00DCAB7900EEBE
-          3E00F2CF8300FCFFFF0024232600F0EFEF00ECEBEB00E6E4E300E1E0DF00D8D6
-          D500D3D1CF0024232600D3D1CF00EDC67200EDB43100DBA77800784715008A5A
-          00008E6B1F00989B9B00000000008C8B8B008887870082807F007D7C7B007472
-          71006F6D6B00000000006F6D6B0089620E008950000077431400DA9C4500EDBD
-          4200E9C18100F0EFEF00F0EFEF00F0EFEF00ECEBEB00E6E4E300E1E0DF00D8D6
-          D500D3D1CF00D3D1CF00D3D1CF00E5BB7900F1B93700D7953E00763800008959
-          0000855D1D008C8B8B008C8B8B008C8B8B008887870082807F007D7C7B007472
-          71006F6D6B006F6D6B006F6D6B00815715008D55000073310000E2AB4D00F9CD
-          5C00EFD2A10024232600FFFFFF00F0EFEF00ECEBEB0004030600040306001918
-          1B0019181B0019181B00D3D1CF00DDB67C00FBC95000DFA343007E4700009569
-          00008B6E3D00000000009B9B9B008C8B8B008887870000000000000000000000
-          000000000000000000006F6D6B0079521800976500007B3F0000E5B66300FDD7
-          7300E9BC6F00BDBBBE00FFFFFF00EFEEED00EDEDEC0019181B009C9A9B00FFFF
-          FF00FFFFFF00E6E4E300E1DFDE00D59A4800FDD36200E3B05700815200009973
-          0F0085580B0059575A009B9B9B008B8A89008989880000000000383637009B9B
-          9B009B9B9B0082807F007D7B7A0071360000996F00007F4C0000E4B16400F5D9
-          8600E9BE6A00FCFDFE00FCFBFA00F4F3F200F1F1F00019181B00B1AFB000E5E3
-          E200E1E0DF00D6D4D200D6D4D200E9C47A00F8E09900E1AE6100804D00009175
-          2200855A060098999A0098979600908F8E008D8D8C00000000004D4B4C00817F
-          7E007D7C7B0072706E0072706E0085601600947C35007D4A0000E9C18700FDF8
-          D500F2D99800F0F2F40024232600F4F3F200F1F1F00019181B00BDBBBE00E5E3
-          E200E1E0DF0024232600DAD9DC00F5D69100FEF9DA00E8C08900855D23009994
-          71008E7534008C8E900000000000908F8E008D8D8C000000000059575A00817F
-          7E007D7C7B00000000007675780091722D009A957600845C2500F4DEBF00F7E5
-          B600FBECC800F0DBB100FEFFFF00E9E8E700EDEBEC00F6F5F400EFEEED00E9E8
-          E700E1DFDE00DADCE200E7C89500FDEDC800F6E0AE00F3DEBF00907A5B009381
-          5200978864008C774D009A9B9B008584830089878800929190008B8A89008584
-          83007D7B7A0076787E008364310099896400927C4A008F7A5B00FFFFFF00EAC1
-          7600FDF9E500F9E5B300F4DFB50024232600CDCDCE0019181B00E1DFDE00E8E6
-          E50024232600E5CB9900FBE5B300FCF7E200EBBF7400FFFFFF009B9B9B00865D
-          12009995810095814F00907B51000000000069696A00000000007D7B7A008482
-          8100000000008167350097814F0098937E00875B10009B9B9B00FFFFFF00FEFC
-          F800EEC56F00FEFAE700FBF0D300F9E3A800F5D99100F4DEA900F4DDA900F2D6
-          8E00F8DEA300FFF3D900FDF9E400EDC26C00FEFCF800FFFFFF009B9B9B009A98
-          94008A610B009A968300978C6F00957F440091752D00907A4500907945008E72
-          2A00947A3F009B8F750099958000895E08009A9894009B9B9B00FFFFFF00FFFF
-          FF00FEFCF800EFC77700FAE8BC00FCFAEA00FCF1DF00FFF7D800FFF7D900FEF5
-          E000FFFBEB00F7E8BA00EDC67600FEFCF800FFFFFF00FFFFFF009B9B9B009B9B
-          9B009A9894008B6313009684580098968600988D7B009B9374009B9375009A91
-          7C009B97870093845600896212009A9894009B9B9B009B9B9B00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00F8E7C200F3D59400F2D18400F4DB9700F4DB9700F2D1
-          8400F3D49200F8E7C200FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
-          9B009B9B9B009B9B9B0094835E008F7130008E6D200090773300907733008E6D
-          20008F702E0094835E009B9B9B009B9B9B009B9B9B009B9B9B00}
-        NumGlyphs = 2
-        TabOrder = 0
-        OnClick = btnCancelarHorarioClick
-      end
-      object btnSalvarHorarios: TBitBtn
-        Left = 180
-        Top = 422
-        Width = 160
-        Height = 29
-        Anchors = [akLeft, akBottom]
-        Caption = ' Salvar'
-        Enabled = False
-        Glyph.Data = {
-          36080000424D3608000000000000360000002800000020000000100000000100
-          2000000000000008000000000000000000000000000000000000FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00E5CABB00CE976D00BF6D1F00C56C0B00C56C0B00C06D
-          1E00CD966C00E5CABA00FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
-          9B009B9B9B009B9B9B00816657006A3309005B09000061080000610800005C09
-          000069320800816656009B9B9B009B9B9B009B9B9B009B9B9B00FFFFFF00FFFF
-          FF00FCF9F700C7855300D6850B00E69C0A00E7AF2500F7C95900F7C85800E9AD
-          2300E5980800D0800500C5835300FCF9F700FFFFFF00FFFFFF009B9B9B009B9B
-          9B0098959300632100007221000082380000834B000093650000936400008549
-          0000813400006C1C0000611F0000989593009B9B9B009B9B9B00FFFFFF00FDFA
-          F800C97E3200E59E1200EBB43700F0D69F00DFB27300D0985600D0985600DFB2
-          7200F2D79D00EAB23300E0940700C77A2D00FDFAF800FFFFFF009B9B9B009996
-          9400651A0000813A0000875000008C723B007B4E0F006C3400006C3400007B4E
-          0E008E733900864E00007C30000063160000999694009B9B9B00FFFFFF00D093
-          5D00E9A82100EBC16400E4CBAA00DFDDDD00F1F0F10024232600D9D9DA00D9D9
-          DA00D0CECE00D7B69000F0C55F00E29C1100D0905A00FFFFFF009B9B9B006C2F
-          000085440000875D0000806746007B7979008D8C8D0000000000757576007575
-          76006C6A6A0073522C008C6100007E3800006C2C00009B9B9B00EBD1BF00E1A3
-          2F00EAB43D00EAD2B400FCFFFF0024232600F1F1F000EFEEED00EBEAE900D0CE
-          CE0024232600CDCFD300D0AD8700F1B83800DC971F00EBD1BF00876D5B007D3F
-          000086500000866E5000989B9B00000000008D8D8C008B8A8900878685006C6A
-          6A0000000000696B6F006C4923008D54000078330000876D5B00DCAB7900EEBE
-          3E00F2CF8300FCFFFF0024232600F0EFEF00ECEBEB00E6E4E300E1E0DF00D8D6
-          D500D3D1CF0024232600D3D1CF00EDC67200EDB43100DBA77800784715008A5A
-          00008E6B1F00989B9B00000000008C8B8B008887870082807F007D7C7B007472
-          71006F6D6B00000000006F6D6B0089620E008950000077431400DA9C4500EDBD
-          4200E9C18100F0EFEF00F0EFEF00F0EFEF00ECEBEB00E6E4E300E1E0DF00D8D6
-          D500D3D1CF00D3D1CF00D3D1CF00E5BB7900F1B93700D7953E00763800008959
-          0000855D1D008C8B8B008C8B8B008C8B8B008887870082807F007D7C7B007472
-          71006F6D6B006F6D6B006F6D6B00815715008D55000073310000E2AB4D00F9CD
-          5C00EFD2A10024232600FFFFFF00F0EFEF00ECEBEB0004030600040306001918
-          1B0019181B0019181B00D3D1CF00DDB67C00FBC95000DFA343007E4700009569
-          00008B6E3D00000000009B9B9B008C8B8B008887870000000000000000000000
-          000000000000000000006F6D6B0079521800976500007B3F0000E5B66300FDD7
-          7300E9BC6F00BDBBBE00FFFFFF00EFEEED00EDEDEC0019181B009C9A9B00FFFF
-          FF00FFFFFF00E6E4E300E1DFDE00D59A4800FDD36200E3B05700815200009973
-          0F0085580B0059575A009B9B9B008B8A89008989880000000000383637009B9B
-          9B009B9B9B0082807F007D7B7A0071360000996F00007F4C0000E4B16400F5D9
-          8600E9BE6A00FCFDFE00FCFBFA00F4F3F200F1F1F00019181B00B1AFB000E5E3
-          E200E1E0DF00D6D4D200D6D4D200E9C47A00F8E09900E1AE6100804D00009175
-          2200855A060098999A0098979600908F8E008D8D8C00000000004D4B4C00817F
-          7E007D7C7B0072706E0072706E0085601600947C35007D4A0000E9C18700FDF8
-          D500F2D99800F0F2F40024232600F4F3F200F1F1F00019181B00BDBBBE00E5E3
-          E200E1E0DF0024232600DAD9DC00F5D69100FEF9DA00E8C08900855D23009994
-          71008E7534008C8E900000000000908F8E008D8D8C000000000059575A00817F
-          7E007D7C7B00000000007675780091722D009A957600845C2500F4DEBF00F7E5
-          B600FBECC800F0DBB100FEFFFF00E9E8E700EDEBEC00F6F5F400EFEEED00E9E8
-          E700E1DFDE00DADCE200E7C89500FDEDC800F6E0AE00F3DEBF00907A5B009381
-          5200978864008C774D009A9B9B008584830089878800929190008B8A89008584
-          83007D7B7A0076787E008364310099896400927C4A008F7A5B00FFFFFF00EAC1
-          7600FDF9E500F9E5B300F4DFB50024232600CDCDCE0019181B00E1DFDE00E8E6
-          E50024232600E5CB9900FBE5B300FCF7E200EBBF7400FFFFFF009B9B9B00865D
-          12009995810095814F00907B51000000000069696A00000000007D7B7A008482
-          8100000000008167350097814F0098937E00875B10009B9B9B00FFFFFF00FEFC
-          F800EEC56F00FEFAE700FBF0D300F9E3A800F5D99100F4DEA900F4DDA900F2D6
-          8E00F8DEA300FFF3D900FDF9E400EDC26C00FEFCF800FFFFFF009B9B9B009A98
-          94008A610B009A968300978C6F00957F440091752D00907A4500907945008E72
-          2A00947A3F009B8F750099958000895E08009A9894009B9B9B00FFFFFF00FFFF
-          FF00FEFCF800EFC77700FAE8BC00FCFAEA00FCF1DF00FFF7D800FFF7D900FEF5
-          E000FFFBEB00F7E8BA00EDC67600FEFCF800FFFFFF00FFFFFF009B9B9B009B9B
-          9B009A9894008B6313009684580098968600988D7B009B9374009B9375009A91
-          7C009B97870093845600896212009A9894009B9B9B009B9B9B00FFFFFF00FFFF
-          FF00FFFFFF00FFFFFF00F8E7C200F3D59400F2D18400F4DB9700F4DB9700F2D1
-          8400F3D49200F8E7C200FFFFFF00FFFFFF00FFFFFF00FFFFFF009B9B9B009B9B
-          9B009B9B9B009B9B9B0094835E008F7130008E6D200090773300907733008E6D
-          20008F702E0094835E009B9B9B009B9B9B009B9B9B009B9B9B00}
-        NumGlyphs = 2
-        TabOrder = 1
-        OnClick = btnSalvarHorariosClick
-      end
-      object DBGrid1: TDBGrid
-        Left = 9
-        Top = 56
-        Width = 335
-        Height = 358
-        Anchors = [akLeft, akTop, akBottom]
-        DataSource = dsHorarios
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -15
-        Font.Name = 'Calibri'
-        Font.Style = []
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-        ParentFont = False
-        TabOrder = 2
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -15
-        TitleFont.Name = 'Calibri'
-        TitleFont.Style = []
-        OnDrawColumnCell = dbgHorariosDiaDrawColumnCell
-        OnEnter = DBGrid1Enter
-        Columns = <
-          item
-            Expanded = False
-            FieldName = 'DATA'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'HORA'
-            Width = 78
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'ID_HORARIO'
-            Visible = False
-          end
-          item
-            Expanded = False
-            FieldName = 'DIA_SEMANA'
-            Width = 143
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'NDIA_SEMANA'
-            Visible = False
-          end>
-      end
-    end
-    object dbgHorariosDia: TDBGrid
-      Left = 14
-      Top = 224
-      Width = 481
-      Height = 407
-      Anchors = [akLeft, akTop, akRight, akBottom]
-      DataSource = dsHorariosDia
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Calibri'
-      Font.Style = []
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
-      ParentFont = False
-      ReadOnly = True
-      TabOrder = 4
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -15
-      TitleFont.Name = 'Calibri'
-      TitleFont.Style = []
-      OnDrawColumnCell = dbgHorariosDiaDrawColumnCell
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'INICIO'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 3487029
-          Font.Height = -16
-          Font.Name = 'Calibri'
-          Font.Style = [fsBold]
-          Width = 64
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'FIM'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = 3487029
-          Font.Height = -16
-          Font.Name = 'Calibri'
-          Font.Style = [fsBold]
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'NOME'
-          Width = 283
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'CODIGO_HORARIO'
-          Visible = False
-        end>
-    end
-    object rgpDiasSemana: TRadioGroup
-      Left = 521
-      Top = 229
-      Width = 225
-      Height = 163
-      ItemIndex = 0
-      Items.Strings = (
-        'SEGUNDA'
-        'TER'#199'A'
-        'QUARTA'
-        'QUINTA'
-        'SEXTA')
-      TabOrder = 5
-      Visible = False
-      OnClick = rgpDiasSemanaClick
     end
   end
   object cdsHorarios: TClientDataSet
@@ -1438,14 +992,14 @@ inherited frmAgendamentos: TfrmAgendamentos
   end
   object dsServicos: TDataSource
     DataSet = cdsServicos
-    Left = 408
-    Top = 232
+    Left = 184
+    Top = 472
   end
   object cdsServicos: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 344
-    Top = 232
+    Left = 136
+    Top = 472
     object cdsServicosHORARIO: TStringField
       FieldName = 'HORARIO'
       Size = 60
@@ -1454,8 +1008,8 @@ inherited frmAgendamentos: TfrmAgendamentos
   object cdsHorariosDia: TClientDataSet
     Aggregates = <>
     Params = <>
-    Left = 48
-    Top = 320
+    Left = 240
+    Top = 472
     object cdsHorariosDiaID_HORARIO: TIntegerField
       FieldName = 'ID_HORARIO'
     end
@@ -1472,13 +1026,11 @@ inherited frmAgendamentos: TfrmAgendamentos
   end
   object dsHorariosDia: TDataSource
     DataSet = cdsHorariosDia
-    Left = 104
-    Top = 320
+    Left = 304
+    Top = 472
   end
-  object Timer1: TTimer
-    Enabled = False
-    OnTimer = Timer1Timer
-    Left = 712
-    Top = 440
+  object ApplicationEvents2: TApplicationEvents
+    Left = 600
+    Top = 336
   end
 end

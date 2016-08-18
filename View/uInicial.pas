@@ -11,7 +11,7 @@ uses
   FireDAC.Comp.Client, uPadrao, JvExControls, JvCalendar, JvExComCtrls,
   JvMonthCalendar, Vcl.Grids, Vcl.Samples.Calendar, Vcl.ComCtrls,
   VclTee.TeeGDIPlus, VCLTee.TeeData, VCLTee.TeEngine, Vcl.ExtCtrls,
-  VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series, VCLTee.GanttCh;
+  VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series, VCLTee.GanttCh, Vcl.AppEvnts;
 
 type
   TfrmInicial = class(TfrmPadrao)

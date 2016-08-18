@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.AppEvnts;
 
 type
   Tclasshelper = class(TControl)
@@ -20,6 +20,9 @@ type
     controle: TWinControl;
     CorAnterior: TColor;
     procedure  ControlColorChange(Sender: TObject);
+  protected
+    procedure avisar(mensagem :String);
+    function  confirma(mensagem :String) :Boolean;
   public
     { Public declarations }
   end;
@@ -52,6 +55,16 @@ begin
     self.Close
   else if Key = VK_RETURN then
     keybd_event(VK_TAB, 0, 0, 0);
+end;
+
+procedure TfrmPadrao.avisar(mensagem: String);
+begin
+  MessageDlg(mensagem, mtInformation,[mbOk],0);
+end;
+
+function TfrmPadrao.confirma(mensagem: String): Boolean;
+begin
+  result := MessageBox(Handle, PWideChar(mensagem), '', MB_YESNO+MB_SYSTEMMODAL+MB_ICONQUESTION+MB_DEFBUTTON1) = ID_YES;
 end;
 
 procedure TfrmPadrao.ControlColorChange(Sender: TObject);

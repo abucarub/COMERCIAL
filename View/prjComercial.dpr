@@ -39,7 +39,9 @@ uses
   ServicoAgendado in '..\Classes\ServicoAgendado.pas',
   frameBuscaDepartamento in 'frameBuscaDepartamento.pas' {BuscaDepartamento: TFrame},
   frameMostraServico in 'frameMostraServico.pas' {MostraServico: TFrame},
-  AlunoPilates in '..\Classes\AlunoPilates.pas';
+  AlunoPilates in '..\Classes\AlunoPilates.pas',
+  uCriaHorarioDiario in 'uCriaHorarioDiario.pas' {frmCriaHorarioDiario},
+  uCriaHorarioMensal in 'uCriaHorarioMensal.pas' {frmCriaHorarioMensal};
 
 {$R *.res}
 
