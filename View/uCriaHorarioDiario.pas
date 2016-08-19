@@ -57,6 +57,8 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure DBGrid2KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure BitBtn2Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure BitBtn3Click(Sender: TObject);
   private
     FPessoa :TPessoa;
     FProfissional :TPessoa;
@@ -116,6 +118,11 @@ begin
   if not cdsHorarios.IsEmpty then
     if confirma('Os horários criados para "'+FPessoa.Nome+'" serão salvos. Confirma?') then
       salvarHorariosCriados;
+end;
+
+procedure TfrmCriaHorarioDiario.BitBtn3Click(Sender: TObject);
+begin
+  self.Close;
 end;
 
 procedure TfrmCriaHorarioDiario.carregarServicos;
@@ -192,12 +199,20 @@ begin
   cdsHorarios.Post;
 
   Reinicializa;
+  atualizaTotais;
 end;
 
 procedure TfrmCriaHorarioDiario.DBGrid2KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if key = VK_DELETE then
     removeHorario;
+end;
+
+procedure TfrmCriaHorarioDiario.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  Action := cafree;
+  frmCriaHorarioDiario := nil;
 end;
 
 procedure TfrmCriaHorarioDiario.FormDestroy(Sender: TObject);
@@ -224,9 +239,6 @@ begin
     cdsServicos.Post;
 
     atualizaTotais;
-
-//    gridDiasSemana.Columns[2].PickList.indexof('00');
-    gridServicos.Columns[3].PickList.indexof('00');
   end;
 
   gridServicos.Columns[2].ReadOnly := cdsServicosSELECAO.AsString <> 'S';
@@ -286,10 +298,9 @@ begin
     avisar('O horário da consulta deve ser informado');
     cmbHora.SetFocus;
   end
-  else if cdsHorarios.Locate('HORA',cmbHora.Items[cmbHora.ItemIndex]+':'+cmbMinutos.Items[cmbMinutos.ItemIndex],[]) then
+  else if cdsHorarios.Locate('DATA',calendario.Date,[]) then
   begin
-    avisar('Já existe um horário criado para às '+cdsHorariosHORA.AsString);
-    cmbHora.SetFocus;
+    avisar('Já existe um horário criado neste dia');
   end
   else
     result := true;
@@ -336,6 +347,9 @@ var horario :TSPA;
 begin
   for horario in FHorarios do
     horario.Save;
+
+  avisar('Horários salvos com sucesso');
+  self.Close;
 end;
 
 end.

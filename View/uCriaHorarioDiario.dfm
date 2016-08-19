@@ -1,7 +1,12 @@
 inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'Cria hor'#225'rios di'#225'rio'
-  ClientHeight = 600
-  ClientWidth = 690
+  ClientHeight = 610
+  ClientWidth = 700
+  FormStyle = fsStayOnTop
+  Visible = True
+  OnClose = FormClose
   ExplicitWidth = 706
   ExplicitHeight = 638
   PixelsPerInch = 96
@@ -151,13 +156,13 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
     Height = 160
     CalColors.TextColor = clBlue
     CalColors.MonthBackColor = clTeal
-    Date = 42566.684287870370000000
+    Date = 42566.561123946760000000
     TabOrder = 1
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 690
+    Width = 700
     Height = 84
     Align = alTop
     Color = 14732969
@@ -166,7 +171,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
     object Shape1: TShape
       Left = 1
       Top = 1
-      Width = 688
+      Width = 698
       Height = 31
       Align = alTop
       Brush.Color = 14073227
@@ -436,8 +441,8 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
   end
   object Panel2: TPanel
     Left = 0
-    Top = 554
-    Width = 690
+    Top = 564
+    Width = 700
     Height = 46
     Align = alBottom
     ParentBackground = False
@@ -594,6 +599,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
         9B009B9B9B009B9B9B000000890000008E0000008C009B9B9B00}
       NumGlyphs = 2
       TabOrder = 1
+      OnClick = BitBtn3Click
     end
   end
   object cmbTempo: TComboBox

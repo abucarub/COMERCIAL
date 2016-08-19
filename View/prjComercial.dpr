@@ -39,7 +39,7 @@ uses
   ServicoAgendado in '..\Classes\ServicoAgendado.pas',
   frameBuscaDepartamento in 'frameBuscaDepartamento.pas' {BuscaDepartamento: TFrame},
   frameMostraServico in 'frameMostraServico.pas' {MostraServico: TFrame},
-  AlunoPilates in '..\Classes\AlunoPilates.pas',
+  ClienteMensal in '..\Classes\ClienteMensal.pas',
   uCriaHorarioDiario in 'uCriaHorarioDiario.pas' {frmCriaHorarioDiario},
   uCriaHorarioMensal in 'uCriaHorarioMensal.pas' {frmCriaHorarioMensal};
 

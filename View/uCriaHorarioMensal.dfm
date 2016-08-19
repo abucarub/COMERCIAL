@@ -1,14 +1,15 @@
 inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
   Caption = 'Cria hor'#225'rios mensal'
-  ClientHeight = 348
-  ClientWidth = 667
-  ExplicitWidth = 683
-  ExplicitHeight = 386
+  ClientHeight = 428
+  ClientWidth = 709
+  FormStyle = fsStayOnTop
+  ExplicitWidth = 725
+  ExplicitHeight = 466
   PixelsPerInch = 96
   TextHeight = 18
   object Label1: TLabel
-    Left = 440
-    Top = 101
+    Left = 91
+    Top = 333
     Width = 143
     Height = 18
     Caption = 'Data de in'#237'cio das aulas'
@@ -20,7 +21,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 12
+    Left = 389
     Top = 101
     Width = 223
     Height = 18
@@ -32,11 +33,37 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Label5: TLabel
+    Left = 22
+    Top = 104
+    Width = 162
+    Height = 18
+    Caption = 'Servi'#231'os do departamento'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 389
+    Top = 333
+    Width = 112
+    Height = 18
+    Caption = 'Dia do pagamento'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
   object gridDiasSemana: TDBGrid
-    Left = 12
+    Left = 389
     Top = 125
-    Width = 383
-    Height = 160
+    Width = 301
+    Height = 188
     DataSource = dsDiasSemana
     TabOrder = 0
     TitleFont.Charset = DEFAULT_CHARSET
@@ -128,8 +155,8 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
       '')
   end
   object dtpDataInicial: TJvDateEdit
-    Left = 463
-    Top = 125
+    Left = 240
+    Top = 330
     Width = 121
     Height = 26
     ShowNullDate = False
@@ -137,14 +164,15 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
   end
   object Panel2: TPanel
     Left = 0
-    Top = 303
-    Width = 667
+    Top = 383
+    Width = 709
     Height = 45
     Align = alBottom
     ParentBackground = False
     TabOrder = 4
+    ExplicitTop = 364
     object BitBtn2: TBitBtn
-      Left = 492
+      Left = 532
       Top = 8
       Width = 158
       Height = 30
@@ -218,9 +246,10 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         32009373370092723700826026008751000099958E009B9B9B00}
       NumGlyphs = 2
       TabOrder = 0
+      OnClick = BitBtn2Click
     end
     object BitBtn3: TBitBtn
-      Left = 316
+      Left = 356
       Top = 8
       Width = 158
       Height = 30
@@ -299,7 +328,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 667
+    Width = 709
     Height = 84
     Align = alTop
     Color = 14732969
@@ -308,11 +337,12 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     object Shape1: TShape
       Left = 1
       Top = 1
-      Width = 665
+      Width = 707
       Height = 31
       Align = alTop
       Brush.Color = 14073227
       Pen.Style = psClear
+      ExplicitWidth = 665
     end
     object lbTitulo: TLabel
       Left = 10
@@ -380,12 +410,70 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
       ParentFont = False
     end
   end
+  object gridServicos: TDBGrid
+    Left = 16
+    Top = 125
+    Width = 345
+    Height = 188
+    DataSource = dsServicos
+    TabOrder = 6
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -15
+    TitleFont.Name = 'Calibri'
+    TitleFont.Style = []
+    OnCellClick = gridServicosCellClick
+    OnDrawColumnCell = gridServicosDrawColumnCell
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'SELECAO'
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWhite
+        Title.Font.Height = -15
+        Title.Font.Name = 'Calibri'
+        Title.Font.Style = []
+        Width = 26
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'SERVICO'
+        ReadOnly = True
+        Width = 207
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'PRECO'
+        ReadOnly = True
+        Width = 75
+        Visible = True
+      end>
+  end
+  object cmbDiaPagamento: TComboBox
+    Left = 515
+    Top = 330
+    Width = 62
+    Height = 26
+    Style = csDropDownList
+    ItemIndex = 0
+    TabOrder = 7
+    Text = '<dia>'
+    Items.Strings = (
+      '<dia>'
+      '01'
+      '05'
+      '10'
+      '15'
+      '20'
+      '25')
+  end
   object cdsDiasSemana: TClientDataSet
     Aggregates = <>
     Params = <>
-    AfterEdit = cdsDiasSemanaAfterEdit
-    Left = 36
-    Top = 152
+    Left = 436
+    Top = 200
     object cdsDiasSemanaSELECAO: TStringField
       FieldName = 'SELECAO'
       Size = 1
@@ -407,7 +495,36 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
   end
   object dsDiasSemana: TDataSource
     DataSet = cdsDiasSemana
-    Left = 100
+    Left = 437
     Top = 152
+  end
+  object cdsServicos: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 24
+    Top = 230
+    object cdsServicosSELECAO: TStringField
+      FieldName = 'SELECAO'
+      Size = 1
+    end
+    object cdsServicosID_SERVICO: TIntegerField
+      FieldName = 'ID_SERVICO'
+    end
+    object cdsServicosSERVICO: TStringField
+      FieldName = 'SERVICO'
+      Size = 30
+    end
+    object cdsServicosPRECO: TFloatField
+      FieldName = 'PRECO'
+      DisplayFormat = 'R$ ,0.00'
+    end
+    object cdsServicosID_TABELA_PRECO: TIntegerField
+      FieldName = 'ID_TABELA_PRECO'
+    end
+  end
+  object dsServicos: TDataSource
+    DataSet = cdsServicos
+    Left = 88
+    Top = 230
   end
 end

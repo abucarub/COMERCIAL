@@ -11,7 +11,7 @@ uses
   JvDateTimePicker, JvExMask, JvToolEdit, Vcl.Mask, RxToolEdit, Data.DB,
   Datasnap.DBClient, JvTimer, JvTimerList, RxSpin, Vcl.Samples.Spin, RxCurrEdit,
   Vcl.Buttons, Vcl.DBGrids, DBGridCBN, SPA, frameBusca, Vcl.Imaging.pngimage,
-  frameBuscaDepartamento, frameMostraServico, Servico, Vcl.AppEvnts;
+  frameBuscaDepartamento, frameMostraServico, Servico, Vcl.AppEvnts, ClienteMensal;
 
 type
   TfrmAgendamentos = class(TfrmPadrao)
@@ -82,6 +82,7 @@ type
     Image4: TImage;
     btnCriaHorario: TBitBtn;
     BuscaConvenio1: TBuscaConvenio;
+    Image1: TImage;
     procedure FormCreate(Sender: TObject);
     procedure fisioEsteticaClick(Sender: TObject);
     procedure pilatesClick(Sender: TObject);
@@ -119,6 +120,7 @@ type
     procedure ScrollBox1MouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
     procedure rpbDiasSemanaClick(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     FPrimeiroHorarioDisponivel :TTime;
     FUltimoHorarioDisponivel   :TTime;
@@ -128,8 +130,9 @@ type
     panelList :TObjectList<TPanel>;
 
     procedure carregarHorariosDia;
-    procedure carregarHorariosDiaSemana;
+    procedure carregarHorariosMensal;
     procedure mostrarHorariosDia(horarios: TObjectList<TSPA>);
+    procedure mostrarHorariosMensal(clientes :TObjectList<TClienteMensal>);
 
     procedure criaHorarioDiario;
     procedure criaHorarioMensal;
@@ -179,7 +182,7 @@ var
 
 implementation
 
-uses Utilitario, TipoPessoa, ServicoAgendado, AlunoPilates, uCriaHorarioDiario, uCriaHorarioMensal;
+uses Utilitario, TipoPessoa, ServicoAgendado, uCriaHorarioDiario, uCriaHorarioMensal;
 
 {$R *.dfm}
 
@@ -592,6 +595,38 @@ begin
 
 end;
 
+procedure TfrmAgendamentos.mostrarHorariosMensal(clientes: TObjectList<TClienteMensal>);
+var horario :TSPA;
+    cliente :TClienteMensal;
+begin
+  if not assigned(clientes) or (clientes.count <= 0) then
+    exit;
+
+  horario := TSPA.Create;
+
+  for cliente in clientes do
+  begin
+    horario.ID := cliente.ID;
+    horario.ID_Departamento := BuscaDepartamento1.Departamento.ID;
+    horario.ID_Pessoa       := BuscaPessoa1.Pessoa.ID;
+    horario.ID_Profissional := BuscaProfissional.Pessoa.ID;
+
+    case rgpDiasSemana.ItemIndex of
+      0 :  horario.hora := cliente.Segunda;
+      1 :  horario.hora := cliente.Terca;
+      2 :  horario.hora := cliente.Quarta;
+      3 :  horario.hora := cliente.Quinta;
+      4 :  horario.hora := cliente.Sexta;
+      5 :  horario.hora := cliente.Sabado;
+      6 :  horario.hora := cliente.Domingo;
+    end;
+
+    if horario.hora > 0 then
+      mostraHorarioTela(horario);
+  end;
+
+end;
+
 procedure TfrmAgendamentos.MostraServico1btnLimpaClick(Sender: TObject);
 begin
   inherited;
@@ -619,7 +654,7 @@ begin
   end
   else
     habilitaMarcacao(true);  }
-    carregarHorariosDiaSemana;
+    carregarHorariosMensal;
 end;
 
 procedure TfrmAgendamentos.pnlHorariosMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -670,20 +705,20 @@ end;
 
 procedure TfrmAgendamentos.rgpDiasSemanaClick(Sender: TObject);
 begin
-  carregarHorariosDiaSemana;
+  carregarHorariosMensal;
 end;
 
 procedure TfrmAgendamentos.rpbDiasSemanaClick(Sender: TObject);
 begin
   limpaHorariosTela;
-  carregarHorariosDiaSemana;
+  carregarHorariosMensal;
 end;
 
 procedure TfrmAgendamentos.salvaDadosAluno;
-var AlunoPilates :TAlunoPilates;
+var clienteMensal :TClienteMensal;
 begin
  { try
-    AlunoPilates := TAlunoPilates.Create;
+    ClienteMensal := TAlunoPilates.Create;
     if BuscaPessoa1.Pessoa.AlunoPilates.isLoaded then
       AlunoPilates.Load(BuscaPessoa1.Pessoa.AlunoPilates.ID);
 
@@ -747,6 +782,15 @@ begin
   begin
       Position := Position + Increment;
   end;
+end;
+
+procedure TfrmAgendamentos.FormActivate(Sender: TObject);
+begin
+  inherited;
+  if (calendario.Enabled) and (calendario.Visible) then
+    calendarioClick(nil)
+  else if (rgpDiasSemana.Visible) and (rgpDiasSemana.Enabled) then
+    rgpDiasSemanaClick(nil);
 end;
 
 procedure TfrmAgendamentos.FormCreate(Sender: TObject);
@@ -899,7 +943,7 @@ var Horario  :TSPA;
 begin
  try
    limpaDadosAluno;
-   if (BuscaPessoa1.Pessoa.AlunoPilates.isLoaded) and (BuscaDepartamento1.Departamento.Departamento = 'PILATES') then
+   if (BuscaPessoa1.Pessoa.ClienteMensal.isLoaded) and (BuscaDepartamento1.Departamento.Departamento = 'PILATES') then
      carregaDadosAluno;
 
    Horario  := TSPA.Create;
@@ -931,21 +975,20 @@ begin
  end;
 end;
 
-procedure TfrmAgendamentos.carregarHorariosDiaSemana;
-var Horario  :TSPA;
-    Horarios :TObjectList<TSPA>;
+procedure TfrmAgendamentos.carregarHorariosMensal;
+var Cliente  :TClienteMensal;
+    Clientes :TObjectList<TClienteMensal>;
 begin
  try
-   Horario  := TSPA.Create;
-   Horarios := Horario.LoadList<TSPA>('WHERE EXTRACT(weekday from SPA.data) = '+IntToStr(rgpDiasSemana.ItemIndex+1)+
-                                      '  AND SPA.ID_DEPARTAMENTO = '+IntToStr(BuscaDepartamento1.Departamento.ID));
+   Cliente  := TClienteMensal.Create;
+   Clientes := Cliente.LoadList<TClienteMensal>('');
 
-   mostrarHorariosDia(Horarios);
+   mostrarHorariosMensal(Clientes);
 
    habilitaMarcacao(true);
  finally
-   FreeAndNil(Horario);
-   FreeAndNil(Horarios);
+   FreeAndNil(Cliente);
+   FreeAndNil(Clientes);
  end;
 end;
 
@@ -997,9 +1040,9 @@ begin
                                                              BuscaPessoa1.Pessoa,
                                                              BuscaDepartamento1.Departamento,
                                                              BuscaConvenio1.Convenio);
-  frmCriaHorarioDiario.ShowModal;
-  frmCriaHorarioDiario.Release;
-  frmCriaHorarioDiario := nil;
+  frmCriaHorarioDiario.Show;
+//  frmCriaHorarioDiario.Release;
+//  frmCriaHorarioDiario := nil;
 end;
 
 procedure TfrmAgendamentos.criaHorarioMensal;
@@ -1008,9 +1051,9 @@ begin
                                                              BuscaPessoa1.Pessoa,
                                                              BuscaDepartamento1.Departamento,
                                                              BuscaConvenio1.Convenio);
-  frmCriaHorarioMensal.ShowModal;
-  frmCriaHorarioMensal.Release;
-  frmCriaHorarioMensal := nil;
+  frmCriaHorarioMensal.Show;
+//  frmCriaHorarioMensal.Release;
+//  frmCriaHorarioMensal := nil;
 end;
 
 {

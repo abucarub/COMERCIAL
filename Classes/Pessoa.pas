@@ -3,7 +3,7 @@ unit Pessoa;
 interface
 
 uses uPersistentObject, uAtrib, Endereco, Generics.Collections, System.SysUtils,
-     AlunoPilates, TipoPessoa;//, SPA;
+     ClienteMensal, TipoPessoa;//, SPA;
 
 type
   [Tablename('PESSOAS')]
@@ -21,10 +21,10 @@ type
     FTipo: integer;
 
     FEndereco: TEndereco;
-    FAlunoPilates: TAlunoPilates;
+    FClienteMensal: TClienteMensal;
 
     function GetEndereco: TEndereco;
-    function GetAlunoPilates: TAlunoPilates;
+    function GetClienteMensal: TClienteMensal;
 
   public
     [FieldName('NOME_RAZAO')]
@@ -49,7 +49,7 @@ type
     [HasOne('ID_PESSOA', false, true)]
     property Endereco: TEndereco read GetEndereco write FEndereco;
     [HasOne('ID_PESSOA', false, true)]
-    property AlunoPilates: TAlunoPilates read GetAlunoPilates write FAlunoPilates;
+    property ClienteMensal: TClienteMensal read GetClienteMensal write FClienteMensal;
 
 //    [HasMany('ID_SPA',false)]
 //    property Horarios: TObjectList<TSPA> read GetServicosAgendados write FServicosAgendados;
@@ -85,8 +85,8 @@ begin
   FTipo         := 0;
   if assigned(FEndereco) then
     FreeAndNil(FEndereco);
-  if assigned(FAlunoPilates) then
-    FreeAndNil(FAlunoPilates)
+  if assigned(FClienteMensal) then
+    FreeAndNil(FClienteMensal)
 end;
 
 destructor TPessoa.destroy;
@@ -95,15 +95,15 @@ begin
     FreeAndNil(FEndereco);
 end;
 
-function TPessoa.GetAlunoPilates: TAlunoPilates;
+function TPessoa.GetClienteMensal: TClienteMensal;
 begin
-  if not assigned(FAlunoPilates) then
-    FAlunoPilates := self.LoadOne<TAlunoPilates>;
+  if not assigned(FClienteMensal) then
+    FClienteMensal := self.LoadOne<TClienteMensal>;
 
-  if not assigned(FAlunoPilates) then
-    FAlunoPilates := TAlunoPilates.Create;
+  if not assigned(FClienteMensal) then
+    FClienteMensal := TClienteMensal.Create;
 
-  Result := FAlunoPilates;
+  Result := FClienteMensal;
 end;
 
 function TPessoa.GetEndereco: TEndereco;
