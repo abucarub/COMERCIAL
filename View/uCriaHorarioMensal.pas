@@ -42,6 +42,7 @@ type
     dsServicos: TDataSource;
     Label6: TLabel;
     cmbDiaPagamento: TComboBox;
+    cdsDiasSemanaNUM_DIA: TIntegerField;
     procedure gridDiasSemanaCellClick(Column: TColumn);
     procedure FormCreate(Sender: TObject);
     procedure gridDiasSemanaDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
@@ -49,6 +50,7 @@ type
     procedure gridServicosCellClick(Column: TColumn);
     procedure gridServicosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure BitBtn2Click(Sender: TObject);
+    procedure dtpDataInicialChange(Sender: TObject);
   private
     FPessoa :TPessoa;
     FProfissional :TPessoa;
@@ -61,6 +63,8 @@ type
     procedure desmarcaTodos;
     procedure criaHorario;
     function informacoesFornecidas :boolean;
+    function horariosInformados :boolean;
+    function dataValida(data :TDate) :boolean;
   public
     constructor create(AOwner: TComponent; pProfissional, pPessoa :TPessoa; pDepartamento :TDepartamento; pConvenio :TConvenio); overload;
   end;
@@ -121,7 +125,8 @@ begin
     if FPessoa.ClienteMensal.isLoaded then
       clienteMensal.Load(FPessoa.ClienteMensal.ID);
 
-    clienteMensal.ID_Pessoa    := FPessoa.ID;
+    clienteMensal.ID_Pessoa       := FPessoa.ID;
+    clienteMensal.ID_Profissional := FProfissional.ID;
 
     if cdsDiasSemana.Locate('DIA_SEMANA','SEGUNDA-FEIRA',[]) and (cdsDiasSemanaSELECAO.AsString = 'S') then
       clienteMensal.Segunda      := StrToTime(cdsDiasSemanaHORA.AsString+':'+cdsDiasSemanaMINUTOS.AsString)
@@ -159,13 +164,30 @@ begin
 
     avisar('Horário salvo com sucesso');
     self.Close;
+
+    - cria horarios até o fim do mes, a partir da data inicial
+    - adaptar tela Agendamentos, p/mostrar horarios dpto "Mensal" criados até o fim do 2º mes.
+      a partir do segundo mês, carrega os horarios do dpto mensal com base na tabela clientes mensal (porem sem possibilidade de
+      alterar o status desses horarios nem de cancelar
+    - existira o cancelar direto (informando motivo) e o remarcar, que cancela horario (colocando motivo automatico) e cria um horario em outra data com status de reposição
+
+      (nessa tela ira se alterar o status do horario ) tela mostrará horarios do dia, até no máximo horarios do ultimo dia do mÊs seguinte
+    - cancelar ou alterar data
+
   finally
     FreeAndNil(clienteMensal);
   end;
 end;
 
-procedure TfrmCriaHorarioMensal.desmarcaTodos;
+function TfrmCriaHorarioMensal.dataValida(data: TDate): boolean;
 begin
+  result := cdsDiasSemana.Locate('NUM_DIA', DayOfWeek(data), []) and (cdsDiasSemanaSELECAO.AsString = 'S');
+end;
+
+procedure TfrmCriaHorarioMensal.desmarcaTodos;
+var registro :integer;
+begin
+  registro := cdsServicos.RecNo;
   cdsServicos.First;
   while not cdsServicos.Eof do
   begin
@@ -174,6 +196,22 @@ begin
     cdsServicos.Post;
     cdsServicos.Next;
   end;
+  cdsServicos.RecNo := registro;
+end;
+
+procedure TfrmCriaHorarioMensal.dtpDataInicialChange(Sender: TObject);
+begin
+  if (dtpDataInicial.Date < date) then
+  begin
+    avisar('A data selecionada não pode ser inferior a data de hoje');
+    dtpDataInicial.Clear;
+  end
+  else if not dataValida(dtpDataInicial.Date) then
+  begin
+    avisar('A data de início deve corresponder a um dos dias da semana selecionados acima');
+    dtpDataInicial.Clear;
+  end;
+
 end;
 
 procedure TfrmCriaHorarioMensal.FormCreate(Sender: TObject);
@@ -271,7 +309,7 @@ begin
 
   if (Column.FieldName = 'SELECAO') or (Column.FieldName = 'SERVICO') then
   begin
-    if cdsServicosSELECAO.AsString = 'N' then
+    if cdsServicosSELECAO.AsString <> 'S' then
       desmarcaTodos;
 
     cdsServicos.Edit;
@@ -315,6 +353,22 @@ begin
   end;
 end;
 
+function TfrmCriaHorarioMensal.horariosInformados: boolean;
+begin
+  result := true;
+  cdsDiasSemana.First;
+  while not cdsDiasSemana.Eof do
+  begin
+    if cdsDiasSemanaHORA.Text = '00' then
+    begin
+      result := false;
+      exit;
+    end;
+    cdsDiasSemana.Next;
+  end;
+
+end;
+
 function TfrmCriaHorarioMensal.informacoesFornecidas: boolean;
 begin
   result := false;
@@ -336,6 +390,18 @@ begin
     avisar('Ao menos um dia da semana deve ser selecionado');
     gridDiasSemana.SetFocus;
   end
+  else if not horariosInformados then
+    avisar('Horário de '+cdsDiasSemanaDIA_SEMANA.AsString+' não foi informado')
+  else if dtpDataInicial.Date = strToDate('30/12/1899') then
+  begin
+    avisar('A data de início das aulas não foi informada');
+    dtpDataInicial.SetFocus;
+  end
+  else if cmbDiaPagamento.ItemIndex = 0 then
+  begin
+    avisar('A data do pagamento não foi informada');
+    cmbDiaPagamento.SetFocus;
+  end
   else
     result := true;
 
@@ -343,6 +409,7 @@ begin
   begin
     cdsServicos.Filtered   := false;
     cdsDiasSemana.Filtered := false;
+    cdsDiasSemana.IndexFieldNames := 'NUM_DIA';
   end;
 
 end;
@@ -364,6 +431,7 @@ begin
     cdsDiasSemanaDIA_SEMANA.AsString := dias[i];
     cdsDiasSemanaHORA.AsString       := '00';
     cdsDiasSemanaMINUTOS.AsString    := '00';
+    cdsDiasSemanaNUM_DIA.AsInteger   := i;
     cdsDiasSemana.Post;
   end;
 end;

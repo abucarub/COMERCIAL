@@ -88,7 +88,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
-        Width = 29
+        Width = 64
         Visible = True
       end
       item
@@ -161,6 +161,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     Height = 26
     ShowNullDate = False
     TabOrder = 3
+    OnChange = dtpDataInicialChange
   end
   object Panel2: TPanel
     Left = 0
@@ -170,7 +171,6 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     Align = alBottom
     ParentBackground = False
     TabOrder = 4
-    ExplicitTop = 364
     object BitBtn2: TBitBtn
       Left = 532
       Top = 8
@@ -433,7 +433,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
-        Width = 26
+        Width = 64
         Visible = True
       end
       item
@@ -447,7 +447,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Expanded = False
         FieldName = 'PRECO'
         ReadOnly = True
-        Width = 75
+        Width = 71
         Visible = True
       end>
   end
@@ -491,6 +491,9 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
       Alignment = taCenter
       FieldName = 'MINUTOS'
       Size = 2
+    end
+    object cdsDiasSemanaNUM_DIA: TIntegerField
+      FieldName = 'NUM_DIA'
     end
   end
   object dsDiasSemana: TDataSource

@@ -138,14 +138,14 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
       item
         Expanded = False
         FieldName = 'TEMPO'
-        Width = 54
+        Width = 57
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'PRECO'
         ReadOnly = True
-        Width = 75
+        Width = 64
         Visible = True
       end>
   end
@@ -156,7 +156,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
     Height = 160
     CalColors.TextColor = clBlue
     CalColors.MonthBackColor = clTeal
-    Date = 42566.561123946760000000
+    Date = 42566.469616655090000000
     TabOrder = 1
   end
   object Panel1: TPanel
@@ -278,7 +278,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
       item
         Expanded = False
         FieldName = 'PESSOA'
-        Width = 318
+        Width = 311
         Visible = True
       end
       item
@@ -297,7 +297,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
         Expanded = False
         FieldName = 'DIA_SEMANA'
         Title.Caption = 'DIA DA SEMANA'
-        Width = 119
+        Width = 131
         Visible = True
       end>
   end

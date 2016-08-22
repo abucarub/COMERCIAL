@@ -18,10 +18,13 @@ type
     FDiaPagamento: Integer;
     FDomingo: TTime;
     FInicio: TDate;
+    FID_Profissional: Integer;
 
   public
     [FieldName('ID_PESSOA')]
     property ID_Pessoa: Integer read FID_Pessoa write FID_Pessoa;
+    [FieldName('ID_PROFISSIONAL')]
+    property ID_Profissional: Integer read FID_Profissional write FID_Profissional;
     [FieldName('SEGUNDA')]
     property Segunda: TTime read FSegunda write FSegunda;
     [FieldName('TERCA')]
@@ -55,6 +58,7 @@ procedure TClienteMensal.Clear;
 begin
   ID         := 0;
   FID_Pessoa := 0;
+  FID_Profissional := 0;
   FSegunda   := 0;
   FTerca     := 0;
   FQuarta    := 0;
@@ -76,7 +80,8 @@ begin
             (FSexta = 0) and
             (FSabado = 0) and
             (FDomingo = 0) and
-            (FDiaPagamento = 0);
+            (FDiaPagamento = 0) and
+            (FID_Profissional = 0);
 end;
 
 procedure TClienteMensal.LoadClass(const AValue: Integer);

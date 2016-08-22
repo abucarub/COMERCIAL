@@ -121,6 +121,7 @@ type
     procedure rpbDiasSemanaClick(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure BuscaProfissionaledtNomeChange(Sender: TObject);
   private
     FPrimeiroHorarioDisponivel :TTime;
     FUltimoHorarioDisponivel   :TTime;
@@ -359,6 +360,12 @@ begin
   //btnCancelarHorario.Enabled  := not cdsHorarios.IsEmpty;
 end;
 
+procedure TfrmAgendamentos.BuscaProfissionaledtNomeChange(Sender: TObject);
+begin
+  inherited;
+  limpaHorariosTela;
+end;
+
 procedure TfrmAgendamentos.BuscaProfissionalExit(Sender: TObject);
 begin
   inherited;
@@ -367,8 +374,10 @@ begin
   begin
     calendario.Enabled := true;
     rgpDiasSemana.Enabled := true;
-    if not (BuscaDepartamento1.Departamento.Departamento = 'PILATES') then
-      fisioEsteticaClick(nil);
+    if (BuscaDepartamento1.Departamento.tipoHorarios = 'M') and assigned(BuscaDepartamento1.Departamento) then
+      rgpDiasSemanaClick(nil)
+    else if (BuscaDepartamento1.Departamento.tipoHorarios = 'D') and assigned(BuscaDepartamento1.Departamento) then
+      calendarioClick(nil);
   end
   else
   begin
@@ -608,8 +617,8 @@ begin
   begin
     horario.ID := cliente.ID;
     horario.ID_Departamento := BuscaDepartamento1.Departamento.ID;
-    horario.ID_Pessoa       := BuscaPessoa1.Pessoa.ID;
-    horario.ID_Profissional := BuscaProfissional.Pessoa.ID;
+    horario.ID_Pessoa       := cliente.ID_Pessoa;
+//    horario.ID_Profissional := BuscaProfissional.Pessoa.ID;
 
     case rgpDiasSemana.ItemIndex of
       0 :  horario.hora := cliente.Segunda;
@@ -705,6 +714,7 @@ end;
 
 procedure TfrmAgendamentos.rgpDiasSemanaClick(Sender: TObject);
 begin
+  limpaHorariosTela;
   carregarHorariosMensal;
 end;
 
@@ -787,7 +797,7 @@ end;
 procedure TfrmAgendamentos.FormActivate(Sender: TObject);
 begin
   inherited;
-  if (calendario.Enabled) and (calendario.Visible) then
+  if (calendario.Enabled) and (gpbCalendario.Visible) then
     calendarioClick(nil)
   else if (rgpDiasSemana.Visible) and (rgpDiasSemana.Enabled) then
     rgpDiasSemanaClick(nil);
@@ -863,7 +873,7 @@ begin
   if assigned(panelList) then  
     panelList.Free;
 
-  panelList := TObjectList<TPanel>.Create;  
+  panelList := TObjectList<TPanel>.Create;
 end;
 
 procedure TfrmAgendamentos.limpaServicosTela;
@@ -961,7 +971,8 @@ var Horario  :TSPA;
     Horarios :TObjectList<TSPA>;
 begin
  try
-   lbHorarios.Caption := 'Horários do dia '+DateToStr(calendario.Date)+'   ('+TUtilitario.diaSemanaExtenso(calendario.Date)+')';
+   lbHorarios.Caption := 'Horários '+BuscaDepartamento1.Departamento.departamento+' - dia '+DateToStr(calendario.Date)
+                                    +'   ('+TUtilitario.diaSemanaExtenso(calendario.Date)+')';
    Horario  := TSPA.Create;
    Horarios := Horario.LoadList<TSPA>('WHERE DATA = '''+FormatDateTime('dd.mm.yyyy', calendario.Date)+''' '+
                                       'and ID_DEPARTAMENTO = '+IntToStr(BuscaDepartamento1.Departamento.ID)+
@@ -980,8 +991,9 @@ var Cliente  :TClienteMensal;
     Clientes :TObjectList<TClienteMensal>;
 begin
  try
+   lbHorarios.Caption := 'Horários '+BuscaDepartamento1.Departamento.departamento+' ('+rgpDiasSemana.Items[rgpDiasSemana.ItemIndex]+')';
    Cliente  := TClienteMensal.Create;
-   Clientes := Cliente.LoadList<TClienteMensal>('');
+   Clientes := Cliente.LoadList<TClienteMensal>('WHERE ID_PROFISSIONAL = '+intToStr(BuscaProfissional.Pessoa.ID));
 
    mostrarHorariosMensal(Clientes);
 
@@ -1222,7 +1234,7 @@ end;
 
 procedure TfrmAgendamentos.zeraTela;
 begin
-  limpaServicosTela;
+  limpaHorariosTela;
   cdsHorarios.EmptyDataSet;
   cdsHorariosDia.EmptyDataSet;
   calendario.Enabled := false;
