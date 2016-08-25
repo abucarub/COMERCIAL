@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, Generics.Collections,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uPadrao, Data.DB, Datasnap.DBClient, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Grids,
-  Vcl.DBGrids, System.StrUtils, Vcl.Mask, JvExMask, JvToolEdit, Vcl.Buttons, Pessoa, Departamento, Convenio, TabelaPreco;
+  Vcl.DBGrids, System.StrUtils, Vcl.Mask, JvExMask, JvToolEdit, Vcl.Buttons, Pessoa, Departamento, Convenio, TabelaPreco,
+  ClienteMensal;
 
 type
   TfrmCriaHorarioMensal = class(TfrmPadrao)
@@ -74,7 +75,7 @@ var
 
 implementation
 
-uses ClienteMensal;
+uses ServicoAgendado, SPA;
 
 {$R *.dfm}
 
@@ -165,7 +166,7 @@ begin
     avisar('Horário salvo com sucesso');
     self.Close;
 
-    - cria horarios até o fim do mes, a partir da data inicial
+   { - cria horarios até o fim do mes, a partir da data inicial
     - adaptar tela Agendamentos, p/mostrar horarios dpto "Mensal" criados até o fim do 2º mes.
       a partir do segundo mês, carrega os horarios do dpto mensal com base na tabela clientes mensal (porem sem possibilidade de
       alterar o status desses horarios nem de cancelar
@@ -173,6 +174,8 @@ begin
 
       (nessa tela ira se alterar o status do horario ) tela mostrará horarios do dia, até no máximo horarios do ultimo dia do mÊs seguinte
     - cancelar ou alterar data
+
+    - reposição é criada a partir de um horário cancelado}
 
   finally
     FreeAndNil(clienteMensal);
@@ -416,7 +419,7 @@ end;
 
 procedure TfrmCriaHorarioMensal.iniciaGridDias;
 const
-  dias : array[1..6] of string = ('SEGUNDA-FEIRA','TERÇA-FEIRA','QUARTA-FEIRA','QUINTA-FEIRA','SEXTA-FEIRA','SÁBADO-FEIRA');
+  dias : array[1..6] of string = ('SEGUNDA-FEIRA','TERÇA-FEIRA','QUARTA-FEIRA','QUINTA-FEIRA','SEXTA-FEIRA','SÁBADO');
 var
   i :integer;
 begin
@@ -431,7 +434,7 @@ begin
     cdsDiasSemanaDIA_SEMANA.AsString := dias[i];
     cdsDiasSemanaHORA.AsString       := '00';
     cdsDiasSemanaMINUTOS.AsString    := '00';
-    cdsDiasSemanaNUM_DIA.AsInteger   := i;
+    cdsDiasSemanaNUM_DIA.AsInteger   := i+1;
     cdsDiasSemana.Post;
   end;
 end;

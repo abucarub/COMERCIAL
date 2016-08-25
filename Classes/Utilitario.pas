@@ -7,18 +7,33 @@ uses System.SysUtils, System.StrUtils;
 type
   TUtilitario = class
   public
-    class function dataParaMinutos(data :TDateTime) :integer;
+    class function horaParaMinutos(data :TDateTime) :integer;
+    class function minutosParaHora(minutos :integer) :TTime;
     class function diaSemanaExtenso(data :TDateTime) :String;
     class function numeroDiaSemana(diaSemana :String) :integer;
+    class function somenteNumeros(texto :String):String;
   end;
 
 implementation
 
 { TUtilitario }
 
-class function TUtilitario.dataParaMinutos(data: TDateTime): integer;
+class function TUtilitario.horaParaMinutos(data: TDateTime): integer;
 begin
   result := (StrToInt(Copy(formatDateTime('hh:mm:ss',data),1,2))*60) + StrToInt(Copy(formatDateTime('hh:mm:ss',data),4,2))
+end;
+
+class function TUtilitario.minutosParaHora(minutos: integer): TTime;
+var
+  hr, min : Integer;
+begin
+  hr := 0;
+  while minutos >= 60 do begin
+    minutos := minutos - 60;
+    hr := hr + 1;
+  end;
+  min := minutos;
+  Result := StrToTime(FormatFloat('00:', hr) + FormatFloat('00', min));
 end;
 
 class function TUtilitario.diaSemanaExtenso(data: TDateTime): String;
@@ -50,6 +65,16 @@ begin
   5 : result := 6;
   6 : result := 7;
 end;
+end;
+
+class function TUtilitario.somenteNumeros(texto: String): String;
+var
+  I : Byte;
+begin
+   Result := '';
+   for I := 1 To Length(texto) do
+       if texto[I] In ['0'..'9'] Then
+            Result := Result + texto[I];
 end;
 
 end.

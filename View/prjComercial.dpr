@@ -41,7 +41,8 @@ uses
   frameMostraServico in 'frameMostraServico.pas' {MostraServico: TFrame},
   ClienteMensal in '..\Classes\ClienteMensal.pas',
   uCriaHorarioDiario in 'uCriaHorarioDiario.pas' {frmCriaHorarioDiario},
-  uCriaHorarioMensal in 'uCriaHorarioMensal.pas' {frmCriaHorarioMensal};
+  uCriaHorarioMensal in 'uCriaHorarioMensal.pas' {frmCriaHorarioMensal},
+  uCriaReposicaoHorario in 'uCriaReposicaoHorario.pas' {frmCriaReposicaoHorario};
 
 {$R *.res}
 

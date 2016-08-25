@@ -1,9 +1,9 @@
 inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
   Caption = 'Cria hor'#225'rios mensal'
   ClientHeight = 428
-  ClientWidth = 709
+  ClientWidth = 825
   FormStyle = fsStayOnTop
-  ExplicitWidth = 725
+  ExplicitWidth = 841
   ExplicitHeight = 466
   PixelsPerInch = 96
   TextHeight = 18
@@ -62,7 +62,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
   object gridDiasSemana: TDBGrid
     Left = 389
     Top = 125
-    Width = 301
+    Width = 412
     Height = 188
     DataSource = dsDiasSemana
     TabOrder = 0
@@ -88,7 +88,6 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
-        Width = 64
         Visible = True
       end
       item
@@ -166,11 +165,12 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
   object Panel2: TPanel
     Left = 0
     Top = 383
-    Width = 709
+    Width = 825
     Height = 45
     Align = alBottom
     ParentBackground = False
     TabOrder = 4
+    ExplicitWidth = 709
     object BitBtn2: TBitBtn
       Left = 532
       Top = 8
@@ -328,16 +328,17 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 709
+    Width = 825
     Height = 84
     Align = alTop
     Color = 14732969
     ParentBackground = False
     TabOrder = 5
+    ExplicitWidth = 709
     object Shape1: TShape
       Left = 1
       Top = 1
-      Width = 707
+      Width = 823
       Height = 31
       Align = alTop
       Brush.Color = 14073227
@@ -433,7 +434,6 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
-        Width = 64
         Visible = True
       end
       item

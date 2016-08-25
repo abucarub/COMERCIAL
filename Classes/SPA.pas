@@ -22,6 +22,7 @@ type
     FProfissional: TPessoa;
     FID_Profissional: Integer;
     FTipo: String;
+    FReposicao: Integer;
 
     function GetServicosAgendados: TObjectList<TServicoAgendado>;
     function GetDuracaoServicos: TDateTime;
@@ -49,6 +50,8 @@ type
     property pago: String read FPago write FPago;
     [FieldName('TIPO')]
     property tipo: String read FTipo write FTipo;
+    [FieldName('REPOSICAO')]
+    property reposicao: Integer read FReposicao write FReposicao;
 
     [HasOne('ID_PESSOA')]
     property Pessoa: TPessoa read GetPessoa write FPessoa;
@@ -97,6 +100,7 @@ begin
   FCompareceu     := '';
   FPago           := '';
   Ftipo           := '';
+  FReposicao      := 0;
   if assigned(FPessoa) then
     FreeAndNil(FPessoa);
   if assigned(FDepartamento) then
@@ -188,7 +192,8 @@ begin
             (FHora = 0) and
             (FCompareceu = '') and
             (FPago = '') and
-            (FTipo = '');
+            (FTipo = '') and
+            (FReposicao = 0);
 end;
 
 procedure TSPA.LoadClass(const AValue: Integer);
