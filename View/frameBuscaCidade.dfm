@@ -44,18 +44,20 @@ inherited BuscaCidade: TBuscaCidade
   end
   inherited btnBusca: TBitBtn
     Left = 87
+    Height = 28
     ExplicitLeft = 87
+    ExplicitHeight = 28
   end
   object edtCodigo: TCurrencyEdit
     Left = 11
     Top = 24
     Width = 75
-    Height = 24
+    Height = 27
     DisplayFormat = '0'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
+    Font.Height = -16
+    Font.Name = 'Calibri Light'
     Font.Style = []
     ParentFont = False
     TabOrder = 1
@@ -64,11 +66,11 @@ inherited BuscaCidade: TBuscaCidade
     Left = 115
     Top = 24
     Width = 290
-    Height = 24
+    Height = 27
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
+    Font.Height = -16
+    Font.Name = 'Calibri Light'
     Font.Style = []
     ParentFont = False
     ReadOnly = True
@@ -78,11 +80,11 @@ inherited BuscaCidade: TBuscaCidade
     Left = 419
     Top = 24
     Width = 30
-    Height = 24
+    Height = 27
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
+    Font.Height = -16
+    Font.Name = 'Calibri Light'
     Font.Style = []
     ParentFont = False
     ReadOnly = True

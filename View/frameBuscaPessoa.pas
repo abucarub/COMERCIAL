@@ -9,7 +9,6 @@ uses
 
 type
   TBuscaPessoa = class(TBusca)
-    Label1: TLabel;
     edtCodigo: TCurrencyEdit;
     edtNome: TEdit;
     lbTipo: TLabel;

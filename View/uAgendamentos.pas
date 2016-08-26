@@ -70,13 +70,10 @@ type
     Label31: TLabel;
     Label32: TLabel;
     Label33: TLabel;
-    pnlTopo: TPanel;
-    lbHorarios: TLabel;
     rgpDiasSemana: TRadioGroup;
     StaticText1: TStaticText;
     gpbCalendario: TGroupBox;
     calendario: TJvMonthCalendar;
-    Image4: TImage;
     btnCriaHorario: TBitBtn;
     BuscaConvenio1: TBuscaConvenio;
     pupUpOpcoes: TPopupMenu;
@@ -85,14 +82,16 @@ type
     popCompareceu: TMenuItem;
     popFaltou: TMenuItem;
     popReposicao: TMenuItem;
-    Image3: TImage;
-    Panel1: TPanel;
-    lbTipo: TLabel;
-    Label1: TLabel;
     GroupBox1: TGroupBox;
     Shape1: TShape;
     Shape2: TShape;
     Label3: TLabel;
+    Image3: TImage;
+    pnlTopo: TPanel;
+    Panel1: TPanel;
+    lbHorarios: TLabel;
+    Image5: TImage;
+    Label1: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnCriaHorarioClick(Sender: TObject);
     procedure BuscaDepartamento1Exit(Sender: TObject);
@@ -108,7 +107,6 @@ type
     procedure calendarioClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure ScrollBox1MouseWheelDown(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
-    procedure pnlHorariosMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure ScrollBox1MouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
     procedure FormActivate(Sender: TObject);
     procedure BuscaProfissionaledtNomeChange(Sender: TObject);
@@ -118,6 +116,7 @@ type
     procedure popFaltouClick(Sender: TObject);
     procedure popCompareceuClick(Sender: TObject);
     procedure popReposicaoClick(Sender: TObject);
+    procedure Image3MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
   private
     FIDHorarioSelecionado :Integer;
     FIDPessoa :Integer;
@@ -160,6 +159,7 @@ type
     function diaSemanaPreSelecionado(data:TDateTime) :Boolean;
     function verificaObrigatorios :boolean;
     function getIDTabelaPrecoClienteMensal(IDPessoa, IDDepartamento, IDProfissional :integer) :Integer;
+    function informacoesFornecidas :boolean;
     
   public
     { Public declarations }
@@ -239,6 +239,8 @@ end;
 
 procedure TfrmAgendamentos.btnCriaHorarioClick(Sender: TObject);
 begin
+  if not informacoesFornecidas then
+
   if BuscaDepartamento1.Departamento.tipoHorarios = 'D' then
     criaHorarioDiario
   else
@@ -405,8 +407,8 @@ begin
   panelList.Items[panelList.Count-1].Tag    := IfThen(horario.ID = 0, horario.ID_Pessoa, 0);
   panelList.Items[panelList.Count-1].Parent := pnlHorarios;
   panelList.Items[panelList.Count-1].Top    := calculaTopHorario(horario);
-  panelList.Items[panelList.Count-1].Height := TUtilitario.horaParaMinutos(horario.duracaoServicos);
   panelList.Items[panelList.Count-1].Left   := calculaLeftHorario( panelList.Items[panelList.Count-1]);
+  panelList.Items[panelList.Count-1].Height := TUtilitario.horaParaMinutos(horario.duracaoServicos);
   panelList.Items[panelList.Count-1].Width  := 220;
   panelList.Items[panelList.Count-1].Repaint;  
   panelList.Items[panelList.Count-1].BevelOuter := bvNone;
@@ -532,12 +534,6 @@ begin
   end;
 end;
 
-procedure TfrmAgendamentos.pnlHorariosMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
-begin
-  if not (screen.ActiveControl = scrollbox1) then
-    scrollbox1.SetFocus;
-end;
-
 procedure TfrmAgendamentos.popCancelarHorarioClick(Sender: TObject);
 begin
   if BuscaDepartamento1.Departamento.tipoHorarios = 'D' then
@@ -558,7 +554,14 @@ begin
 end;
 
 procedure TfrmAgendamentos.calendarioClick(Sender: TObject);
+var dataSelecionada, dataHoje :TDate;
 begin
+  dataSelecionada := calendario.Date;
+  dataHoje        := Date;
+  btnCriaHorario.Enabled := dataSelecionada >= dataHoje;
+
+
+
   limpaHorariosTela;
   carregarHorariosDia;
 
@@ -602,6 +605,7 @@ begin
   FUltimoHorarioDia      := StrToTime('21:00:00');
   cdsHorarios.CreateDataSet;
   calendario.Date := Date;
+  DoubleBuffered := True;
 end;
 
 procedure TfrmAgendamentos.FormDestroy(Sender: TObject);
@@ -631,6 +635,40 @@ begin
    FreeAndNil(ClienteMensal);
    FreeAndNil(Clientes);
  end;
+end;
+
+procedure TfrmAgendamentos.Image3MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+begin
+ if not (screen.ActiveControl = scrollbox1) then
+    scrollbox1.SetFocus;
+end;
+
+function TfrmAgendamentos.informacoesFornecidas: boolean;
+begin
+  result := false;
+
+  if BuscaDepartamento1.edtDepartamento.Text = '' then
+  begin
+    avisar('O departamento deve ser selecionado');
+    BuscaDepartamento1.edtCodigo.SetFocus;
+  end
+  else if BuscaProfissional.edtNome.Text = '' then
+  begin
+    avisar('O profissional deve ser selecionado');
+    BuscaProfissional.edtCodigo.SetFocus;
+  end
+  else if BuscaPessoa1.edtNome.Text = '' then
+  begin
+    avisar('A pessoa deve ser selecionada');
+    BuscaPessoa1.edtCodigo.SetFocus;
+  end
+  else if BuscaConvenio1.edtConvenio.Text = '' then
+  begin
+    avisar('O convênio deve ser selecionado');
+    BuscaConvenio1.edtCodigo.SetFocus;
+  end
+  else
+    result := true;
 end;
 
 procedure TfrmAgendamentos.limpaHorariosTela;

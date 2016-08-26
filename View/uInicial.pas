@@ -11,7 +11,7 @@ uses
   FireDAC.Comp.Client, uPadrao, JvExControls, JvCalendar, JvExComCtrls,
   JvMonthCalendar, Vcl.Grids, Vcl.Samples.Calendar, Vcl.ComCtrls,
   VclTee.TeeGDIPlus, VCLTee.TeeData, VCLTee.TeEngine, Vcl.ExtCtrls,
-  VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series, VCLTee.GanttCh, Vcl.AppEvnts;
+  VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series, VCLTee.GanttCh, Vcl.AppEvnts, Vcl.StdCtrls, Vcl.Imaging.pngimage;
 
 type
   TfrmInicial = class(TfrmPadrao)
@@ -21,6 +21,7 @@ type
     FDConnection1: TFDConnection;
     Agendamentos1: TMenuItem;
     Fisioterapia1: TMenuItem;
+    Image1: TImage;
     procedure Clientes1Click(Sender: TObject);
     procedure Fisioterapia1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);

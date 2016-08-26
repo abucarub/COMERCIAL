@@ -11,7 +11,6 @@ type
   TBuscaConvenio = class(TBusca)
     edtCodigo: TCurrencyEdit;
     edtConvenio: TEdit;
-    Label1: TLabel;
     Label2: TLabel;
     procedure FrameEnter(Sender: TObject);
     procedure FrameExit(Sender: TObject);

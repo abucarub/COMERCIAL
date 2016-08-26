@@ -10,7 +10,6 @@ uses
 type
   TBuscaTabelaPreco = class(TBusca)
     Label1: TLabel;
-    Label2: TLabel;
     Label3: TLabel;
     edtCodigo: TCurrencyEdit;
     edtServico: TEdit;

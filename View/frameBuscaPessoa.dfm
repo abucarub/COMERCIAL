@@ -3,47 +3,36 @@ inherited BuscaPessoa: TBuscaPessoa
   OnEnter = FrameEnter
   OnExit = FrameExit
   ExplicitWidth = 409
-  object Label1: TLabel [0]
-    Left = 11
+  object lbTipo: TLabel [0]
+    Left = 13
     Top = 3
-    Width = 47
-    Height = 19
-    Caption = 'C'#243'digo'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = 2697513
-    Font.Height = -16
-    Font.Name = 'Calibri'
-    Font.Style = [fsBold]
-    ParentFont = False
-  end
-  object lbTipo: TLabel [1]
-    Left = 117
-    Top = 3
-    Width = 46
+    Width = 50
     Height = 19
     Caption = 'Pessoa'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 2697513
     Font.Height = -16
-    Font.Name = 'Calibri'
+    Font.Name = 'Calibri Light'
     Font.Style = [fsBold]
     ParentFont = False
   end
   inherited btnBusca: TBitBtn
     Left = 88
+    Height = 28
     TabOrder = 1
     ExplicitLeft = 88
+    ExplicitHeight = 28
   end
   object edtCodigo: TCurrencyEdit
     Left = 11
     Top = 24
     Width = 75
-    Height = 24
+    Height = 27
     DisplayFormat = '0'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
+    Font.Height = -16
+    Font.Name = 'Calibri Light'
     Font.Style = []
     ParentFont = False
     TabOrder = 0
@@ -52,11 +41,11 @@ inherited BuscaPessoa: TBuscaPessoa
     Left = 116
     Top = 24
     Width = 290
-    Height = 24
+    Height = 27
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Microsoft Sans Serif'
+    Font.Height = -16
+    Font.Name = 'Calibri Light'
     Font.Style = []
     ParentFont = False
     ReadOnly = True

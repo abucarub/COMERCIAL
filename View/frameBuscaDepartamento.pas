@@ -10,7 +10,6 @@ uses
 type
   TBuscaDepartamento = class(TBusca)
     edtCodigo: TCurrencyEdit;
-    Label1: TLabel;
     Label2: TLabel;
     edtDepartamento: TEdit;
     imgPilates: TImage;
