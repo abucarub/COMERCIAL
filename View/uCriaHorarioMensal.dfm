@@ -170,7 +170,6 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     Align = alBottom
     ParentBackground = False
     TabOrder = 4
-    ExplicitWidth = 709
     object BitBtn2: TBitBtn
       Left = 532
       Top = 8
@@ -334,7 +333,6 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     Color = 14732969
     ParentBackground = False
     TabOrder = 5
-    ExplicitWidth = 709
     object Shape1: TShape
       Left = 1
       Top = 1

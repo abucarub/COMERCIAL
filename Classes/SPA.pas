@@ -135,6 +135,9 @@ end;
 
 function TSPA.GetPessoa: TPessoa;
 begin
+  if assigned(FPessoa) and (FID_Pessoa <> FPessoa.ID) then
+    FreeAndNil(FPessoa);
+
   if not assigned(FPessoa) then
     FPessoa := self.LoadOne<TPessoa>(FID_PESSOA);
 

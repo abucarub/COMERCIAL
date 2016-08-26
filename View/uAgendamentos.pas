@@ -159,6 +159,7 @@ type
     function diasSemanaSelecionados :String;
     function diaSemanaPreSelecionado(data:TDateTime) :Boolean;
     function verificaObrigatorios :boolean;
+    function getIDTabelaPrecoClienteMensal(IDPessoa, IDDepartamento, IDProfissional :integer) :Integer;
     
   public
     { Public declarations }
@@ -186,15 +187,32 @@ end;
 
 procedure TfrmAgendamentos.alteraStatusHorario(compareceu: String);
 var horario :TSPA;
+    servicoAgendado :TServicoAgendado;
 begin
   try
   try
     horario := TSPA.Create;
-    horario.Load(FIDHorarioSelecionado);
+
+    if FIDHorarioSelecionado > 0 then
+      horario.Load(FIDHorarioSelecionado)
+    else
+    begin
+      horario.ID_Pessoa       := FIDPessoa;
+      horario.ID_Departamento := BuscaDepartamento1.Departamento.ID;
+      horario.ID_Profissional := BuscaProfissional.Pessoa.ID;
+      horario.data            := calendario.Date;
+      horario.hora            := TUtilitario.minutosParaHora(FHoraMarcadaEmMinutos);
+
+      servicoAgendado         := nil;
+      servicoAgendado         := TServicoAgendado.Create;
+      servicoAgendado.ID_TabelaPreco := getIDTabelaPrecoClienteMensal(FIDPessoa, horario.ID_Departamento, horario.ID_Profissional);;
+      servicoAgendado.duracao := BuscaDepartamento1.Departamento.Servicos.Items[0].Duracao;
+      horario.ServicosAgendados.Add(servicoAgendado);
+    end;
 
     if confirma('Deseja alterar o status do horário para "'+IfThen(compareceu='S','COMPARECEU','FALTOU')+'"?') then
     begin
-      horario.compareceu := 'S';
+      horario.compareceu := compareceu;
       horario.Save;
       avisar('Status alterado com sucesso!');
 
@@ -378,10 +396,11 @@ var labelHoraConsulta :TLabel;
     labelNomeCliente  :TLabel;
     shapeFundo        :TShape;
     btnOpcoes         :TSpeedButton;
+    imagem            :TImage;
 begin
   {cria panel horario}
   panelList.Add(TPanel.Create(self));
-  panelList.Items[panelList.Count-1].Name   := 'pnlHr'+intToStr(horario.ID);
+  panelList.Items[panelList.Count-1].Name   := 'pnlHr'+intToStr(horario.ID)+IfThen(horario.ID = 0,intToStr(panelList.Count)+'c','');
 
   panelList.Items[panelList.Count-1].Tag    := IfThen(horario.ID = 0, horario.ID_Pessoa, 0);
   panelList.Items[panelList.Count-1].Parent := pnlHorarios;
@@ -449,6 +468,17 @@ begin
   btnOpcoes.Tag       := TUtilitario.horaParaMinutos(horario.hora);
   btnOpcoes.Flat      := true;
 
+  if (horario.compareceu <> '') then
+  begin
+    imagem := TImage.Create(self);
+    ImageList.GetBitmap(IfThen(horario.compareceu = 'S',1,2),imagem.Picture.Bitmap);
+    imagem.Parent := panelList.Items[panelList.Count-1];
+    imagem.Left   := 0;
+    imagem.Top    := 0;
+    imagem.Height := 16;
+    imagem.Width  := 16;
+  end;
+
 end;
 
 procedure TfrmAgendamentos.mostrarHorariosDia(horarios: TObjectList<TSPA>);
@@ -465,14 +495,14 @@ end;
 procedure TfrmAgendamentos.mostrarHorariosMensal(clientes: TObjectList<TClienteMensal>);
 var horario :TSPA;
     cliente :TClienteMensal;
+    servicoAgendado :TServicoAgendado;
 begin
   if not assigned(clientes) or (clientes.count <= 0) then
     exit;
 
-  horario := TSPA.Create;
-
   for cliente in clientes do
   begin
+    horario := TSPA.Create;
     horario.ID              := 0;
     horario.ID_Departamento := BuscaDepartamento1.Departamento.ID;
     horario.ID_Pessoa       := cliente.ID_Pessoa;
@@ -488,14 +518,18 @@ begin
       7 :  horario.hora := cliente.Domingo;
     end;
 
-    adicionar servico respectivo no horario ficticio
+    servicoAgendado         := nil;
+    servicoAgendado         := TServicoAgendado.Create;
+    servicoAgendado.duracao := BuscaDepartamento1.Departamento.Servicos.Items[0].Duracao;
+    horario.ServicosAgendados.Add(servicoAgendado);
 
     if horario.hora > 0 then
       {se nao existe um horario criado para aquele dia horario dept. prof. e pessoa, aí mostra o reservado(fictício)}
       if not existeHorarioCriado(horario) then
         mostraHorarioTela(horario);
-  end;
 
+    FreeAndNil(horario);
+  end;
 end;
 
 procedure TfrmAgendamentos.pnlHorariosMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
@@ -582,6 +616,23 @@ begin
   BuscaDepartamento1.edtCodigo.SetFocus;
 end;
 
+function TfrmAgendamentos.getIDTabelaPrecoClienteMensal(IDPessoa, IDDepartamento, IDProfissional: integer): Integer;
+var ClienteMensal  :TClienteMensal;
+    Clientes :TObjectList<TClienteMensal>;
+begin
+ try
+   ClienteMensal  := TClienteMensal.Create;
+   Clientes       := ClienteMensal.LoadList<TClienteMensal>( ' WHERE ID_PESSOA = '+intToStr(IDPessoa)+
+                                                             '   AND ID_DEPARTAMENTO = '+intToStr(IDDepartamento)+
+                                                             '   AND ID_PROFISSIONAL = '+intToStr(IDProfissional));
+   result         := Clientes.Items[0].ID_TabelaPreco;
+
+ finally
+   FreeAndNil(ClienteMensal);
+   FreeAndNil(Clientes);
+ end;
+end;
+
 procedure TfrmAgendamentos.limpaHorariosTela;
 begin
   if assigned(panelList) then  
@@ -643,7 +694,7 @@ var Cliente  :TClienteMensal;
     Clientes :TObjectList<TClienteMensal>;
 begin
  try
-   lbHorarios.Caption := 'Horários '+BuscaDepartamento1.Departamento.departamento+' ('+rgpDiasSemana.Items[rgpDiasSemana.ItemIndex]+')';
+   lbHorarios.Caption := 'Horários '+BuscaDepartamento1.Departamento.departamento+' ('+TUtilitario.diaSemanaExtenso(calendario.Date)+')';
    Cliente  := TClienteMensal.Create;
    Clientes := Cliente.LoadList<TClienteMensal>('WHERE ID_PROFISSIONAL = '+intToStr(BuscaProfissional.Pessoa.ID));
 
@@ -703,6 +754,7 @@ begin
   horario.ID_Profissional := BuscaProfissional.Pessoa.ID;
   horario.data            := calendario.Date;
   horario.hora            := TUtilitario.minutosParaHora(FHoraMarcadaEmMinutos);
+  horario.tipo            := 'C';
   horario.Save;
 end;
 
@@ -849,7 +901,7 @@ begin
     condicaoFaltou     := not(faltou) and not(compareceu);
     condicaoCompareceu := not(faltou) and not(compareceu);
     condicaoCancelar   := not(faltou) and not(compareceu) and not (cancelado);
-    condicaoReposicao  := cancelado;
+    condicaoReposicao  := cancelado or faltou;
   end
   else
     FIDPessoa             := TSPeedButton(Sender).Parent.Tag;

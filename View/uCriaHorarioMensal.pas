@@ -122,12 +122,15 @@ procedure TfrmCriaHorarioMensal.criaHorario;
 var clienteMensal :TClienteMensal;
 begin
   try
+    cdsServicos.Locate('SELECAO','S',[]);
     ClienteMensal := TClienteMensal.Create;
     if FPessoa.ClienteMensal.isLoaded then
       clienteMensal.Load(FPessoa.ClienteMensal.ID);
 
     clienteMensal.ID_Pessoa       := FPessoa.ID;
     clienteMensal.ID_Profissional := FProfissional.ID;
+    clienteMensal.ID_Departamento := FDepartamento.ID;
+    clienteMensal.ID_TabelaPreco  := cdsServicosID_TABELA_PRECO.AsInteger;
 
     if cdsDiasSemana.Locate('DIA_SEMANA','SEGUNDA-FEIRA',[]) and (cdsDiasSemanaSELECAO.AsString = 'S') then
       clienteMensal.Segunda      := StrToTime(cdsDiasSemanaHORA.AsString+':'+cdsDiasSemanaMINUTOS.AsString)
@@ -157,7 +160,7 @@ begin
     if cdsDiasSemana.Locate('DIA_SEMANA','SÁBADO',[]) and (cdsDiasSemanaSELECAO.AsString = 'S') then
       clienteMensal.Sabado       := StrToTime(cdsDiasSemanaHORA.AsString+':'+cdsDiasSemanaMINUTOS.AsString)
     else
-      clienteMensal.Sexta        := 0;
+      clienteMensal.Sabado        := 0;
 
     clienteMensal.DiaPagamento := strToInt(cmbDiaPagamento.Items[cmbDiaPagamento.ItemIndex]);
     clienteMensal.Inicio       := dtpDataInicial.Date;

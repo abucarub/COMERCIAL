@@ -31,7 +31,7 @@ object frmInicial: TfrmInicial
     object Agendamentos1: TMenuItem
       Caption = 'Agendamentos'
       object Fisioterapia1: TMenuItem
-        Caption = 'Fisioterapia'
+        Caption = 'Agendamento de hor'#225'rios'
         OnClick = Fisioterapia1Click
       end
     end
