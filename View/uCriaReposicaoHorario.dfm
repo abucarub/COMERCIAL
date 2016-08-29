@@ -1,26 +1,28 @@
 inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
+  BorderStyle = bsSingle
   Caption = 'Reposi'#231#227'o de hor'#225'rio'
-  ClientHeight = 422
-  ClientWidth = 613
-  ExplicitWidth = 629
+  ClientHeight = 432
+  ClientWidth = 616
+  FormStyle = fsStayOnTop
+  Position = poDefault
+  ExplicitWidth = 622
   ExplicitHeight = 460
   PixelsPerInch = 96
   TextHeight = 18
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 613
+    Width = 616
     Height = 84
     Align = alTop
     Color = 14732969
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -173
-    ExplicitWidth = 700
+    ExplicitWidth = 613
     object Shape1: TShape
       Left = 1
       Top = 1
-      Width = 611
+      Width = 614
       Height = 31
       Align = alTop
       Brush.Color = 14073227
@@ -95,20 +97,19 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
   end
   object Panel2: TPanel
     Left = 0
-    Top = 376
-    Width = 613
+    Top = 386
+    Width = 616
     Height = 46
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
-    ExplicitLeft = -173
-    ExplicitTop = 217
-    ExplicitWidth = 700
+    ExplicitTop = 376
+    ExplicitWidth = 613
     DesignSize = (
-      613
+      616
       46)
     object btnSalvar: TBitBtn
-      Left = 433
+      Left = 436
       Top = 8
       Width = 158
       Height = 30
@@ -184,10 +185,10 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnSalvarClick
-      ExplicitLeft = 388
+      ExplicitLeft = 433
     end
     object btnCancelar: TBitBtn
-      Left = 257
+      Left = 260
       Top = 8
       Width = 158
       Height = 30
@@ -263,7 +264,7 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnCancelarClick
-      ExplicitLeft = 212
+      ExplicitLeft = 257
     end
   end
   object GroupBox1: TGroupBox
@@ -288,7 +289,7 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
     end
     object Label5: TLabel
       Left = 34
-      Top = 99
+      Top = 123
       Width = 60
       Height = 19
       Caption = 'Hora   >'
@@ -301,7 +302,7 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
     end
     object Label6: TLabel
       Left = 34
-      Top = 153
+      Top = 161
       Width = 59
       Height = 19
       Caption = 'Status >'
@@ -312,9 +313,22 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
       Font.Style = [fsBold]
       ParentFont = False
     end
+    object Label7: TLabel
+      Left = 34
+      Top = 83
+      Width = 59
+      Height = 19
+      Caption = 'Dia     >'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -16
+      Font.Name = 'Calibri Light'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
     object edtHora: TEdit
       Left = 120
-      Top = 96
+      Top = 120
       Width = 104
       Height = 25
       Alignment = taCenter
@@ -352,7 +366,7 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
     end
     object edtStatus: TEdit
       Left = 120
-      Top = 151
+      Top = 159
       Width = 104
       Height = 25
       Alignment = taCenter
@@ -367,6 +381,25 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
       ParentFont = False
       ReadOnly = True
       TabOrder = 2
+      Text = '00:00'
+    end
+    object edtDiaSemana: TEdit
+      Left = 120
+      Top = 80
+      Width = 104
+      Height = 25
+      Alignment = taCenter
+      Ctl3D = False
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Calibri'
+      Font.Style = []
+      ParentCtl3D = False
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 3
       Text = '00:00'
     end
   end

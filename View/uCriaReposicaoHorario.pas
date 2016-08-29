@@ -33,6 +33,8 @@ type
     cmbHora: TComboBox;
     cmbMinutos: TComboBox;
     dtpDataReposicao: TJvDateEdit;
+    Label7: TLabel;
+    edtDiaSemana: TEdit;
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -49,6 +51,8 @@ var
   frmCriaReposicaoHorario: TfrmCriaReposicaoHorario;
 
 implementation
+
+uses ServicoAgendado, Utilitario;
 
 {$R *.dfm}
 
@@ -72,10 +76,11 @@ end;
 constructor TfrmCriaReposicaoHorario.create(AOwner: TComponent; horario: TSPA);
 begin
   inherited Create(AOwner);
-  FHorario       := horario;
-  edtHora.Text   := TimeToStr(horario.hora);
-  edtData.Text   := DateToStr(horario.data);
-  edtStatus.Text := IfThen(horario.tipo = 'C', 'CANCELADO', 'FALTA');
+  FHorario          := horario;
+  edtHora.Text      := TimeToStr(horario.hora);
+  edtDiaSemana.Text := TUtilitario.diaSemanaExtenso(horario.data);
+  edtData.Text      := DateToStr(horario.data);
+  edtStatus.Text    := IfThen(horario.tipo = 'C', 'CANCELADO', 'FALTA');
 
   lbProfissional.Caption := horario.Profissional.Nome;
   lbPessoa.Caption       := horario.Pessoa.Nome;
@@ -83,6 +88,7 @@ end;
 
 procedure TfrmCriaReposicaoHorario.criaReposicao;
 var reposicao :TSPA;
+    agendado  :TServicoAgendado;
 begin
   try
     reposicao := TSPA.Create;
@@ -92,7 +98,17 @@ begin
     reposicao.data            := dtpDataReposicao.Date;
     reposicao.hora            := StrToTime(cmbHora.Items[cmbHora.ItemIndex]+':'+cmbMinutos.Items[cmbMinutos.ItemIndex]);
     reposicao.reposicao       := FHorario.ID;
+
+    for agendado in FHorario.ServicosAgendados do
+    begin
+      reposicao.ServicosAgendados.Add(agendado);
+    end;
+    {salva reposição}
     reposicao.Save;
+
+    {atualiza horário como reposto}
+    FHorario.tipo := 'R';
+    FHorario.Save;
 
     avisar('Reposição criada com sucesso');
     btnCancelar.Click;

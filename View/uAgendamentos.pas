@@ -92,6 +92,16 @@ type
     lbHorarios: TLabel;
     Image5: TImage;
     Label1: TLabel;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Image1: TImage;
+    Image4: TImage;
+    Image6: TImage;
+    Label34: TLabel;
+    Label35: TLabel;
+    Label36: TLabel;
+    lbProfissional: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnCriaHorarioClick(Sender: TObject);
     procedure BuscaDepartamento1Exit(Sender: TObject);
@@ -240,7 +250,7 @@ end;
 procedure TfrmAgendamentos.btnCriaHorarioClick(Sender: TObject);
 begin
   if not informacoesFornecidas then
-
+    exit;
   if BuscaDepartamento1.Departamento.tipoHorarios = 'D' then
     criaHorarioDiario
   else
@@ -288,7 +298,8 @@ begin
   begin
     calendario.Enabled := false;
     rgpDiasSemana.Enabled := false;
-    cdsHorariosDia.EmptyDataSet;
+    if cdsHorariosDia.active then
+      cdsHorariosDia.EmptyDataSet;
   end;
 end;
 
@@ -473,7 +484,7 @@ begin
   if (horario.compareceu <> '') then
   begin
     imagem := TImage.Create(self);
-    ImageList.GetBitmap(IfThen(horario.compareceu = 'S',1,2),imagem.Picture.Bitmap);
+    ImageList.GetBitmap( IfThen(horario.tipo = 'R',5, IfThen(horario.compareceu = 'S',1,2)),imagem.Picture.Bitmap );
     imagem.Parent := panelList.Items[panelList.Count-1];
     imagem.Left   := 0;
     imagem.Top    := 0;
@@ -684,7 +695,9 @@ var horario :TSPA;
 begin
   horario := TSPA.Create;
   horario.Load(FIDHorarioSelecionado);
-  frmCriaReposicaoHorario := TfrmCriaReposicaoHorario.create(self, horario);
+  frmCriaReposicaoHorario      := TfrmCriaReposicaoHorario.create(self, horario);
+  frmCriaReposicaoHorario.left := self.Width - frmCriaReposicaoHorario.Width -2;
+  frmCriaReposicaoHorario.Top  := 2;
   frmCriaReposicaoHorario.Show;
 end;
 
@@ -712,8 +725,9 @@ var Horario  :TSPA;
     Horarios :TObjectList<TSPA>;
 begin
  try
-   lbHorarios.Caption := 'Horários '+BuscaDepartamento1.Departamento.departamento+' - dia '+DateToStr(calendario.Date)
-                                    +'   ('+TUtilitario.diaSemanaExtenso(calendario.Date)+')';
+   lbHorarios.Caption       := BuscaDepartamento1.Departamento.departamento+' - '+DateToStr(calendario.Date)
+                               +'   ('+TUtilitario.diaSemanaExtenso(calendario.Date)+')';
+   lbProfissional.Caption   := BuscaProfissional.Pessoa.Nome;
    Horario  := TSPA.Create;
    Horarios := Horario.LoadList<TSPA>('WHERE DATA = '''+FormatDateTime('dd.mm.yyyy', calendario.Date)+''' '+
                                       'and ID_DEPARTAMENTO = '+IntToStr(BuscaDepartamento1.Departamento.ID)+
@@ -732,7 +746,7 @@ var Cliente  :TClienteMensal;
     Clientes :TObjectList<TClienteMensal>;
 begin
  try
-   lbHorarios.Caption := 'Horários '+BuscaDepartamento1.Departamento.departamento+' ('+TUtilitario.diaSemanaExtenso(calendario.Date)+')';
+   lbHorarios.Caption := BuscaDepartamento1.Departamento.departamento+' ('+TUtilitario.diaSemanaExtenso(calendario.Date)+')';
    Cliente  := TClienteMensal.Create;
    Clientes := Cliente.LoadList<TClienteMensal>('WHERE ID_PROFISSIONAL = '+intToStr(BuscaProfissional.Pessoa.ID));
 
@@ -802,6 +816,9 @@ begin
                                                              BuscaPessoa1.Pessoa,
                                                              BuscaDepartamento1.Departamento,
                                                              BuscaConvenio1.Convenio);
+
+  frmCriaHorarioDiario.left := self.Width - frmCriaHorarioDiario.Width -2;
+  frmCriaHorarioDiario.Top  := 2;
   frmCriaHorarioDiario.Show;
 //  frmCriaHorarioDiario.Release;
 //  frmCriaHorarioDiario := nil;
@@ -813,6 +830,8 @@ begin
                                                              BuscaPessoa1.Pessoa,
                                                              BuscaDepartamento1.Departamento,
                                                              BuscaConvenio1.Convenio);
+  frmCriaHorarioMensal.left := self.Width - frmCriaHorarioMensal.Width -2;
+  frmCriaHorarioMensal.Top  := 2;
   frmCriaHorarioMensal.Show;
 //  frmCriaHorarioMensal.Release;
 //  frmCriaHorarioMensal := nil;
@@ -910,7 +929,7 @@ procedure TfrmAgendamentos.SpeedButtonClick(Sender: TObject);
 var
   pt: TPoint;
   dataConsulta, dataAtual :TDate;
-  horarioCriado, faltou, compareceu, cancelado :Boolean;
+  horarioCriado, faltou, compareceu, cancelado, reposto :Boolean;
   condicaoFaltou, condicaoCompareceu, condicaoCancelar, condicaoReposicao :Boolean;
   horario :TSPA;
 begin
@@ -935,11 +954,12 @@ begin
     faltou     := horario.compareceu = 'N';
     compareceu := horario.compareceu = 'S';
     cancelado  := horario.tipo = 'C';
+    reposto    := horario.tipo = 'R';
 
-    condicaoFaltou     := not(faltou) and not(compareceu);
-    condicaoCompareceu := not(faltou) and not(compareceu);
+    condicaoFaltou     := not(faltou) and not(compareceu) and not (cancelado) and not (reposto);
+    condicaoCompareceu := not(faltou) and not(compareceu) and not (cancelado) and not (reposto);
     condicaoCancelar   := not(faltou) and not(compareceu) and not (cancelado);
-    condicaoReposicao  := cancelado or faltou;
+    condicaoReposicao  := cancelado or faltou and not (reposto);
   end
   else
     FIDPessoa             := TSPeedButton(Sender).Parent.Tag;
@@ -948,11 +968,12 @@ begin
                                                and (TUtilitario.minutosParaHora(FHoraMarcadaEmMinutos)< time));
   popFaltou.Enabled          := condicaoCompareceu and (dataConsulta < dataAtual) or (   (DateToStr(calendario.Date) = DateToStr(date) )
                                                    and (TUtilitario.minutosParaHora(FHoraMarcadaEmMinutos)< time));
-  popCancelarHorario.Enabled := condicaoCancelar and (dataConsulta > dataAtual) or ( (DateToStr(calendario.Date) = DateToStr(date) )
-                                                 and (TUtilitario.minutosParaHora(FHoraMarcadaEmMinutos)> time));
+  popCancelarHorario.Enabled := condicaoCancelar and ((dataConsulta > dataAtual) or ( (DateToStr(calendario.Date) = DateToStr(date) )
+                                                 and (TUtilitario.minutosParaHora(FHoraMarcadaEmMinutos)> time)));
 
   {só é possivel marcar uma reposição para horários MENSAIS (criados), CANCELADOS ou FALTAS}
-  popReposicao.Enabled       := condicaoReposicao and (BuscaDepartamento1.Departamento.tipoHorarios = 'M');
+  popReposicao.visible       := (BuscaDepartamento1.Departamento.tipoHorarios = 'M');
+  popReposicao.Enabled       := condicaoReposicao;
 
   GetCursorPos(pt);
   pupUpOpcoes.Popup(pt.X, pt.Y);
@@ -990,6 +1011,8 @@ begin
   //btnCancelarHorario.Enabled := false;
   BuscaProfissional.limpa;
   BuscaPessoa1.limpa;
+  lbHorarios.Caption := '...';
+  lbProfissional.Caption := '...';
  // BuscaConvenio1.limpa;
  // BuscaTabelaPreco1.limpa;
  // edtTempoDuracao.Clear;

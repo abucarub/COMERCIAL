@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, Generics.Collections,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uPadrao, Data.DB, Datasnap.DBClient, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Grids,
   Vcl.DBGrids, System.StrUtils, Vcl.Mask, JvExMask, JvToolEdit, Vcl.Buttons, Pessoa, Departamento, Convenio, TabelaPreco,
-  ClienteMensal;
+  ClienteMensal, JvMaskEdit, JvCheckedMaskEdit, JvDatePickerEdit, Vcl.ComCtrls, JvExComCtrls, JvDateTimePicker;
 
 type
   TfrmCriaHorarioMensal = class(TfrmPadrao)
@@ -19,7 +19,6 @@ type
     cmbMinutos: TComboBox;
     cdsDiasSemanaHORA: TStringField;
     cdsDiasSemanaMINUTOS: TStringField;
-    dtpDataInicial: TJvDateEdit;
     Panel2: TPanel;
     BitBtn2: TBitBtn;
     BitBtn3: TBitBtn;
@@ -44,6 +43,7 @@ type
     Label6: TLabel;
     cmbDiaPagamento: TComboBox;
     cdsDiasSemanaNUM_DIA: TIntegerField;
+    dtpDataInicial: TJvDatePickerEdit;
     procedure gridDiasSemanaCellClick(Column: TColumn);
     procedure FormCreate(Sender: TObject);
     procedure gridDiasSemanaDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;

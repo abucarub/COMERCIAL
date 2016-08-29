@@ -59,6 +59,7 @@ type
     procedure BitBtn2Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BitBtn3Click(Sender: TObject);
+    procedure calendarioClick(Sender: TObject);
   private
     FPessoa :TPessoa;
     FProfissional :TPessoa;
@@ -123,6 +124,15 @@ end;
 procedure TfrmCriaHorarioDiario.BitBtn3Click(Sender: TObject);
 begin
   self.Close;
+end;
+
+procedure TfrmCriaHorarioDiario.calendarioClick(Sender: TObject);
+begin
+  if calendario.Date < date then
+  begin
+    avisar('Atenção! Um horário não pode ser criado para uma data que já passou.');
+    calendario.Date := date;
+  end;
 end;
 
 procedure TfrmCriaHorarioDiario.carregarServicos;

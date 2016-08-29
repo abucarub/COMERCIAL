@@ -1,10 +1,10 @@
 inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
-  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Cria hor'#225'rios di'#225'rio'
   ClientHeight = 610
   ClientWidth = 700
   FormStyle = fsStayOnTop
+  Position = poDefault
   Visible = True
   OnClose = FormClose
   ExplicitWidth = 706
@@ -145,7 +145,6 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
         Expanded = False
         FieldName = 'PRECO'
         ReadOnly = True
-        Width = 64
         Visible = True
       end>
   end
@@ -156,8 +155,9 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
     Height = 160
     CalColors.TextColor = clBlue
     CalColors.MonthBackColor = clTeal
-    Date = 42566.469616655090000000
+    Date = 42566.454962847220000000
     TabOrder = 1
+    OnClick = calendarioClick
   end
   object Panel1: TPanel
     Left = 0

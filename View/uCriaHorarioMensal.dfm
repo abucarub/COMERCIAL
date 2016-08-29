@@ -1,10 +1,12 @@
 inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
+  BorderStyle = bsSingle
   Caption = 'Cria hor'#225'rios mensal'
-  ClientHeight = 428
-  ClientWidth = 825
+  ClientHeight = 430
+  ClientWidth = 819
   FormStyle = fsStayOnTop
-  ExplicitWidth = 841
-  ExplicitHeight = 466
+  Position = poDefault
+  ExplicitWidth = 825
+  ExplicitHeight = 458
   PixelsPerInch = 96
   TextHeight = 18
   object Label1: TLabel
@@ -34,7 +36,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 22
+    Left = 18
     Top = 104
     Width = 162
     Height = 18
@@ -88,6 +90,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
+        Width = 23
         Visible = True
       end
       item
@@ -153,25 +156,18 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
       '45'
       '')
   end
-  object dtpDataInicial: TJvDateEdit
-    Left = 240
-    Top = 330
-    Width = 121
-    Height = 26
-    ShowNullDate = False
-    TabOrder = 3
-    OnChange = dtpDataInicialChange
-  end
   object Panel2: TPanel
     Left = 0
-    Top = 383
-    Width = 825
+    Top = 385
+    Width = 819
     Height = 45
     Align = alBottom
     ParentBackground = False
-    TabOrder = 4
+    TabOrder = 3
+    ExplicitTop = 383
+    ExplicitWidth = 825
     object BitBtn2: TBitBtn
-      Left = 532
+      Left = 636
       Top = 8
       Width = 158
       Height = 30
@@ -248,7 +244,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
       OnClick = BitBtn2Click
     end
     object BitBtn3: TBitBtn
-      Left = 356
+      Left = 460
       Top = 8
       Width = 158
       Height = 30
@@ -327,16 +323,17 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 825
+    Width = 819
     Height = 84
     Align = alTop
     Color = 14732969
     ParentBackground = False
-    TabOrder = 5
+    TabOrder = 4
+    ExplicitWidth = 825
     object Shape1: TShape
       Left = 1
       Top = 1
-      Width = 823
+      Width = 817
       Height = 31
       Align = alTop
       Brush.Color = 14073227
@@ -415,7 +412,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     Width = 345
     Height = 188
     DataSource = dsServicos
-    TabOrder = 6
+    TabOrder = 5
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -15
@@ -432,13 +429,14 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
+        Width = 26
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'SERVICO'
         ReadOnly = True
-        Width = 207
+        Width = 204
         Visible = True
       end
       item
@@ -456,7 +454,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     Height = 26
     Style = csDropDownList
     ItemIndex = 0
-    TabOrder = 7
+    TabOrder = 6
     Text = '<dia>'
     Items.Strings = (
       '<dia>'
@@ -466,6 +464,16 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
       '15'
       '20'
       '25')
+  end
+  object dtpDataInicial: TJvDatePickerEdit
+    Left = 240
+    Top = 330
+    Width = 121
+    Height = 26
+    AllowNoDate = True
+    Checked = True
+    TabOrder = 7
+    OnChange = dtpDataInicialChange
   end
   object cdsDiasSemana: TClientDataSet
     Aggregates = <>
