@@ -18,7 +18,6 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
     Color = 14732969
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 613
     object Shape1: TShape
       Left = 1
       Top = 1
@@ -103,8 +102,6 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 376
-    ExplicitWidth = 613
     DesignSize = (
       616
       46)
@@ -185,7 +182,6 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnSalvarClick
-      ExplicitLeft = 433
     end
     object btnCancelar: TBitBtn
       Left = 260
@@ -264,7 +260,6 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnCancelarClick
-      ExplicitLeft = 257
     end
   end
   object GroupBox1: TGroupBox

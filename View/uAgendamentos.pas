@@ -95,13 +95,10 @@ type
     Shape3: TShape;
     Shape4: TShape;
     Shape5: TShape;
-    Image1: TImage;
-    Image4: TImage;
-    Image6: TImage;
-    Label34: TLabel;
     Label35: TLabel;
     Label36: TLabel;
     lbProfissional: TLabel;
+    Label34: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnCriaHorarioClick(Sender: TObject);
     procedure BuscaDepartamento1Exit(Sender: TObject);
@@ -110,7 +107,6 @@ type
    // procedure dbgHorariosDiaDrawColumnCell(Sender: TObject; const [Ref] Rect: TRect;
 //      DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure BuscaProfissionalExit(Sender: TObject);
-    procedure btnCancelarHorarioClick(Sender: TObject);
     procedure BuscaDepartamento1edtDepartamentoChange(Sender: TObject);
     procedure rgpDiasSemanaClick(Sender: TObject);
     procedure DBGrid1Enter(Sender: TObject);
@@ -155,7 +151,6 @@ type
     procedure defineHorarioMinMax;
     procedure setaHorario(horario :TTime);
     procedure adicionaServicoHorario(Horario :TSPA; ID_TabelaPreco :integer; tempoServico :TTime);
-    function cancelaHorario :Boolean;
     procedure cancelaHorarioCriado;
     procedure cancelaHorarioMensal;
     procedure criaHorarioCancelado;
@@ -215,7 +210,7 @@ begin
 
       servicoAgendado         := nil;
       servicoAgendado         := TServicoAgendado.Create;
-      servicoAgendado.ID_TabelaPreco := getIDTabelaPrecoClienteMensal(FIDPessoa, horario.ID_Departamento, horario.ID_Profissional);;
+      servicoAgendado.ID_TabelaPreco := getIDTabelaPrecoClienteMensal(FIDPessoa, horario.ID_Departamento, horario.ID_Profissional);
       servicoAgendado.duracao := BuscaDepartamento1.Departamento.Servicos.Items[0].Duracao;
       horario.ServicosAgendados.Add(servicoAgendado);
     end;
@@ -239,12 +234,6 @@ begin
     on e:Exception do
       raise Exception.Create('Erro ao cancelar horário');
   end;
-end;
-
-procedure TfrmAgendamentos.btnCancelarHorarioClick(Sender: TObject);
-begin
-  if cancelaHorario then
-    MessageDlg('Horário cancelado com sucesso.', mtInformation,[mbOk],0);
 end;
 
 procedure TfrmAgendamentos.btnCriaHorarioClick(Sender: TObject);
@@ -346,11 +335,6 @@ begin
   end;
 end;
 
-function TfrmAgendamentos.cancelaHorario: Boolean;
-begin
-
-end;
-
 procedure TfrmAgendamentos.cancelaHorarioCriado;
 var horario :TSPA;
 begin
@@ -437,8 +421,19 @@ begin
   labelHoraConsulta.Height      := 13;
   if horario.tipo = 'C' then
     labelHoraConsulta.Color       := $007DABFF
+  else if horario.tipo = 'R' then
+    labelHoraConsulta.Color       := $00CD3096
   else
     labelHoraConsulta.Color       := $00BCB485;
+
+  if horario.tipo <> 'R' then
+  begin
+    if horario.compareceu = 'S' then
+      labelHoraConsulta.Color       := $0032B67D
+    else if horario.compareceu = 'N' then
+      labelHoraConsulta.Color       := $00242CB0;
+  end;
+
   labelHoraConsulta.Font.Color  := clWhite;
   labelHoraConsulta.Font.Name  := 'Lucida Console';
   labelHoraConsulta.Font.Size  := 8; 
@@ -481,7 +476,7 @@ begin
   btnOpcoes.Tag       := TUtilitario.horaParaMinutos(horario.hora);
   btnOpcoes.Flat      := true;
 
-  if (horario.compareceu <> '') then
+{  if (horario.compareceu <> '') then
   begin
     imagem := TImage.Create(self);
     ImageList.GetBitmap( IfThen(horario.tipo = 'R',5, IfThen(horario.compareceu = 'S',1,2)),imagem.Picture.Bitmap );
@@ -490,7 +485,7 @@ begin
     imagem.Top    := 0;
     imagem.Height := 16;
     imagem.Width  := 16;
-  end;
+  end;   }
 
 end;
 
@@ -547,15 +542,19 @@ end;
 
 procedure TfrmAgendamentos.popCancelarHorarioClick(Sender: TObject);
 begin
-  if BuscaDepartamento1.Departamento.tipoHorarios = 'D' then
-    cancelaHorarioCriado
-  else
-    cancelaHorarioMensal;
+  if confirma('Confirma cancelamento do horário?') then
+  begin
+    if BuscaDepartamento1.Departamento.tipoHorarios = 'D' then
+      cancelaHorarioCriado
+    else
+      cancelaHorarioMensal;
+  end;
 end;
 
 procedure TfrmAgendamentos.popCompareceuClick(Sender: TObject);
 begin
-  alteraStatusHorario('S');
+  if confirma('Confirma alteração do estados do horário para "COMPARECEU"?') then
+    alteraStatusHorario('S');
 end;
 
 procedure TfrmAgendamentos.rgpDiasSemanaClick(Sender: TObject);
@@ -799,15 +798,27 @@ end;
 
 procedure TfrmAgendamentos.criaHorarioCancelado;
 var horario :TSPA;
+    agendado :TServicoAgendado;
 begin
-  horario                 := TSPA.Create;
-  horario.ID_Pessoa       := FIDPessoa;
-  horario.ID_Departamento := BuscaDepartamento1.Departamento.ID;
-  horario.ID_Profissional := BuscaProfissional.Pessoa.ID;
-  horario.data            := calendario.Date;
-  horario.hora            := TUtilitario.minutosParaHora(FHoraMarcadaEmMinutos);
-  horario.tipo            := 'C';
-  horario.Save;
+  try
+    horario                 := TSPA.Create;
+    horario.ID_Pessoa       := FIDPessoa;
+    horario.ID_Departamento := BuscaDepartamento1.Departamento.ID;
+    horario.ID_Profissional := BuscaProfissional.Pessoa.ID;
+    horario.data            := calendario.Date;
+    horario.hora            := TUtilitario.minutosParaHora(FHoraMarcadaEmMinutos);
+    horario.tipo            := 'C';
+
+    agendado                := TServicoAgendado.Create;
+    agendado.ID_TabelaPreco := getIDTabelaPrecoClienteMensal(FIDPessoa, horario.ID_Departamento, horario.ID_Profissional);
+    agendado.duracao        := BuscaDepartamento1.Departamento.Servicos.Items[0].Duracao;
+    horario.ServicosAgendados.Add(agendado);
+    horario.Save;
+    calendarioClick(nil);
+    avisar('Horário cancelado com sucesso!');
+  finally
+    FreeAndNil(horario);
+  end;
 end;
 
 procedure TfrmAgendamentos.criaHorarioDiario;
@@ -1021,7 +1032,8 @@ end;
 
 procedure TfrmAgendamentos.popFaltouClick(Sender: TObject);
 begin
-  alteraStatusHorario('N');
+  if confirma('Confirma alteração do estados do horário para "FALTOU"?') then
+    alteraStatusHorario('N');
 end;
 
 end.

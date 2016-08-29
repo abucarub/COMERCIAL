@@ -10,7 +10,7 @@ uses
   FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, Data.DB,
   FireDAC.Comp.Client, uPadrao, JvExControls, JvCalendar, JvExComCtrls,
   JvMonthCalendar, Vcl.Grids, Vcl.Samples.Calendar, Vcl.ComCtrls,
-  VclTee.TeeGDIPlus, VCLTee.TeeData, VCLTee.TeEngine, Vcl.ExtCtrls,
+  VclTee.TeeGDIPlus, VCLTee.TeeData, VCLTee.TeEngine, Vcl.ExtCtrls, midaslib,
   VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series, VCLTee.GanttCh, Vcl.AppEvnts, Vcl.StdCtrls, Vcl.Imaging.pngimage;
 
 type
