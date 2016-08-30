@@ -487,13 +487,15 @@ inherited frmCriaReposicaoHorario: TfrmCriaReposicaoHorario
         '45'
         '')
     end
-    object dtpDataReposicao: TJvDateEdit
+    object dtpDataReposicao: TJvDatePickerEdit
       Left = 80
       Top = 64
-      Width = 121
+      Width = 118
       Height = 26
-      ShowNullDate = False
+      AllowNoDate = True
+      Checked = False
       TabOrder = 2
+      OnChange = dtpDataReposicaoChange
     end
   end
 end

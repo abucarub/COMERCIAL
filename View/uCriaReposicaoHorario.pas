@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, SPA, System.StrUtils,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uPadrao, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, Vcl.ComCtrls, JvExComCtrls, JvMonthCalendar, Vcl.Mask,
-  JvExMask, JvToolEdit;
+  JvExMask, JvToolEdit, JvMaskEdit, JvCheckedMaskEdit, JvDatePickerEdit;
 
 type
   TfrmCriaReposicaoHorario = class(TfrmPadrao)
@@ -32,12 +32,13 @@ type
     Label9: TLabel;
     cmbHora: TComboBox;
     cmbMinutos: TComboBox;
-    dtpDataReposicao: TJvDateEdit;
     Label7: TLabel;
     edtDiaSemana: TEdit;
+    dtpDataReposicao: TJvDatePickerEdit;
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure dtpDataReposicaoChange(Sender: TObject);
   private
     FHorario :TSPA;
 
@@ -99,10 +100,12 @@ begin
     reposicao.hora            := StrToTime(cmbHora.Items[cmbHora.ItemIndex]+':'+cmbMinutos.Items[cmbMinutos.ItemIndex]);
     reposicao.reposicao       := FHorario.ID;
 
-    for agendado in FHorario.ServicosAgendados do
-    begin
-      reposicao.ServicosAgendados.Add(agendado);
-    end;
+    agendado := TServicoAgendado.Create;
+    agendado.ID_TabelaPreco := FHorario.ServicosAgendados.Items[0].ID_TabelaPreco;
+    agendado.duracao        := FHorario.ServicosAgendados.Items[0].duracao;
+
+    reposicao.ServicosAgendados.Add(agendado);
+
     {salva reposição}
     reposicao.Save;
 
@@ -114,6 +117,18 @@ begin
     btnCancelar.Click;
   finally
     FreeAndNil(reposicao);
+  end;
+end;
+
+procedure TfrmCriaReposicaoHorario.dtpDataReposicaoChange(Sender: TObject);
+begin
+  if dtpDataReposicao.Date <= strToDate(edtData.Text) then
+  begin
+    avisar('A data de reposição deve ser maior que a data do horário a ser reposto');
+    dtpDataReposicao.OnChange := nil;
+    dtpDataReposicao.Clear;
+    dtpDataReposicao.OnChange := dtpDataReposicaoChange;
+    dtpDataReposicao.SetFocus;
   end;
 end;
 

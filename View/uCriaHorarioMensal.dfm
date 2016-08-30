@@ -468,7 +468,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     Width = 121
     Height = 26
     AllowNoDate = True
-    Checked = True
+    Checked = False
     TabOrder = 7
     OnChange = dtpDataInicialChange
   end

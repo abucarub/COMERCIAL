@@ -22,9 +22,18 @@ type
     Agendamentos1: TMenuItem;
     Fisioterapia1: TMenuItem;
     Image1: TImage;
+    lbAgendar: TLabel;
+    lbContas: TLabel;
+    Image2: TImage;
+    Image3: TImage;
     procedure Clientes1Click(Sender: TObject);
     procedure Fisioterapia1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Image2MouseEnter(Sender: TObject);
+    procedure Image3MouseEnter(Sender: TObject);
+    procedure Image3MouseLeave(Sender: TObject);
+    procedure Image2MouseLeave(Sender: TObject);
+    procedure Image2Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -64,6 +73,31 @@ begin
     abort;
 
   inherited;
+end;
+
+procedure TfrmInicial.Image2Click(Sender: TObject);
+begin
+  Fisioterapia1Click(nil);
+end;
+
+procedure TfrmInicial.Image2MouseEnter(Sender: TObject);
+begin
+  lbAgendar.Font.Color := clAqua;
+end;
+
+procedure TfrmInicial.Image2MouseLeave(Sender: TObject);
+begin
+  lbAgendar.Font.Color := clBlack;
+end;
+
+procedure TfrmInicial.Image3MouseEnter(Sender: TObject);
+begin
+  lbContas.Font.Color := clAqua;
+end;
+
+procedure TfrmInicial.Image3MouseLeave(Sender: TObject);
+begin
+  lbContas.Font.Color := clBlack;
 end;
 
 end.

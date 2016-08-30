@@ -207,6 +207,7 @@ end;
 
 procedure TfrmCriaHorarioMensal.dtpDataInicialChange(Sender: TObject);
 begin
+  dtpDataInicial.OnChange := nil;
   if (dtpDataInicial.Date < date) then
   begin
     avisar('A data selecionada não pode ser inferior a data de hoje');
@@ -217,7 +218,7 @@ begin
     avisar('A data de início deve corresponder a um dos dias da semana selecionados acima');
     dtpDataInicial.Clear;
   end;
-
+    dtpDataInicial.OnChange := dtpDataInicialChange;
 end;
 
 procedure TfrmCriaHorarioMensal.FormCreate(Sender: TObject);

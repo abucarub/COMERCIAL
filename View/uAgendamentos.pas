@@ -37,6 +37,34 @@ type
     BuscaPessoa1: TBuscaPessoa;
     BuscaProfissional: TBuscaPessoa;
     pnlCorpo: TPanel;
+    rgpDiasSemana: TRadioGroup;
+    StaticText1: TStaticText;
+    gpbCalendario: TGroupBox;
+    calendario: TJvMonthCalendar;
+    btnCriaHorario: TBitBtn;
+    BuscaConvenio1: TBuscaConvenio;
+    pupUpOpcoes: TPopupMenu;
+    ImageList: TImageList;
+    popCancelarHorario: TMenuItem;
+    popCompareceu: TMenuItem;
+    popFaltou: TMenuItem;
+    popReposicao: TMenuItem;
+    GroupBox1: TGroupBox;
+    Shape1: TShape;
+    Shape2: TShape;
+    Label3: TLabel;
+    pnlTopo: TPanel;
+    Panel1: TPanel;
+    lbHorarios: TLabel;
+    Image5: TImage;
+    Label1: TLabel;
+    Shape3: TShape;
+    Shape4: TShape;
+    Shape5: TShape;
+    Label35: TLabel;
+    Label36: TLabel;
+    lbProfissional: TLabel;
+    Label34: TLabel;
     ScrollBox1: TScrollBox;
     pnlHorarios: TPanel;
     Label2: TLabel;
@@ -70,35 +98,8 @@ type
     Label31: TLabel;
     Label32: TLabel;
     Label33: TLabel;
-    rgpDiasSemana: TRadioGroup;
-    StaticText1: TStaticText;
-    gpbCalendario: TGroupBox;
-    calendario: TJvMonthCalendar;
-    btnCriaHorario: TBitBtn;
-    BuscaConvenio1: TBuscaConvenio;
-    pupUpOpcoes: TPopupMenu;
-    ImageList: TImageList;
-    popCancelarHorario: TMenuItem;
-    popCompareceu: TMenuItem;
-    popFaltou: TMenuItem;
-    popReposicao: TMenuItem;
-    GroupBox1: TGroupBox;
-    Shape1: TShape;
-    Shape2: TShape;
-    Label3: TLabel;
-    Image3: TImage;
-    pnlTopo: TPanel;
-    Panel1: TPanel;
-    lbHorarios: TLabel;
-    Image5: TImage;
-    Label1: TLabel;
-    Shape3: TShape;
-    Shape4: TShape;
-    Shape5: TShape;
-    Label35: TLabel;
-    Label36: TLabel;
-    lbProfissional: TLabel;
-    Label34: TLabel;
+    Panel3: TPanel;
+    Image1: TImage;
     procedure FormCreate(Sender: TObject);
     procedure btnCriaHorarioClick(Sender: TObject);
     procedure BuscaDepartamento1Exit(Sender: TObject);
@@ -123,6 +124,7 @@ type
     procedure popCompareceuClick(Sender: TObject);
     procedure popReposicaoClick(Sender: TObject);
     procedure Image3MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    procedure pnlHorariosMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
   private
     FIDHorarioSelecionado :Integer;
     FIDPessoa :Integer;
@@ -394,25 +396,27 @@ var labelHoraConsulta :TLabel;
     shapeFundo        :TShape;
     btnOpcoes         :TSpeedButton;
     imagem            :TImage;
+    panel             :TPanel;
 begin
   {cria panel horario}
-  panelList.Add(TPanel.Create(self));
-  panelList.Items[panelList.Count-1].Name   := 'pnlHr'+intToStr(horario.ID)+IfThen(horario.ID = 0,intToStr(panelList.Count)+'c','');
+  panel        := TPanel.Create(self);
+  panel.Visible := false;
+  panel.Name   := 'pnlHr'+intToStr(horario.ID)+IfThen(horario.ID = 0,intToStr(panelList.Count)+'c','');
 
-  panelList.Items[panelList.Count-1].Tag    := IfThen(horario.ID = 0, horario.ID_Pessoa, 0);
-  panelList.Items[panelList.Count-1].Parent := pnlHorarios;
-  panelList.Items[panelList.Count-1].Top    := calculaTopHorario(horario);
-  panelList.Items[panelList.Count-1].Left   := calculaLeftHorario( panelList.Items[panelList.Count-1]);
-  panelList.Items[panelList.Count-1].Height := TUtilitario.horaParaMinutos(horario.duracaoServicos);
-  panelList.Items[panelList.Count-1].Width  := 220;
-  panelList.Items[panelList.Count-1].Repaint;  
-  panelList.Items[panelList.Count-1].BevelOuter := bvNone;
-  panelList.Items[panelList.Count-1].BevelKind  := bkFlat;
-  panelList.Items[panelList.Count-1].Caption    := '';
+  panel.Tag    := IfThen(horario.ID = 0, horario.ID_Pessoa, 0);
+  panel.Parent := pnlHorarios;
+  panel.Top    := calculaTopHorario(horario);
+  panel.Left   := calculaLeftHorario( panel);
+  panel.Height := TUtilitario.horaParaMinutos(horario.duracaoServicos);
+  panel.Width  := 220;
+  panel.Repaint;
+  panel.BevelOuter := bvNone;
+  panel.BevelKind  := bkFlat;
+  panel.Caption    := '';
 
   {cria label hora consulta}
   labelHoraConsulta             := TLabel.Create(self);
-  labelHoraConsulta.Parent      := panelList.Items[panelList.Count-1];
+  labelHoraConsulta.Parent      := panel;
   labelHoraConsulta.Caption     := TimeToStr(horario.hora)+' às '+TimeToStr(horario.hora+horario.duracaoServicos);
   labelHoraConsulta.Align       := alTop;
   labelHoraConsulta.AutoSize    := false;
@@ -441,7 +445,7 @@ begin
 
   { cria shape de fundo }  
   shapeFundo              := TShape.Create(self);
-  shapeFundo.Parent       := panelList.Items[panelList.Count-1];
+  shapeFundo.Parent       := panel;
 
   if horario.tipo = 'C' then
     shapeFundo.Brush.Color  := $00D9E6FF
@@ -452,7 +456,7 @@ begin
 
   {cria label nome cliente}
   labelNomeCliente             := TLabel.Create(self);
-  labelNomeCliente.Parent      := panelList.Items[panelList.Count-1];
+  labelNomeCliente.Parent      := panel;
   labelNomeCliente.Caption     := horario.Pessoa.Nome;
 //  labelNomeCliente.Align       := alBottom;
 //  labelNomeCliente.AutoSize    := false;
@@ -464,18 +468,20 @@ begin
   labelNomeCliente.Font.Color  := $003C3C3C;
   labelNomeCliente.Font.Size   := 9;
   labelNomeCliente.Left        := 3;
-  labelNomeCliente.Top         := trunc(panelList.Items[panelList.Count-1].Height / 2);
+  labelNomeCliente.Top         := trunc(panel.Height / 2);
 
   {cria botão de opções}
   btnOpcoes           := TSpeedButton.Create(self);
   ImageList.GetBitmap(0,btnOpcoes.Glyph);
-  btnOpcoes.Parent    := panelList.Items[panelList.Count-1];
-  btnOpcoes.Left      := panelList.Items[panelList.Count-1].Width-btnOpcoes.Width-2;
-  btnOpcoes.Top       := panelList.Items[panelList.Count-1].Height-btnOpcoes.Height-2;
+  btnOpcoes.Parent    := panel;
+  btnOpcoes.Left      := panel.Width-btnOpcoes.Width-2;
+  btnOpcoes.Top       := panel.Height-btnOpcoes.Height-2;
   btnOpcoes.OnClick   := SpeedButtonClick;
   btnOpcoes.Tag       := TUtilitario.horaParaMinutos(horario.hora);
   btnOpcoes.Flat      := true;
 
+  panel.Visible := true;
+  panelList.Add(panel);
 {  if (horario.compareceu <> '') then
   begin
     imagem := TImage.Create(self);
@@ -540,6 +546,12 @@ begin
   end;
 end;
 
+procedure TfrmAgendamentos.pnlHorariosMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+begin
+  if not (screen.ActiveControl = scrollbox1) then
+    scrollbox1.SetFocus;
+end;
+
 procedure TfrmAgendamentos.popCancelarHorarioClick(Sender: TObject);
 begin
   if confirma('Confirma cancelamento do horário?') then
@@ -566,11 +578,9 @@ end;
 procedure TfrmAgendamentos.calendarioClick(Sender: TObject);
 var dataSelecionada, dataHoje :TDate;
 begin
-  dataSelecionada := calendario.Date;
-  dataHoje        := Date;
+  dataSelecionada        := calendario.Date;
+  dataHoje               := Date;
   btnCriaHorario.Enabled := dataSelecionada >= dataHoje;
-
-
 
   limpaHorariosTela;
   carregarHorariosDia;
@@ -581,19 +591,25 @@ end;
 
 procedure TfrmAgendamentos.ScrollBox1MouseWheelDown(Sender: TObject; Shift: TShiftState; MousePos: TPoint;
   var Handled: Boolean);
+var movimento :integer;
 begin
   with TScrollBox(Sender).VertScrollBar do
   begin
-      Position := Position - Increment;
+      movimento := TScrollBox(Sender).VertScrollBar.Position - Increment;
+      //Image1.Top                                  := IfThen(movimento < 0, 0, movimento);
+      TScrollBox(Sender).VertScrollBar.Position   := TScrollBox(Sender).VertScrollBar.Position - Increment;
   end;
 end;
 
 procedure TfrmAgendamentos.ScrollBox1MouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint;
   var Handled: Boolean);
+var movimento :integer;
 begin
   with TScrollBox(Sender).VertScrollBar do
   begin
-      Position := Position + Increment;
+      movimento  := TScrollBox(Sender).VertScrollBar.Position + Increment;
+     // Image1.Top := IfThen(movimento > 302, 302, movimento);
+      TScrollBox(Sender).VertScrollBar.Position := TScrollBox(Sender).VertScrollBar.Position + Increment;
   end;
 end;
 
@@ -614,8 +630,11 @@ begin
   FPrimeiroHorarioDia    := StrToTime('06:00:00');
   FUltimoHorarioDia      := StrToTime('21:00:00');
   cdsHorarios.CreateDataSet;
-  calendario.Date := Date;
-  DoubleBuffered := True;
+  calendario.Date            := Date;
+  self.DoubleBuffered        := True;
+  pnlHorarios.DoubleBuffered := true;
+  pnlCorpo.DoubleBuffered    := true;
+  ScrollBox1.DoubleBuffered  := true;
 end;
 
 procedure TfrmAgendamentos.FormDestroy(Sender: TObject);
@@ -729,8 +748,8 @@ begin
    lbProfissional.Caption   := BuscaProfissional.Pessoa.Nome;
    Horario  := TSPA.Create;
    Horarios := Horario.LoadList<TSPA>('WHERE DATA = '''+FormatDateTime('dd.mm.yyyy', calendario.Date)+''' '+
-                                      'and ID_DEPARTAMENTO = '+IntToStr(BuscaDepartamento1.Departamento.ID)+
-                                      'and ID_PROFISSIONAL = '+IntToStr(BuscaProfissional.Pessoa.ID)+
+                                      ' and ID_DEPARTAMENTO = '+IntToStr(BuscaDepartamento1.Departamento.ID)+
+                                      ' and ID_PROFISSIONAL = '+IntToStr(BuscaProfissional.Pessoa.ID)+
                                       ' order by HORA');
 
    mostrarHorariosDia(Horarios);
@@ -951,7 +970,7 @@ begin
   FIDHorarioSelecionado := 0;
   FIDPessoa             := 0;
   FHoraMarcadaEmMinutos := TSPeedButton(Sender).Tag;
-  dataConsulta          := calendario.Date;
+  dataConsulta          := strToDate(formatDateTime('dd/mm/yyyy',calendario.Date));
   dataAtual             := date;
 
   {se tag > 0 quer dizer que horario ainda não foi criado na tabela SPA, pois é tipo 'M' e ainda não está no dia dele}
