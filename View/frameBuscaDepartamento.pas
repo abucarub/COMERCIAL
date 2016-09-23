@@ -12,17 +12,12 @@ type
     edtCodigo: TCurrencyEdit;
     Label2: TLabel;
     edtDepartamento: TEdit;
-    imgPilates: TImage;
-    imgEstetica: TImage;
-    imgFisioterapia: TImage;
-    imgSelecione: TImage;
     procedure FrameEnter(Sender: TObject);
     procedure FrameExit(Sender: TObject);
   private
     FDepartamento :TDepartamento;
 
     procedure pesquisa;override;
-    procedure setaImagem(ID_Departamento :integer);
   protected
     procedure inicializa;override;
     procedure efetuaBusca(parametro :Variant);override;
@@ -62,7 +57,6 @@ begin
 
   edtCodigo.AsInteger   := FDepartamento.ID;
   edtDepartamento.Text  := FDepartamento.Departamento;
-  setaImagem(FDepartamento.ID);
 end;
 
 procedure TBuscaDepartamento.efetuaBusca(parametro: Variant);
@@ -117,7 +111,6 @@ begin
   if Assigned(FDepartamento) then
     FDepartamento.Clear;
   edtDepartamento.Clear;
-  setaImagem(0);
 end;
 
 procedure TBuscaDepartamento.pesquisa;
@@ -126,14 +119,6 @@ begin
   titulo := 'Selecione o departamento...';
   SQL    := 'Select d.ID, d.Departamento from DEPARTAMENTOS d ';
   self.abrePesquisa(SQl, titulo);
-end;
-
-procedure TBuscaDepartamento.setaImagem(ID_Departamento: integer);
-begin
-  imgSelecione.Visible    := ID_Departamento = 0;
-  imgFisioterapia.Visible := ID_Departamento = 1;
-  imgPilates.Visible      := ID_Departamento = 2;
-  imgEstetica.Visible     := ID_Departamento = 3;
 end;
 
 end.

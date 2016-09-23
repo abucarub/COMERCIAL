@@ -45,13 +45,14 @@ type
     //procedure Load(const AValue: Integer); overload; virtual; abstract;
     function Load(parametro :variant; const atributo :String = 'ID'): Boolean; overload;
 
+    {limpar as propriedades e liberar os objetos (usado tbm para liberar os objetos e lista de objetos no destroy)}
     procedure Clear; virtual; abstract;
 
     {retorna a instancia de uma classe (ja preenchida - Load), atraves de seu tipo e chave primaria (PK)}
     function LoadSubclassByPK<T:class>(PK :integer) :T;
 
     {retorna uma query com todos os registros cadastrados correspondente a classe}
-    procedure LoadAll(qry :TFDQuery);
+    function LoadAll{(qry :TFDQuery)}:TFDQuery;
     {retorna uma instancia, do tipo da classe passada por parametro, sendo essa classe "Detalhe" (Mestre-Detalhe)}
     function LoadOne<T:class>(const FK :Integer = 0): T;
     {retorna uma lista de instancias, do tipo da classe passada por parametro, sendo essa lista "Detalhe" (Mestre-Detalhe)}
@@ -64,7 +65,6 @@ type
     {cria uma instancia e a retorna}
     class function CreateInstance(instanceType: TRttiInstanceType; constructorMethod: TRttiMethod;
                                   const arguments: array of TValue): TObject;
-
     destructor destroy;override;
 
   end;
@@ -128,8 +128,37 @@ begin
 end;
 
 function TPersistentObject.Delete: Boolean;
+var
+  Ctx: TRttiContext;
+  RTT: TRttiType;
+  RTP: TRttiProperty;
+  Att: TCustomAttribute;
+  SQL,
+  Field,
+  Where,
+  Error,
+  ID: String;
 begin
+  Field := '';
+  Ctx := TRttiContext.Create;
+  try
+  try
+    RTT := CTX.GetType(ClassType);
 
+    SQL := 'DELETE FROM ' + GetTableName(RTT) + ' WHERE ID = '+intToStr(self.ID);
+
+    Result := TConnection.GetInstance.Execute(SQL,Error);
+  Except
+    on e:Exception do
+    begin
+      TConnection.GetInstance.Rollback;
+      MessageDlg('Erro ao deletar registro.'+#13#10+e.Message, mtInformation,[mbOk],0);
+    end;
+  end;
+  finally
+    CustomSQL := '';
+    CTX.Free;
+  end;
 end;
 
 destructor TPersistentObject.destroy;
@@ -427,7 +456,7 @@ begin
   end;
 end;
 
-procedure TPersistentObject.LoadAll(qry :TFDQuery);
+function TPersistentObject.LoadAll{(qry :TFDQuery)}:TFDQuery;
 var
   Ctx: TRttiContext;
   RTT: TRttiType;
@@ -438,14 +467,14 @@ begin
   try
     RTT := CTX.GetType(ClassType);
 
-    SQL := 'SELECT * FROM ' + GetTableName(RTT);
+    SQL := 'SELECT * FROM ' + GetTableName(RTT)+' order by 1';
 
-    qry.Close;
+{    qry.Close;
     qry.Connection := TConnection.GetInstance.Conexao;
     qry.SQL.Text   := SQL;
-    qry.Open;
+    qry.Open;}
 
-    //Result := TConnection.GetInstance.ExecuteQuery(SQL);
+    Result := TConnection.GetInstance.ExecuteQuery(SQL);
   finally
     Ctx.Free;
   end;

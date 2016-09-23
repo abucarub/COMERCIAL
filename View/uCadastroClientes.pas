@@ -9,7 +9,8 @@ uses
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
   Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls,
-  Vcl.Mask, uPersistentObject, System.StrUtils, frameBusca, frameBuscaCidade;
+  Vcl.Mask, uPersistentObject, System.StrUtils, frameBusca, frameBuscaCidade, JvExMask, JvToolEdit, JvMaskEdit, JvCheckedMaskEdit,
+  JvDatePickerEdit, DBGridCBN, Datasnap.DBClient, Datasnap.Provider;
 
 type
   TfrmCadastroClientes = class(TfrmCadastroPadrao)
@@ -25,8 +26,6 @@ type
     edtfone2: TMaskEdit;
     Label5: TLabel;
     Label6: TLabel;
-    qryID: TIntegerField;
-    qryNOME_RAZAO: TStringField;
     Shape1: TShape;
     edtRua: TEdit;
     Label7: TLabel;
@@ -36,15 +35,27 @@ type
     Label9: TLabel;
     memComplemento: TMemo;
     Label10: TLabel;
-    edtNascimento: TMaskEdit;
     Label11: TLabel;
     edtCadastro: TMaskEdit;
     Label12: TLabel;
     edtIDEndereco: TEdit;
     BuscaCidade1: TBuscaCidade;
-    procedure edtCpfEnter(Sender: TObject);
-  private
-
+    dtpNascimento: TJvDatePickerEdit;
+    cdsID: TIntegerField;
+    cdsNOME_RAZAO: TStringField;
+    cdsTIPO: TSmallintField;
+    TabSheet1: TTabSheet;
+    memQP: TMemo;
+    memHDA: TMemo;
+    memDC: TMemo;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    memConduta: TMemo;
+    Label16: TLabel;
+    Label17: TLabel;
+    memMedicamentos: TMemo;
+    edtIDDadosAdicionais: TEdit;
   protected
     procedure executaDepoisIncluir;override;
     procedure executaDepoisAlterar;override;
@@ -85,9 +96,9 @@ begin
   inherited;
   try
     Cliente                := TPessoa(Obj);
-    qryID.AsInteger        := Cliente.ID;
-    qryNOME_RAZAO.AsString := Cliente.Nome;
-    qry.Post;
+    cdsID.AsInteger        := Cliente.ID;
+    cdsNOME_RAZAO.AsString := Cliente.Nome;
+    cds.Post;
   finally
     FreeAndNil(Cliente);
   end;
@@ -103,7 +114,12 @@ var Cliente :TPessoa;
 begin
   inherited;
   Cliente := TPessoa.Create;
-  Cliente.LoadAll(qry);
+  cds.Close;
+  dsp.DataSet := Cliente.LoadAll;
+  cds.Open;
+  cds.Filtered := false;
+  cds.Filter   := 'TIPO = 1';
+  cds.Filtered := true;
 end;
 
 procedure TfrmCadastroClientes.CarregarRegistro;
@@ -112,7 +128,7 @@ begin
   inherited;
   try
     Cliente := TPessoa.Create;
-    Cliente.Load(qry.FieldByName('ID').AsInteger);
+    Cliente.Load(cds.FieldByName('ID').AsInteger);
 
     edtID.Text         := IntToStr(Cliente.ID);
     edtNomeRazao.Text  := Cliente.Nome;
@@ -122,7 +138,7 @@ begin
     edtFone2.Text      := Cliente.Fone2;
     edtEmail.Text      := Cliente.Email;
     edtCadastro.Text   := IfThen(Cliente.DtCadastro > 0, DateToStr(Cliente.DtCadastro), '');
-    edtNascimento.Text := IfThen(Cliente.DtNascimento > 0, DateToStr(Cliente.DtNascimento), '');
+    dtpNascimento.Text := IfThen(Cliente.DtNascimento > 0, DateToStr(Cliente.DtNascimento), '');
 
     if (Cliente.Endereco.ID > 0) then
     begin
@@ -134,14 +150,19 @@ begin
       memComplemento.Text   := Cliente.Endereco.Complemento;
     end;
 
+    if (Cliente.DadosAdicionais.ID > 0) then
+    begin
+      edtIDDadosAdicionais.Text := IntToStr(Cliente.DadosAdicionais.ID);
+      memQP.Text                := Cliente.DadosAdicionais.QueixaPrincipal;
+      memHDA.Text               := Cliente.DadosAdicionais.HDA;
+      memDC.Text                := Cliente.DadosAdicionais.DiagnosticoClinico;
+      memMedicamentos.Text      := Cliente.DadosAdicionais.Medicamentos;
+      memConduta.Text           := Cliente.DadosAdicionais.Conduta;
+    end;
+
   finally
     FreeAndNil(Cliente);
   end;
-end;
-
-procedure TfrmCadastroClientes.edtCpfEnter(Sender: TObject);
-begin
-  edtCpf.Color := clGreen;
 end;
 
 procedure TfrmCadastroClientes.executaDepoisAlterar;
@@ -159,6 +180,7 @@ end;
 function TfrmCadastroClientes.Incluir: Boolean;
 begin
   inherited;
+  edtCadastro.Text := DateToStr(Date);
 end;
 
 procedure TfrmCadastroClientes.LimparCampos;
@@ -172,13 +194,19 @@ begin
   edtfone2.Clear;
   edtEmail.Clear;
   edtCadastro.Text := DateToStr(Date);
-  edtNascimento.Clear;
+  dtpNascimento.Clear;
   edtIDEndereco.Clear;
   BuscaCidade1.limpa;
   edtRua.Clear;
   edtNumero.Clear;
   edtBairro.Clear;
   memComplemento.Clear;
+  edtIDDadosAdicionais.Clear;
+  memQP.Clear;
+  memHDA.Clear;
+  memDC.Clear;
+  memMedicamentos.Clear;
+  memConduta.Clear;
 end;
 
 function TfrmCadastroClientes.Salvar: TPersistentObject;
@@ -196,17 +224,26 @@ begin
     Cliente.Fone2           := edtFone2.Text;
     Cliente.Email           := edtEmail.Text;
     Cliente.DtCadastro      := StrToDateDef(edtCadastro.Text,0);
-    Cliente.DtNascimento    := StrToDateDef(edtNascimento.Text,0);
+
+    if StringReplace(dtpNascimento.Text,' ','',[rfReplaceAll]) <> '//' then
+      Cliente.DtNascimento    := dtpNascimento.Date;
 
     Cliente.Endereco.ID     := StrToIntDef(edtIDEndereco.Text,0);
-   // showmessage(intToStr(Cliente.EnderecoL.Count));
+
     if assigned(BuscaCidade1.Cidade) then
       Cliente.Endereco.ID_Cidade := BuscaCidade1.Cidade.ID;
     Cliente.Endereco.Rua    := edtRua.Text;
     Cliente.Endereco.Numero := edtNumero.Text;
     Cliente.Endereco.Bairro := edtBairro.Text;
     Cliente.Endereco.Complemento := memComplemento.Text;
+    Cliente.Tipo            := 1;
 
+    Cliente.DadosAdicionais.ID                 := StrToIntDef(edtIDDadosAdicionais.Text,0);
+    Cliente.DadosAdicionais.QueixaPrincipal    := memQP.Lines.Text;
+    Cliente.DadosAdicionais.HDA                := memHDA.Text;
+    Cliente.DadosAdicionais.DiagnosticoClinico := memDC.Text;
+    Cliente.DadosAdicionais.Medicamentos       := memMedicamentos.Text;
+    Cliente.DadosAdicionais.Conduta            := memConduta.Text;
     Cliente.Save;
 
     result := Cliente;
@@ -218,7 +255,15 @@ end;
 
 function TfrmCadastroClientes.verificaObrigatorios: Boolean;
 begin
-  inherited;
+  result := false;
+
+  if length(trim(edtNomeRazao.Text)) < 5 then
+  begin
+    avisar('Favor informar o nome da pessoa');
+    edtNomeRazao.SetFocus;
+  end
+  else
+    result := true;
 end;
 
 end.

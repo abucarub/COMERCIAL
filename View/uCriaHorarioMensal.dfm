@@ -164,6 +164,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
     Align = alBottom
     ParentBackground = False
     TabOrder = 3
+    ExplicitLeft = -1
     object BitBtn2: TBitBtn
       Left = 636
       Top = 8

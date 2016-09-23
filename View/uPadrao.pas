@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.AppEvnts;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.AppEvnts, Vcl.ComCtrls;
 
 type
   Tclasshelper = class(TControl)
@@ -20,9 +20,12 @@ type
     controle: TWinControl;
     CorAnterior: TColor;
     procedure  ControlColorChange(Sender: TObject);
-  protected
+  public
     procedure avisar(mensagem :String);
     function  confirma(mensagem :String) :Boolean;
+    procedure balaoInformacao(componente :TWinControl; mensagem :String; const titulo :String = 'Atenção');
+  private
+    procedure sumLeftAndTopByParents(var Left, Top :integer; componente :TWinControl);
   public
     { Public declarations }
   end;
@@ -34,18 +37,18 @@ implementation
 
 const
   CorSemFoco = clWindow;
-  CorComFoco = clBlue;
+  CorComFoco = $00E7E1A5;
 
 {$R *.dfm}
 
 procedure TfrmPadrao.FormCreate(Sender: TObject);
 begin
-  //Screen.OnActiveControlChange := ControlColorChange;
+  Screen.OnActiveControlChange := ControlColorChange;
 end;
 
 procedure TfrmPadrao.FormDestroy(Sender: TObject);
 begin
-//  Screen.OnActiveControlChange := nil;
+  Screen.OnActiveControlChange := nil;
 end;
 
 procedure TfrmPadrao.FormKeyDown(Sender: TObject; var Key: Word;
@@ -57,9 +60,53 @@ begin
     keybd_event(VK_TAB, 0, 0, 0);
 end;
 
+procedure TfrmPadrao.sumLeftAndTopByParents(var Left, Top: integer; componente: TWinControl);
+begin
+  Left := Left + componente.Left;
+  Top  := Top  + componente.Top;
+
+  if (componente is TPageControl) then
+    TPageControl(componente).ActivePageIndex := TPageControl(componente).Tag;
+
+  if not (componente.Parent is TForm) then
+  begin
+    if (componente is TTabSheet) then
+      componente.Parent.Tag := TTabSheet(componente).pageIndex;
+
+    sumLeftAndTopByParents(Left, Top, componente.Parent);
+  end
+  else
+  begin
+    Left := Left + TForm(componente.Parent).Left;
+    Top  := Top  + TForm(componente.Parent).Top;
+  end;
+end;
+
 procedure TfrmPadrao.avisar(mensagem: String);
 begin
   MessageDlg(mensagem, mtInformation,[mbOk],0);
+end;
+
+procedure TfrmPadrao.balaoInformacao(componente :TWinControl; mensagem :String; const titulo :String);
+var point :TPoint;
+    balao :TBalloonHint;
+    Left, Top :integer;
+begin
+  Left := 0; Top := 0;
+  sumLeftAndTopByParents(Left,Top,componente);
+
+  point.X  := Left + componente.Width;
+  point.Y  := Top + componente.Height;
+
+  componente.SetFocus;
+
+  balao             := TBalloonHint.Create(componente.Owner);
+  balao.Title       := titulo;
+  balao.Description := mensagem;
+  balao.Delay       := 500;
+  balao.HideAfter   := 4000;
+  balao.ShowHint(point);
+  MessageBeep(16);
 end;
 
 function TfrmPadrao.confirma(mensagem: String): Boolean;

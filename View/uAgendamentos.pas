@@ -195,6 +195,7 @@ end;
 procedure TfrmAgendamentos.alteraStatusHorario(compareceu: String);
 var horario :TSPA;
     servicoAgendado :TServicoAgendado;
+    gera_conta :Boolean;
 begin
   try
   try
@@ -220,6 +221,11 @@ begin
     if confirma('Deseja alterar o status do horário para "'+IfThen(compareceu='S','COMPARECEU','FALTOU')+'"?') then
     begin
       horario.compareceu := compareceu;
+
+      gera_conta := (compareceu = 'S') or (confirma('Deseja gerar conta para esta falta?'));
+
+      horario.geraConta := IfThen(gera_conta,'S','N');
+
       horario.Save;
       avisar('Status alterado com sucesso!');
 

@@ -79,6 +79,7 @@ begin
   Fdomingo   := 0;
   FDiaPagamento := 0;
   FID_Departamento := 0;
+  FInicio    := 0;
   FID_TabelaPreco  := 0;
 end;
 
@@ -110,7 +111,8 @@ begin
             (FDiaPagamento = 0) and
             (FID_Profissional = 0) and
             (FID_Departamento = 0) and
-            (FID_TabelaPreco = 0);
+            (FID_TabelaPreco = 0) and
+            (FInicio = 0);
 end;
 
 procedure TClienteMensal.LoadClass(const AValue: Integer);

@@ -30772,17 +30772,30 @@ object frmInicial: TfrmInicial
       C6521689ACC66073E4C060B22AA9A449413292322657289F5B49AD2CADA616E7
       D652C383BE4457FB6CE07BED2BF2CBB9CFFF03998D915819999D8A0000000049
       454E44AE426082}
+    OnClick = Image3Click
     OnMouseEnter = Image3MouseEnter
     OnMouseLeave = Image3MouseLeave
   end
   object MainMenu1: TMainMenu
     Left = 256
-    Top = 128
+    Top = 136
     object Cadastros1: TMenuItem
       Caption = 'Cadastros'
       object Clientes1: TMenuItem
         Caption = 'Clientes'
         OnClick = Clientes1Click
+      end
+      object Funcionrios1: TMenuItem
+        Caption = 'Funcion'#225'rios'
+        OnClick = Funcionrios1Click
+      end
+      object Convnios1: TMenuItem
+        Caption = 'Conv'#234'nios'
+        OnClick = Convnios1Click
+      end
+      object Servios1: TMenuItem
+        Caption = 'Servi'#231'os'
+        OnClick = Servios1Click
       end
     end
     object Agendamentos1: TMenuItem
@@ -30790,6 +30803,28 @@ object frmInicial: TfrmInicial
       object Fisioterapia1: TMenuItem
         Caption = 'Agendamento de hor'#225'rios'
         OnClick = Fisioterapia1Click
+      end
+    end
+    object Contas1: TMenuItem
+      Caption = 'Contas'
+      object Gerenciar1: TMenuItem
+        Caption = 'Gerenciar'
+        OnClick = Gerenciar1Click
+      end
+      object Pagar1: TMenuItem
+        Caption = #192' Pagar'
+        OnClick = Pagar1Click
+      end
+    end
+    object Relatrios1: TMenuItem
+      Caption = 'Relat'#243'rios'
+      object Contasreceber1: TMenuItem
+        Caption = 'Contas '#224' receber'
+        OnClick = Contasreceber1Click
+      end
+      object Contaspagar1: TMenuItem
+        Caption = 'Contas '#224' pagar'
+        OnClick = Contaspagar1Click
       end
     end
   end

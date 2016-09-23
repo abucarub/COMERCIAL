@@ -42,7 +42,17 @@ uses
   ClienteMensal in '..\Classes\ClienteMensal.pas',
   uCriaHorarioDiario in 'uCriaHorarioDiario.pas' {frmCriaHorarioDiario},
   uCriaHorarioMensal in 'uCriaHorarioMensal.pas' {frmCriaHorarioMensal},
-  uCriaReposicaoHorario in 'uCriaReposicaoHorario.pas' {frmCriaReposicaoHorario};
+  uCriaReposicaoHorario in 'uCriaReposicaoHorario.pas' {frmCriaReposicaoHorario},
+  uContasHorarios in 'uContasHorarios.pas' {frmContasHorarios},
+  uReceber in 'uReceber.pas' {frmReceber},
+  uCadastroFuncionarios in 'uCadastroFuncionarios.pas' {frmCadastroFuncionarios},
+  uCadastroConvenio in 'uCadastroConvenio.pas' {frmCadastroConvenio},
+  uCadastroServicos in 'uCadastroServicos.pas' {frmCadastroServicos},
+  DadosAdicionais in '..\Classes\DadosAdicionais.pas',
+  uContasExtra in 'uContasExtra.pas' {frmContasExtra},
+  framePeriodo in 'framePeriodo.pas' {Periodo: TFrame},
+  uRelatorioContasReceber in 'Relatorios\uRelatorioContasReceber.pas' {frmRelatorioContasReceber},
+  uRelatorioContasPagar in 'Relatorios\uRelatorioContasPagar.pas' {frmRelatorioContasPagar};
 
 {$R *.res}
 

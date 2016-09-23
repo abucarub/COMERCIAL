@@ -14,7 +14,7 @@ type
     FData: TDate;
     FHora: TTime;
     FCompareceu: String;
-    FPago: String;
+    FGeraConta: String;
     FServicosAgendados: TObjectList<TServicoAgendado>;
     FPessoa: TPessoa;
     FID_Departamento: Integer;
@@ -25,11 +25,12 @@ type
     FReposicao: Integer;
 
     function GetServicosAgendados: TObjectList<TServicoAgendado>;
-    function GetDuracaoServicos: TDateTime;
     function GetPessoa: TPessoa;
     function GetDepartamento: TDepartamento;
     function GetHorarioPassado: Boolean;
     function GetProfissional: TPessoa;
+    function GetDuracaoServicos: TDateTime;
+    function GetValorServicos: Real;
 
   public
   {  [FieldName('ID_AGENDAMENTO')]
@@ -46,8 +47,8 @@ type
     property hora: TTime read FHora write FHora;
     [FieldName('COMPARECEU')]
     property compareceu: String read FCompareceu write FCompareceu;
-    [FieldName('PAGO')]
-    property pago: String read FPago write FPago;
+    [FieldName('GERA_CONTA')]
+    property geraConta: String read FGeraConta write FGeraConta;
     [FieldName('TIPO')]
     property tipo: String read FTipo write FTipo;
     [FieldName('REPOSICAO')]
@@ -55,7 +56,7 @@ type
 
     [HasOne('ID_PESSOA')]
     property Pessoa: TPessoa read GetPessoa write FPessoa;
-    [HasOne('ID_FUNCIONARIO')]
+    [HasOne('ID_PROFISSIONAL')]
     property Profissional: TPessoa read GetProfissional write FProfissional;
     [HasOne('ID_DEPARTAMENTO')]
     property Departamento: TDepartamento read GetDepartamento write FDepartamento;
@@ -68,6 +69,7 @@ type
                       const STATUS: String = 'T';const TIPO :String = ''):TObjectList<TSPA>;
 
     property duracaoServicos :TDateTime read GetDuracaoServicos;
+    property valorServicos :Real read GetValorServicos;
     property horarioPassado :Boolean read GetHorarioPassado;
 
   public
@@ -98,7 +100,7 @@ begin
   FData           := 0;
   FHora           := 0;
   FCompareceu     := '';
-  FPago           := '';
+  FGeraConta      := '';
   Ftipo           := '';
   FReposicao      := 0;
   if assigned(FPessoa) then
@@ -112,7 +114,7 @@ end;
 function TSPA.GetDepartamento: TDepartamento;
 begin
   if not assigned(FDepartamento) then
-    FDepartamento := self.LoadOne<TDepartamento>;
+    FDepartamento := self.LoadOne<TDepartamento>(FID_Departamento);
 
   if not assigned(FDepartamento) then
     FDepartamento := TDepartamento.Create;
@@ -169,6 +171,14 @@ begin
   Result := FServicosAgendados;
 end;
 
+function TSPA.GetValorServicos: Real;
+var i :integer;
+begin
+  result := 0;
+  for i := 0 to ServicosAgendados.Count - 1 do
+    result := result + ServicosAgendados.Items[i].TabelaPreco.Valor;
+end;
+
 function TSPA.Horarios(const ID_PESSOA, ID_DEPARTAMENTO: integer; const STATUS: String;
 const TIPO :String): TObjectList<TSPA>;
 var where :String;
@@ -194,7 +204,7 @@ begin
             (FData = 0) and
             (FHora = 0) and
             (FCompareceu = '') and
-            (FPago = '') and
+            (FGeraConta = '') and
             (FTipo = '') and
             (FReposicao = 0);
 end;

@@ -81,6 +81,7 @@ inherited BuscaCidade: TBuscaCidade
     Top = 24
     Width = 30
     Height = 27
+    TabStop = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -16

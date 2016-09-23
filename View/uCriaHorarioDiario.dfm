@@ -155,7 +155,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
     Height = 160
     CalColors.TextColor = clBlue
     CalColors.MonthBackColor = clTeal
-    Date = 42566.454962847220000000
+    Date = 42566.705755092590000000
     TabOrder = 1
     OnClick = calendarioClick
   end
@@ -608,9 +608,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
     Width = 71
     Height = 26
     Style = csDropDownList
-    ItemIndex = 0
     TabOrder = 10
-    Text = '00:15'
     Visible = False
     Items.Strings = (
       '00:15'

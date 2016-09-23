@@ -2,7 +2,7 @@ unit Utilitario;
 
 interface
 
-uses System.SysUtils, System.StrUtils;
+uses System.SysUtils, System.StrUtils, System.DateUtils;
 
 type
   TUtilitario = class
@@ -12,6 +12,7 @@ type
     class function diaSemanaExtenso(data :TDateTime) :String;
     class function numeroDiaSemana(diaSemana :String) :integer;
     class function somenteNumeros(texto :String):String;
+    class function mesExtenso(data :TDate) :String;
   end;
 
 implementation
@@ -21,6 +22,26 @@ implementation
 class function TUtilitario.horaParaMinutos(data: TDateTime): integer;
 begin
   result := (StrToInt(Copy(formatDateTime('hh:mm:ss',data),1,2))*60) + StrToInt(Copy(formatDateTime('hh:mm:ss',data),4,2))
+end;
+
+class function TUtilitario.mesExtenso(data: TDate): String;
+var mes :integer;
+begin
+  mes := monthOf(data);
+  case mes of
+    1 : result := 'JANEIRO';
+    2 : result := 'FEVEREIRO';
+    3 : result := 'MARÇO';
+    4 : result := 'ABRIL';
+    5 : result := 'MAIO';
+    6 : result := 'JUNHO';
+    7 : result := 'JULHO';
+    8 : result := 'AGOSTO';
+    9 : result := 'SETEMBRO';
+    10: result := 'OUTUBRO';
+    11: result := 'NOVEMBRO';
+    12: result := 'DEZEMBRO';
+  end;
 end;
 
 class function TUtilitario.minutosParaHora(minutos: integer): TTime;

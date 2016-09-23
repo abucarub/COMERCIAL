@@ -36,6 +36,7 @@ type
   public
     procedure LoadClass(const AValue: Integer);
     procedure Clear; override;
+    function isEmpty :Boolean; overload; override;
   end;
 
 implementation
@@ -48,6 +49,7 @@ begin
   FNome   := '';
   FCep    := '';
   FCodigo_ibge := 0;
+  FID_Estado := 0;
   if assigned(FEstado) then
     FreeAndNil(FEstado);
 end;
@@ -61,6 +63,15 @@ begin
     FEstado := TEstado.Create;
 
   Result := FEstado;
+end;
+
+function TCidade.isEmpty: Boolean;
+begin
+  result := (FID = 0) and
+            (FNome = '') and
+            (FCep = '') and
+            (FCodigo_ibge = 0) and
+            (FID_Estado = 0);
 end;
 
 procedure TCidade.LoadClass(const AValue: Integer);

@@ -124,7 +124,7 @@ begin
   titulo := 'Selecione a cidade desejada...';
   SQL    := 'Select cid.ID, cid.NOME, est.SIGLA UF, cid.CODIGO_IBGE from CIDADES cid '+
             ' left join estados est on est.ID = cid.ID_ESTADO'+
-            ' order by est.SIGLA';
+            ' order by cid.NOME, est.SIGLA';
   self.abrePesquisa(SQl, titulo);
 end;
 

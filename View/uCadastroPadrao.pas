@@ -5,10 +5,10 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  Vcl.ComCtrls, Data.DB, FireDAC.Stan.Intf, FireDAC.Stan.Option, Generics.Collections,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, Vcl.Grids, Vcl.DBGrids, uPadrao, uPersistentObject;
+  FireDAC.Comp.Client, Vcl.Grids, Vcl.DBGrids, uPadrao, uPersistentObject, DBGridCBN, Datasnap.DBClient, Datasnap.Provider;
 
 type TStdTela = (stIncluindo, stAlterando, stSalvando ,stCancelando, stPesquisando, stNavegando);
 type
@@ -17,14 +17,15 @@ type
     tsListagem: TTabSheet;
     tsDados: TTabSheet;
     Panel1: TPanel;
-    DBGrid1: TDBGrid;
     ds: TDataSource;
-    qry: TFDQuery;
     edtID: TEdit;
     btnIncluir: TSpeedButton;
     btnAlterar: TSpeedButton;
     btnCancelar: TSpeedButton;
     btnSalvar: TSpeedButton;
+    DBGListagem: TDBGridCBN;
+    dsp: TDataSetProvider;
+    cds: TClientDataSet;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
@@ -36,6 +37,7 @@ type
 
   protected
     procedure carregarDados;virtual;
+    procedure carregarDaLista;virtual;
 
     procedure CarregarRegistro;virtual;
     procedure LimparCampos;virtual;
@@ -85,9 +87,9 @@ end;
 procedure TfrmCadastroPadrao.atualizaGrid(Obj: TPersistentObject);
 begin
   if StrToIntDef(edtID.Text, 0) > 0 then
-    qry.Edit
+    cds.Edit
   else
-    qry.Append;
+    cds.Append;
 end;
 
 procedure TfrmCadastroPadrao.btnAlterarClick(Sender: TObject);
@@ -123,10 +125,15 @@ begin
 //  self.qry := Objeto.LoadAll;
 end;
 
+procedure TfrmCadastroPadrao.carregarDaLista;
+begin
+  cds.EmptyDataSet;
+end;
+
 procedure TfrmCadastroPadrao.CarregarRegistro;
 begin
   LimparCampos;
-  FRegistroCarregado := qry.FieldByName('ID').AsInteger;
+  FRegistroCarregado := cds.FieldByName('ID').AsInteger;
 end;
 
 procedure TfrmCadastroPadrao.executaAntesAlterar;
@@ -146,8 +153,8 @@ end;
 
 procedure TfrmCadastroPadrao.executaAntesSalvar;
 begin
-  if not verificaObrigatorios then
-    exit;
+ { if not verificaObrigatorios then
+    exit;}
 end;
 
 procedure TfrmCadastroPadrao.executaDepoisAlterar;
@@ -201,8 +208,9 @@ end;
 
 procedure TfrmCadastroPadrao.FormShow(Sender: TObject);
 begin
+  cds.CreateDataSet;
   carregarDados;
-  ds.DataSet := self.qry;
+  ds.DataSet := self.cds;
 end;
 
 procedure TfrmCadastroPadrao.habilitaAbas(TF: Boolean);
@@ -228,7 +236,7 @@ var
 begin
    pg := (Sender as TPageControl);
 
-   if  (pg.Pages[pg.ActivePageIndex] <> tsListagem) and (FRegistroCarregado <> qry.FieldByName('ID').AsInteger) then
+   if  (pg.Pages[pg.ActivePageIndex] <> tsListagem) and (FRegistroCarregado <> cds.FieldByName('ID').AsInteger) then
      CarregarRegistro;
 end;
 
@@ -241,10 +249,10 @@ procedure TfrmCadastroPadrao.SetEstadoTela(const Value: TStdTela);
 begin
   FestadoTela := Value;
 
-  if (qry.IsEmpty) and (FestadoTela = stAlterando) then
+  if (cds.IsEmpty) and (FestadoTela = stAlterando) then
     FestadoTela := stNavegando;
 
-  habilitaAbas(FestadoTela in [stAlterando, stIncluindo]);
+  habilitaAbas(FestadoTela in [stAlterando, stIncluindo, stSalvando]);
 
   case FestadoTela of
     stIncluindo: begin
@@ -258,8 +266,8 @@ begin
                    executaDepoisAlterar;
                   end;
     stSalvando: begin
-                  executaAntesSalvar;
-                  executaDepoisSalvar(Salvar);
+                  if verificaObrigatorios then
+                    executaDepoisSalvar(Salvar);
                 end;
     stCancelando: begin
                    executaAntesCancelar;
@@ -267,6 +275,8 @@ begin
                    executaDepoisCancelar;
                   end;
   end;
+
+  habilitaAbas(FestadoTela in [stAlterando, stIncluindo, stSalvando]);
 
   btnIncluir.Enabled  := FestadoTela = stNavegando;
   btnAlterar.Enabled  := FestadoTela = stNavegando;

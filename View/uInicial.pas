@@ -26,6 +26,15 @@ type
     lbContas: TLabel;
     Image2: TImage;
     Image3: TImage;
+    Contas1: TMenuItem;
+    Gerenciar1: TMenuItem;
+    Funcionrios1: TMenuItem;
+    Convnios1: TMenuItem;
+    Servios1: TMenuItem;
+    Pagar1: TMenuItem;
+    Relatrios1: TMenuItem;
+    Contasreceber1: TMenuItem;
+    Contaspagar1: TMenuItem;
     procedure Clientes1Click(Sender: TObject);
     procedure Fisioterapia1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -34,6 +43,14 @@ type
     procedure Image3MouseLeave(Sender: TObject);
     procedure Image2MouseLeave(Sender: TObject);
     procedure Image2Click(Sender: TObject);
+    procedure Image3Click(Sender: TObject);
+    procedure Gerenciar1Click(Sender: TObject);
+    procedure Funcionrios1Click(Sender: TObject);
+    procedure Convnios1Click(Sender: TObject);
+    procedure Servios1Click(Sender: TObject);
+    procedure Pagar1Click(Sender: TObject);
+    procedure Contasreceber1Click(Sender: TObject);
+    procedure Contaspagar1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -45,7 +62,8 @@ var
 
 implementation
 
-uses uCadastroClientes, uAgendamentos;
+uses uCadastroClientes, uAgendamentos, uContasHorarios, uCadastroFuncionarios, uCadastroConvenio, uCadastroServicos,
+     uContasExtra, uRelatorioContasReceber, uRelatorioContasPagar;
 
 {$R *.dfm}
 
@@ -56,6 +74,30 @@ begin
   frmCadastroClientes.Showmodal;
   frmCadastroClientes.Release;
   frmCadastroClientes := nil;
+end;
+
+procedure TfrmInicial.Contaspagar1Click(Sender: TObject);
+begin
+  frmRelatorioContasPagar := TfrmRelatorioContasPagar.Create(nil);
+  frmRelatorioContasPagar.Showmodal;
+  frmRelatorioContasPagar.Release;
+  frmRelatorioContasPagar := nil;
+end;
+
+procedure TfrmInicial.Contasreceber1Click(Sender: TObject);
+begin
+  frmRelatorioContasReceber := TfrmRelatorioContasReceber.Create(nil);
+  frmRelatorioContasReceber.Showmodal;
+  frmRelatorioContasReceber.Release;
+  frmRelatorioContasReceber := nil;
+end;
+
+procedure TfrmInicial.Convnios1Click(Sender: TObject);
+begin
+  frmCadastroConvenio := TfrmCadastroConvenio.Create(nil);
+  frmCadastroConvenio.Showmodal;
+  frmCadastroConvenio.Release;
+  frmCadastroConvenio := nil;
 end;
 
 procedure TfrmInicial.Fisioterapia1Click(Sender: TObject);
@@ -75,6 +117,22 @@ begin
   inherited;
 end;
 
+procedure TfrmInicial.Funcionrios1Click(Sender: TObject);
+begin
+  frmCadastroFuncionarios := TfrmCadastroFuncionarios.Create(nil);
+  frmCadastroFuncionarios.Showmodal;
+  frmCadastroFuncionarios.Release;
+  frmCadastroFuncionarios := nil;
+end;
+
+procedure TfrmInicial.Gerenciar1Click(Sender: TObject);
+begin
+  frmContasHorarios := TfrmContasHorarios.Create(nil);
+  frmContasHorarios.Showmodal;
+  frmContasHorarios.Release;
+  frmContasHorarios := nil;
+end;
+
 procedure TfrmInicial.Image2Click(Sender: TObject);
 begin
   Fisioterapia1Click(nil);
@@ -90,6 +148,12 @@ begin
   lbAgendar.Font.Color := clBlack;
 end;
 
+procedure TfrmInicial.Image3Click(Sender: TObject);
+begin
+  inherited;
+  Gerenciar1Click(nil);
+end;
+
 procedure TfrmInicial.Image3MouseEnter(Sender: TObject);
 begin
   lbContas.Font.Color := clAqua;
@@ -98,6 +162,22 @@ end;
 procedure TfrmInicial.Image3MouseLeave(Sender: TObject);
 begin
   lbContas.Font.Color := clBlack;
+end;
+
+procedure TfrmInicial.Pagar1Click(Sender: TObject);
+begin
+  frmContasExtra := TfrmContasExtra.Create(nil);
+  frmContasExtra.Showmodal;
+  frmContasExtra.Release;
+  frmContasExtra := nil;
+end;
+
+procedure TfrmInicial.Servios1Click(Sender: TObject);
+begin
+  frmCadastroServicos := TfrmCadastroServicos.Create(nil);
+  frmCadastroServicos.Showmodal;
+  frmCadastroServicos.Release;
+  frmCadastroServicos := nil;
 end;
 
 end.

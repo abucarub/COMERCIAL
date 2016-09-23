@@ -3,7 +3,7 @@ unit Pessoa;
 interface
 
 uses uPersistentObject, uAtrib, Endereco, Generics.Collections, System.SysUtils,
-     ClienteMensal, TipoPessoa;//, SPA;
+     ClienteMensal, TipoPessoa, DadosAdicionais;
 
 type
   [Tablename('PESSOAS')]
@@ -16,15 +16,17 @@ type
     FFone2: String;
     FFone1: String;
     FEmail: String;
-    FDtCadastro :TDateTime;
-    FDtNascimento :TDateTime;
+    FDtCadastro :TDate;
+    FDtNascimento :TDate;
     FTipo: integer;
 
     FEndereco: TEndereco;
     FClienteMensal: TClienteMensal;
+    FDadosAdicionais: TDadosAdicionais;
 
     function GetEndereco: TEndereco;
     function GetClienteMensal: TClienteMensal;
+    function GetDadosAdicionais: TDadosAdicionais;
 
   public
     [FieldName('NOME_RAZAO')]
@@ -40,18 +42,20 @@ type
     [FieldName('EMAIL')]
     property Email: String read FEmail write FEmail;
     [FieldName('DT_CADASTRO')]
-    property DtCadastro: TDateTime read FDtCadastro write FDtCadastro;
+    property DtCadastro: TDate read FDtCadastro write FDtCadastro;
     [FieldName('DT_NASCIMENTO')]
-    property DtNascimento: TDateTime read FDtNascimento write FDtNascimento;
+    property DtNascimento: TDate read FDtNascimento write FDtNascimento;
     [FieldName('TIPO')]
     property Tipo: integer read FTipo write FTipo;
 
     [HasOne('ID_PESSOA', false, true)]
     property Endereco: TEndereco read GetEndereco write FEndereco;
     [HasOne('ID_PESSOA', false, true)]
+    property DadosAdicionais: TDadosAdicionais read GetDadosAdicionais write FDadosAdicionais;
+    [HasOne('ID_PESSOA', false, true)]
     property ClienteMensal: TClienteMensal read GetClienteMensal write FClienteMensal;
 
-//    [HasMany('ID_SPA',false)]
+//    [HasMany('ID_SPA', false)]
 //    property Horarios: TObjectList<TSPA> read GetServicosAgendados write FServicosAgendados;
 
   private
@@ -104,6 +108,17 @@ begin
     FClienteMensal := TClienteMensal.Create;
 
   Result := FClienteMensal;
+end;
+
+function TPessoa.GetDadosAdicionais: TDadosAdicionais;
+begin
+  if not assigned(FDadosAdicionais) then
+    FDadosAdicionais := self.LoadOne<TDadosAdicionais>;
+
+  if not assigned(FDadosAdicionais) then
+    FDadosAdicionais := TDadosAdicionais.Create;
+
+  Result := FDadosAdicionais;
 end;
 
 function TPessoa.GetEndereco: TEndereco;

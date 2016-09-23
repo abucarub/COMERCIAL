@@ -8,7 +8,6 @@ inherited frmAgendamentos: TfrmAgendamentos
   WindowState = wsMaximized
   OnActivate = FormActivate
   OnShow = FormShow
-  ExplicitLeft = -251
   ExplicitWidth = 1484
   ExplicitHeight = 695
   PixelsPerInch = 96
@@ -28,7 +27,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       368
       663)
     object Image2: TImage
-      Left = -18
+      Left = 1
       Top = 294
       Width = 35
       Height = 33
@@ -78,7 +77,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         C975A9B5D80C06282D2DA5434343D90DB5DAD6D3D343FE61D52F0D50505040DB
         D9D981CFE7AF3AC0E4E42473842F0D909B9BBB9934A6AB7EF739931100995E80
         FFDAFE06DE90265D364FBAA20000000049454E44AE426082}
-      ExplicitLeft = 2
+      ExplicitLeft = 5
     end
     object rgpDiasSemana: TRadioGroup
       Left = 8
@@ -117,43 +116,15 @@ inherited frmAgendamentos: TfrmAgendamentos
       ExplicitWidth = 346
       ExplicitHeight = 63
       inherited Label2: TLabel
-        Left = 4
         Font.Color = 10448171
-        ExplicitLeft = 4
-      end
-      inherited imgPilates: TImage
-        Left = -52
-        Top = 53
-        ExplicitLeft = -52
-        ExplicitTop = 53
-      end
-      inherited imgEstetica: TImage
-        Left = -52
-        Top = 53
-        ExplicitLeft = -52
-        ExplicitTop = 53
-      end
-      inherited imgFisioterapia: TImage
-        Left = -52
-        Top = 53
-        ExplicitLeft = -52
-        ExplicitTop = 53
-      end
-      inherited imgSelecione: TImage
-        Left = -52
-        Top = 53
-        ExplicitLeft = -52
-        ExplicitTop = 53
       end
       inherited btnBusca: TBitBtn
         Left = 50
         ExplicitLeft = 50
       end
       inherited edtCodigo: TCurrencyEdit
-        Left = 4
         Width = 43
         ParentCtl3D = False
-        ExplicitLeft = 4
         ExplicitWidth = 43
       end
       inherited edtDepartamento: TEdit
@@ -264,7 +235,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         Anchors = [akTop, akRight]
         CalColors.TextColor = clBlue
         CalColors.MonthBackColor = clTeal
-        Date = 42566.687602256940000000
+        Date = 42566.704591435180000000
         Enabled = False
         TabOrder = 0
         OnClick = calendarioClick
@@ -686,7 +657,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       object pnlHorarios: TPanel
         Left = 0
         Top = 1
-        Width = 1363
+        Width = 1312
         Height = 935
         Anchors = [akLeft, akTop, akRight, akBottom]
         Color = clWhite
@@ -700,12 +671,12 @@ inherited frmAgendamentos: TfrmAgendamentos
         TabOrder = 0
         OnMouseMove = pnlHorariosMouseMove
         DesignSize = (
-          1363
+          1312
           935)
         object Image1: TImage
           Left = 0
           Top = 0
-          Width = 1466
+          Width = 1415
           Height = 940
           Anchors = [akLeft, akTop, akRight, akBottom]
           IncrementalDisplay = True
@@ -7163,7 +7134,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     Left = 536
     Top = 256
     Bitmap = {
-      494C010106003801D00010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010106003801DC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

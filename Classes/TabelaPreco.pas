@@ -57,7 +57,7 @@ begin
   if not assigned(FConvenio) and (self.ID_Convenio > 0) then
     FConvenio := self.LoadOne<TConvenio>(self.ID_Convenio);
 
-  if not assigned(FServico) then
+  if not assigned(FConvenio) then
     FConvenio := TConvenio.Create;
 
   Result := FConvenio;
