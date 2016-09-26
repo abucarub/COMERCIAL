@@ -1,14 +1,14 @@
 inherited frmContasHorarios: TfrmContasHorarios
   Caption = 'Recebimento'
-  ClientHeight = 606
+  ClientHeight = 624
   ClientWidth = 993
   ExplicitWidth = 1009
-  ExplicitHeight = 644
+  ExplicitHeight = 662
   PixelsPerInch = 96
   TextHeight = 18
   object Label3: TLabel
     Left = 18
-    Top = 484
+    Top = 508
     Width = 85
     Height = 18
     Caption = 'Total da conta'
@@ -21,7 +21,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object Label4: TLabel
     Left = 162
-    Top = 484
+    Top = 508
     Width = 65
     Height = 18
     Caption = 'Valor Pago'
@@ -34,7 +34,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object Label5: TLabel
     Left = 307
-    Top = 484
+    Top = 508
     Width = 102
     Height = 18
     Caption = 'Restante '#224' pagar'
@@ -47,7 +47,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object Label7: TLabel
     Left = 862
-    Top = 484
+    Top = 508
     Width = 51
     Height = 18
     Caption = 'Receber'
@@ -60,7 +60,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object Label6: TLabel
     Left = 718
-    Top = 484
+    Top = 508
     Width = 33
     Height = 18
     Caption = 'Troco'
@@ -73,7 +73,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object Label8: TLabel
     Left = 552
-    Top = 484
+    Top = 508
     Width = 73
     Height = 18
     Caption = 'Tipo moeda'
@@ -222,10 +222,10 @@ inherited frmContasHorarios: TfrmContasHorarios
     OnClick = btnFiltrarClick
   end
   object DBGridCBN1: TDBGridCBN
-    Left = 16
-    Top = 184
-    Width = 967
-    Height = 282
+    Left = 18
+    Top = 186
+    Width = 965
+    Height = 316
     Color = 14803425
     DataSource = ds
     Font.Charset = DEFAULT_CHARSET
@@ -286,12 +286,13 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object Panel2: TPanel
     Left = 0
-    Top = 560
+    Top = 578
     Width = 993
     Height = 46
     Align = alBottom
     ParentBackground = False
     TabOrder = 4
+    ExplicitTop = 560
     DesignSize = (
       993
       46)
@@ -451,6 +452,15 @@ inherited frmContasHorarios: TfrmContasHorarios
       NumGlyphs = 2
       TabOrder = 1
     end
+    object BitBtn1: TBitBtn
+      Left = 420
+      Top = 8
+      Width = 185
+      Height = 30
+      Caption = 'Gera Conta de Falta'
+      TabOrder = 2
+      OnClick = BitBtn1Click
+    end
   end
   object Panel1: TPanel
     Left = 0
@@ -501,9 +511,9 @@ inherited frmContasHorarios: TfrmContasHorarios
     end
   end
   object gpbServico: TGroupBox
-    Left = 16
+    Left = 315
     Top = 144
-    Width = 967
+    Width = 668
     Height = 34
     TabOrder = 6
     Visible = False
@@ -568,7 +578,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object edtTotalConta: TCurrencyEdit
     Left = 18
-    Top = 504
+    Top = 528
     Width = 121
     Height = 31
     Font.Charset = DEFAULT_CHARSET
@@ -583,7 +593,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object edtValorPago: TCurrencyEdit
     Left = 162
-    Top = 504
+    Top = 528
     Width = 121
     Height = 31
     Font.Charset = DEFAULT_CHARSET
@@ -597,7 +607,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object edtValorRestante: TCurrencyEdit
     Left = 307
-    Top = 504
+    Top = 528
     Width = 121
     Height = 31
     Font.Charset = DEFAULT_CHARSET
@@ -611,7 +621,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object edtReceber: TCurrencyEdit
     Left = 862
-    Top = 504
+    Top = 528
     Width = 121
     Height = 31
     Font.Charset = DEFAULT_CHARSET
@@ -625,7 +635,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object edtTroco: TCurrencyEdit
     Left = 718
-    Top = 504
+    Top = 528
     Width = 121
     Height = 31
     Enabled = False
@@ -639,7 +649,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   end
   object cmbMoeda: TComboBox
     Left = 552
-    Top = 504
+    Top = 528
     Width = 145
     Height = 31
     Style = csDropDownList
@@ -658,6 +668,36 @@ inherited frmContasHorarios: TfrmContasHorarios
       'CHEQUE'
       'CART'#195'O CR'#201'DITO'
       'CART'#195'O D'#201'BITO')
+  end
+  object gpbStatus: TGroupBox
+    Left = 16
+    Top = 134
+    Width = 257
+    Height = 44
+    Caption = ' Filtro Status '
+    TabOrder = 13
+    object chkQuitadas: TCheckBox
+      Left = 18
+      Top = 21
+      Width = 93
+      Height = 17
+      Caption = 'QUITADAS'
+      Checked = True
+      State = cbChecked
+      TabOrder = 0
+      OnClick = chkQuitadasClick
+    end
+    object chkPendentes: TCheckBox
+      Left = 133
+      Top = 21
+      Width = 93
+      Height = 17
+      Caption = 'PENDENTES'
+      Checked = True
+      State = cbChecked
+      TabOrder = 1
+      OnClick = chkQuitadasClick
+    end
   end
   object cdsHorariosDiarios: TClientDataSet
     Aggregates = <>

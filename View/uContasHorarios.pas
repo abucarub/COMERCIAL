@@ -67,6 +67,10 @@ type
     cdsHorarioMensalVALOR_PAGO: TFloatField;
     cmbMoeda: TComboBox;
     Label8: TLabel;
+    gpbStatus: TGroupBox;
+    chkQuitadas: TCheckBox;
+    chkPendentes: TCheckBox;
+    BitBtn1: TBitBtn;
     procedure btnFiltrarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnReceberClick(Sender: TObject);
@@ -75,18 +79,23 @@ type
     procedure DBGridCBN1CellClick(Column: TColumn);
     procedure edtTotalContaChange(Sender: TObject);
     procedure edtReceberChange(Sender: TObject);
+    procedure chkQuitadasClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
   private
     procedure mostrarHorariosDiarios(horarios :TObjectList<TSPA>);
     procedure mostrarHorarioMensal(horarioMensal :TClienteMensal);
     procedure buscarClienteMensal;
     procedure atualizaValores;
     procedure limpaValores;
+    procedure gerarContaHorarioComFalta;
+    procedure alteraGerarConta(id_horario :integer);
 
     function buscarHorariosMensal(dtInicial, dtFinal :TDate) :TObjectList<TSPA>;
     function buscarHorariosDiario :TObjectList<TSPA>;
     function buscaContaMensal(vencimento :TDate) :TConta;
     function buscaContaDiario(ID_SPA :integer) :TConta;
     function conferePreRequisitos :boolean;
+    function informacoesNecessarias :Boolean;
 
     function receber :boolean;
   public
@@ -98,9 +107,24 @@ var
 
 implementation
 
-uses Pessoa, Utilitario, Parcela, Movimento;
+uses Pessoa, Utilitario, Parcela, Movimento, uPesquisa;
 
 {$R *.dfm}
+
+procedure TfrmContasHorarios.alteraGerarConta(id_horario: integer);
+var horario :TSPA;
+begin
+  try
+    horario := TSPA.Create;
+    horario.Load(id_horario);
+    horario.geraConta := 'S';
+    horario.Save;
+
+    avisar('Horário incluído com sucesso');
+  finally
+    FreeAndNil(horario);
+  end;
+end;
 
 procedure TfrmContasHorarios.atualizaValores;
 var cds :TClientDataSet;
@@ -132,8 +156,20 @@ begin
   cds.RecNo := rec;
 end;
 
+procedure TfrmContasHorarios.BitBtn1Click(Sender: TObject);
+begin
+  if informacoesNecessarias then
+  begin
+    gerarContaHorarioComFalta;
+    btnFiltrar.Click;
+  end;                                         excluir, contas que nao foram marcadas como falta ou presenta, das contas
+end;
+
 procedure TfrmContasHorarios.btnFiltrarClick(Sender: TObject);
 begin
+   if not informacoesNecessarias then
+     exit;
+
    if BuscaDepartamento1.Departamento.tipoHorarios = 'D' then
      mostrarHorariosDiarios( buscarHorariosDiario )
    else
@@ -176,6 +212,26 @@ begin
  finally
    FreeAndNil(Horario);
  end;
+end;
+
+procedure TfrmContasHorarios.chkQuitadasClick(Sender: TObject);
+var filtro :String;
+begin
+  cdsHorariosDiarios.Filtered := false;
+  cdsHorarioMensal.Filtered   := false;
+
+  if chkQuitadas.Checked or chkPendentes.Checked then
+  begin
+    filtro := IfThen(chkQuitadas.Checked,'''QUITADA''','');
+    filtro := filtro + IfThen(chkPendentes.Checked,IfThen(filtro <> '',',','')+'''PARCIAL'', ''ABERTA''','');
+    filtro := 'STATUS IN ('+filtro+')';
+
+    cdsHorariosDiarios.Filter := filtro;
+    cdsHorarioMensal.Filter   := filtro;
+    cdsHorariosDiarios.Filtered := true;
+    cdsHorarioMensal.Filtered   := true;
+  end;
+
 end;
 
 function TfrmContasHorarios.conferePreRequisitos: boolean;
@@ -310,6 +366,40 @@ begin
   BuscaPessoa1.Tipo      := 1;
   cdsHorarioMensal.CreateDataSet;
   cdsHorariosDiarios.CreateDataSet;
+end;
+
+procedure TfrmContasHorarios.gerarContaHorarioComFalta;
+var titulo, SQL :String;
+begin
+  titulo := 'Horários com falta...';
+  SQL    := 'Select spa.id, spa.data, spa.hora, dep.departamento, pes.nome_razao Profissional from SPA '+
+            'inner join departamentos dep on dep.id = spa.id_departamento '+
+            'inner join pessoas pes on pes.id = id_profissional '+
+            ' where spa.id_departamento = '+intToStr(BuscaDepartamento1.Departamento.ID)+
+            '   and spa.id_pessoa = '+intToStr(BuscaPessoa1.Pessoa.ID)+
+            '   and spa.compareceu = ''N'' '+
+            '   and spa.tipo not in(''C'',''R'')';
+
+  frmPesquisa := TFrmPesquisa.Create(Self,SQL,titulo);
+  if frmPesquisa.ShowModal = mrOk then
+  begin
+    alteraGerarConta(frmPesquisa.cdsRetorno.Fields[0].AsInteger);
+  end;
+
+  frmPesquisa.Release;
+  frmPesquisa := nil;
+end;
+
+function TfrmContasHorarios.informacoesNecessarias: Boolean;
+begin
+  result := false;
+
+  if not assigned(BuscaDepartamento1.Departamento) then
+    balaoInformacao(BuscaDepartamento1.edtCodigo,'Favor informar o departamento da conta')
+  else if not assigned(BuscaPessoa1.Pessoa) then
+    balaoInformacao(BuscaPessoa1.edtCodigo,'Favor informar a pessoa à que se refere a conta')
+  else
+    result := true;
 end;
 
 procedure TfrmContasHorarios.limpaValores;
