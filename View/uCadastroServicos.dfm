@@ -9,12 +9,10 @@ inherited frmCadastroServicos: TfrmCadastroServicos
   inherited pgcDados: TPageControl
     Width = 642
     Height = 348
-    ActivePage = TabSheet1
+    ActivePage = tsDados
     ExplicitWidth = 642
     ExplicitHeight = 348
     inherited tsListagem: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 634
       ExplicitHeight = 316
       inherited DBGListagem: TDBGridCBN
@@ -46,6 +44,9 @@ inherited frmCadastroServicos: TfrmCadastroServicos
       end
     end
     inherited tsDados: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 28
+      ExplicitWidth = 634
       ExplicitHeight = 316
       object Label1: TLabel [0]
         Left = 100
@@ -128,10 +129,6 @@ inherited frmCadastroServicos: TfrmCadastroServicos
     object TabSheet1: TTabSheet
       Caption = 'Tabela de pre'#231'o'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Label7: TLabel
         Left = 396
         Top = 44
@@ -160,7 +157,7 @@ inherited frmCadastroServicos: TfrmCadastroServicos
       end
       object lbServico: TLabel
         Left = 76
-        Top = 12
+        Top = 13
         Width = 18
         Height = 18
         Caption = '. . .'
@@ -354,9 +351,5 @@ inherited frmCadastroServicos: TfrmCadastroServicos
     DataSet = cdsTabela
     Left = 456
     Top = 296
-  end
-  object BalloonHint1: TBalloonHint
-    Left = 304
-    Top = 280
   end
 end

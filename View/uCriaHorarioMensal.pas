@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, Generics.Collections,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uPadrao, Data.DB, Datasnap.DBClient, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Grids,
   Vcl.DBGrids, System.StrUtils, Vcl.Mask, JvExMask, JvToolEdit, Vcl.Buttons, Pessoa, Departamento, Convenio, TabelaPreco,
-  ClienteMensal, JvMaskEdit, JvCheckedMaskEdit, JvDatePickerEdit, Vcl.ComCtrls, JvExComCtrls, JvDateTimePicker;
+  ClienteMensal, JvMaskEdit, JvCheckedMaskEdit, JvDatePickerEdit, Vcl.ComCtrls, JvExComCtrls, JvDateTimePicker, FireDAC.Stan.Def,
+  FireDAC.Phys.IBWrapper, FireDAC.Stan.Intf, FireDAC.Phys, FireDAC.Phys.IBBase;
 
 type
   TfrmCriaHorarioMensal = class(TfrmPadrao)
@@ -44,6 +45,7 @@ type
     cmbDiaPagamento: TComboBox;
     cdsDiasSemanaNUM_DIA: TIntegerField;
     dtpDataInicial: TJvDatePickerEdit;
+    btnTransparencia: TBitBtn;
     procedure gridDiasSemanaCellClick(Column: TColumn);
     procedure FormCreate(Sender: TObject);
     procedure gridDiasSemanaDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
@@ -52,6 +54,7 @@ type
     procedure gridServicosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure BitBtn2Click(Sender: TObject);
     procedure dtpDataInicialChange(Sender: TObject);
+    procedure btnTransparenciaClick(Sender: TObject);
   private
     FPessoa :TPessoa;
     FProfissional :TPessoa;
@@ -84,6 +87,12 @@ begin
   if informacoesFornecidas then
     if confirma('Os horário criado para "'+FPessoa.Nome+'" será salvo. Confirma?') then
       criaHorario;
+
+end;
+
+procedure TfrmCriaHorarioMensal.btnTransparenciaClick(Sender: TObject);
+begin
+  self.AlphaBlend := not self.AlphaBlend;
 end;
 
 procedure TfrmCriaHorarioMensal.carregarServicos;

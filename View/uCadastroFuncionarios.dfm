@@ -9,13 +9,33 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
   inherited pgcDados: TPageControl
     Width = 713
     Height = 376
-    ActivePage = tsDados
     ExplicitWidth = 713
     ExplicitHeight = 376
     inherited tsListagem: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 28
+      ExplicitWidth = 705
+      ExplicitHeight = 344
       inherited DBGListagem: TDBGridCBN
         Width = 705
         Height = 344
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'ID'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_RAZAO'
+            Title.Caption = 'NOME'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'TIPO'
+            Visible = False
+          end>
       end
     end
     inherited tsDados: TTabSheet
@@ -148,7 +168,7 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
         Width = 256
         Height = 25
         CharCase = ecUpperCase
-        TabOrder = 4
+        TabOrder = 6
       end
       object edtFone1: TMaskEdit
         Left = 13
@@ -157,7 +177,7 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
         Height = 25
         EditMask = '!\(99\)9999-9999;1; '
         MaxLength = 13
-        TabOrder = 5
+        TabOrder = 4
         Text = '(  )    -    '
       end
       object edtfone2: TMaskEdit
@@ -167,7 +187,7 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
         Height = 25
         EditMask = '!\(99\)9999-9999;1; '
         MaxLength = 13
-        TabOrder = 6
+        TabOrder = 5
         Text = '(  )    -    '
       end
       object edtRua: TEdit
@@ -176,7 +196,7 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
         Width = 369
         Height = 25
         CharCase = ecUpperCase
-        TabOrder = 7
+        TabOrder = 9
       end
       object edtNumero: TEdit
         Left = 316
@@ -184,7 +204,7 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
         Width = 44
         Height = 25
         CharCase = ecUpperCase
-        TabOrder = 8
+        TabOrder = 10
       end
       object edtBairro: TEdit
         Left = 380
@@ -192,7 +212,7 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
         Width = 307
         Height = 25
         CharCase = ecUpperCase
-        TabOrder = 9
+        TabOrder = 11
       end
       object memComplemento: TMemo
         Left = 316
@@ -200,7 +220,7 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
         Width = 371
         Height = 89
         CharCase = ecUpperCase
-        TabOrder = 10
+        TabOrder = 12
       end
       object edtCadastro: TMaskEdit
         Left = 176
@@ -210,7 +230,7 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
         Enabled = False
         EditMask = '!99/99/0000;1; '
         MaxLength = 10
-        TabOrder = 11
+        TabOrder = 13
         Text = '  /  /    '
       end
       inline BuscaCidade1: TBuscaCidade
@@ -224,7 +244,7 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
         Font.Name = 'Calibri'
         Font.Style = []
         ParentFont = False
-        TabOrder = 12
+        TabOrder = 8
         ExplicitLeft = 307
         ExplicitTop = 16
         ExplicitWidth = 399
@@ -253,7 +273,7 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
         Height = 26
         AllowNoDate = True
         Checked = False
-        TabOrder = 13
+        TabOrder = 7
       end
       object edtIDEndereco: TEdit
         Left = 307

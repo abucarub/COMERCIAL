@@ -11,7 +11,8 @@ uses
   FireDAC.Comp.Client, uPadrao, JvExControls, JvCalendar, JvExComCtrls,
   JvMonthCalendar, Vcl.Grids, Vcl.Samples.Calendar, Vcl.ComCtrls,
   VclTee.TeeGDIPlus, VCLTee.TeeData, VCLTee.TeEngine, Vcl.ExtCtrls, midaslib,
-  VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series, VCLTee.GanttCh, Vcl.AppEvnts, Vcl.StdCtrls, Vcl.Imaging.pngimage;
+  VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series, VCLTee.GanttCh, Vcl.AppEvnts, Vcl.StdCtrls, Vcl.Imaging.pngimage, FireDAC.Phys.IBWrapper,
+  FireDAC.Phys.IBBase;
 
 type
   TfrmInicial = class(TfrmPadrao)
@@ -35,6 +36,10 @@ type
     Relatrios1: TMenuItem;
     Contasreceber1: TMenuItem;
     Contaspagar1: TMenuItem;
+    Horrioscomstatuspendente1: TMenuItem;
+    FDIBBackup1: TFDIBBackup;
+    Utilitrios1: TMenuItem;
+    Backup1: TMenuItem;
     procedure Clientes1Click(Sender: TObject);
     procedure Fisioterapia1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -51,8 +56,10 @@ type
     procedure Pagar1Click(Sender: TObject);
     procedure Contasreceber1Click(Sender: TObject);
     procedure Contaspagar1Click(Sender: TObject);
+    procedure Horrioscomstatuspendente1Click(Sender: TObject);
+    procedure Backup1Click(Sender: TObject);
   private
-    { Private declarations }
+    procedure verificaHorariosStatusPendente;
   public
     { Public declarations }
   end;
@@ -63,12 +70,19 @@ var
 implementation
 
 uses uCadastroClientes, uAgendamentos, uContasHorarios, uCadastroFuncionarios, uCadastroConvenio, uCadastroServicos,
-     uContasExtra, uRelatorioContasReceber, uRelatorioContasPagar;
+     uContasExtra, uRelatorioContasReceber, uRelatorioContasPagar, uContasStatusPendente, uBackup;
 
 {$R *.dfm}
 
+procedure TfrmInicial.Backup1Click(Sender: TObject);
+begin
+  frmBackup := TfrmBackup.Create(nil);
+  frmBackup.Showmodal;
+  frmBackup.Release;
+  frmBackup := nil;
+end;
+
 procedure TfrmInicial.Clientes1Click(Sender: TObject);
-var i :integer;
 begin
   frmCadastroClientes := TfrmCadastroClientes.Create(nil);
   frmCadastroClientes.Showmodal;
@@ -133,6 +147,14 @@ begin
   frmContasHorarios := nil;
 end;
 
+procedure TfrmInicial.Horrioscomstatuspendente1Click(Sender: TObject);
+begin
+  frmContasStatusPendente := TfrmContasStatusPendente.Create(nil);
+  frmContasStatusPendente.Showmodal;
+  frmContasStatusPendente.Release;
+  frmContasStatusPendente := nil;
+end;
+
 procedure TfrmInicial.Image2Click(Sender: TObject);
 begin
   Fisioterapia1Click(nil);
@@ -178,6 +200,10 @@ begin
   frmCadastroServicos.Showmodal;
   frmCadastroServicos.Release;
   frmCadastroServicos := nil;
+end;
+
+procedure TfrmInicial.verificaHorariosStatusPendente;
+begin
 end;
 
 end.

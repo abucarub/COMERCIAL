@@ -35,10 +35,12 @@ type
     Label7: TLabel;
     edtDiaSemana: TEdit;
     dtpDataReposicao: TJvDatePickerEdit;
+    btnTransparencia: TBitBtn;
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure dtpDataReposicaoChange(Sender: TObject);
+    procedure btnTransparenciaClick(Sender: TObject);
   private
     FHorario :TSPA;
 
@@ -72,6 +74,11 @@ begin
                 'para: '+FHorario.Pessoa.Nome+#13#10+
                 'com: '+Fhorario.Profissional.Nome+'?' ) then
      criaReposicao;
+end;
+
+procedure TfrmCriaReposicaoHorario.btnTransparenciaClick(Sender: TObject);
+begin
+  self.AlphaBlend := not self.AlphaBlend;
 end;
 
 constructor TfrmCriaReposicaoHorario.create(AOwner: TComponent; horario: TSPA);
@@ -136,6 +143,8 @@ procedure TfrmCriaReposicaoHorario.FormDestroy(Sender: TObject);
 begin
   inherited;
   FreeAndNil(FHorario);
+  self.Release;
+  self := nil;
 end;
 
 function TfrmCriaReposicaoHorario.informacoesFornecidas: boolean;

@@ -100,6 +100,10 @@ type
     Label33: TLabel;
     Panel3: TPanel;
     Image1: TImage;
+    Label37: TLabel;
+    Label38: TLabel;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure btnCriaHorarioClick(Sender: TObject);
     procedure BuscaDepartamento1Exit(Sender: TObject);
@@ -124,7 +128,10 @@ type
     procedure popCompareceuClick(Sender: TObject);
     procedure popReposicaoClick(Sender: TObject);
     procedure Image3MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
-    procedure pnlHorariosMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Panel2MouseEnter(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
   private
     FIDHorarioSelecionado :Integer;
     FIDPessoa :Integer;
@@ -177,7 +184,8 @@ var
 
 implementation
 
-uses Utilitario, TipoPessoa, ServicoAgendado, uCriaHorarioDiario, uCriaHorarioMensal, Math, uCriaReposicaoHorario;
+uses Utilitario, TipoPessoa, ServicoAgendado, uCriaHorarioDiario, uCriaHorarioMensal, Math, uCriaReposicaoHorario,
+     uCadastroClientes, uContasHorarios;
 
 {$R *.dfm}
 
@@ -222,7 +230,7 @@ begin
     begin
       horario.compareceu := compareceu;
 
-      gera_conta := (compareceu = 'S') or (confirma('Deseja gerar conta para esta falta?'));
+      gera_conta := (compareceu = 'S');// or (confirma('Deseja gerar conta para esta falta?'));
 
       horario.geraConta := IfThen(gera_conta,'S','N');
 
@@ -242,6 +250,22 @@ begin
     on e:Exception do
       raise Exception.Create('Erro ao cancelar horário');
   end;
+end;
+
+procedure TfrmAgendamentos.BitBtn1Click(Sender: TObject);
+begin
+  frmContasHorarios := TfrmContasHorarios.Create(nil);
+  frmContasHorarios.Showmodal;
+  frmContasHorarios.Release;
+  frmContasHorarios := nil;
+end;
+
+procedure TfrmAgendamentos.BitBtn2Click(Sender: TObject);
+begin
+  frmCadastroClientes := TfrmCadastroClientes.Create(nil);
+  frmCadastroClientes.Showmodal;
+  frmCadastroClientes.Release;
+  frmCadastroClientes := nil;
 end;
 
 procedure TfrmAgendamentos.btnCriaHorarioClick(Sender: TObject);
@@ -552,10 +576,11 @@ begin
   end;
 end;
 
-procedure TfrmAgendamentos.pnlHorariosMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+procedure TfrmAgendamentos.Panel2MouseEnter(Sender: TObject);
 begin
-  if not (screen.ActiveControl = scrollbox1) then
-    scrollbox1.SetFocus;
+  inherited;
+  if ActiveControl = ScrollBox1 then
+    BuscaDepartamento1.edtCodigo.SetFocus;
 end;
 
 procedure TfrmAgendamentos.popCancelarHorarioClick(Sender: TObject);
@@ -571,8 +596,7 @@ end;
 
 procedure TfrmAgendamentos.popCompareceuClick(Sender: TObject);
 begin
-  if confirma('Confirma alteração do estados do horário para "COMPARECEU"?') then
-    alteraStatusHorario('S');
+   alteraStatusHorario('S');
 end;
 
 procedure TfrmAgendamentos.rgpDiasSemanaClick(Sender: TObject);
@@ -648,6 +672,21 @@ begin
   inherited;
   if assigned(panelList) then
     panelList.Free;  
+end;
+
+procedure TfrmAgendamentos.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+var x :TPoint;
+    var handle :Boolean;
+begin
+  if (key = VK_Escape) and (assigned(frmCriaHorarioDiario) or assigned(frmCriaHorarioMensal) or assigned(frmCriaReposicaoHorario)) then
+    key := 0;
+
+  inherited;
+
+  if key = 40 then
+    ScrollBox1MouseWheelDown(ScrollBox1, Shift, x, handle)
+  else if key = 38 then
+    ScrollBox1MouseWheelUp(ScrollBox1, Shift, x, handle);
 end;
 
 procedure TfrmAgendamentos.FormShow(Sender: TObject);
@@ -1057,8 +1096,7 @@ end;
 
 procedure TfrmAgendamentos.popFaltouClick(Sender: TObject);
 begin
-  if confirma('Confirma alteração do estados do horário para "FALTOU"?') then
-    alteraStatusHorario('N');
+   alteraStatusHorario('N');
 end;
 
 end.

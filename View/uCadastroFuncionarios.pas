@@ -70,7 +70,7 @@ uses Pessoa;
 
 function TfrmCadastroFuncionarios.Alterar: Boolean;
 begin
-
+  inherited;
 end;
 
 procedure TfrmCadastroFuncionarios.atualizaGrid(Obj: TPersistentObject);

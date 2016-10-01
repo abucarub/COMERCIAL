@@ -52,7 +52,9 @@ uses
   uContasExtra in 'uContasExtra.pas' {frmContasExtra},
   framePeriodo in 'framePeriodo.pas' {Periodo: TFrame},
   uRelatorioContasReceber in 'Relatorios\uRelatorioContasReceber.pas' {frmRelatorioContasReceber},
-  uRelatorioContasPagar in 'Relatorios\uRelatorioContasPagar.pas' {frmRelatorioContasPagar};
+  uRelatorioContasPagar in 'Relatorios\uRelatorioContasPagar.pas' {frmRelatorioContasPagar},
+  uContasStatusPendente in 'uContasStatusPendente.pas' {frmContasStatusPendente},
+  uBackup in 'uBackup.pas' {frmBackup};
 
 {$R *.res}
 

@@ -30804,6 +30804,10 @@ object frmInicial: TfrmInicial
         Caption = 'Agendamento de hor'#225'rios'
         OnClick = Fisioterapia1Click
       end
+      object Horrioscomstatuspendente1: TMenuItem
+        Caption = 'Hor'#225'rios com status pendente'
+        OnClick = Horrioscomstatuspendente1Click
+      end
     end
     object Contas1: TMenuItem
       Caption = 'Contas'
@@ -30827,6 +30831,13 @@ object frmInicial: TfrmInicial
         OnClick = Contaspagar1Click
       end
     end
+    object Utilitrios1: TMenuItem
+      Caption = 'Utilit'#225'rios'
+      object Backup1: TMenuItem
+        Caption = 'Backup'
+        OnClick = Backup1Click
+      end
+    end
   end
   object FDConnection1: TFDConnection
     Params.Strings = (
@@ -30834,5 +30845,15 @@ object frmInicial: TfrmInicial
       'ConnectionDef=FIREDAC')
     Left = 392
     Top = 80
+  end
+  object FDIBBackup1: TFDIBBackup
+    Protocol = ipTCPIP
+    Host = 'localhost'
+    Port = 3050
+    UserName = 'SYSDBA'
+    Password = 'masterkey'
+    Database = 'C:\Users\Allan\Desktop\COMERCIAL\Bin\Base.fdb'
+    Left = 632
+    Top = 328
   end
 end

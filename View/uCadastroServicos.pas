@@ -31,7 +31,6 @@ type
     Label3: TLabel;
     lbServico: TLabel;
     cdsDURACAO: TTimeField;
-    BalloonHint1: TBalloonHint;
     procedure edtServicoChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
@@ -192,6 +191,7 @@ end;
 
 procedure TfrmCadastroServicos.LimparCampos;
 begin
+  edtID.Clear;
   BuscaDepartamento1.limpa;
   edtServico.Clear;
   cmbDuracao.ItemIndex := 0;
@@ -242,7 +242,7 @@ function TfrmCadastroServicos.verificaObrigatorios: Boolean;
 begin
   result := false;
 
-  if length(trim(edtServico.Text)) < 5 then
+  if length(trim(edtServico.Text)) < 4 then
   begin
   //  pgcDados.ActivePageIndex := 1;
     balaoInformacao(edtServico, 'Favor informar o nome do serviço');

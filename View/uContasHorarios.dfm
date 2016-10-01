@@ -292,7 +292,6 @@ inherited frmContasHorarios: TfrmContasHorarios
     Align = alBottom
     ParentBackground = False
     TabOrder = 4
-    ExplicitTop = 560
     DesignSize = (
       993
       46)

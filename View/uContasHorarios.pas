@@ -162,7 +162,7 @@ begin
   begin
     gerarContaHorarioComFalta;
     btnFiltrar.Click;
-  end;                                         excluir, contas que nao foram marcadas como falta ou presenta, das contas
+  end;
 end;
 
 procedure TfrmContasHorarios.btnFiltrarClick(Sender: TObject);
@@ -188,6 +188,7 @@ begin
    Horarios := Horario.LoadList<TSPA>('WHERE ID_PESSOA = '+ intToStr(BuscaPessoa1.Pessoa.ID) +
                                       ' and ID_DEPARTAMENTO = '+intToStr(BuscaDepartamento1.Departamento.ID) +
                                       ' and TIPO <> ''C'' '+
+                                      ' and COMPARECEU in (''S'',''N'')'+
                                       ' and GERA_CONTA = ''S'' '+
                                       ' order by DATA');
    result := Horarios;
@@ -479,7 +480,9 @@ begin
                                                              ' and ID_DEPARTAMENTO = '+intToStr(BuscaDepartamento1.Departamento.ID));
 
    if assigned(horariosMensais) then
-     mostrarHorarioMensal(horariosMensais.Items[0]);
+     mostrarHorarioMensal(horariosMensais.Items[0])
+   else
+     avisar('"'+BuscaPessoa1.Pessoa.Nome+'" não não está vinculado ao departamento de "'+BuscaDepartamento1.Departamento.departamento+'".');
 
  finally
    FreeAndNil(horarioMensal);
@@ -508,57 +511,67 @@ begin
 
   for i := 0 to meses-1 do
   begin
-    Horarios  := buscarHorariosMensal(dataInicial, dataFinal);
-    presencas := 0; faltas := 0; cancelados := 0; repostos := 0; pendentes := 0;
+    try
+      Horarios  := buscarHorariosMensal(dataInicial, dataFinal);
+      presencas := 0; faltas := 0; cancelados := 0; repostos := 0; pendentes := 0;
 
-    for horario in Horarios do
-    begin
-      if horario.tipo = 'C' then
-        inc(cancelados)
-      else if horario.tipo = 'R' then
-        inc(repostos)
-      else if horario.compareceu = 'S' then
-        inc(presencas)
-      else if horario.compareceu = 'N' then
-        inc(faltas)
+      if not assigned(Horarios) then
+      begin
+        avisar('"'+BuscaPessoa1.Pessoa.Nome+'" não possui contas referente ao departamento de "'+BuscaDepartamento1.Departamento.departamento+'".');
+        exit;
+      end;
+
+      for horario in Horarios do
+      begin
+        if horario.tipo = 'C' then
+          inc(cancelados)
+        else if horario.tipo = 'R' then
+          inc(repostos)
+        else if horario.compareceu = 'S' then
+          inc(presencas)
+        else if horario.compareceu = 'N' then
+          inc(faltas)
+        else
+          inc(pendentes);
+      end;
+
+      vencimento := strToDate(intToStr(horarioMensal.DiaPagamento)+'/'+copy(DateToStr(dataInicial),4,7));
+      conta      := buscaContaMensal(vencimento);
+
+      cdsHorarioMensal.Append;
+      cdsHorarioMensalID.AsInteger            := horarioMensal.ID;
+      cdsHorarioMensalPROFISSIONAL.AsString   := Profissional.Nome;
+      cdsHorarioMensalPRESENCAS.AsInteger     := presencas;
+      cdsHorarioMensalFALTAS.AsInteger        := faltas;
+      cdsHorarioMensalCANCELADOS.AsInteger    := cancelados;
+      cdsHorarioMensalREPOSTOS.AsInteger      := repostos;
+      cdsHorarioMensalPENDENTES.AsInteger     := pendentes;
+      cdsHorarioMensalMES.AsString            := TUtilitario.mesExtenso(dataInicial);
+      cdsHorarioMensalANO.AsInteger           := YearOf(dataInicial);
+
+      if assigned(conta) then
+      begin
+        cdsHorarioMensalSTATUS.AsString         := conta.descricaoStatus;
+        cdsHorarioMensalID_CONTA.AsInteger      := conta.ID;
+        cdsHorarioMensalVALOR.AsFloat           := conta.TotalConta;
+        cdsHorarioMensalVALOR_PAGO.AsFloat      := conta.ValorPago;
+      end
       else
-        inc(pendentes);
+      begin
+        cdsHorarioMensalSTATUS.AsString         := 'ABERTA';
+        cdsHorarioMensalID_CONTA.AsInteger      := 0;
+        cdsHorarioMensalVALOR.AsFloat           := edtValorServico.Value;
+        cdsHorarioMensalVALOR_PAGO.AsFloat      := 0;
+      end;
+      cdsHorarioMensalDIA_PAGAMENTO.AsDateTime:= vencimento;
+      cdsHorarioMensal.Post;
+
+      dataInicial := dataFinal+1;
+      dataFinal   := EndOfTheMonth(dataInicial);
+
+    finally
+      FreeAndNil(Horarios);
     end;
-
-    vencimento := strToDate(intToStr(horarioMensal.DiaPagamento)+'/'+copy(DateToStr(dataInicial),4,7));
-    conta      := buscaContaMensal(vencimento);
-
-    cdsHorarioMensal.Append;
-    cdsHorarioMensalID.AsInteger            := horarioMensal.ID;
-    cdsHorarioMensalPROFISSIONAL.AsString   := Profissional.Nome;
-    cdsHorarioMensalPRESENCAS.AsInteger     := presencas;
-    cdsHorarioMensalFALTAS.AsInteger        := faltas;
-    cdsHorarioMensalCANCELADOS.AsInteger    := cancelados;
-    cdsHorarioMensalREPOSTOS.AsInteger      := repostos;
-    cdsHorarioMensalPENDENTES.AsInteger     := pendentes;
-    cdsHorarioMensalMES.AsString            := TUtilitario.mesExtenso(dataInicial);
-    cdsHorarioMensalANO.AsInteger           := YearOf(dataInicial);
-
-    if assigned(conta) then
-    begin
-      cdsHorarioMensalSTATUS.AsString         := conta.descricaoStatus;
-      cdsHorarioMensalID_CONTA.AsInteger      := conta.ID;
-      cdsHorarioMensalVALOR.AsFloat           := conta.TotalConta;
-      cdsHorarioMensalVALOR_PAGO.AsFloat      := conta.ValorPago;
-    end
-    else
-    begin
-      cdsHorarioMensalSTATUS.AsString         := 'ABERTA';
-      cdsHorarioMensalID_CONTA.AsInteger      := 0;
-      cdsHorarioMensalVALOR.AsFloat           := edtValorServico.Value;
-      cdsHorarioMensalVALOR_PAGO.AsFloat      := 0;
-    end;
-    cdsHorarioMensalDIA_PAGAMENTO.AsDateTime:= vencimento;
-    cdsHorarioMensal.Post;
-
-    dataInicial := dataFinal+1;
-    dataFinal   := EndOfTheMonth(dataInicial);
-    FreeAndNil(Horarios);
   end;
 end;
 
@@ -567,7 +580,10 @@ var horario :TSPA;
       conta :TConta;
 begin
   if not assigned(horarios) then
+  begin
+    avisar('"'+BuscaPessoa1.Pessoa.Nome+'" não possui contas referente ao departamento de "'+BuscaDepartamento1.Departamento.departamento+'".');
     exit;
+  end;
 
   for horario in horarios do
   begin

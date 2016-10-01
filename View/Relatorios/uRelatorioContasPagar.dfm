@@ -498,7 +498,6 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
     Color = 14732969
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 983
     object Shape1: TShape
       Left = 1
       Top = 1
@@ -546,8 +545,6 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 508
-    ExplicitWidth = 983
     DesignSize = (
       510
       45)
@@ -672,7 +669,6 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnImprimirClick
-      ExplicitLeft = 801
     end
     object btnVoltar: TBitBtn
       Left = 152
@@ -794,7 +790,6 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       NumGlyphs = 2
       TabOrder = 1
-      ExplicitLeft = 625
     end
   end
   object gpbStatus: TGroupBox

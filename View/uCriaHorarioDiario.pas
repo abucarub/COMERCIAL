@@ -40,8 +40,8 @@ type
     cdsHorariosDIA_SEMANA: TStringField;
     edtTempoDuracao: TEdit;
     Panel2: TPanel;
-    BitBtn2: TBitBtn;
-    BitBtn3: TBitBtn;
+    btnSalvar: TBitBtn;
+    btnCancelar: TBitBtn;
     cmbTempo: TComboBox;
     lbPessoa: TLabel;
     Label3: TLabel;
@@ -50,16 +50,18 @@ type
     cdsServicosSELECAO: TStringField;
     cdsServicosID_TABELA_PRECO: TIntegerField;
     cdsServicosID_SERVICO: TIntegerField;
+    btnTransparencia: TBitBtn;
     procedure gridServicosCellClick(Column: TColumn);
     procedure gridServicosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure cdsServicosTEMPOChange(Sender: TField);
     procedure BitBtn1Click(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure DBGrid2KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure BitBtn2Click(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure BitBtn3Click(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
     procedure calendarioClick(Sender: TObject);
+    procedure btnTransparenciaClick(Sender: TObject);
   private
     FPessoa :TPessoa;
     FProfissional :TPessoa;
@@ -114,14 +116,19 @@ begin
     criaHorario;
 end;
 
-procedure TfrmCriaHorarioDiario.BitBtn2Click(Sender: TObject);
+procedure TfrmCriaHorarioDiario.btnSalvarClick(Sender: TObject);
 begin
   if not cdsHorarios.IsEmpty then
     if confirma('Os horários criados para "'+FPessoa.Nome+'" serão salvos. Confirma?') then
       salvarHorariosCriados;
 end;
 
-procedure TfrmCriaHorarioDiario.BitBtn3Click(Sender: TObject);
+procedure TfrmCriaHorarioDiario.btnTransparenciaClick(Sender: TObject);
+begin
+  self.AlphaBlend := not self.AlphaBlend;
+end;
+
+procedure TfrmCriaHorarioDiario.btnCancelarClick(Sender: TObject);
 begin
   self.Close;
 end;

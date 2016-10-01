@@ -9,11 +9,11 @@ inherited frmCadastroClientes: TfrmCadastroClientes
   inherited pgcDados: TPageControl
     Width = 888
     Height = 434
-    ExplicitWidth = 713
-    ExplicitHeight = 375
+    ExplicitWidth = 888
+    ExplicitHeight = 434
     inherited tsListagem: TTabSheet
-      ExplicitWidth = 705
-      ExplicitHeight = 343
+      ExplicitWidth = 880
+      ExplicitHeight = 402
       inherited DBGListagem: TDBGridCBN
         Width = 880
         Height = 402
@@ -36,8 +36,8 @@ inherited frmCadastroClientes: TfrmCadastroClientes
     inherited tsDados: TTabSheet
       ExplicitLeft = 4
       ExplicitTop = 28
-      ExplicitWidth = 705
-      ExplicitHeight = 343
+      ExplicitWidth = 880
+      ExplicitHeight = 402
       object Label2: TLabel [0]
         Left = 44
         Top = 81
@@ -435,9 +435,6 @@ inherited frmCadastroClientes: TfrmCadastroClientes
       Font.Style = []
       ImageIndex = 2
       ParentFont = False
-      ExplicitLeft = 8
-      ExplicitWidth = 705
-      ExplicitHeight = 343
       object Label13: TLabel
         Left = 11
         Top = 3
@@ -580,18 +577,18 @@ inherited frmCadastroClientes: TfrmCadastroClientes
   end
   inherited Panel1: TPanel
     Width = 888
-    ExplicitWidth = 713
+    ExplicitWidth = 888
   end
   inherited ds: TDataSource
-    Left = 65528
+    Left = 0
     Top = 312
   end
   inherited dsp: TDataSetProvider
-    Left = 65528
+    Left = 0
     Top = 216
   end
   inherited cds: TClientDataSet
-    Left = 65528
+    Left = 0
     Top = 264
     object cdsID: TIntegerField
       FieldName = 'ID'

@@ -236,7 +236,8 @@ var
 begin
    pg := (Sender as TPageControl);
 
-   if  (pg.Pages[pg.ActivePageIndex] <> tsListagem) and (FRegistroCarregado <> cds.FieldByName('ID').AsInteger) then
+   if  (pg.Pages[pg.ActivePageIndex] <> tsListagem) and (FRegistroCarregado <> cds.FieldByName('ID').AsInteger) and not
+       (self.estadoTela = stIncluindo)  then
      CarregarRegistro;
 end;
 

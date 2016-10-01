@@ -3,7 +3,7 @@ unit uRelatorioContasReceber;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, System.StrUtils,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, System.StrUtils, System.DateUtils,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uPadrao, RLReport, Vcl.StdCtrls, Vcl.Buttons, framePeriodo, Vcl.ExtCtrls, frameBusca,
   frameBuscaDepartamento, Generics.Collections, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
@@ -199,6 +199,9 @@ procedure TfrmRelatorioContasReceber.FormCreate(Sender: TObject);
 begin
   qryContas.Connection       := TConnection.GetInstance.Conexao;
   qryContasMensal.Connection := TConnection.GetInstance.Conexao;
+
+  Periodo1.dtpDataInicial.Date := StartOfTheMonth(Date);
+  Periodo1.dtpDataFinal.Date   := EndOfTheMonth(Date);
 end;
 
 procedure TfrmRelatorioContasReceber.imprimirDiario;

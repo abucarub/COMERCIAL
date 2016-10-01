@@ -85,6 +85,8 @@ uses Pessoa;
 
 {$R *.dfm}
 
+{ TfrmCadastroClientes }
+
 function TfrmCadastroClientes.Alterar: Boolean;
 begin
   inherited;
@@ -98,6 +100,7 @@ begin
     Cliente                := TPessoa(Obj);
     cdsID.AsInteger        := Cliente.ID;
     cdsNOME_RAZAO.AsString := Cliente.Nome;
+    cdsTIPO.AsInteger      := Cliente.Tipo;
     cds.Post;
   finally
     FreeAndNil(Cliente);

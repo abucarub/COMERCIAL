@@ -1064,7 +1064,6 @@ inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 272
     DesignSize = (
       777
       45)

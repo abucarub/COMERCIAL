@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, System.StrUtils,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uPadrao, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls, framePeriodo, RLReport, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async,
-  FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, System.DateUtils;
 
 type
   TfrmRelatorioContasPagar = class(TfrmPadrao)
@@ -99,7 +99,9 @@ end;
 procedure TfrmRelatorioContasPagar.FormCreate(Sender: TObject);
 begin
   inherited;
-  qryContas.Connection       := TConnection.GetInstance.Conexao;
+  qryContas.Connection         := TConnection.GetInstance.Conexao;
+  Periodo1.dtpDataInicial.Date := StartOfTheMonth(Date);
+  Periodo1.dtpDataFinal.Date   := EndOfTheMonth(Date);
 end;
 
 procedure TfrmRelatorioContasPagar.imprimir;

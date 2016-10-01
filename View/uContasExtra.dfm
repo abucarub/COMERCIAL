@@ -10,7 +10,6 @@ inherited frmContasExtra: TfrmContasExtra
     Top = 119
     Width = 715
     Height = 539
-    ActivePage = tsDados
     Align = alNone
     ExplicitTop = 119
     ExplicitWidth = 715
