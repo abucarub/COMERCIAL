@@ -111,6 +111,7 @@ begin
     addItemTabela(0, BuscaConvenio1.Convenio.ID, BuscaConvenio1.Convenio.convenio, edtValorServico.Value);
     BuscaConvenio1.limpa;
     edtValorServico.Clear;
+    BuscaConvenio1.edtCodigo.setfocus;
   end;
 end;
 

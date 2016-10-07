@@ -9,7 +9,7 @@ inherited frmCadastroServicos: TfrmCadastroServicos
   inherited pgcDados: TPageControl
     Width = 642
     Height = 348
-    ActivePage = tsDados
+    ActivePage = TabSheet1
     ExplicitWidth = 642
     ExplicitHeight = 348
     inherited tsListagem: TTabSheet
@@ -288,6 +288,7 @@ inherited frmCadastroServicos: TfrmCadastroServicos
           item
             Expanded = False
             FieldName = 'ID'
+            Width = -1
             Visible = False
           end
           item

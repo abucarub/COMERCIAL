@@ -973,7 +973,7 @@ begin
       horarioCriado := horario.LoadList<TSPA>('WHERE ID_PESSOA = '+intToStr(horario.ID_Pessoa)+
                                         '  AND ID_PROFISSIONAL = '+intToStr(horario.ID_Profissional)+
                                         '  AND ID_DEPARTAMENTO = '+intToStr(horario.ID_Departamento)+
-                                        '  AND DATA = '+ QuotedStr(StringReplace(DateToStr(calendario.Date),'/','.',[rfReplaceAll, rfIgnoreCase]))+
+                                        '  AND DATA = '+ +
                                         '  AND HORA = '+QuotedStr( TimeToStr(horario.hora))).Items[0];
     Except
     end;

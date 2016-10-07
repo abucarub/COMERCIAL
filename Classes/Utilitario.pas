@@ -13,6 +13,7 @@ type
     class function numeroDiaSemana(diaSemana :String) :integer;
     class function somenteNumeros(texto :String):String;
     class function mesExtenso(data :TDate) :String;
+    class function dataParaParametro(data :TDate) :String;
   end;
 
 implementation
@@ -55,6 +56,11 @@ begin
   end;
   min := minutos;
   Result := StrToTime(FormatFloat('00:', hr) + FormatFloat('00', min));
+end;
+
+class function TUtilitario.dataParaParametro(data: TDate): String;
+begin
+  result := QuotedStr(StringReplace(DateToStr(data),'/','.',[rfReplaceAll, rfIgnoreCase]));
 end;
 
 class function TUtilitario.diaSemanaExtenso(data: TDateTime): String;

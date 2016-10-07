@@ -103,6 +103,19 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
     Font.Style = [fsBold]
     ParentFont = False
   end
+  object Label10: TLabel
+    Left = 131
+    Top = 365
+    Width = 240
+    Height = 18
+    Caption = '(Delete remove o hor'#225'rio selecionado)'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Calibri'
+    Font.Style = []
+    ParentFont = False
+  end
   object gridServicos: TDBGrid
     Left = 267
     Top = 123
@@ -126,7 +139,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
-        Width = 26
+        Width = 64
         Visible = True
       end
       item
@@ -156,7 +169,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
     Height = 160
     CalColors.TextColor = clBlue
     CalColors.MonthBackColor = clTeal
-    Date = 42566.460258078700000000
+    Date = 42566.504121064810000000
     TabOrder = 1
     OnClick = calendarioClick
   end
@@ -279,7 +292,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
       item
         Expanded = False
         FieldName = 'PESSOA'
-        Width = 311
+        Width = 64
         Visible = True
       end
       item

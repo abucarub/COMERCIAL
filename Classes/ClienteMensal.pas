@@ -2,7 +2,7 @@ unit ClienteMensal;
 
 interface
 
-uses uPersistentObject, uAtrib, TabelaPreco, System.SysUtils;
+uses uPersistentObject, uAtrib, TabelaPreco, System.SysUtils, Generics.Collections, System.DateUtils;
 
 type
   [Tablename('CLIENTES_MENSAL')]
@@ -22,6 +22,7 @@ type
     FID_Departamento: Integer;
     FID_TabelaPreco: Integer;
     FTabelaPreco: TTabelaPreco;
+    FUltimaGeracao :TDate;
     function GetTabelaPreco: TTabelaPreco;
 
   public
@@ -34,23 +35,25 @@ type
     [FieldName('ID_TABELA_PRECO')]
     property ID_TabelaPreco: Integer read FID_TabelaPreco write FID_TabelaPreco;
     [FieldName('SEGUNDA')]
-    property Segunda: TTime read FSegunda write FSegunda;
+    property segunda: TTime read FSegunda write FSegunda;
     [FieldName('TERCA')]
-    property Terca: TTime read FTerca write FTerca;
+    property terca: TTime read FTerca write FTerca;
     [FieldName('QUARTA')]
-    property Quarta: TTime read FQuarta write FQuarta;
+    property quarta: TTime read FQuarta write FQuarta;
     [FieldName('QUINTA')]
-    property Quinta: TTime read FQuinta write FQuinta;
+    property quinta: TTime read FQuinta write FQuinta;
     [FieldName('SEXTA')]
-    property Sexta: TTime read FSexta write FSexta;
+    property sexta: TTime read FSexta write FSexta;
     [FieldName('SABADO')]
-    property Sabado: TTime read FSabado write FSabado;
+    property sabado: TTime read FSabado write FSabado;
     [FieldName('DOMINGO')]
-    property Domingo: TTime read FDomingo write FDomingo;
+    property domingo: TTime read FDomingo write FDomingo;
     [FieldName('DIA_PAGAMENTO')]
-    property DiaPagamento: Integer read FDiaPagamento write FDiaPagamento;
+    property diaPagamento: Integer read FDiaPagamento write FDiaPagamento;
     [FieldName('INICIO')]
-    property Inicio: TDate read FInicio write FInicio;
+    property inicio: TDate read FInicio write FInicio;
+    [FieldName('ULTIMA_GERACAO')]
+    property ultimaGeracao: TDate read FInicio write FInicio;
 
     [HasOne('ID_TABELA_PRECO')]
     property TabelaPreco: TTabelaPreco read GetTabelaPreco write FTabelaPreco;
@@ -59,9 +62,16 @@ type
     procedure LoadClass(const AValue: Integer);
     procedure Clear; override;
     function isEmpty :Boolean; overload; override;
+
+  public
+    procedure geraHorarios;
+    procedure criaHorario(clienteMensal :TClienteMensal; dia :TDate; hora :TTime);
+    function existeHorarioCriado(clienteMensal :TClienteMensal; dia :TDate) :Boolean;
   end;
 
 implementation
+
+uses Utilitario, SPA, uConnection;
 
 { TClienteMensal }
 
@@ -81,6 +91,107 @@ begin
   FID_Departamento := 0;
   FInicio    := 0;
   FID_TabelaPreco  := 0;
+  FUltimaGeracao := 0;
+end;
+
+procedure TClienteMensal.criaHorario(clienteMensal :TClienteMensal; dia :TDate; hora :TTime);
+var horario :TSPA;
+begin
+  if existeHorarioCriado(clienteMensal, dia) then
+    exit;
+
+  horario := TSPA.Create;
+  horario.ID_Pessoa        := clienteMensal.FID_Pessoa;
+  horario.ID_Departamento  := clienteMensal.ID_Departamento;
+  horario.ID_Profissional  := clienteMensal.ID_Profissional;
+  horario.data             := dia;
+  horario.hora             := hora;
+  horario.Save;
+end;
+
+function TClienteMensal.existeHorarioCriado(clienteMensal :TClienteMensal; dia :TDate): Boolean;
+var horario :TSPA;
+    horarios :TObjectList<TSPA>;
+begin
+  try
+    horario.Create;
+    horarios := horario.LoadList<TSPA>('WHERE ID_PESSOA = '+IntToStr(self.ID_Pessoa)+
+                                       '  AND ID_PROFISSIONAL = '+IntToStr(Self.ID_Profissional)+
+                                       '  AND ID_DEPARTAMENTO = '+IntToStr(Self.ID_Departamento)+
+                                       '  AND DATA = '+TUtilitario.dataParaParametro(dia)+
+                                       '  AND REPOSICAO = 0'); //reposição é referente a um outro horario então não conta
+    result := assigned(horarios);
+  finally
+    FreeAndNil(horario);
+    FreeAndNil(horarios);
+  end;
+end;
+
+procedure TClienteMensal.geraHorarios;
+var ClientesMensais :TObjectList<TClienteMensal>;
+    dia, mes, ano :Word;
+    ClienteMensal :TClienteMensal;
+    inicioGeracao :TDate;
+    fimGeracao    :TDate;
+    dias          :array[1..7] of string = ('SEGUNDA-FEIRA','TERÇA-FEIRA','QUARTA-FEIRA','QUINTA-FEIRA','SEXTA-FEIRA','SÁBADO','DOMINGO');
+begin
+  try
+  try
+    TConnection.GetInstance.Conexao.TxOptions.AutoCommit := false;
+
+    ClientesMensais := self.LoadList<TClienteMensal>(' WHERE ID_PESSOA = '+intToStr(self.FID_Pessoa)+
+                                                     '   AND ID_DEPARTAMENTO = '+intToStr(self.FID_Departamento)+
+                                                     '   AND ID_PROFISSIONAL = '+intToStr(self.FID_Profissional));
+
+    aplicar geracaoHorarios no inicio do sistema e apos a criação de cadastro de cliente mensal
+    e testar se esses horarios gerados estao aparecendo na tela de horarios pendentes
+    for ClienteMensal in ClientesMensais do
+    begin
+      {data da ultima geracao >= ao primeiro dia do mes corrente significa que a geracao esta atualizada}
+      if not (ClienteMensal.ultimaGeracao >= StartOfTheMonth(date))  then
+      begin
+        if ClienteMensal.ultimaGeracao = 0 then
+          inicioGeracao := ClienteMensal.inicio
+        else 
+          inicioGeracao := IncMonth(StartOfTheMonth(ClienteMensal.ultimaGeracao));
+
+        fimGeracao := EndOfTheMonth(inicioGeracao);
+
+        while inicioGeracao <= fimGeracao do
+        begin
+          if (ClienteMensal.segunda > 0) and (TUtilitario.diaSemanaExtenso(inicioGeracao) = dias[1]) then
+            criaHorario(Clientemensal, inicioGeracao, ClienteMensal.segunda)
+          else if (ClienteMensal.terca > 0) and (TUtilitario.diaSemanaExtenso(inicioGeracao) = dias[2]) then
+            criaHorario(Clientemensal, inicioGeracao, ClienteMensal.terca)
+          else if (ClienteMensal.quarta > 0) and (TUtilitario.diaSemanaExtenso(inicioGeracao) = dias[3]) then
+            criaHorario(Clientemensal, inicioGeracao, ClienteMensal.quarta)
+          else if (ClienteMensal.quinta > 0) and (TUtilitario.diaSemanaExtenso(inicioGeracao) = dias[4]) then
+            criaHorario(Clientemensal, inicioGeracao, ClienteMensal.quinta)
+          else if (ClienteMensal.sexta > 0) and (TUtilitario.diaSemanaExtenso(inicioGeracao) = dias[5]) then
+            criaHorario(Clientemensal, inicioGeracao, ClienteMensal.sexta)
+          else if (ClienteMensal.sabado > 0) and (TUtilitario.diaSemanaExtenso(inicioGeracao) = dias[6]) then
+            criaHorario(Clientemensal, inicioGeracao, ClienteMensal.sabado)
+          else if (ClienteMensal.domingo > 0) and (TUtilitario.diaSemanaExtenso(inicioGeracao) = dias[7]) then
+            criaHorario(Clientemensal, inicioGeracao, ClienteMensal.domingo);
+
+        end;
+      end;
+
+      IncDay(inicioGeracao);
+    end;
+
+    TConnection.GetInstance.Conexao.Commit;
+  Except
+    on e :Exception do
+    begin
+      TConnection.GetInstance.Conexao.Rollback;
+      raise Exception.Create('Erro ao gerar horários mensais');
+    end;
+  end;
+
+  finally
+    TConnection.GetInstance.Conexao.TxOptions.AutoCommit := true;
+  end;
 end;
 
 function TClienteMensal.GetTabelaPreco: TTabelaPreco;
@@ -112,7 +223,8 @@ begin
             (FID_Profissional = 0) and
             (FID_Departamento = 0) and
             (FID_TabelaPreco = 0) and
-            (FInicio = 0);
+            (FInicio = 0) and
+            (FUltimaGeracao = 0);
 end;
 
 procedure TClienteMensal.LoadClass(const AValue: Integer);

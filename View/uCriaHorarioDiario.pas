@@ -51,6 +51,7 @@ type
     cdsServicosID_TABELA_PRECO: TIntegerField;
     cdsServicosID_SERVICO: TIntegerField;
     btnTransparencia: TBitBtn;
+    Label10: TLabel;
     procedure gridServicosCellClick(Column: TColumn);
     procedure gridServicosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure cdsServicosTEMPOChange(Sender: TField);
@@ -355,7 +356,8 @@ end;
 
 procedure TfrmCriaHorarioDiario.removeHorario;
 begin
-  FHorarios.Items[cdsHorarios.RecNo - 1].Free;
+//  FHorarios.Items[cdsHorarios.RecNo - 1].Free;
+  FHorarios.Remove(FHorarios.Items[cdsHorarios.RecNo - 1]);
   cdsHorarios.Delete;
 end;
 
