@@ -55,6 +55,7 @@ type
     procedure BitBtn2Click(Sender: TObject);
     procedure dtpDataInicialChange(Sender: TObject);
     procedure btnTransparenciaClick(Sender: TObject);
+    procedure cdsDiasSemanaAfterInsert(DataSet: TDataSet);
   private
     FPessoa :TPessoa;
     FProfissional :TPessoa;
@@ -111,6 +112,12 @@ begin
    FreeAndNil(ServicoTabela);
    FreeAndNil(Servicos);
  end;
+end;
+
+procedure TfrmCriaHorarioMensal.cdsDiasSemanaAfterInsert(DataSet: TDataSet);
+begin
+  inherited;
+  cdsDiasSemana.Cancel;
 end;
 
 constructor TfrmCriaHorarioMensal.create(AOwner: TComponent; pProfissional, pPessoa: TPessoa; pDepartamento: TDepartamento; pConvenio :TConvenio);
@@ -174,6 +181,8 @@ begin
     clienteMensal.DiaPagamento := strToInt(cmbDiaPagamento.Items[cmbDiaPagamento.ItemIndex]);
     clienteMensal.Inicio       := dtpDataInicial.Date;
     clienteMensal.Save;
+
+    clienteMensal.geraHorarios;
 
     avisar('Horário salvo com sucesso');
     self.Close;
@@ -261,7 +270,10 @@ begin
   if gridDiasSemana.SelectedIndex in [0,1] then
      gridDiasSemana.Options := gridDiasSemana.Options - [dgEditing]
   else
-     gridDiasSemana.Options := gridDiasSemana.Options + [dgEditing];
+  begin
+    if cdsDiasSemanaSELECAO.AsString = 'S' then
+      gridDiasSemana.Options := gridDiasSemana.Options + [dgEditing];
+  end;
 end;
 
 procedure TfrmCriaHorarioMensal.gridDiasSemanaDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer;
@@ -436,6 +448,7 @@ const
 var
   i :integer;
 begin
+  cdsDiasSemana.AfterInsert := nil;
   cdsDiasSemana.CreateDataSet;
 
   gridDiasSemana.Columns[2].PickList := cmbHora.Items;
@@ -450,6 +463,8 @@ begin
     cdsDiasSemanaNUM_DIA.AsInteger   := i+1;
     cdsDiasSemana.Post;
   end;
+
+  cdsDiasSemana.AfterInsert := cdsDiasSemanaAfterInsert;
 end;
 
 procedure TfrmCriaHorarioMensal.mostraServicosTela(servicos: TObjectList<TTabelaPreco>);

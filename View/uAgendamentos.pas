@@ -172,7 +172,6 @@ type
     function diasSemanaSelecionados :String;
     function diaSemanaPreSelecionado(data:TDateTime) :Boolean;
     function verificaObrigatorios :boolean;
-    function getIDTabelaPrecoClienteMensal(IDPessoa, IDDepartamento, IDProfissional :integer) :Integer;
     function informacoesFornecidas :boolean;
     
   public
@@ -221,7 +220,7 @@ begin
 
       servicoAgendado         := nil;
       servicoAgendado         := TServicoAgendado.Create;
-      servicoAgendado.ID_TabelaPreco := getIDTabelaPrecoClienteMensal(FIDPessoa, horario.ID_Departamento, horario.ID_Profissional);
+      servicoAgendado.ID_TabelaPreco := TClienteMensal.getIDTabelaPrecoClienteMensal(FIDPessoa, horario.ID_Departamento, horario.ID_Profissional);
       servicoAgendado.duracao := BuscaDepartamento1.Departamento.Servicos.Items[0].Duracao;
       horario.ServicosAgendados.Add(servicoAgendado);
     end;
@@ -694,23 +693,6 @@ begin
   BuscaDepartamento1.edtCodigo.SetFocus;
 end;
 
-function TfrmAgendamentos.getIDTabelaPrecoClienteMensal(IDPessoa, IDDepartamento, IDProfissional: integer): Integer;
-var ClienteMensal  :TClienteMensal;
-    Clientes :TObjectList<TClienteMensal>;
-begin
- try
-   ClienteMensal  := TClienteMensal.Create;
-   Clientes       := ClienteMensal.LoadList<TClienteMensal>( ' WHERE ID_PESSOA = '+intToStr(IDPessoa)+
-                                                             '   AND ID_DEPARTAMENTO = '+intToStr(IDDepartamento)+
-                                                             '   AND ID_PROFISSIONAL = '+intToStr(IDProfissional));
-   result         := Clientes.Items[0].ID_TabelaPreco;
-
- finally
-   FreeAndNil(ClienteMensal);
-   FreeAndNil(Clientes);
- end;
-end;
-
 procedure TfrmAgendamentos.Image3MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 begin
  if not (screen.ActiveControl = scrollbox1) then
@@ -874,7 +856,7 @@ begin
     horario.tipo            := 'C';
 
     agendado                := TServicoAgendado.Create;
-    agendado.ID_TabelaPreco := getIDTabelaPrecoClienteMensal(FIDPessoa, horario.ID_Departamento, horario.ID_Profissional);
+    agendado.ID_TabelaPreco := TClienteMensal.getIDTabelaPrecoClienteMensal(FIDPessoa, horario.ID_Departamento, horario.ID_Profissional);
     agendado.duracao        := BuscaDepartamento1.Departamento.Servicos.Items[0].Duracao;
     horario.ServicosAgendados.Add(agendado);
     horario.Save;
@@ -973,7 +955,7 @@ begin
       horarioCriado := horario.LoadList<TSPA>('WHERE ID_PESSOA = '+intToStr(horario.ID_Pessoa)+
                                         '  AND ID_PROFISSIONAL = '+intToStr(horario.ID_Profissional)+
                                         '  AND ID_DEPARTAMENTO = '+intToStr(horario.ID_Departamento)+
-                                        '  AND DATA = '+ +
+                                        '  AND DATA = '+ TUtilitario.dataParaParametro(horario.data)+
                                         '  AND HORA = '+QuotedStr( TimeToStr(horario.hora))).Items[0];
     Except
     end;

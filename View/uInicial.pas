@@ -58,8 +58,9 @@ type
     procedure Contaspagar1Click(Sender: TObject);
     procedure Horrioscomstatuspendente1Click(Sender: TObject);
     procedure Backup1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
-    procedure verificaHorariosStatusPendente;
+    procedure verificaGeraHorariosClienteMensal;
   public
     { Public declarations }
   end;
@@ -70,7 +71,7 @@ var
 implementation
 
 uses uCadastroClientes, uAgendamentos, uContasHorarios, uCadastroFuncionarios, uCadastroConvenio, uCadastroServicos,
-     uContasExtra, uRelatorioContasReceber, uRelatorioContasPagar, uContasStatusPendente, uBackup;
+     uContasExtra, uRelatorioContasReceber, uRelatorioContasPagar, uContasStatusPendente, uBackup, ClienteMensal;
 
 {$R *.dfm}
 
@@ -129,6 +130,15 @@ begin
     abort;
 
   inherited;
+end;
+
+procedure TfrmInicial.FormShow(Sender: TObject);
+begin
+  try
+    verificaGeraHorariosClienteMensal;
+  finally
+
+  end;
 end;
 
 procedure TfrmInicial.Funcionrios1Click(Sender: TObject);
@@ -202,8 +212,15 @@ begin
   frmCadastroServicos := nil;
 end;
 
-procedure TfrmInicial.verificaHorariosStatusPendente;
+procedure TfrmInicial.verificaGeraHorariosClienteMensal;
+var Clientes :TClienteMensal;
 begin
+  try
+    Clientes := TClienteMensal.Create;
+    Clientes.geraHorarios;
+  finally
+    FreeAndNil(Clientes);
+  end;
 end;
 
 end.

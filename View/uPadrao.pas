@@ -24,6 +24,7 @@ type
     procedure avisar(mensagem :String);
     function  confirma(mensagem :String) :Boolean;
     procedure balaoInformacao(componente :TWinControl; mensagem :String; const titulo :String = 'Atenção');
+    procedure aguarde(mensagem :String);
   private
     procedure sumLeftAndTopByParents(var Left, Top :integer; componente :TWinControl);
   public
@@ -80,6 +81,11 @@ begin
     Left := Left + TForm(componente.Parent).Left;
     Top  := Top  + TForm(componente.Parent).Top;
   end;
+end;
+
+procedure TfrmPadrao.aguarde(mensagem: String);
+begin
+//
 end;
 
 procedure TfrmPadrao.avisar(mensagem: String);

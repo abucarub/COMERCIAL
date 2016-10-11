@@ -1,17 +1,18 @@
 inherited frmContasStatusPendente: TfrmContasStatusPendente
+  BorderStyle = bsSingle
   Caption = 'Contas'
-  ClientHeight = 500
-  ClientWidth = 909
+  ClientHeight = 616
+  ClientWidth = 919
   OnShow = FormShow
   ExplicitWidth = 925
-  ExplicitHeight = 538
+  ExplicitHeight = 644
   PixelsPerInch = 96
   TextHeight = 18
-  object DBGridCBN1: TDBGridCBN
+  object gridHorarios: TDBGridCBN
     Left = 13
     Top = 86
     Width = 883
-    Height = 297
+    Height = 407
     Color = 14803425
     DataSource = dsHorarios
     Font.Charset = DEFAULT_CHARSET
@@ -27,8 +28,8 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
-    OnDrawColumnCell = DBGridCBN1DrawColumnCell
-    OnEnter = DBGridCBN1Enter
+    OnDrawColumnCell = gridHorariosDrawColumnCell
+    OnEnter = gridHorariosEnter
     BuscaHabilitada = True
     ConfCores.Normal.CorFonte = clWindowText
     ConfCores.Normal.CorFundo = 14803425
@@ -73,7 +74,7 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
       item
         Expanded = False
         FieldName = 'DEPARTAMENTO'
-        Width = 132
+        Width = 94
         Visible = True
       end
       item
@@ -114,18 +115,19 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
   end
   object Panel2: TPanel
     Left = 0
-    Top = 455
-    Width = 909
+    Top = 571
+    Width = 919
     Height = 45
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 859
+    ExplicitTop = 455
+    ExplicitWidth = 909
     DesignSize = (
-      909
+      919
       45)
     object btnSalvar: TBitBtn
-      Left = 727
+      Left = 737
       Top = 8
       Width = 158
       Height = 30
@@ -246,10 +248,10 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnSalvarClick
-      ExplicitLeft = 677
+      ExplicitLeft = 727
     end
     object btnVoltar: TBitBtn
-      Left = 551
+      Left = 561
       Top = 8
       Width = 158
       Height = 30
@@ -369,23 +371,23 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnVoltarClick
-      ExplicitLeft = 501
+      ExplicitLeft = 551
     end
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 909
+    Width = 919
     Height = 68
     Align = alTop
     Color = 14732969
     ParentBackground = False
     TabOrder = 2
-    ExplicitWidth = 859
+    ExplicitWidth = 909
     object Shape1: TShape
       Left = 1
       Top = 1
-      Width = 907
+      Width = 917
       Height = 31
       Align = alTop
       Brush.Color = 14073227
@@ -421,7 +423,7 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
   end
   object GroupBox1: TGroupBox
     Left = 13
-    Top = 391
+    Top = 499
     Width = 883
     Height = 55
     Caption = ' Status do hor'#225'rio selecionado '

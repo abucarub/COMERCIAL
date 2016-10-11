@@ -9,7 +9,7 @@ uses
 
 type
   TfrmContasStatusPendente = class(TfrmPadrao)
-    DBGridCBN1: TDBGridCBN;
+    gridHorarios: TDBGridCBN;
     cdsHorarios: TClientDataSet;
     dsHorarios: TDataSource;
     cdsHorariosDATA: TDateField;
@@ -37,13 +37,13 @@ type
     cdsHorariosID: TIntegerField;
     cdsHorariosDEPARTAMENTO: TStringField;
     procedure FormShow(Sender: TObject);
-    procedure DBGridCBN1DrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure gridHorariosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure chkPendenteClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnVoltarClick(Sender: TObject);
     procedure cdsHorariosAfterEdit(DataSet: TDataSet);
     procedure cdsHorariosAfterScroll(DataSet: TDataSet);
-    procedure DBGridCBN1Enter(Sender: TObject);
+    procedure gridHorariosEnter(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
   private
     alterando :Boolean;
@@ -129,7 +129,8 @@ begin
     if assigned(horarios) then
     begin
       for horario in horarios do
-      begin
+      begin                          dando erro ao recarregar tela
+                          tela demorando pra abrir
         cdsHorarios.Append;
         cdsHorariosID.AsInteger          := horario.ID;
         cdsHorariosDEPARTAMENTO.AsString := horario.Departamento.departamento;
@@ -195,9 +196,11 @@ begin
   cdsHorarios.Post;
 
   alterando := false;
+
+  gridHorarios.SetFocus;
 end;
 
-procedure TfrmContasStatusPendente.DBGridCBN1DrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
+procedure TfrmContasStatusPendente.gridHorariosDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
 begin
   With TDBGridCBN(Sender) do
@@ -231,7 +234,7 @@ begin
   end;
 end;
 
-procedure TfrmContasStatusPendente.DBGridCBN1Enter(Sender: TObject);
+procedure TfrmContasStatusPendente.gridHorariosEnter(Sender: TObject);
 begin
   cdsHorariosAfterScroll(nil);
 end;

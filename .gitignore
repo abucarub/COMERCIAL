@@ -3,3 +3,11 @@ View/__recovery/
 *.png
 *.bmp
 View/Relatorios/__history/
+Classes/__history/
+ORM/__history/
+*.dcu
+View/__history/frameBusca.dfm.~1~
+View/__history/
+*.res
+*.ico
+*.rar

@@ -54,7 +54,8 @@ uses
   uRelatorioContasReceber in 'Relatorios\uRelatorioContasReceber.pas' {frmRelatorioContasReceber},
   uRelatorioContasPagar in 'Relatorios\uRelatorioContasPagar.pas' {frmRelatorioContasPagar},
   uContasStatusPendente in 'uContasStatusPendente.pas' {frmContasStatusPendente},
-  uBackup in 'uBackup.pas' {frmBackup};
+  uBackup in 'uBackup.pas' {frmBackup},
+  uAguarde in 'uAguarde.pas' {frmAguarde};
 
 {$R *.res}
 
@@ -63,5 +64,6 @@ begin
   Application.MainFormOnTaskbar := True;
  // TStyleManager.TrySetStyle('Sky');
   Application.CreateForm(TfrmInicial, frmInicial);
+  Application.CreateForm(TfrmAguarde, frmAguarde);
   Application.Run;
 end.

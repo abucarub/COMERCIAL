@@ -58,7 +58,7 @@ type
     {retorna uma lista de instancias, do tipo da classe passada por parametro, sendo essa lista "Detalhe" (Mestre-Detalhe)}
     function LoadMany<T:class> : TObjectList<T>;
 
-    function LoadList<T:class>(where :String) :TObjectList<T>;
+    function LoadList<T:class>(const where :String = '') :TObjectList<T>;
 
     {busca o nome do atributo (field), da propriedade, cujo tipo é o mesmo da classe T, passada por parametro }
     procedure buscaFK<T:class>(var campoFK :String);
@@ -480,7 +480,7 @@ begin
   end;
 end;
 
-function TPersistentObject.LoadList<T>(where: String): TObjectList<T>;
+function TPersistentObject.LoadList<T>(const where: String): TObjectList<T>;
 var
   Ctx: TRttiContext;
   RTT: TRttiType;
@@ -682,6 +682,7 @@ begin
     271: v := StrToFloat(S); {smallmoney}
     272: v := StrToDateTime(S); {smalldatetime}
     3: v := StrToInt(S);
+    7: v := StrToDateTime(S);
     else
     begin
       P.SetValue(Self,TValue.FromVariant(S));

@@ -91,7 +91,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
-        Width = 23
+        Width = 64
         Visible = True
       end
       item
@@ -503,7 +503,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
-        Width = 26
+        Width = 64
         Visible = True
       end
       item
@@ -552,6 +552,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
   object cdsDiasSemana: TClientDataSet
     Aggregates = <>
     Params = <>
+    AfterInsert = cdsDiasSemanaAfterInsert
     Left = 436
     Top = 200
     object cdsDiasSemanaSELECAO: TStringField
