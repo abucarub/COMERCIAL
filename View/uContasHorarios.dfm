@@ -1,4 +1,5 @@
 inherited frmContasHorarios: TfrmContasHorarios
+  BorderIcons = [biSystemMenu, biMaximize]
   Caption = 'Recebimento'
   ClientHeight = 624
   ClientWidth = 993
@@ -11,6 +12,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Top = 508
     Width = 85
     Height = 18
+    Anchors = [akLeft, akBottom]
     Caption = 'Total da conta'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 2631720
@@ -24,6 +26,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Top = 508
     Width = 65
     Height = 18
+    Anchors = [akLeft, akBottom]
     Caption = 'Valor Pago'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 2631720
@@ -37,6 +40,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Top = 508
     Width = 102
     Height = 18
+    Anchors = [akLeft, akBottom]
     Caption = 'Restante '#224' pagar'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 2631720
@@ -50,6 +54,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Top = 508
     Width = 51
     Height = 18
+    Anchors = [akRight, akBottom]
     Caption = 'Receber'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 2631720
@@ -63,6 +68,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Top = 508
     Width = 33
     Height = 18
+    Anchors = [akRight, akBottom]
     Caption = 'Troco'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 2631720
@@ -76,6 +82,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Top = 508
     Width = 73
     Height = 18
+    Anchors = [akRight, akBottom]
     Caption = 'Tipo moeda'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 2631720
@@ -226,6 +233,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Top = 186
     Width = 965
     Height = 316
+    Anchors = [akLeft, akTop, akRight, akBottom]
     Color = 14803425
     DataSource = ds
     Font.Charset = DEFAULT_CHARSET
@@ -248,36 +256,36 @@ inherited frmContasHorarios: TfrmContasHorarios
     ConfCores.Normal.CorFundo = 14803425
     ConfCores.Normal.Tipo.Charset = DEFAULT_CHARSET
     ConfCores.Normal.Tipo.Color = clWindowText
-    ConfCores.Normal.Tipo.Height = -11
-    ConfCores.Normal.Tipo.Name = 'MS Sans Serif'
+    ConfCores.Normal.Tipo.Height = -15
+    ConfCores.Normal.Tipo.Name = 'Calibri Light'
     ConfCores.Normal.Tipo.Style = []
     ConfCores.Zebrada.CorFonte = clWindowText
     ConfCores.Zebrada.CorFundo = clWhite
     ConfCores.Zebrada.Tipo.Charset = DEFAULT_CHARSET
     ConfCores.Zebrada.Tipo.Color = clWindowText
-    ConfCores.Zebrada.Tipo.Height = -11
-    ConfCores.Zebrada.Tipo.Name = 'MS Sans Serif'
+    ConfCores.Zebrada.Tipo.Height = -15
+    ConfCores.Zebrada.Tipo.Name = 'Calibri Light'
     ConfCores.Zebrada.Tipo.Style = []
     ConfCores.Selecao.CorFonte = clWindowText
     ConfCores.Selecao.CorFundo = 14928797
     ConfCores.Selecao.Tipo.Charset = DEFAULT_CHARSET
     ConfCores.Selecao.Tipo.Color = clWindowText
-    ConfCores.Selecao.Tipo.Height = -11
-    ConfCores.Selecao.Tipo.Name = 'MS Sans Serif'
+    ConfCores.Selecao.Tipo.Height = -15
+    ConfCores.Selecao.Tipo.Name = 'Calibri Light'
     ConfCores.Selecao.Tipo.Style = []
     ConfCores.Destacado.CorFonte = 8650884
     ConfCores.Destacado.CorFundo = clWhite
     ConfCores.Destacado.Tipo.Charset = DEFAULT_CHARSET
     ConfCores.Destacado.Tipo.Color = 8650884
-    ConfCores.Destacado.Tipo.Height = -11
-    ConfCores.Destacado.Tipo.Name = 'Lucida Console'
+    ConfCores.Destacado.Tipo.Height = -15
+    ConfCores.Destacado.Tipo.Name = 'Calibri Light'
     ConfCores.Destacado.Tipo.Style = [fsBold]
     ConfCores.Titulo.CorFonte = clWindowText
     ConfCores.Titulo.CorFundo = clBtnFace
     ConfCores.Titulo.Tipo.Charset = DEFAULT_CHARSET
     ConfCores.Titulo.Tipo.Color = clWindowText
-    ConfCores.Titulo.Tipo.Height = -11
-    ConfCores.Titulo.Tipo.Name = 'MS Sans Serif'
+    ConfCores.Titulo.Tipo.Height = -15
+    ConfCores.Titulo.Tipo.Name = 'Calibri Light'
     ConfCores.Titulo.Tipo.Style = []
     Ordenavel = True
     TipoBusca.ListarApenasEncontrados = False
@@ -374,7 +382,7 @@ inherited frmContasHorarios: TfrmContasHorarios
       TabOrder = 0
       OnClick = btnReceberClick
     end
-    object BitBtn3: TBitBtn
+    object btnCancelar: TBitBtn
       Left = 627
       Top = 8
       Width = 158
@@ -451,14 +459,23 @@ inherited frmContasHorarios: TfrmContasHorarios
       NumGlyphs = 2
       TabOrder = 1
     end
-    object BitBtn1: TBitBtn
+    object btnGeraConta: TBitBtn
       Left = 420
       Top = 8
       Width = 185
       Height = 30
       Caption = 'Gera Conta de Falta'
       TabOrder = 2
-      OnClick = BitBtn1Click
+      OnClick = btnGeraContaClick
+    end
+    object btnAlteraValorConta: TBitBtn
+      Left = 216
+      Top = 8
+      Width = 185
+      Height = 30
+      Caption = 'Alterar valor da conta'
+      TabOrder = 3
+      OnClick = btnAlteraValorContaClick
     end
   end
   object Panel1: TPanel
@@ -514,6 +531,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Top = 144
     Width = 668
     Height = 34
+    Anchors = [akLeft, akTop, akRight]
     TabOrder = 6
     Visible = False
     object Label1: TLabel
@@ -585,6 +603,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Font.Height = -19
     Font.Name = 'Calibri'
     Font.Style = [fsBold]
+    Anchors = [akLeft, akBottom]
     ParentFont = False
     ReadOnly = True
     TabOrder = 7
@@ -600,6 +619,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Font.Height = -19
     Font.Name = 'Calibri'
     Font.Style = [fsBold]
+    Anchors = [akLeft, akBottom]
     ParentFont = False
     ReadOnly = True
     TabOrder = 8
@@ -615,6 +635,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Font.Height = -19
     Font.Name = 'Calibri'
     Font.Style = [fsBold]
+    Anchors = [akLeft, akBottom]
     ParentFont = False
     ReadOnly = True
     TabOrder = 9
@@ -629,6 +650,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Font.Height = -19
     Font.Name = 'Calibri'
     Font.Style = []
+    Anchors = [akRight, akBottom]
     ParentFont = False
     TabOrder = 11
     OnChange = edtReceberChange
@@ -644,6 +666,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Font.Height = -19
     Font.Name = 'Calibri'
     Font.Style = [fsBold]
+    Anchors = [akRight, akBottom]
     ParentFont = False
     TabOrder = 12
   end
@@ -653,6 +676,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     Width = 145
     Height = 31
     Style = csDropDownList
+    Anchors = [akRight, akBottom]
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -19
@@ -702,6 +726,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   object cdsHorariosDiarios: TClientDataSet
     Aggregates = <>
     Params = <>
+    AfterScroll = cdsHorariosDiariosAfterScroll
     Left = 136
     Top = 262
     object cdsHorariosDiariosTG: TStringField
@@ -755,6 +780,7 @@ inherited frmContasHorarios: TfrmContasHorarios
   object cdsHorarioMensal: TClientDataSet
     Aggregates = <>
     Params = <>
+    AfterScroll = cdsHorarioMensalAfterScroll
     Left = 136
     Top = 326
     object cdsHorarioMensalTG: TStringField

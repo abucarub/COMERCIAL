@@ -74,7 +74,7 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
       item
         Expanded = False
         FieldName = 'DEPARTAMENTO'
-        Width = 100
+        Width = 64
         Visible = True
       end
       item

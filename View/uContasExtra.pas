@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, uPersistentObject, Math, System.StrUtils,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uCadastroPadrao, Data.DB, Datasnap.DBClient, Datasnap.Provider, Vcl.Buttons, Vcl.ExtCtrls, Vcl.StdCtrls,
   Vcl.Grids, Vcl.DBGrids, DBGridCBN, Vcl.ComCtrls, JvExMask, JvToolEdit, JvMaskEdit, JvCheckedMaskEdit, JvDatePickerEdit, Vcl.Mask, RxToolEdit,
-  RxCurrEdit, Generics.Collections, framePeriodo;
+  RxCurrEdit, Generics.Collections, framePeriodo, System.DateUtils;
 
 type
   TfrmContasExtra = class(TfrmCadastroPadrao)
@@ -56,19 +56,19 @@ type
     Label34: TLabel;
     Shape1: TShape;
     Shape2: TShape;
-    GroupBox2: TGroupBox;
-    Periodo1: TPeriodo;
-    Shape4: TShape;
-    chkQuitadas: TCheckBox;
-    chkParciais: TCheckBox;
-    chkEmAberto: TCheckBox;
-    BitBtn1: TBitBtn;
     cdsVENCIMENTO: TDateField;
     btnExtornar: TBitBtn;
     cdsParcelasPAGANDO: TFloatField;
     cmbMoeda: TComboBox;
     Label13: TLabel;
     cdsParcelasMOEDA: TSmallintField;
+    GroupBox2: TGroupBox;
+    Shape4: TShape;
+    Periodo1: TPeriodo;
+    chkQuitadas: TCheckBox;
+    chkParciais: TCheckBox;
+    chkEmAberto: TCheckBox;
+    btnFiltrar: TBitBtn;
     procedure dtpVencimentoChange(Sender: TObject);
     procedure btnGerarClick(Sender: TObject);
     procedure cdsParcelasAfterScroll(DataSet: TDataSet);
@@ -81,8 +81,9 @@ type
     procedure DBGListagemDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure edtTotalPagoChange(Sender: TObject);
     procedure cdsAfterScroll(DataSet: TDataSet);
-    procedure BitBtn1Click(Sender: TObject);
+    procedure btnFiltrarClick(Sender: TObject);
     procedure btnExtornarClick(Sender: TObject);
+    procedure chkQuitadasClick(Sender: TObject);
   protected
     procedure executaDepoisIncluir;override;
     procedure executaDepoisAlterar;override;
@@ -138,7 +139,7 @@ begin
   end;
 end;
 
-procedure TfrmContasExtra.BitBtn1Click(Sender: TObject);
+procedure TfrmContasExtra.btnFiltrarClick(Sender: TObject);
 begin
   carregarDados;
 end;
@@ -287,6 +288,11 @@ begin
   btnExtornar.Enabled       := (cdsParcelasVALOR_PAGO.AsFloat > 0);
 end;
 
+procedure TfrmContasExtra.chkQuitadasClick(Sender: TObject);
+begin
+  btnFiltrar.Click;
+end;
+
 procedure TfrmContasExtra.DBGListagemDrawColumnCell(Sender: TObject; const Rect: TRect; DataCol: Integer; Column: TColumn;
   State: TGridDrawState);
 begin
@@ -417,6 +423,8 @@ procedure TfrmContasExtra.FormShow(Sender: TObject);
 begin
   inherited;
   cdsParcelas.CreateDataSet;
+  Periodo1.dtpDataInicial.Date := StartOfTheMonth(Date);
+  Periodo1.dtpDataFinal.Date   := EndOfTheMonth(Date);
 end;
 
 procedure TfrmContasExtra.gerarParcelas;

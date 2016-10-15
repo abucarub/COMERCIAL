@@ -550,6 +550,7 @@ begin
     horario.ID_Departamento := BuscaDepartamento1.Departamento.ID;
     horario.ID_Pessoa       := cliente.ID_Pessoa;
     horario.ID_Profissional := BuscaProfissional.Pessoa.ID;
+    horario.data            := calendario.Date;
 
     case dayOfWeek(calendario.date)-1 of
       1 :  horario.hora := cliente.Segunda;
@@ -574,6 +575,9 @@ begin
     FreeAndNil(horario);
   end;
 end;
+ tratar para nao gerar horario ficticio antes de data de inicio
+ diminuir fonte grid tela contas
+ corrigir relatorio contas receber
 
 procedure TfrmAgendamentos.Panel2MouseEnter(Sender: TObject);
 begin

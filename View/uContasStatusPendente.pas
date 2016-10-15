@@ -96,6 +96,9 @@ begin
           2 : horario.tipo          := 'C';
          end;
 
+        if horario.compareceu = 'S' then
+          horario.geraConta := 'S';
+
         horario.Save;
       end;
 

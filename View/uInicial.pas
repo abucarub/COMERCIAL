@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf,
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.VCLUI.Wait, Data.DB,
-  FireDAC.Comp.Client, uPadrao, JvExControls, JvCalendar, JvExComCtrls,
+  FireDAC.Comp.Client, uPadrao, JvExControls, JvCalendar, JvExComCtrls, System.StrUtils, System.Math,
   JvMonthCalendar, Vcl.Grids, Vcl.Samples.Calendar, Vcl.ComCtrls,
   VclTee.TeeGDIPlus, VCLTee.TeeData, VCLTee.TeEngine, Vcl.ExtCtrls, midaslib,
   VCLTee.TeeProcs, VCLTee.Chart, VCLTee.Series, VCLTee.GanttCh, Vcl.AppEvnts, Vcl.StdCtrls, Vcl.Imaging.pngimage, FireDAC.Phys.IBWrapper,
@@ -40,6 +40,16 @@ type
     FDIBBackup1: TFDIBBackup;
     Utilitrios1: TMenuItem;
     Backup1: TMenuItem;
+    timerBackup: TTimer;
+    GroupBox1: TGroupBox;
+    lbBackup: TLabel;
+    Label1: TLabel;
+    Shape2: TShape;
+    lbTempo: TLabel;
+    Label2: TLabel;
+    lbHorarioProgramado: TLabel;
+    imgAtivado: TImage;
+    imgDesativado: TImage;
     procedure Clientes1Click(Sender: TObject);
     procedure Fisioterapia1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -59,8 +69,12 @@ type
     procedure Horrioscomstatuspendente1Click(Sender: TObject);
     procedure Backup1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure timerBackupTimer(Sender: TObject);
   private
+    FHoraProgramadaBackup :TTime;
+
     procedure verificaGeraHorariosClienteMensal;
+    procedure verificaBackupGerado;
   public
     { Public declarations }
   end;
@@ -71,98 +85,70 @@ var
 implementation
 
 uses uCadastroClientes, uAgendamentos, uContasHorarios, uCadastroFuncionarios, uCadastroConvenio, uCadastroServicos,
-     uContasExtra, uRelatorioContasReceber, uRelatorioContasPagar, uContasStatusPendente, uBackup, ClienteMensal;
+     uContasExtra, uRelatorioContasReceber, uRelatorioContasPagar, uContasStatusPendente, uBackup, ClienteMensal, ConfiguracoesBackup;
 
 {$R *.dfm}
 
 procedure TfrmInicial.Backup1Click(Sender: TObject);
 begin
-  frmBackup := TfrmBackup.Create(nil);
-  frmBackup.Showmodal;
-  frmBackup.Release;
-  frmBackup := nil;
+  AbreForm(TfrmBackup, frmBackup);
+  verificaBackupGerado;
 end;
 
 procedure TfrmInicial.Clientes1Click(Sender: TObject);
 begin
-  frmCadastroClientes := TfrmCadastroClientes.Create(nil);
-  frmCadastroClientes.Showmodal;
-  frmCadastroClientes.Release;
-  frmCadastroClientes := nil;
+  AbreForm(TfrmCadastroClientes, frmCadastroClientes);
 end;
 
 procedure TfrmInicial.Contaspagar1Click(Sender: TObject);
 begin
-  frmRelatorioContasPagar := TfrmRelatorioContasPagar.Create(nil);
-  frmRelatorioContasPagar.Showmodal;
-  frmRelatorioContasPagar.Release;
-  frmRelatorioContasPagar := nil;
+  AbreForm(TfrmRelatorioContasPagar, frmRelatorioContasPagar);
 end;
 
 procedure TfrmInicial.Contasreceber1Click(Sender: TObject);
 begin
-  frmRelatorioContasReceber := TfrmRelatorioContasReceber.Create(nil);
-  frmRelatorioContasReceber.Showmodal;
-  frmRelatorioContasReceber.Release;
-  frmRelatorioContasReceber := nil;
+  AbreForm(TfrmRelatorioContasReceber, frmRelatorioContasReceber);
 end;
 
 procedure TfrmInicial.Convnios1Click(Sender: TObject);
 begin
-  frmCadastroConvenio := TfrmCadastroConvenio.Create(nil);
-  frmCadastroConvenio.Showmodal;
-  frmCadastroConvenio.Release;
-  frmCadastroConvenio := nil;
+  AbreForm(TfrmCadastroConvenio, frmCadastroConvenio);
 end;
 
 procedure TfrmInicial.Fisioterapia1Click(Sender: TObject);
 begin
-  frmAgendamentos := TfrmAgendamentos.Create(nil);
-  frmAgendamentos.Showmodal;
-  frmAgendamentos.Release;
-  frmAgendamentos := nil;
+  AbreForm(TfrmAgendamentos, frmAgendamentos);
 end;
 
 procedure TfrmInicial.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if MessageBox(Handle, PWideChar('Deseja realmente sair do sistema?'),'',MB_YESNO+MB_SYSTEMMODAL+MB_ICONQUESTION+MB_DEFBUTTON1) = ID_NO then
-    abort;
+  if Key = VK_ESCAPE then
+    if not confirma('Deseja realmente sair do sistema?') then
+      abort;
 
   inherited;
 end;
 
 procedure TfrmInicial.FormShow(Sender: TObject);
 begin
-  try
-    verificaGeraHorariosClienteMensal;
-  finally
-
-  end;
+  verificaGeraHorariosClienteMensal;
+  verificaBackupGerado;
 end;
 
 procedure TfrmInicial.Funcionrios1Click(Sender: TObject);
 begin
-  frmCadastroFuncionarios := TfrmCadastroFuncionarios.Create(nil);
-  frmCadastroFuncionarios.Showmodal;
-  frmCadastroFuncionarios.Release;
-  frmCadastroFuncionarios := nil;
+  AbreForm(TfrmCadastroFuncionarios, frmCadastroFuncionarios);
 end;
 
 procedure TfrmInicial.Gerenciar1Click(Sender: TObject);
 begin
-  frmContasHorarios := TfrmContasHorarios.Create(nil);
-  frmContasHorarios.Showmodal;
-  frmContasHorarios.Release;
-  frmContasHorarios := nil;
+  AbreForm(TfrmContasHorarios, frmContasHorarios);
 end;
 
 procedure TfrmInicial.Horrioscomstatuspendente1Click(Sender: TObject);
 begin
-  frmContasStatusPendente := TfrmContasStatusPendente.Create(nil);
-  frmContasStatusPendente.Showmodal;
-  frmContasStatusPendente.Release;
-  frmContasStatusPendente := nil;
+  AbreForm(TfrmContasStatusPendente, frmContasStatusPendente);
 end;
 
 procedure TfrmInicial.Image2Click(Sender: TObject);
@@ -198,18 +184,60 @@ end;
 
 procedure TfrmInicial.Pagar1Click(Sender: TObject);
 begin
-  frmContasExtra := TfrmContasExtra.Create(nil);
-  frmContasExtra.Showmodal;
-  frmContasExtra.Release;
-  frmContasExtra := nil;
+  AbreForm(TfrmContasExtra, frmContasExtra);
 end;
 
 procedure TfrmInicial.Servios1Click(Sender: TObject);
 begin
-  frmCadastroServicos := TfrmCadastroServicos.Create(nil);
-  frmCadastroServicos.Showmodal;
-  frmCadastroServicos.Release;
-  frmCadastroServicos := nil;
+  AbreForm(TfrmCadastroServicos, frmCadastroServicos);
+end;
+
+procedure TfrmInicial.timerBackupTimer(Sender: TObject);
+var configuracoes :TConfiguracoesBackup;
+begin
+  if FHoraProgramadaBackup < Time then
+    lbTempo.Caption := TimeToStr(FHoraProgramadaBackup + (StrToTime('23:59:59')-time))
+  else
+    lbTempo.Caption := TimeToStr(FHoraProgramadaBackup - Time);
+
+  if StrToTime(lbtempo.Caption) = 0 then
+  begin
+    timerBackup.Enabled := false;
+    configuracoes := TConfiguracoesBackup.Create;
+    configuracoes.Load(1);
+    configuracoes.executaBackup(Date);
+  end;
+end;
+
+procedure TfrmInicial.verificaBackupGerado;
+var configuracoes :TConfiguracoesBackup;
+begin
+  configuracoes := TConfiguracoesBackup.Create;
+  configuracoes.Load(1);
+
+  if not configuracoes.isEmpty then
+  begin
+    lbHorarioProgramado.Caption := TimeToStr(configuracoes.horaProgramada);
+    timerBackup.Enabled   := false;
+    lbTempo.Caption       := '00:00:00';
+     {verificação válida apenas na primeira vez que o sistema é aberto no dia}
+    if ((configuracoes.dataUltimoBackup <> configuracoes.ultimoUsoSistema) and (configuracoes.ultimoUsoSistema <> date))
+    or ( (configuracoes.ultimoUsoSistema = date) and (configuracoes.horaProgramada < Time) and (configuracoes.dataUltimoBackup <> Date)) then
+      configuracoes.executaBackup(configuracoes.ultimoUsoSistema);
+
+    configuracoes.ultimoUsoSistema := Date;
+    configuracoes.Save;
+
+    lbBackup.Caption      := IfThen(configuracoes.habilitado = 0, 'Ativado', 'Desativado');
+    imgAtivado.Visible    := (configuracoes.habilitado = 0);
+    imgDesativado.Visible := (configuracoes.habilitado = 1);
+
+    if (configuracoes.habilitado = 0) {and (configuracoes.horaProgramada > Time) }then
+    begin
+      FHoraProgramadaBackup := configuracoes.horaProgramada;
+      timerBackup.Enabled   := true;
+    end;
+  end;
 end;
 
 procedure TfrmInicial.verificaGeraHorariosClienteMensal;

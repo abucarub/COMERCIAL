@@ -16,7 +16,7 @@ type
     DBGridCBN1: TDBGridCBN;
     Panel2: TPanel;
     btnReceber: TBitBtn;
-    BitBtn3: TBitBtn;
+    btnCancelar: TBitBtn;
     Panel1: TPanel;
     Shape1: TShape;
     lbTitulo: TLabel;
@@ -70,7 +70,8 @@ type
     gpbStatus: TGroupBox;
     chkQuitadas: TCheckBox;
     chkPendentes: TCheckBox;
-    BitBtn1: TBitBtn;
+    btnGeraConta: TBitBtn;
+    btnAlteraValorConta: TBitBtn;
     procedure btnFiltrarClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnReceberClick(Sender: TObject);
@@ -80,8 +81,11 @@ type
     procedure edtTotalContaChange(Sender: TObject);
     procedure edtReceberChange(Sender: TObject);
     procedure chkQuitadasClick(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
+    procedure btnGeraContaClick(Sender: TObject);
     procedure edtValorPagoChange(Sender: TObject);
+    procedure cdsHorarioMensalAfterScroll(DataSet: TDataSet);
+    procedure cdsHorariosDiariosAfterScroll(DataSet: TDataSet);
+    procedure btnAlteraValorContaClick(Sender: TObject);
   private
     procedure mostrarHorariosDiarios(horarios :TObjectList<TSPA>);
     procedure mostrarHorarioMensal(horarioMensal :TClienteMensal);
@@ -90,6 +94,7 @@ type
     procedure limpaValores;
     procedure gerarContaHorarioComFalta;
     procedure alteraGerarConta(id_horario :integer);
+    procedure alteraValor(novoValor :real);
 
     function buscarHorariosMensal(dtInicial, dtFinal :TDate) :TObjectList<TSPA>;
     function buscarHorariosDiario :TObjectList<TSPA>;
@@ -108,7 +113,7 @@ var
 
 implementation
 
-uses Pessoa, Utilitario, Parcela, Movimento, uPesquisa;
+uses Pessoa, Utilitario, Parcela, Movimento, uPesquisa, uAlteracaoValorConta;
 
 {$R *.dfm}
 
@@ -125,6 +130,21 @@ begin
   finally
     FreeAndNil(horario);
   end;
+end;
+
+procedure TfrmContasHorarios.alteraValor(novoValor: real);
+var cds :TClientDataSet;
+begin
+  if cdsHorariosDiarios.IsEmpty then
+    cds := cdsHorarioMensal
+  else
+    cds := cdsHorariosDiarios;
+
+  cds.Edit;
+  cds.FieldByName('VALOR').AsFloat := novoValor;
+  cds.Post;
+
+  atualizaValores;
 end;
 
 procedure TfrmContasHorarios.atualizaValores;
@@ -157,13 +177,31 @@ begin
   cds.RecNo := rec;
 end;
 
-procedure TfrmContasHorarios.BitBtn1Click(Sender: TObject);
+procedure TfrmContasHorarios.btnGeraContaClick(Sender: TObject);
 begin
   if informacoesNecessarias then
   begin
     gerarContaHorarioComFalta;
     btnFiltrar.Click;
   end;
+end;
+
+procedure TfrmContasHorarios.btnAlteraValorContaClick(Sender: TObject);
+var cds :TClientDataSet;
+begin
+  if cdsHorariosDiarios.IsEmpty then
+    cds := cdsHorarioMensal
+  else
+    cds := cdsHorariosDiarios;
+
+  frmAlteracaoValorConta := TfrmAlteracaoValorConta.Create(nil);
+
+  frmAlteracaoValorConta.edtValorAtual.Value := cds.FieldByName('VALOR').AsFloat;
+  if frmAlteracaoValorConta.ShowModal = 1 then
+    alteraValor(frmAlteracaoValorConta.edtNovoValor.Value);
+
+  frmAlteracaoValorConta.Release;
+  frmAlteracaoValorConta := nil;
 end;
 
 procedure TfrmContasHorarios.btnFiltrarClick(Sender: TObject);
@@ -214,6 +252,16 @@ begin
  finally
    FreeAndNil(Horario);
  end;
+end;
+
+procedure TfrmContasHorarios.cdsHorarioMensalAfterScroll(DataSet: TDataSet);
+begin
+  btnAlteraValorConta.Enabled := cdsHorarioMensalSTATUS.AsString = 'ABERTA';
+end;
+
+procedure TfrmContasHorarios.cdsHorariosDiariosAfterScroll(DataSet: TDataSet);
+begin
+  btnAlteraValorConta.Enabled := cdsHorariosDiariosSTATUS.AsString = 'ABERTA';
 end;
 
 procedure TfrmContasHorarios.chkQuitadasClick(Sender: TObject);
@@ -637,7 +685,7 @@ begin
     cds := cdsHorariosDiarios
   else
     cds := cdsHorarioMensal;
-                                        criar um alterar valor total da conta.ID_Spa.MaxValue botao direito ou algo assim
+
   pagar_integral := cds.RecordCount > 1;
 
   cds.First;

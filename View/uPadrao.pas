@@ -25,6 +25,7 @@ type
     function  confirma(mensagem :String) :Boolean;
     procedure balaoInformacao(componente :TWinControl; mensagem :String; const titulo :String = 'Atenção');
     procedure aguarde(mensagem :String);
+    procedure AbreForm(aClasseForm: TComponentClass;var aForm);
   private
     procedure sumLeftAndTopByParents(var Left, Top :integer; componente :TWinControl);
   public
@@ -47,9 +48,20 @@ begin
   Screen.OnActiveControlChange := ControlColorChange;
 end;
 
+procedure TfrmPadrao.AbreForm(aClasseForm: TComponentClass;var aForm);
+begin
+  Application.CreateForm(aClasseForm,aForm);
+  try
+    Tform(aForm).ShowModal;
+  Finally
+    FreeAndNil(Tform(aForm));
+  end;
+end;
+
 procedure TfrmPadrao.FormDestroy(Sender: TObject);
 begin
-  Screen.OnActiveControlChange := nil;
+  if self.ClassName = 'TfrmInicial' then
+    Screen.OnActiveControlChange := nil;
 end;
 
 procedure TfrmPadrao.FormKeyDown(Sender: TObject; var Key: Word;
@@ -131,7 +143,7 @@ begin
         begin
          if ActiveControl is TWinControl then
             try
-              CorAnterior := Tclasshelper(ActiveControl).Color;
+              CorAnterior := clWhite;//Tclasshelper(ActiveControl).Color;
               Controle := ActiveControl;
               Tclasshelper(Controle).Color := CorComFoco;
            except

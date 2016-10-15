@@ -28,7 +28,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       368
       663)
     object Image2: TImage
-      Left = -17
+      Left = -21
       Top = 294
       Width = 35
       Height = 33
@@ -237,7 +237,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         Anchors = [akTop, akRight]
         CalColors.TextColor = clBlue
         CalColors.MonthBackColor = clTeal
-        Date = 42566.913357245370000000
+        Date = 42566.605619768520000000
         Enabled = False
         TabOrder = 0
         OnClick = calendarioClick
@@ -793,7 +793,6 @@ inherited frmAgendamentos: TfrmAgendamentos
       Top = 47
       Width = 1106
       Height = 620
-      VertScrollBar.Position = 390
       Align = alClient
       BevelInner = bvNone
       BevelOuter = bvNone
@@ -806,7 +805,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         620)
       object Panel3: TPanel
         Left = 670
-        Top = 600
+        Top = 990
         Width = 185
         Height = 20
         Caption = 'Panel3'
@@ -814,8 +813,8 @@ inherited frmAgendamentos: TfrmAgendamentos
       end
       object pnlHorarios: TPanel
         Left = 0
-        Top = -389
-        Width = 1176
+        Top = 1
+        Width = 1159
         Height = 1118
         Anchors = [akLeft, akTop, akRight, akBottom]
         Color = clWhite
@@ -828,12 +827,12 @@ inherited frmAgendamentos: TfrmAgendamentos
         ParentFont = False
         TabOrder = 0
         DesignSize = (
-          1176
+          1159
           1118)
         object Image1: TImage
           Left = 0
           Top = 0
-          Width = 1279
+          Width = 1262
           Height = 1123
           Anchors = [akLeft, akTop, akRight, akBottom]
           IncrementalDisplay = True
@@ -7318,7 +7317,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     Left = 536
     Top = 256
     Bitmap = {
-      494C010106003801FC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010106003801000110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
