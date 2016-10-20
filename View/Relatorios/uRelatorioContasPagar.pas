@@ -71,6 +71,7 @@ type
     RLLabel5: TRLLabel;
     RLDBText2: TRLDBText;
     RLDraw1: TRLDraw;
+    qryContasRESTANTE_PARC: TFloatField;
     procedure btnImprimirClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure qryContasCalcFields(DataSet: TDataSet);
@@ -155,6 +156,7 @@ begin
   with qryContas do
   begin
     FieldByName('RESTANTE').AsBCD := FieldByName('TOTAL_CONTA').AsBCD - FieldByName('VALOR_PAGO').AsBCD;
+    FieldByName('RESTANTE_PARC').AsBCD := FieldByName('VALOR_PARCELA').AsBCD - FieldByName('VLRPG_PARCELA').AsBCD;
   end;
 end;
 

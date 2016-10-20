@@ -9,6 +9,7 @@ inherited frmContasExtra: TfrmContasExtra
   inherited pgcDados: TPageControl
     Width = 715
     Height = 579
+    ActivePage = tsDados
     ExplicitWidth = 715
     ExplicitHeight = 579
     inherited tsListagem: TTabSheet

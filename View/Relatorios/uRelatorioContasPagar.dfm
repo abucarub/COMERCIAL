@@ -1,9 +1,10 @@
 inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
+  BorderStyle = bsSingle
   Caption = 'Relat'#243'rio'
-  ClientHeight = 307
-  ClientWidth = 510
-  ExplicitWidth = 526
-  ExplicitHeight = 345
+  ClientHeight = 298
+  ClientWidth = 517
+  ExplicitWidth = 523
+  ExplicitHeight = 326
   PixelsPerInch = 96
   TextHeight = 18
   object RLReport1: TRLReport
@@ -118,12 +119,12 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
       ParentColor = False
       Transparent = False
       object RLDBResult4: TRLDBResult
-        Left = 382
+        Left = 364
         Top = 2
-        Width = 140
+        Width = 158
         Height = 16
         Alignment = taRightJustify
-        DataField = 'TOTAL_CONTA'
+        DataField = 'VALOR_PARCELA'
         DataSource = dsContas
         DisplayMask = ' ,0.00'
         Font.Charset = DEFAULT_CHARSET
@@ -138,12 +139,12 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
         Transparent = False
       end
       object RLDBResult5: TRLDBResult
-        Left = 471
+        Left = 448
         Top = 3
-        Width = 135
+        Width = 158
         Height = 16
         Alignment = taRightJustify
-        DataField = 'VALOR_PAGO'
+        DataField = 'VLRPG_PARCELA'
         DataSource = dsContas
         DisplayMask = ' ,0.00'
         Font.Charset = DEFAULT_CHARSET
@@ -158,12 +159,12 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
         Transparent = False
       end
       object RLDBResult6: TRLDBResult
-        Left = 567
+        Left = 524
         Top = 3
-        Width = 113
+        Width = 156
         Height = 16
         Alignment = taRightJustify
-        DataField = 'RESTANTE'
+        DataField = 'RESTANTE_PARC'
         DataSource = dsContas
         DisplayMask = ' ,0.00'
         Font.Charset = DEFAULT_CHARSET
@@ -407,12 +408,12 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
           Transparent = False
         end
         object RLDBText5: TRLDBText
-          Left = 625
+          Left = 591
           Top = 3
-          Width = 55
+          Width = 89
           Height = 15
           Alignment = taRightJustify
-          DataField = 'RESTANTE'
+          DataField = 'RESTANTE_PARC'
           DataSource = dsContas
           Font.Charset = DEFAULT_CHARSET
           Font.Color = 11298594
@@ -492,16 +493,17 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 510
+    Width = 517
     Height = 68
     Align = alTop
     Color = 14732969
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 510
     object Shape1: TShape
       Left = 1
       Top = 1
-      Width = 508
+      Width = 515
       Height = 31
       Align = alTop
       Brush.Color = 14073227
@@ -539,17 +541,19 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
   end
   object Panel2: TPanel
     Left = 0
-    Top = 262
-    Width = 510
+    Top = 253
+    Width = 517
     Height = 45
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 262
+    ExplicitWidth = 510
     DesignSize = (
-      510
+      517
       45)
     object btnImprimir: TBitBtn
-      Left = 328
+      Left = 335
       Top = 8
       Width = 158
       Height = 30
@@ -669,9 +673,10 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnImprimirClick
+      ExplicitLeft = 328
     end
     object btnVoltar: TBitBtn
-      Left = 152
+      Left = 159
       Top = 8
       Width = 158
       Height = 30
@@ -790,6 +795,7 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       NumGlyphs = 2
       TabOrder = 1
+      ExplicitLeft = 152
     end
   end
   object gpbStatus: TGroupBox
@@ -945,6 +951,10 @@ inherited frmRelatorioContasPagar: TfrmRelatorioContasPagar
     object qryContasDESCRICAO: TStringField
       FieldName = 'DESCRICAO'
       Size = 100
+    end
+    object qryContasRESTANTE_PARC: TFloatField
+      FieldKind = fkInternalCalc
+      FieldName = 'RESTANTE_PARC'
     end
   end
   object dsContas: TDataSource

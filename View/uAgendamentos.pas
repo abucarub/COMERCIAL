@@ -569,15 +569,12 @@ begin
 
     if horario.hora > 0 then
       {se nao existe um horario criado para aquele dia horario dept. prof. e pessoa, aí mostra o reservado(fictício)}
-      if not existeHorarioCriado(horario) then
+      if not existeHorarioCriado(horario) and (cliente.inicio <= calendario.Date) then
         mostraHorarioTela(horario);
 
     FreeAndNil(horario);
   end;
 end;
- tratar para nao gerar horario ficticio antes de data de inicio
- diminuir fonte grid tela contas
- corrigir relatorio contas receber
 
 procedure TfrmAgendamentos.Panel2MouseEnter(Sender: TObject);
 begin

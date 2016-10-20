@@ -148,7 +148,10 @@ inherited frmContasHorarios: TfrmContasHorarios
     end
     inherited edtDepartamento: TEdit
       Left = 85
+      Width = 171
+      OnChange = BuscaDepartamento1edtDepartamentoChange
       ExplicitLeft = 85
+      ExplicitWidth = 171
     end
   end
   object btnFiltrar: TBitBtn
@@ -256,35 +259,35 @@ inherited frmContasHorarios: TfrmContasHorarios
     ConfCores.Normal.CorFundo = 14803425
     ConfCores.Normal.Tipo.Charset = DEFAULT_CHARSET
     ConfCores.Normal.Tipo.Color = clWindowText
-    ConfCores.Normal.Tipo.Height = -15
+    ConfCores.Normal.Tipo.Height = -13
     ConfCores.Normal.Tipo.Name = 'Calibri Light'
     ConfCores.Normal.Tipo.Style = []
     ConfCores.Zebrada.CorFonte = clWindowText
     ConfCores.Zebrada.CorFundo = clWhite
     ConfCores.Zebrada.Tipo.Charset = DEFAULT_CHARSET
     ConfCores.Zebrada.Tipo.Color = clWindowText
-    ConfCores.Zebrada.Tipo.Height = -15
+    ConfCores.Zebrada.Tipo.Height = -13
     ConfCores.Zebrada.Tipo.Name = 'Calibri Light'
     ConfCores.Zebrada.Tipo.Style = []
     ConfCores.Selecao.CorFonte = clWindowText
     ConfCores.Selecao.CorFundo = 14928797
     ConfCores.Selecao.Tipo.Charset = DEFAULT_CHARSET
     ConfCores.Selecao.Tipo.Color = clWindowText
-    ConfCores.Selecao.Tipo.Height = -15
+    ConfCores.Selecao.Tipo.Height = -13
     ConfCores.Selecao.Tipo.Name = 'Calibri Light'
     ConfCores.Selecao.Tipo.Style = []
     ConfCores.Destacado.CorFonte = 8650884
     ConfCores.Destacado.CorFundo = clWhite
     ConfCores.Destacado.Tipo.Charset = DEFAULT_CHARSET
     ConfCores.Destacado.Tipo.Color = 8650884
-    ConfCores.Destacado.Tipo.Height = -15
+    ConfCores.Destacado.Tipo.Height = -13
     ConfCores.Destacado.Tipo.Name = 'Calibri Light'
     ConfCores.Destacado.Tipo.Style = [fsBold]
     ConfCores.Titulo.CorFonte = clWindowText
     ConfCores.Titulo.CorFundo = clBtnFace
     ConfCores.Titulo.Tipo.Charset = DEFAULT_CHARSET
     ConfCores.Titulo.Tipo.Color = clWindowText
-    ConfCores.Titulo.Tipo.Height = -15
+    ConfCores.Titulo.Tipo.Height = -13
     ConfCores.Titulo.Tipo.Name = 'Calibri Light'
     ConfCores.Titulo.Tipo.Style = []
     Ordenavel = True
@@ -465,6 +468,7 @@ inherited frmContasHorarios: TfrmContasHorarios
       Width = 185
       Height = 30
       Caption = 'Gera Conta de Falta'
+      Enabled = False
       TabOrder = 2
       OnClick = btnGeraContaClick
     end

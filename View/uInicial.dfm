@@ -30792,8 +30792,6 @@ object frmInicial: TfrmInicial
     Font.Style = []
     ParentFont = False
     TabOrder = 0
-    ExplicitTop = 550
-    ExplicitWidth = 1199
     object lbBackup: TLabel
       Left = 49
       Top = 25

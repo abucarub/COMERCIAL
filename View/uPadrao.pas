@@ -25,6 +25,7 @@ type
     function  confirma(mensagem :String) :Boolean;
     procedure balaoInformacao(componente :TWinControl; mensagem :String; const titulo :String = 'Atenção');
     procedure aguarde(mensagem :String);
+    procedure fimAguarde;
     procedure AbreForm(aClasseForm: TComponentClass;var aForm);
   private
     procedure sumLeftAndTopByParents(var Left, Top :integer; componente :TWinControl);
@@ -36,6 +37,8 @@ var
   frmPadrao: TfrmPadrao;
 
 implementation
+
+uses uAguarde;
 
 const
   CorSemFoco = clWindow;
@@ -97,7 +100,10 @@ end;
 
 procedure TfrmPadrao.aguarde(mensagem: String);
 begin
-//
+  frmAguarde := TfrmAguarde.Create(nil);
+  frmAguarde.lbMensagem.Caption := mensagem;
+  frmAguarde.gif.Animate := true;
+  frmAguarde.Show;
 end;
 
 procedure TfrmPadrao.avisar(mensagem: String);
@@ -149,6 +155,15 @@ begin
            except
            end;
         end;
+end;
+
+procedure TfrmPadrao.fimAguarde;
+begin
+  if assigned(frmAguarde) then
+  begin
+    frmAguarde.gif.Animate := false;
+    frmAguarde.Free;
+  end;
 end;
 
 end.

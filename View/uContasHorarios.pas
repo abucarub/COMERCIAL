@@ -86,6 +86,7 @@ type
     procedure cdsHorarioMensalAfterScroll(DataSet: TDataSet);
     procedure cdsHorariosDiariosAfterScroll(DataSet: TDataSet);
     procedure btnAlteraValorContaClick(Sender: TObject);
+    procedure BuscaDepartamento1edtDepartamentoChange(Sender: TObject);
   private
     procedure mostrarHorariosDiarios(horarios :TObjectList<TSPA>);
     procedure mostrarHorarioMensal(horarioMensal :TClienteMensal);
@@ -172,7 +173,6 @@ begin
 
     cds.Next;
   end;
-  edtTotalConta.ReadOnly := (edtValorPago.Value > 0);
   cds.EnableControls;
   cds.RecNo := rec;
 end;
@@ -502,6 +502,15 @@ begin
     result := nil;
 end;
 
+procedure TfrmContasHorarios.BuscaDepartamento1edtDepartamentoChange(
+  Sender: TObject);
+begin
+  inherited;
+  if assigned(BuscaDepartamento1.Departamento) then
+
+  btnGeraConta.Enabled := BuscaDepartamento1.Departamento.tipoHorarios = 'D';
+end;
+
 procedure TfrmContasHorarios.BuscaDepartamento1Exit(Sender: TObject);
 begin
   inherited;
@@ -651,16 +660,17 @@ begin
     cdsHorariosDiariosCOMPARECEU.AsString   := horario.compareceu;
     cdsHorariosDiariosDEPARTAMENTO.AsString := horario.Departamento.departamento;
     cdsHorariosDiariosPROFISSIONAL.AsString := horario.Profissional.Nome;
-    cdsHorariosDiariosVALOR.AsFloat         := horario.valorServicos;
 
     if assigned(conta) then
     begin
+      cdsHorariosDiariosVALOR.AsFloat      := conta.TotalConta;
       cdsHorariosDiariosSTATUS.AsString    := conta.descricaoStatus;
       cdsHorariosDiariosID_CONTA.AsInteger := conta.ID;
       cdsHorariosDiariosVALOR_PAGO.AsFloat := conta.ValorPago;
     end
     else
     begin
+      cdsHorariosDiariosVALOR.AsFloat      := horario.valorServicos;
       cdsHorariosDiariosSTATUS.AsString    := 'ABERTA';
       cdsHorariosDiariosID_CONTA.AsInteger := 0;
       cdsHorariosDiariosVALOR_PAGO.AsFloat := 0;

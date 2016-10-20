@@ -11,7 +11,7 @@ type
   TfrmAguarde = class(TForm)
     Shape1: TShape;
     lbMensagem: TLabel;
-    RxGIFAnimator1: TRxGIFAnimator;
+    gif: TRxGIFAnimator;
   private
     { Private declarations }
   public

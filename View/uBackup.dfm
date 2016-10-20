@@ -1,7 +1,8 @@
 inherited frmBackup: TfrmBackup
+  BorderStyle = bsSingle
   Caption = 'Backup'
-  ClientHeight = 306
-  ClientWidth = 645
+  ClientHeight = 316
+  ClientWidth = 655
   ExplicitWidth = 661
   ExplicitHeight = 344
   PixelsPerInch = 96
@@ -9,16 +10,17 @@ inherited frmBackup: TfrmBackup
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 645
+    Width = 655
     Height = 68
     Align = alTop
     Color = 14732969
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 645
     object Shape1: TShape
       Left = 1
       Top = 1
-      Width = 643
+      Width = 653
       Height = 31
       Align = alTop
       Brush.Color = 14073227
@@ -54,17 +56,19 @@ inherited frmBackup: TfrmBackup
   end
   object Panel2: TPanel
     Left = 0
-    Top = 261
-    Width = 645
+    Top = 271
+    Width = 655
     Height = 45
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 261
+    ExplicitWidth = 645
     DesignSize = (
-      645
+      655
       45)
     object btnEfetuarBackup: TBitBtn
-      Left = 292
+      Left = 302
       Top = 8
       Width = 158
       Height = 30
@@ -185,9 +189,10 @@ inherited frmBackup: TfrmBackup
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnEfetuarBackupClick
+      ExplicitLeft = 292
     end
     object btnVoltar: TBitBtn
-      Left = 116
+      Left = 126
       Top = 8
       Width = 158
       Height = 30
@@ -307,9 +312,10 @@ inherited frmBackup: TfrmBackup
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnVoltarClick
+      ExplicitLeft = 116
     end
     object BitBtn1: TBitBtn
-      Left = 468
+      Left = 478
       Top = 8
       Width = 158
       Height = 30
@@ -318,6 +324,7 @@ inherited frmBackup: TfrmBackup
       NumGlyphs = 2
       TabOrder = 2
       OnClick = BitBtn1Click
+      ExplicitLeft = 468
     end
   end
   object GroupBox1: TGroupBox

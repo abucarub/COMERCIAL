@@ -168,6 +168,7 @@ end;
 function TfrmContasExtra.Cancelar: Boolean;
 begin
   inherited;
+  edtTotalConta.Enabled := true;
 end;
 
 procedure TfrmContasExtra.carregarDaLista;
@@ -355,7 +356,7 @@ end;
 procedure TfrmContasExtra.dtpVencimentoChange(Sender: TObject);
 begin
   if dtpVencimento.Date < Date then
-    balaoInformacao(dtpVencimento,'A data de vencimento não pode ser anterior a data corrente');
+    balaoInformacao(dtpVencimento,'Atenção. Data de vencimento anterior a data corrente');
 end;
 
 procedure TfrmContasExtra.edtReceberChange(Sender: TObject);
@@ -425,6 +426,7 @@ begin
   cdsParcelas.CreateDataSet;
   Periodo1.dtpDataInicial.Date := StartOfTheMonth(Date);
   Periodo1.dtpDataFinal.Date   := EndOfTheMonth(Date);
+  btnFiltrar.Click;
 end;
 
 procedure TfrmContasExtra.gerarParcelas;
@@ -459,6 +461,7 @@ end;
 procedure TfrmContasExtra.LimparCampos;
 begin
   inherited;
+  edtID.Text := '0';
   edtTotalConta.Clear;
   edtTotalPago.Clear;
   edtStatus.Text := 'ABERTA';
@@ -471,6 +474,7 @@ begin
   edtValorParcela.Clear;
   edtReceber.Clear;
   cdsParcelas.EmptyDataSet;
+  edtNrDocumento.Clear;
 end;
 
 procedure TfrmContasExtra.receberParcela;

@@ -244,9 +244,9 @@ begin
     condicaoDepartamento := ' and SPA.ID_DEPARTAMENTO = '+intToStr(BuscaDepartamento1.Departamento.ID);
 
   qryContas.Close;
-  qryContas.SQL.Text := 'select (SELECT SUM(tp.valor) from servico_agendado sa                 '+
+  qryContas.SQL.Text := 'select iif(c.ID is null,(SELECT SUM(tp.valor) from servico_agendado sa                 '+
        '  inner join tabela_preco tp on tp.id = sa.id_tabela_preco                             '+
-       ' where sa.id_spa = SPA.ID) TOTAL_CONTA, iif(c.ID is null, 0, C.VALOR_PAGO) VALOR_PAGO, '+
+       ' where sa.id_spa = SPA.ID), c.total_conta) TOTAL_CONTA, iif(c.ID is null, 0, C.VALOR_PAGO) VALOR_PAGO, '+
        ' SPA.ID_DEPARTAMENTO, dp.departamento,pes.nome_razao PESSOA, pes.fone1,                '+
        ' CASE                                                                                  '+
        '  WHEN (C.ID is null)or(C.status = ''A'') THEN ''EM ABERTO''                           '+
@@ -254,10 +254,12 @@ begin
        '  WHEN C.status = ''P'' THEN ''PARCIAL''                                               '+
        ' END status                                                                            '+
        '  from SPA                                                                             '+
-       ' left  join CONTAS c on c.id_spa = SPA.ID                                              '+
-       ' inner join departamentos dp on dp.ID = SPA.id_departamento                            '+
        ' inner join pessoas pes on pes.id = SPA.id_pessoa                                      '+
-       ' where spa.gera_conta = ''S'' ' + condicaoDepartamento+ condicaoStatus;
+       ' left join clientes_mensal cm on cm.id_pessoa = pes.id                                 '+
+       ' left  join CONTAS c on ((c.id_spa = SPA.ID)or(c.id_cliente_mensal = cm.id))           '+
+       ' inner join departamentos dp on dp.ID = SPA.id_departamento                            '+
+       ' where spa.gera_conta = ''S'' ' + condicaoDepartamento+ condicaoStatus+
+       ' order by SPA.ID_DEPARTAMENTO';
   qryContas.Open;
 
 end;
@@ -272,10 +274,19 @@ begin
 
   qryContasMensal.Close;
   qryContasMensal.SQL.Text := 'select Extract(month from SPA.data) mes, Extract(Year from SPA.data) ano, '+
-                              '  MAX((SELECT sum(tp.valor) from servico_agendado sa                      '+
-                              '  inner join tabela_preco tp on tp.id = sa.id_tabela_preco                '+
-                              ' where sa.id_spa = SPA.ID)) TOTAL_CONTA,                                  '+
-
+                              '  MAX(iif(((select c.id from contas c                                     '+
+                              '              where c.id_cliente_mensal = cm.id                           '+
+                              '                and (Extract(Year from SPA.data)||''-''||LPAD(Extract(month from SPA.data),2,''0'')||''-''||LPAD(CAST(cm.dia_pagamento as CHAR(2)),2,''0'')) = '+
+                              '                    (select first 1 CAST(par.dt_vencimento as CHAR(10)) from parcelas par '+
+                              '                     where par.id_conta = c.id) ) is null),                               '+
+                              '             (SELECT sum(tp.valor) from servico_agendado sa                               '+
+                              '                   inner join tabela_preco tp on tp.id = sa.id_tabela_preco               '+
+                              '                  where sa.id_spa = SPA.ID),                                              '+
+                              '             (select c.total_conta from contas c                                          '+
+                              '                  where c.id_cliente_mensal = cm.id                                       '+
+                              '                  and (Extract(Year from SPA.data)||''-''||LPAD(Extract(month from SPA.data),2,''0'')||''-''||LPAD(CAST(cm.dia_pagamento as CHAR(2)),2,''0'')) = '+
+                              '                       (select first 1 CAST(par.dt_vencimento as CHAR(10)) from parcelas par '+
+                              '                        where par.id_conta = c.id) ))) TOTAL_CONTA,                         '+
                               ' Max((select c.valor_pago from contas c                                   '+
                               '     where c.id_cliente_mensal = cm.id                                    '+
                               '       and (Extract(Year from SPA.data)||''-''||LPAD(Extract(month from SPA.data),2,''0'')||''-''||LPAD(CAST(cm.dia_pagamento as CHAR(2)),2,''0'')) = '+
@@ -314,7 +325,7 @@ procedure TfrmRelatorioContasReceber.qryContasMensalCalcFields(DataSet: TDataSet
 begin
   with qryContasMensal do
   begin
-    FieldByName('RESTANTE').AsBCD := FieldByName('TOTAL_CONTA').AsBCD - FieldByName('VALOR_PAGO').AsBCD;
+    FieldByName('RESTANTE').AsBCD := FieldByName('TOTAL_CONTA').AsFloat - FieldByName('VALOR_PAGO').AsBCD;
   end;
 end;
 

@@ -1,14 +1,14 @@
 inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
   Caption = 'Relat'#243'rio'
-  ClientHeight = 308
-  ClientWidth = 777
-  ExplicitWidth = 793
-  ExplicitHeight = 346
+  ClientHeight = 268
+  ClientWidth = 814
+  ExplicitWidth = 830
+  ExplicitHeight = 306
   PixelsPerInch = 96
   TextHeight = 18
   object RLReport1: TRLReport
-    Left = 0
-    Top = 201
+    Left = -1
+    Top = 217
     Width = 794
     Height = 1123
     Margins.LeftMargin = 5.000000000000000000
@@ -1011,7 +1011,7 @@ inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 777
+    Width = 814
     Height = 68
     Align = alTop
     Color = 14732969
@@ -1020,7 +1020,7 @@ inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
     object Shape1: TShape
       Left = 1
       Top = 1
-      Width = 775
+      Width = 812
       Height = 31
       Align = alTop
       Brush.Color = 14073227
@@ -1058,17 +1058,17 @@ inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
   end
   object Panel2: TPanel
     Left = 0
-    Top = 263
-    Width = 777
+    Top = 223
+    Width = 814
     Height = 45
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
     DesignSize = (
-      777
+      814
       45)
     object btnImprimir: TBitBtn
-      Left = 595
+      Left = 632
       Top = 8
       Width = 158
       Height = 30
@@ -1190,7 +1190,7 @@ inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
       OnClick = btnImprimirClick
     end
     object btnVoltar: TBitBtn
-      Left = 419
+      Left = 456
       Top = 8
       Width = 158
       Height = 30
