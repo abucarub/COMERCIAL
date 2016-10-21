@@ -72,7 +72,7 @@ begin
     configuracoes.Load(1);
     configuracoes.executaBackup(Date);
 
-    avisar('Backup criado com sucesso.');
+    avisar(1,'Backup criado com sucesso.',3);
   finally
     FreeAndNil(configuracoes);
   end;
@@ -137,7 +137,7 @@ begin
 
     configuracoes.Save;
 
-    avisar('Salvo com sucesso');
+    avisar(1,'Salvo com sucesso',3);
 
     if not DirectoryExists(configuracoes.destino) then
       CreateDir(configuracoes.destino);
@@ -155,12 +155,12 @@ begin
 
   if edtCaminhoBackup.Text = '' then
   begin
-    avisar('O destino para o backup deve ser informado');
+    avisar(1,'O destino para o backup deve ser informado',3);
     btnBuscaDestino.SetFocus;
   end
   else if (rgpHabilita.ItemIndex = 0) and (cmbHora.ItemIndex = 0) then
   begin
-    avisar('Backup automático está habilitado, portanto deve ser informado um horário para o mesmo.');
+    avisar(1,'Backup automático está habilitado, portanto deve ser informado um horário para o mesmo.',3);
     cmbHora.SetFocus;
   end
   else

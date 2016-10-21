@@ -110,7 +110,7 @@ begin
   montaSQL;
 
   if qryContas.IsEmpty then
-    avisar('Nenhum registro foi encontrado')
+    avisar(1,'Nenhum registro foi encontrado',3)
   else
     RLReport1.PreviewModal;
 end;

@@ -1,14 +1,14 @@
 inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
   Caption = 'Relat'#243'rio'
-  ClientHeight = 268
-  ClientWidth = 814
-  ExplicitWidth = 830
-  ExplicitHeight = 306
+  ClientHeight = 302
+  ClientWidth = 876
+  ExplicitWidth = 892
+  ExplicitHeight = 340
   PixelsPerInch = 96
   TextHeight = 18
   object RLReport1: TRLReport
     Left = -1
-    Top = 217
+    Top = 169
     Width = 794
     Height = 1123
     Margins.LeftMargin = 5.000000000000000000
@@ -454,8 +454,8 @@ inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
     end
   end
   object RLReport2: TRLReport
-    Left = 38
-    Top = 394
+    Left = 0
+    Top = 390
     Width = 1123
     Height = 794
     Margins.LeftMargin = 5.000000000000000000
@@ -1011,16 +1011,17 @@ inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 814
+    Width = 876
     Height = 68
     Align = alTop
     Color = 14732969
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 814
     object Shape1: TShape
       Left = 1
       Top = 1
-      Width = 812
+      Width = 874
       Height = 31
       Align = alTop
       Brush.Color = 14073227
@@ -1058,17 +1059,19 @@ inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
   end
   object Panel2: TPanel
     Left = 0
-    Top = 223
-    Width = 814
+    Top = 257
+    Width = 876
     Height = 45
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 223
+    ExplicitWidth = 814
     DesignSize = (
-      814
+      876
       45)
     object btnImprimir: TBitBtn
-      Left = 632
+      Left = 694
       Top = 8
       Width = 158
       Height = 30
@@ -1188,9 +1191,10 @@ inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnImprimirClick
+      ExplicitLeft = 632
     end
     object btnVoltar: TBitBtn
-      Left = 456
+      Left = 518
       Top = 8
       Width = 158
       Height = 30
@@ -1310,6 +1314,7 @@ inherited frmRelatorioContasReceber: TfrmRelatorioContasReceber
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnVoltarClick
+      ExplicitLeft = 456
     end
   end
   object Panel3: TPanel

@@ -261,10 +261,7 @@ begin
   result := false;
 
   if length(trim(edtNomeRazao.Text)) < 5 then
-  begin
-    avisar('Favor informar o nome da pessoa');
-    edtNomeRazao.SetFocus;
-  end
+    balaoInformacao(edtNomeRazao,'Favor informar o nome da pessoa')
   else
     result := true;
 end;

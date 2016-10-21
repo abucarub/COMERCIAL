@@ -9,11 +9,10 @@ inherited frmCadastroFuncionarios: TfrmCadastroFuncionarios
   inherited pgcDados: TPageControl
     Width = 713
     Height = 376
+    ActivePage = tsDados
     ExplicitWidth = 713
     ExplicitHeight = 376
     inherited tsListagem: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 28
       ExplicitWidth = 705
       ExplicitHeight = 344
       inherited DBGListagem: TDBGridCBN

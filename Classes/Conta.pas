@@ -84,7 +84,7 @@ begin
   FNrDocumento := '';
   FDtCriacao   := 0;
   if assigned(FParcelas) then
-    FParcelas.Free
+    FreeAndNil(FParcelas);
 end;
 
 function TConta.GetDescricaoStatus: String;

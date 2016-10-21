@@ -139,7 +139,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
-        Width = 64
+        Width = 29
         Visible = True
       end
       item
@@ -169,7 +169,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
     Height = 160
     CalColors.TextColor = clBlue
     CalColors.MonthBackColor = clTeal
-    Date = 42566.504121064810000000
+    Date = 42566.675873472220000000
     TabOrder = 1
     OnClick = calendarioClick
   end
@@ -262,7 +262,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
     Left = 599
     Top = 291
     Width = 74
-    Height = 21
+    Height = 24
     Ctl3D = False
     DisplayFormat = 'R$ #,##0.00'
     Font.Charset = DEFAULT_CHARSET
@@ -292,7 +292,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
       item
         Expanded = False
         FieldName = 'PESSOA'
-        Width = 64
+        Width = 300
         Visible = True
       end
       item
@@ -439,7 +439,7 @@ inherited frmCriaHorarioDiario: TfrmCriaHorarioDiario
     Left = 482
     Top = 291
     Width = 54
-    Height = 21
+    Height = 24
     Alignment = taCenter
     Ctl3D = False
     Font.Charset = DEFAULT_CHARSET

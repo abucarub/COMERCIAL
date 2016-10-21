@@ -211,13 +211,18 @@ begin
     result := Cliente;
   Except
     on e :Exception do
-      avisar('Erro ao salvar Cliente'+#13#10+e.Message);
+      avisar(0,'Erro ao salvar Cliente'+#13#10+e.Message);
   end;
 end;
 
 function TfrmCadastroFuncionarios.verificaObrigatorios: Boolean;
 begin
-  inherited;
+  result := false;
+
+  if length(trim(edtNomeRazao.Text)) < 5 then
+    balaoInformacao(edtNomeRazao,'Favor informar o nome da pessoa')
+  else
+    result := true;
 end;
 
 end.

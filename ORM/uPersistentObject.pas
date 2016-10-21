@@ -389,6 +389,7 @@ var
   Reader: TFDQuery;
 begin
   Result := True;
+  self.Clear;
   Ctx := TRttiContext.Create;
   try
     RTT := CTX.GetType(ClassType);

@@ -57,6 +57,8 @@ begin
   FValorPago     := 0;
   FStatus        := '';
   FDtVencimento  := 0;
+  if assigned(FMovimentos) then
+    FreeAndNil(FMovimentos);
 end;
 
 procedure TParcela.afterSave;
@@ -77,7 +79,7 @@ end;
 
 function TParcela.GetMovimentos: TObjectList<TMovimento>;
 begin
-  if not assigned(FMovimentos) then
+  if not assigned(FMovimentos) or (FMovimentos.Count = 0) then
     FMovimentos := self.LoadMany<TMovimento>;
 
   if not assigned(FMovimentos) then

@@ -9,6 +9,7 @@ inherited frmCadastroClientes: TfrmCadastroClientes
   inherited pgcDados: TPageControl
     Width = 888
     Height = 434
+    ActivePage = TabSheet1
     ExplicitWidth = 888
     ExplicitHeight = 434
     inherited tsListagem: TTabSheet

@@ -556,7 +556,7 @@ begin
     result := Conta;
   Except
     on e :Exception do
-      avisar('Erro ao salvar Cliente'+#13#10+e.Message);
+      avisar(0,'Erro ao salvar Cliente'+#13#10+e.Message);
   end;
 end;
 

@@ -105,7 +105,7 @@ begin
       cdsHorarios.Next;
     end;
     cdsHorarios.AfterScroll := cdsHorariosAfterScroll;
-    avisar('Alterações salvas com sucesso.');
+    avisar(1,'Alterações salvas com sucesso.',3);
 
     buscaHorarios;
   finally
@@ -151,7 +151,7 @@ begin
     end
     else
     begin
-      avisar('Não foram encontrados horários com status "PENDENTE"');
+      avisar(1,'Não foram encontrados horários com status "PENDENTE"',3);
       chkCompareceu.Enabled := false;
       chkFaltou.Enabled     := false;
       chkCancelado.Enabled  := false;

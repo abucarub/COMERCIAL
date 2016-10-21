@@ -234,7 +234,7 @@ begin
       horario.geraConta := IfThen(gera_conta,'S','N');
 
       horario.Save;
-      avisar('Status alterado com sucesso!');
+      avisar(1,'Status alterado com sucesso!',3);
 
       if gpbCalendario.Visible then
         calendarioClick(nil);
@@ -379,7 +379,7 @@ begin
     begin
       horario.tipo := 'C';
       horario.Save;
-      avisar('Horário cancelado com sucesso!');
+      avisar(1,'Horário cancelado com sucesso!',3);
       calendarioClick(nil);
     end;
 
@@ -706,22 +706,22 @@ begin
 
   if BuscaDepartamento1.edtDepartamento.Text = '' then
   begin
-    avisar('O departamento deve ser selecionado');
+    avisar(1,'O departamento deve ser selecionado');
     BuscaDepartamento1.edtCodigo.SetFocus;
   end
   else if BuscaProfissional.edtNome.Text = '' then
   begin
-    avisar('O profissional deve ser selecionado');
+    avisar(1,'O profissional deve ser selecionado');
     BuscaProfissional.edtCodigo.SetFocus;
   end
   else if BuscaPessoa1.edtNome.Text = '' then
   begin
-    avisar('A pessoa deve ser selecionada');
+    avisar(1,'A pessoa deve ser selecionada');
     BuscaPessoa1.edtCodigo.SetFocus;
   end
   else if BuscaConvenio1.edtConvenio.Text = '' then
   begin
-    avisar('O convênio deve ser selecionado');
+    avisar(1,'O convênio deve ser selecionado');
     BuscaConvenio1.edtCodigo.SetFocus;
   end
   else
@@ -730,7 +730,7 @@ end;
 
 procedure TfrmAgendamentos.limpaHorariosTela;
 begin
-  if assigned(panelList) then  
+  if assigned(panelList) then
     panelList.Free;
 
   panelList := TObjectList<TPanel>.Create;
@@ -862,7 +862,7 @@ begin
     horario.ServicosAgendados.Add(agendado);
     horario.Save;
     calendarioClick(nil);
-    avisar('Horário cancelado com sucesso!');
+    avisar(1,'Horário cancelado com sucesso!',3);
   finally
     FreeAndNil(horario);
   end;

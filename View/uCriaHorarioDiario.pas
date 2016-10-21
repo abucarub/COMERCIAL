@@ -138,7 +138,7 @@ procedure TfrmCriaHorarioDiario.calendarioClick(Sender: TObject);
 begin
   if calendario.Date < date then
   begin
-    avisar('Atenção! Um horário não pode ser criado para uma data que já passou.');
+    avisar(0,'Atenção! Um horário não pode ser criado para uma data que já passou.');
     calendario.Date := date;
   end;
 end;
@@ -308,17 +308,17 @@ begin
 
   if cdsServicos.IsEmpty then
   begin
-    avisar('Ao menos um serviço prestado deve ser selecionado');
+    avisar(1,'Ao menos um serviço prestado deve ser selecionado');
     gridServicos.SetFocus;
   end
   else if cmbHora.ItemIndex <= 0 then
   begin
-    avisar('O horário da consulta deve ser informado');
+    avisar(1,'O horário da consulta deve ser informado');
     cmbHora.SetFocus;
   end
   else if cdsHorarios.Locate('DATA',calendario.Date,[]) then
   begin
-    avisar('Já existe um horário criado neste dia');
+    avisar(1,'Já existe um horário criado neste dia');
   end
   else
     result := true;
@@ -367,7 +367,7 @@ begin
   for horario in FHorarios do
     horario.Save;
 
-  avisar('Horários salvos com sucesso');
+  avisar(1,'Horários salvos com sucesso',3);
   self.Close;
 end;
 

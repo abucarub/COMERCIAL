@@ -91,7 +91,7 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
-        Width = 64
+        Width = 35
         Visible = True
       end
       item
@@ -503,7 +503,6 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
-        Width = 64
         Visible = True
       end
       item

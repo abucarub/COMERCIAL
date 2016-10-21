@@ -108,7 +108,7 @@ begin
   if assigned(FDepartamento) then
     FreeAndNil(FDepartamento);
   if assigned(FServicosAgendados) then
-    FServicosAgendados.Free;
+    FreeAndNil(FServicosAgendados);
 end;
 
 function TSPA.GetDepartamento: TDepartamento;
@@ -162,7 +162,7 @@ end;
 
 function TSPA.GetServicosAgendados: TObjectList<TServicoAgendado>;
 begin
-  if not assigned(FServicosAgendados) then
+  if not assigned(FServicosAgendados) or (FServicosAgendados.Count = 0) then
     FServicosAgendados := self.LoadMany<TServicoAgendado>;
 
   if not assigned(FServicosAgendados) then

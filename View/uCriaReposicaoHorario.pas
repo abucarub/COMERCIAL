@@ -120,7 +120,7 @@ begin
     FHorario.tipo := 'R';
     FHorario.Save;
 
-    avisar('Reposição criada com sucesso');
+    avisar(1,'Reposição criada com sucesso',3);
     btnCancelar.Click;
   finally
     FreeAndNil(reposicao);
@@ -131,7 +131,7 @@ procedure TfrmCriaReposicaoHorario.dtpDataReposicaoChange(Sender: TObject);
 begin
   if dtpDataReposicao.Date <= strToDate(edtData.Text) then
   begin
-    avisar('A data de reposição deve ser maior que a data do horário a ser reposto');
+    avisar(0,'A data de reposição deve ser maior que a data do horário a ser reposto');
     dtpDataReposicao.OnChange := nil;
     dtpDataReposicao.Clear;
     dtpDataReposicao.OnChange := dtpDataReposicaoChange;
@@ -153,12 +153,12 @@ begin
 
   if dtpDataReposicao.Date = strToDate('30/12/1899') then
   begin
-    avisar('A data da reposição não foi informada');
+    avisar(1,'A data da reposição não foi informada');
     dtpDataReposicao.SetFocus;
   end
   else if cmbHora.ItemIndex = 0 then
   begin
-    avisar('O horário da reposição não foi informado');
+    avisar(1,'O horário da reposição não foi informado');
     cmbHora.SetFocus;
   end
   else

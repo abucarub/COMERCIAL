@@ -125,7 +125,7 @@ procedure TfrmReceber.edtTotalContaExit(Sender: TObject);
 begin
   if edtTotalConta.Value <= 0 then
   begin
-    avisar('O total da conta não foi informado');
+    avisar(1,'O total da conta não foi informado');
     edtTotalConta.SetFocus;
   end;
 end;

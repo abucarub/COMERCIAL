@@ -21,12 +21,12 @@ type
     CorAnterior: TColor;
     procedure  ControlColorChange(Sender: TObject);
   public
-    procedure avisar(mensagem :String);
     function  confirma(mensagem :String) :Boolean;
     procedure balaoInformacao(componente :TWinControl; mensagem :String; const titulo :String = 'Atenção');
-    procedure aguarde(mensagem :String);
+    procedure avisar(tipoMsg :Integer; mensagem:String; const tempoEspera :integer = 0; const semAtalho :String = '');
+    procedure aguarde(mensagem: String);
     procedure fimAguarde;
-    procedure AbreForm(aClasseForm: TComponentClass;var aForm);
+    procedure AbreForm(frm: TFormClass);
   private
     procedure sumLeftAndTopByParents(var Left, Top :integer; componente :TWinControl);
   public
@@ -38,7 +38,7 @@ var
 
 implementation
 
-uses uAguarde;
+uses uAguarde, uAvisar, uConfirmacaoUsuario;
 
 const
   CorSemFoco = clWindow;
@@ -48,16 +48,19 @@ const
 
 procedure TfrmPadrao.FormCreate(Sender: TObject);
 begin
-  Screen.OnActiveControlChange := ControlColorChange;
+ // Screen.OnActiveControlChange := ControlColorChange;
 end;
 
-procedure TfrmPadrao.AbreForm(aClasseForm: TComponentClass;var aForm);
+procedure TfrmPadrao.AbreForm(frm: TFormClass);
+var lFrm : TForm;
 begin
-  Application.CreateForm(aClasseForm,aForm);
-  try
-    Tform(aForm).ShowModal;
-  Finally
-    FreeAndNil(Tform(aForm));
+  lFrm := frm.Create(nil);
+  lFrm.ShowModal;
+
+  if Assigned( lFrm ) then
+  begin
+    lFrm.Release;
+    lFrm := nil;
   end;
 end;
 
@@ -106,9 +109,12 @@ begin
   frmAguarde.Show;
 end;
 
-procedure TfrmPadrao.avisar(mensagem: String);
+procedure TfrmPadrao.avisar(tipoMsg :Integer; mensagem:String; const tempoEspera :integer = 0; const semAtalho :String = '');
 begin
-  MessageDlg(mensagem, mtInformation,[mbOk],0);
+  frmAvisar := TfrmAvisar.Create(self, tipoMsg, mensagem, tempoEspera, semAtalho);
+  frmAvisar.ShowModal;
+  frmAvisar.Release;
+  frmAvisar := nil;
 end;
 
 procedure TfrmPadrao.balaoInformacao(componente :TWinControl; mensagem :String; const titulo :String);
@@ -135,7 +141,16 @@ end;
 
 function TfrmPadrao.confirma(mensagem: String): Boolean;
 begin
-  result := MessageBox(Handle, PWideChar(mensagem), '', MB_YESNO+MB_SYSTEMMODAL+MB_ICONQUESTION+MB_DEFBUTTON1) = ID_YES;
+  Result := false;
+
+  frmConfirmacaoUsuario := TfrmConfirmacaoUsuario.Create(self);
+  frmConfirmacaoUsuario.memMsg.Text := mensagem;
+
+  if frmConfirmacaoUsuario.ShowModal = mrOk then
+    result := true;
+
+  frmConfirmacaoUsuario.Release;
+  frmConfirmacaoUsuario := nil;
 end;
 
 procedure TfrmPadrao.ControlColorChange(Sender: TObject);

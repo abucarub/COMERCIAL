@@ -184,7 +184,7 @@ begin
 
     clienteMensal.geraHorarios;
 
-    avisar('Horário salvo com sucesso');
+    avisar(1,'Horário salvo com sucesso',3);
     self.Close;
 
    { - cria horarios até o fim do mes, a partir da data inicial
@@ -228,12 +228,12 @@ begin
   dtpDataInicial.OnChange := nil;
   if (dtpDataInicial.Date < date) then
   begin
-    avisar('A data selecionada não pode ser inferior a data de hoje');
+    avisar(0,'A data selecionada não pode ser inferior a data de hoje');
     dtpDataInicial.Clear;
   end
   else if not dataValida(dtpDataInicial.Date) then
   begin
-    avisar('A data de início deve corresponder a um dos dias da semana selecionados acima');
+    avisar(0,'A data de início deve corresponder a um dos dias da semana selecionados acima');
     dtpDataInicial.Clear;
   end;
     dtpDataInicial.OnChange := dtpDataInicialChange;
@@ -410,24 +410,24 @@ begin
 
   if cdsServicos.IsEmpty then
   begin
-    avisar('Ao menos um serviço prestado deve ser selecionado');
+    avisar(1,'Ao menos um serviço prestado deve ser selecionado');
     gridServicos.SetFocus;
   end
   else if cdsDiasSemana.IsEmpty then
   begin
-    avisar('Ao menos um dia da semana deve ser selecionado');
+    avisar(1,'Ao menos um dia da semana deve ser selecionado');
     gridDiasSemana.SetFocus;
   end
   else if not horariosInformados then
-    avisar('Horário de '+cdsDiasSemanaDIA_SEMANA.AsString+' não foi informado')
+    avisar(1,'Horário de '+cdsDiasSemanaDIA_SEMANA.AsString+' não foi informado')
   else if dtpDataInicial.Date = strToDate('30/12/1899') then
   begin
-    avisar('A data de início das aulas não foi informada');
+    avisar(1,'A data de início das aulas não foi informada');
     dtpDataInicial.SetFocus;
   end
   else if cmbDiaPagamento.ItemIndex = 0 then
   begin
-    avisar('A data do pagamento não foi informada');
+    avisar(1,'A data do pagamento não foi informada');
     cmbDiaPagamento.SetFocus;
   end
   else

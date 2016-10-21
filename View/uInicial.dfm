@@ -30795,9 +30795,9 @@ object frmInicial: TfrmInicial
     object lbBackup: TLabel
       Left = 49
       Top = 25
-      Width = 49
+      Width = 72
       Height = 19
-      Caption = 'Ativado'
+      Caption = 'Desativado'
     end
     object Label1: TLabel
       Left = 513
@@ -34151,7 +34151,6 @@ object frmInicial: TfrmInicial
         19F9CE9D63103C7A9481EBF66D06C67FFF18BE686B3300E51880E109E2FF07E6
         7CD4620456B0C10C935AB448F6A78CCCC4AF2A2A1E3FD10A36F6274F500A3658
         A1060200265617A203464BB20000000049454E44AE426082}
-      Visible = False
     end
   end
   object MainMenu1: TMainMenu

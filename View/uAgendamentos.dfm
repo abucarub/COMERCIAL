@@ -28,7 +28,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       368
       663)
     object Image2: TImage
-      Left = -25
+      Left = -29
       Top = 294
       Width = 35
       Height = 33
@@ -237,7 +237,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         Anchors = [akTop, akRight]
         CalColors.TextColor = clBlue
         CalColors.MonthBackColor = clTeal
-        Date = 42566.859854224540000000
+        Date = 42566.678348055550000000
         Enabled = False
         TabOrder = 0
         OnClick = calendarioClick
@@ -814,7 +814,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       object pnlHorarios: TPanel
         Left = 0
         Top = 1
-        Width = 1142
+        Width = 1125
         Height = 1118
         Anchors = [akLeft, akTop, akRight, akBottom]
         Color = clWhite
@@ -828,12 +828,12 @@ inherited frmAgendamentos: TfrmAgendamentos
         TabOrder = 0
         ExplicitWidth = 1159
         DesignSize = (
-          1142
+          1125
           1118)
         object Image1: TImage
           Left = 0
           Top = 0
-          Width = 1245
+          Width = 1228
           Height = 1123
           Anchors = [akLeft, akTop, akRight, akBottom]
           IncrementalDisplay = True
@@ -7318,7 +7318,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     Left = 536
     Top = 256
     Bitmap = {
-      494C010106003801040110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010106003801080110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

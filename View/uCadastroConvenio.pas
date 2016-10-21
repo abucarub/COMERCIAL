@@ -128,13 +128,18 @@ begin
     result := Convenio;
   Except
     on e :Exception do
-      avisar('Erro ao salvar Cliente'+#13#10+e.Message);
+      avisar(0,'Erro ao salvar Cliente'+#13#10+e.Message);
   end;
 end;
 
 function TfrmCadastroConvenio.verificaObrigatorios: Boolean;
 begin
-  inherited;
+  result := false;
+
+  if edtConvenio.Text = '' then
+    balaoInformacao(edtConvenio, 'Favor informar qual o convênio')
+  else
+    result := true;
 end;
 
 end.

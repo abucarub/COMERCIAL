@@ -57,7 +57,10 @@ uses
   uBackup in 'uBackup.pas' {frmBackup},
   uAguarde in 'uAguarde.pas' {frmAguarde},
   uAlteracaoValorConta in 'uAlteracaoValorConta.pas' {frmAlteracaoValorConta},
-  ConfiguracoesBackup in '..\Classes\ConfiguracoesBackup.pas';
+  ConfiguracoesBackup in '..\Classes\ConfiguracoesBackup.pas',
+  uAvisar in 'uAvisar.pas' {frmAvisar},
+  uConfirmacaoUsuario in 'uConfirmacaoUsuario.pas' {frmConfirmacaoUsuario},
+  TipoMensagem in '..\Classes\TIPOS\TipoMensagem.pas';
 
 {$R *.res}
 
@@ -68,5 +71,7 @@ begin
   Application.CreateForm(TfrmInicial, frmInicial);
   Application.CreateForm(TfrmAguarde, frmAguarde);
   Application.CreateForm(TfrmAlteracaoValorConta, frmAlteracaoValorConta);
+  Application.CreateForm(TfrmAvisar, frmAvisar);
+  Application.CreateForm(TfrmConfirmacaoUsuario, frmConfirmacaoUsuario);
   Application.Run;
 end.

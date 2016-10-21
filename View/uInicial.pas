@@ -91,33 +91,33 @@ uses uCadastroClientes, uAgendamentos, uContasHorarios, uCadastroFuncionarios, u
 
 procedure TfrmInicial.Backup1Click(Sender: TObject);
 begin
-  AbreForm(TfrmBackup, frmBackup);
+  AbreForm(TfrmBackup);
   verificaBackupGerado;
 end;
 
 procedure TfrmInicial.Clientes1Click(Sender: TObject);
 begin
-  AbreForm(TfrmCadastroClientes, frmCadastroClientes);
+  AbreForm(TfrmCadastroClientes);
 end;
 
 procedure TfrmInicial.Contaspagar1Click(Sender: TObject);
 begin
-  AbreForm(TfrmRelatorioContasPagar, frmRelatorioContasPagar);
+  AbreForm(TfrmRelatorioContasPagar);
 end;
 
 procedure TfrmInicial.Contasreceber1Click(Sender: TObject);
 begin
-  AbreForm(TfrmRelatorioContasReceber, frmRelatorioContasReceber);
+  AbreForm(TfrmRelatorioContasReceber);
 end;
 
 procedure TfrmInicial.Convnios1Click(Sender: TObject);
 begin
-  AbreForm(TfrmCadastroConvenio, frmCadastroConvenio);
+  AbreForm(TfrmCadastroConvenio);
 end;
 
 procedure TfrmInicial.Fisioterapia1Click(Sender: TObject);
 begin
-  AbreForm(TfrmAgendamentos, frmAgendamentos);
+  AbreForm(TfrmAgendamentos);
 end;
 
 procedure TfrmInicial.FormKeyDown(Sender: TObject; var Key: Word;
@@ -138,17 +138,17 @@ end;
 
 procedure TfrmInicial.Funcionrios1Click(Sender: TObject);
 begin
-  AbreForm(TfrmCadastroFuncionarios, frmCadastroFuncionarios);
+  AbreForm(TfrmCadastroFuncionarios);
 end;
 
 procedure TfrmInicial.Gerenciar1Click(Sender: TObject);
 begin
-  AbreForm(TfrmContasHorarios, frmContasHorarios);
+  AbreForm(TfrmContasHorarios);
 end;
 
 procedure TfrmInicial.Horrioscomstatuspendente1Click(Sender: TObject);
 begin
-  AbreForm(TfrmContasStatusPendente, frmContasStatusPendente);
+  AbreForm(TfrmContasStatusPendente);
 end;
 
 procedure TfrmInicial.Image2Click(Sender: TObject);
@@ -184,12 +184,12 @@ end;
 
 procedure TfrmInicial.Pagar1Click(Sender: TObject);
 begin
-  AbreForm(TfrmContasExtra, frmContasExtra);
+  AbreForm(TfrmContasExtra);
 end;
 
 procedure TfrmInicial.Servios1Click(Sender: TObject);
 begin
-  AbreForm(TfrmCadastroServicos, frmCadastroServicos);
+  AbreForm(TfrmCadastroServicos);
 end;
 
 procedure TfrmInicial.timerBackupTimer(Sender: TObject);

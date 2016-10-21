@@ -98,12 +98,12 @@ procedure TfrmCadastroServicos.BitBtn1Click(Sender: TObject);
 begin
   if BuscaConvenio1.edtConvenio.Text = '' then
   begin
-    avisar('Favor selecionar um dos convênios cadastrados');
+    avisar(1,'Favor selecionar um dos convênios cadastrados');
     BuscaConvenio1.edtCodigo.SetFocus;
   end
   else if edtValorServico.Value = 0 then
   begin
-    avisar('Favor informar o valor do serviço, para o convênio informado');
+    avisar(1,'Favor informar o valor do serviço, para o convênio informado');
     edtValorServico.SetFocus;
   end
   else
@@ -235,7 +235,7 @@ begin
     result := Servico;
   Except
     on e :Exception do
-      avisar('Erro ao salvar Cliente'+#13#10+e.Message);
+      avisar(0,'Erro ao salvar Cliente'+#13#10+e.Message);
   end;
 end;
 

@@ -127,7 +127,7 @@ begin
     horario.geraConta := 'S';
     horario.Save;
 
-    avisar('Horário incluído com sucesso');
+    avisar(1,'Horário incluído com sucesso',3);
   finally
     FreeAndNil(horario);
   end;
@@ -546,7 +546,7 @@ begin
    if assigned(horariosMensais) then
      mostrarHorarioMensal(horariosMensais.Items[0])
    else
-     avisar('"'+BuscaPessoa1.Pessoa.Nome+'" não não está vinculado ao departamento de "'+BuscaDepartamento1.Departamento.departamento+'".');
+     avisar(1,'"'+BuscaPessoa1.Pessoa.Nome+'" não está vinculado ao departamento de "'+BuscaDepartamento1.Departamento.departamento+'".',5);
 
  finally
    FreeAndNil(horarioMensal);
@@ -581,7 +581,7 @@ begin
 
       if not assigned(Horarios) then
       begin
-        avisar('"'+BuscaPessoa1.Pessoa.Nome+'" não possui contas referente ao departamento de "'+BuscaDepartamento1.Departamento.departamento+'".');
+        avisar(1,'"'+BuscaPessoa1.Pessoa.Nome+'" não possui contas referente ao departamento de "'+BuscaDepartamento1.Departamento.departamento+'".',5);
         exit;
       end;
 
@@ -645,7 +645,7 @@ var horario :TSPA;
 begin
   if not assigned(horarios) then
   begin
-    avisar('"'+BuscaPessoa1.Pessoa.Nome+'" não possui contas referente ao departamento de "'+BuscaDepartamento1.Departamento.departamento+'".');
+    avisar(1,'"'+BuscaPessoa1.Pessoa.Nome+'" não possui contas referente ao departamento de "'+BuscaDepartamento1.Departamento.departamento+'".',5);
     exit;
   end;
 
@@ -750,7 +750,7 @@ begin
     cds.Next;
   end;
 
-  avisar('Recebimento efetuado com sucesso!');
+  avisar(1,'Recebimento efetuado com sucesso!',3);
 
   cds.Filtered := false;
   limpaValores;

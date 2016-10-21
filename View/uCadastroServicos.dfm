@@ -129,6 +129,10 @@ inherited frmCadastroServicos: TfrmCadastroServicos
     object TabSheet1: TTabSheet
       Caption = 'Tabela de pre'#231'o'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Label7: TLabel
         Left = 396
         Top = 44
@@ -288,7 +292,6 @@ inherited frmCadastroServicos: TfrmCadastroServicos
           item
             Expanded = False
             FieldName = 'ID'
-            Width = -1
             Visible = False
           end
           item

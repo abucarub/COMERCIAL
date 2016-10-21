@@ -27,7 +27,6 @@ inherited frmContasExtra: TfrmContasExtra
           item
             Expanded = False
             FieldName = 'STATUS'
-            Width = 64
             Visible = True
           end
           item
@@ -757,7 +756,6 @@ inherited frmContasExtra: TfrmContasExtra
           item
             Expanded = False
             FieldName = 'ID'
-            Width = -1
             Visible = False
           end
           item
