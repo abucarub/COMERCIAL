@@ -503,13 +503,14 @@ inherited frmCriaHorarioMensal: TfrmCriaHorarioMensal
         Title.Font.Height = -15
         Title.Font.Name = 'Calibri'
         Title.Font.Style = []
+        Width = 27
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'SERVICO'
         ReadOnly = True
-        Width = 204
+        Width = 199
         Visible = True
       end
       item

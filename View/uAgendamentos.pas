@@ -104,6 +104,7 @@ type
     Label38: TLabel;
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
+    Timer1: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure btnCriaHorarioClick(Sender: TObject);
     procedure BuscaDepartamento1Exit(Sender: TObject);
@@ -132,6 +133,8 @@ type
     procedure Panel2MouseEnter(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure gpbCalendarioMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
   private
     FIDHorarioSelecionado :Integer;
     FIDPessoa :Integer;
@@ -288,11 +291,6 @@ procedure TfrmAgendamentos.BuscaDepartamento1Exit(Sender: TObject);
 begin
   inherited;
   BuscaDepartamento1.FrameExit(Sender);
-{  if assigned(BuscaDepartamento1.Departamento) then
-  begin
-    gpbCalendario.Visible := BuscaDepartamento1.Departamento.tipoHorarios = 'D'; {Diário}
-//    rgpDiasSemana.Visible := BuscaDepartamento1.Departamento.tipoHorarios = 'M'; {Mensal}
-//  end;
 end;
 
 procedure TfrmAgendamentos.BuscaProfissionaledtNomeChange(Sender: TObject);
@@ -305,7 +303,8 @@ procedure TfrmAgendamentos.BuscaProfissionalExit(Sender: TObject);
 begin
   inherited;
   BuscaProfissional.FrameExit(Sender);
-  if assigned(BuscaProfissional.Pessoa) and (BuscaProfissional.Pessoa.ID > 0)then
+  if assigned(BuscaProfissional.Pessoa) and not(BuscaProfissional.Pessoa.isEmpty) and
+     assigned(BuscaDepartamento1.Departamento) and not(BuscaDepartamento1.Departamento.isEmpty) then
   begin
     calendario.Enabled := true;
     rgpDiasSemana.Enabled := true;
@@ -694,6 +693,17 @@ begin
   BuscaDepartamento1.edtCodigo.SetFocus;
 end;
 
+procedure TfrmAgendamentos.gpbCalendarioMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+begin
+  inherited;
+  if (assigned(BuscaDepartamento1.Departamento) and not(BuscaDepartamento1.Departamento.isEmpty)) and
+     (assigned(BuscaProfissional.Pessoa) and not (BuscaProfissional.Pessoa.isEmpty))then
+    exit;
+
+    timer1.Interval := 200;
+    timer1.Enabled  := true;
+end;
+
 procedure TfrmAgendamentos.Image3MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 begin
  if not (screen.ActiveControl = scrollbox1) then
@@ -1040,6 +1050,12 @@ end;
 procedure TfrmAgendamentos.speHorasEnter(Sender: TObject);
 begin
   TSpinEdit(Sender).SelectAll;
+end;
+
+procedure TfrmAgendamentos.Timer1Timer(Sender: TObject);
+begin
+  balaoInformacao(gpbCalendario, 'Para filtrar os horários do dia informe o Departamento e o Profissional.');
+  Timer1.Enabled := false;
 end;
 
 function TfrmAgendamentos.verificaObrigatorios: boolean;

@@ -16,7 +16,6 @@ inherited frmBackup: TfrmBackup
     Color = 14732969
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 645
     object Shape1: TShape
       Left = 1
       Top = 1
@@ -62,8 +61,6 @@ inherited frmBackup: TfrmBackup
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 261
-    ExplicitWidth = 645
     DesignSize = (
       655
       45)
@@ -189,7 +186,6 @@ inherited frmBackup: TfrmBackup
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnEfetuarBackupClick
-      ExplicitLeft = 292
     end
     object btnVoltar: TBitBtn
       Left = 126
@@ -312,7 +308,6 @@ inherited frmBackup: TfrmBackup
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnVoltarClick
-      ExplicitLeft = 116
     end
     object BitBtn1: TBitBtn
       Left = 478
@@ -324,7 +319,6 @@ inherited frmBackup: TfrmBackup
       NumGlyphs = 2
       TabOrder = 2
       OnClick = BitBtn1Click
-      ExplicitLeft = 468
     end
   end
   object GroupBox1: TGroupBox

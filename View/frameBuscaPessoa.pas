@@ -78,7 +78,7 @@ begin
 
   if FPessoa.ID > 0 then
   begin
-    carregaDados;
+    carregaDados(FPessoa.ID);
     keybd_event(VK_TAB,0,0,0);
   end
   else

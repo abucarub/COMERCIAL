@@ -69,7 +69,7 @@ begin
 
   if FCidade.ID > 0 then
   begin
-    carregaDados;
+    carregaDados(FCidade.ID);
     keybd_event(VK_TAB,0,0,0);
   end
   else

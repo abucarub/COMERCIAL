@@ -57,10 +57,12 @@ begin
 end;
 
 procedure TfrmBackup.btnBuscaDestinoClick(Sender: TObject);
-var Diretorio: String;
+var caminho :String;
 begin
- SelectDirectory(Diretorio, [sdAllowCreate, sdPerformCreate,sdPrompt],1);
- edtCaminhoBackup.Text := Diretorio;
+  SelectDirectory('Selecione a pasta destino','', caminho);
+
+  if caminho <> '' then
+    edtCaminhoBackup.Text := caminho;
 end;
 
 procedure TfrmBackup.btnEfetuarBackupClick(Sender: TObject);

@@ -78,7 +78,10 @@ end;
 
 procedure TBusca.edtEnter(Sender: TObject);
 begin
-  efetuaBusca(FEdtId.Text);
+  if TEdit(Sender).Text = '' then
+    efetuaBusca(FEdtId.Text)
+  else
+    keybd_event(VK_TAB,0,0,0);
 end;
 
 procedure TBusca.edtidChange(Sender: TObject);

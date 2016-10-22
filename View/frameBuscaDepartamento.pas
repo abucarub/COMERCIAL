@@ -50,6 +50,7 @@ begin
   inherited;
   if not assigned(FDepartamento) then
     FDepartamento := TDepartamento.Create;
+
   FDepartamento.Load(ID);
 
   if not assigned(FDepartamento) then
@@ -65,7 +66,7 @@ begin
 
   if FDepartamento.ID > 0 then
   begin
-    carregaDados;
+    carregaDados(FDepartamento.ID);
     keybd_event(VK_TAB,0,0,0);
   end
   else

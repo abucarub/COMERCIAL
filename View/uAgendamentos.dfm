@@ -28,7 +28,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       368
       663)
     object Image2: TImage
-      Left = -29
+      Left = 7
       Top = 294
       Width = 35
       Height = 33
@@ -78,7 +78,6 @@ inherited frmAgendamentos: TfrmAgendamentos
         C975A9B5D80C06282D2DA5434343D90DB5DAD6D3D343FE61D52F0D50505040DB
         D9D981CFE7AF3AC0E4E42473842F0D909B9BBB9934A6AB7EF739931100995E80
         FFDAFE06DE90265D364FBAA20000000049454E44AE426082}
-      ExplicitLeft = 7
     end
     object rgpDiasSemana: TRadioGroup
       Left = 8
@@ -101,7 +100,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     end
     inline BuscaDepartamento1: TBuscaDepartamento
       Left = 12
-      Top = 58
+      Top = 57
       Width = 346
       Height = 63
       Font.Charset = DEFAULT_CHARSET
@@ -111,9 +110,9 @@ inherited frmAgendamentos: TfrmAgendamentos
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      OnExit = BuscaDepartamento1Exit
+      OnExit = BuscaProfissionalExit
       ExplicitLeft = 12
-      ExplicitTop = 58
+      ExplicitTop = 57
       ExplicitWidth = 346
       ExplicitHeight = 63
       inherited Label2: TLabel
@@ -226,6 +225,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       Caption = ' '
       TabOrder = 5
       OnMouseEnter = Panel2MouseEnter
+      OnMouseMove = gpbCalendarioMouseMove
       DesignSize = (
         360
         210)
@@ -237,7 +237,7 @@ inherited frmAgendamentos: TfrmAgendamentos
         Anchors = [akTop, akRight]
         CalColors.TextColor = clBlue
         CalColors.MonthBackColor = clTeal
-        Date = 42566.678348055550000000
+        Date = 42566.441944768520000000
         Enabled = False
         TabOrder = 0
         OnClick = calendarioClick
@@ -814,7 +814,7 @@ inherited frmAgendamentos: TfrmAgendamentos
       object pnlHorarios: TPanel
         Left = 0
         Top = 1
-        Width = 1125
+        Width = 1108
         Height = 1118
         Anchors = [akLeft, akTop, akRight, akBottom]
         Color = clWhite
@@ -826,14 +826,13 @@ inherited frmAgendamentos: TfrmAgendamentos
         ParentBackground = False
         ParentFont = False
         TabOrder = 0
-        ExplicitWidth = 1159
         DesignSize = (
-          1125
+          1108
           1118)
         object Image1: TImage
           Left = 0
           Top = 0
-          Width = 1228
+          Width = 1211
           Height = 1123
           Anchors = [akLeft, akTop, akRight, akBottom]
           IncrementalDisplay = True
@@ -7318,7 +7317,7 @@ inherited frmAgendamentos: TfrmAgendamentos
     Left = 536
     Top = 256
     Bitmap = {
-      494C010106003801080110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101060038010C0110001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -7588,5 +7587,11 @@ inherited frmAgendamentos: TfrmAgendamentos
       8061018037C0C003F86100C037C08001F86100C033C00180F861008031C003C0
       F8610000000007E0FFFF800180018FF100000000000000000000000000000000
       000000000000}
+  end
+  object Timer1: TTimer
+    Interval = 2000
+    OnTimer = Timer1Timer
+    Left = 524
+    Top = 72
   end
 end

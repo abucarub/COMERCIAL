@@ -27622,10 +27622,7 @@ object frmInicial: TfrmInicial
       000000000000000000000000AC080C84000000000000000000000000002B0203
       21000000000000000000000000C08AF8178B6990614D1754900000000049454E
       44AE426082}
-    ExplicitLeft = 360
-    ExplicitTop = 192
-    ExplicitWidth = 105
-    ExplicitHeight = 105
+    ExplicitTop = -6
   end
   object lbAgendar: TLabel
     Left = 64
