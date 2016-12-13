@@ -81,6 +81,7 @@ type
     procedure edtReceberChange(Sender: TObject);
     procedure chkQuitadasClick(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    procedure edtValorPagoChange(Sender: TObject);
   private
     procedure mostrarHorariosDiarios(horarios :TObjectList<TSPA>);
     procedure mostrarHorarioMensal(horarioMensal :TClienteMensal);
@@ -359,6 +360,12 @@ procedure TfrmContasHorarios.edtTotalContaChange(Sender: TObject);
 begin
   btnReceber.Enabled := edtTotalConta.Value > 0;
 
+  edtValorRestante.Value := edtTotalConta.Value - edtValorPago.Value;
+end;
+
+procedure TfrmContasHorarios.edtValorPagoChange(Sender: TObject);
+begin
+  edtTotalConta.ReadOnly := edtValorPago.Value > 0;
 end;
 
 procedure TfrmContasHorarios.FormCreate(Sender: TObject);
@@ -630,7 +637,7 @@ begin
     cds := cdsHorariosDiarios
   else
     cds := cdsHorarioMensal;
-
+                                        criar um alterar valor total da conta.ID_Spa.MaxValue botao direito ou algo assim
   pagar_integral := cds.RecordCount > 1;
 
   cds.First;

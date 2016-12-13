@@ -603,6 +603,7 @@ inherited frmContasHorarios: TfrmContasHorarios
     ParentFont = False
     ReadOnly = True
     TabOrder = 8
+    OnChange = edtValorPagoChange
   end
   object edtValorRestante: TCurrencyEdit
     Left = 307

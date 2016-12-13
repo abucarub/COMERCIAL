@@ -177,7 +177,7 @@ begin
     for ClienteMensal in ClientesMensais do
     begin
       {data da ultima geracao >= ao primeiro dia do mes corrente significa que a geracao esta atualizada}
-      if not (ClienteMensal.ultimaGeracao >= StartOfTheMonth(date))  then
+      while not (ClienteMensal.ultimaGeracao >= StartOfTheMonth(date)) do
       begin
         if ClienteMensal.ultimaGeracao = 0 then
           inicioGeracao := ClienteMensal.inicio
@@ -185,7 +185,7 @@ begin
           inicioGeracao := IncMonth(StartOfTheMonth(ClienteMensal.ultimaGeracao),1);
 
         fimGeracao := EndOfTheMonth(inicioGeracao);
-                                                           simular sistema parado 2 meses para gerar de 2 meses seguido
+
         while inicioGeracao <= fimGeracao do
         begin
           if (ClienteMensal.segunda > 0) and (TUtilitario.diaSemanaExtenso(inicioGeracao) = dias[1]) then
@@ -206,7 +206,7 @@ begin
           inicioGeracao := inicioGeracao +1;
         end;
 
-        ClienteMensal.ultimaGeracao := IncMonth(inicioGeracao);
+        ClienteMensal.ultimaGeracao := inicioGeracao-1;
         ClienteMensal.Save;
       end;
     end;

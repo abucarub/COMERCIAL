@@ -10,7 +10,7 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
   TextHeight = 18
   object gridHorarios: TDBGridCBN
     Left = 13
-    Top = 86
+    Top = 78
     Width = 883
     Height = 407
     Color = 14803425
@@ -74,7 +74,7 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
       item
         Expanded = False
         FieldName = 'DEPARTAMENTO'
-        Width = 94
+        Width = 100
         Visible = True
       end
       item
@@ -121,8 +121,6 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
     Align = alBottom
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 455
-    ExplicitWidth = 909
     DesignSize = (
       919
       45)
@@ -248,7 +246,6 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
       NumGlyphs = 2
       TabOrder = 0
       OnClick = btnSalvarClick
-      ExplicitLeft = 727
     end
     object btnVoltar: TBitBtn
       Left = 561
@@ -371,7 +368,6 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
       NumGlyphs = 2
       TabOrder = 1
       OnClick = btnVoltarClick
-      ExplicitLeft = 551
     end
   end
   object Panel1: TPanel
@@ -383,7 +379,6 @@ inherited frmContasStatusPendente: TfrmContasStatusPendente
     Color = 14732969
     ParentBackground = False
     TabOrder = 2
-    ExplicitWidth = 909
     object Shape1: TShape
       Left = 1
       Top = 1

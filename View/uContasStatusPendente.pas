@@ -47,6 +47,7 @@ type
     procedure btnSalvarClick(Sender: TObject);
   private
     alterando :Boolean;
+    FOnScroll :Boolean;
 
     procedure alteraStatus(status :String);
     procedure buscaHorarios;
@@ -128,9 +129,9 @@ begin
 
     if assigned(horarios) then
     begin
+      cdsHorarios.DisableControls;
       for horario in horarios do
-      begin                          dando erro ao recarregar tela
-                          tela demorando pra abrir
+      begin
         cdsHorarios.Append;
         cdsHorariosID.AsInteger          := horario.ID;
         cdsHorariosDEPARTAMENTO.AsString := horario.Departamento.departamento;
@@ -142,6 +143,8 @@ begin
         cdsHorariosSTATUS.AsString       := 'PENDENTE';
         cdshorarios.Post;
       end;
+      cdsHorarios.EnableControls;
+      cdsHorarios.IndexFieldNames := 'DEPARTAMENTO;DATA'
     end
     else
     begin
@@ -163,12 +166,16 @@ end;
 
 procedure TfrmContasStatusPendente.cdsHorariosAfterScroll(DataSet: TDataSet);
 begin
+  FOnScroll := true;
   alteraStatus(cdsHorariosSTATUS.AsString);
+  FOnScroll := false;
 end;
 
 procedure TfrmContasStatusPendente.chkPendenteClick(Sender: TObject);
 var NovoStatus :String;
 begin
+  if FOnScroll then
+    exit;
   if alterando then
     exit;
 
@@ -248,7 +255,11 @@ end;
 
 procedure TfrmContasStatusPendente.FormShow(Sender: TObject);
 begin
+  cdsHorarios.AfterEdit := nil;
+  cdsHorarios.AfterScroll := nil;
   buscaHorarios;
+  cdsHorarios.AfterEdit := cdsHorariosAfterEdit;
+  cdsHorarios.AfterScroll := cdsHorariosAfterScroll;
 end;
 
 end.
