@@ -1,4 +1,5 @@
-{No LoadOne, quando é passado a FK, é 1-1. Do contrário, é 1-N
+{
+ No LoadOne, quando é passado a FK, é 1-1. Do contrário, é 1-N
  1-1 (um para 1) = está definido quando a tabela mãe possui a FK da tabela filha
  1-N (um para muitos) = está definido quando a tabela filha que possui a FK da tabela mãe
  }
@@ -30,35 +31,32 @@ type
   public
     property CustomSQL: WideString read FSQL write FSQL;
 
-    [FieldName('ID', True, True)]
-    property ID :integer read FID write FID;
-
     function Insert(const attName :String = ''; const propValue :String = ''): Boolean;
     function Update: Boolean;
     function Delete: Boolean;
     function Save(const attName :String = ''; const propValue :String = ''): Boolean;
     procedure AfterSave; overload; virtual;
 
-    function isEmpty :Boolean; overload; virtual;
+    function isEmpty :Boolean;// overload; virtual;
     function isLoaded :Boolean;
     {Load na classe corrente}
     //procedure Load(const AValue: Integer); overload; virtual; abstract;
     function Load(parametro :variant; const atributo :String = 'ID'): Boolean; overload;
 
     {limpar as propriedades e liberar os objetos (usado tbm para liberar os objetos e lista de objetos no destroy)}
-    procedure Clear; virtual; abstract;
+    procedure Clear;// virtual; abstract;
 
     {retorna a instancia de uma classe (ja preenchida - Load), atraves de seu tipo e chave primaria (PK)}
-    function LoadSubclassByPK<T:class>(PK :integer) :T;
+    function LoadSubclassByPK<T:class, constructor>(PK :integer) :T;
 
     {retorna uma query com todos os registros cadastrados correspondente a classe}
     function LoadAll{(qry :TFDQuery)}:TFDQuery;
     {retorna uma instancia, do tipo da classe passada por parametro, sendo essa classe "Detalhe" (Mestre-Detalhe)}
-    function LoadOne<T:class>(const FK :Integer = 0): T;
+    function LoadOne<T:class, constructor>(const FK :Integer = 0): T;
     {retorna uma lista de instancias, do tipo da classe passada por parametro, sendo essa lista "Detalhe" (Mestre-Detalhe)}
-    function LoadMany<T:class> : TObjectList<T>;
+    function LoadMany<T:class, constructor> : TObjectList<T>;
 
-    function LoadList<T:class>(const where :String = '') :TObjectList<T>;
+    function LoadList<T:class, constructor>(const where :String = '') :TObjectList<T>;
 
     {busca o nome do atributo (field), da propriedade, cujo tipo é o mesmo da classe T, passada por parametro }
     procedure buscaFK<T:class>(var campoFK :String);
@@ -67,6 +65,9 @@ type
                                   const arguments: array of TValue): TObject;
     destructor destroy;override;
 
+  public
+    [FieldName('ID', True, True)]
+    property ID :integer read FID write FID;
   end;
 
 implementation
@@ -115,6 +116,41 @@ begin
          end;
        end;
     end;
+end;
+
+procedure TPersistentObject.Clear;
+var  RTT: TRttiType;
+     CTX: TRttiContext;
+     RTP: TRttiProperty;
+     Att: TCustomAttribute;
+begin
+  CTX := TRttiContext.Create;
+  RTT := CTX.GetType(ClassType);
+
+  for RTP in RTT.GetProperties do
+  begin
+    for Att in RTP.GetAttributes do
+      if (Att is FieldName) or (Att is HasOne) or (Att is HasMany) then
+      begin
+        if (RTP.GetValue(Self).TypeInfo = TypeInfo(TDateTime)) and (RTP.GetValue(Self).AsExtended > 0) then
+          RTP.SetValue(Self, TValue.FromVariant(0))
+        else if (RTP.GetValue(Self).TypeInfo = TypeInfo(TDate)) and (RTP.GetValue(Self).AsExtended > 0) then
+          RTP.SetValue(Self, TValue.FromVariant(0))
+        else if (RTP.GetValue(Self).TypeInfo = TypeInfo(TTime)) and (RTP.GetValue(Self).AsExtended > 0) then
+          RTP.SetValue(Self, TValue.FromVariant(0))
+        else if (RTP.GetValue(Self).TypeInfo = TypeInfo(Real)) and (RTP.GetValue(Self).AsCurrency > 0) then
+          RTP.SetValue(Self, TValue.FromVariant(0))
+        else if (RTP.GetValue(Self).TypeInfo = TypeInfo(Integer)) and (RTP.GetValue(Self).AsInteger > 0) then
+          RTP.SetValue(Self, TValue.FromVariant(0))
+        else if (RTP.GetValue(Self).TypeInfo = TypeInfo(String)) and (RTP.GetValue(Self).AsString <> '') then
+          RTP.SetValue(Self, TValue.FromVariant(''))
+        else if (Att is HasOne) and assigned((RTP.GetValue(Self).AsObject as TPersistentObject)) then
+        begin
+          RTP.GetValue(Self).AsObject.free;
+          RTP.SetValue(Self, nil);
+        end;
+      end;
+  end;
 end;
 
 class function TPersistentObject.CreateInstance(instanceType: TRttiInstanceType;
@@ -207,17 +243,15 @@ var Att: TCustomAttribute;
 begin
   try
     for Att in RTT.GetAttributes do
-      begin
-        if Att is TableName then
-          result := TableName(ATT).Name;
-      end;
+      if Att is TableName then
+        result := TableName(ATT).Name;
 
-      if result = '' then
-        raise Exception.Create('Atributo "tablename" não encontrado');
+    if result = '' then
+      raise Exception.Create('Atributo "tablename" não encontrado');
 
   Except
     on e :Exception do
-      raise Exception.Create(e.Message)
+      raise Exception.Create(e.Message);
   end;
 end;
 
@@ -232,6 +266,17 @@ begin
     tkWChar, tkLString,
     tkWString, tkUString: Result := QuotedStr(ARTP.GetValue(Self).ToString);
     tkFloat: begin
+
+               if ARTP.GetValue(Self).TypeInfo=TypeInfo(TDateTime) then
+                 Result := QuotedStr(FormatDateTime('dd.mm.yyyy hh:mm:ss', FloatToDateTime(ARTP.GetValue(Self).AsExtended)))
+               else if ARTP.GetValue(Self).TypeInfo=TypeInfo(TDate) then
+                 Result := QuotedStr(FormatDateTime('dd.mm.yyyy', FloatToDateTime(ARTP.GetValue(Self).AsExtended)))
+               else if ARTP.GetValue(Self).TypeInfo=TypeInfo(TTime) then
+                 Result := QuotedStr(FormatDateTime('hh:mm:ss', FloatToDateTime(ARTP.GetValue(Self).AsExtended)))
+               else if ARTP.GetValue(Self).TypeInfo=TypeInfo(real) then
+                 Result := StringReplace(FormatFloat('0.00',ARTP.GetValue(Self).AsCurrency)
+                                                           ,FormatSettings.DecimalSeparator,'.',[rfReplaceAll,rfIgnoreCase]);
+             {
                if ARTP.PropertyType.Name = 'TDateTime' then
                  Result := QuotedStr(FormatDateTime('dd.mm.yyyy hh:mm:ss', FloatToDateTime(ARTP.GetValue(Self).AsExtended)))
                else if ARTP.PropertyType.Name = 'TDate' then
@@ -241,7 +286,7 @@ begin
                else
                  Result := StringReplace(FormatFloat('0.00',ARTP.GetValue(Self).AsCurrency)
                                                            ,FormatSettings.DecimalSeparator,'.',[rfReplaceAll,rfIgnoreCase]);
-
+              }
 
               end;
   end;
@@ -276,33 +321,28 @@ begin
       RTT := CTX.GetType(ClassType);
 
       NomeTabela := GetTableName(RTT);
-      SQL := 'INSERT INTO ' + NomeTabela;
 
       for RTP in RTT.GetProperties do
-      begin
-         for Att in RTP.GetAttributes do
-         begin
-           if Att is FieldName then
-           begin
-             if not (FieldName(ATT).AutoInc) then {Auto incremento não pode entrar no insert}
-             begin
-               Field := Field + FieldName(ATT).Name + ',';
+        for Att in RTP.GetAttributes do
+          if Att is FieldName then
+          begin
+            if not (FieldName(ATT).AutoInc) then {Auto incremento não pode entrar no insert}
+            begin
+              Field := Field + FieldName(ATT).Name + ',';
 
-               if (FieldName(ATT).Name = attName) then
-                 Value := Value + propValue + ','
-               else
-                 Value := Value + GetValue(RTP,FieldName(ATT).FK) + ',';
-             end
-             else
-               FieldID := FieldName(ATT).Name;
-           end;
-         end;
-      end;
+              if (FieldName(ATT).Name = attName) then
+                Value := Value + propValue + ','
+              else
+                Value := Value + GetValue(RTP,FieldName(ATT).FK) + ',';
+            end
+            else
+              FieldID := FieldName(ATT).Name;
+          end;
 
       Field := Copy(Field,1,Length(Field)-1);
       Value := Copy(Value,1,Length(Value)-1);
 
-      SQL := SQL + ' (' + Field + ') VALUES (' + Value + ')';
+      SQL := Format( 'INSERT INTO %s (%s) VALUES (%s)', [NomeTabela, Field, Value]);
 
       if Trim(CustomSQL) <> '' then
         SQL := CustomSQL;
@@ -311,17 +351,18 @@ begin
 
       if Result then
       begin
-        SQL := 'SELECT MAX(' + FieldID + ') FROM ' + NomeTabela;// + ' ORDER BY ' + FieldID + ' DESC';
-
+        { seleciona o ID do ultimo registro inserido }
+        SQL := Format('SELECT MAX(%s) FROM %s', [FieldID, NomeTabela]);
         Qry := TConnection.GetInstance.ExecuteQuery(SQL);
 
+        { seta o valor ID selecionado pa propriedade ID}
         for RTP in RTT.GetProperties do
         begin
            for Att in RTP.GetAttributes do
            begin
              if (Att is FieldName) and (FieldName(ATT).AutoInc) then
              begin
-               RTP.SetValue(Self,TValue.FromVariant(qry.Fields[0].AsInteger));
+               RTP.SetValue(Self, TValue.FromVariant(qry.Fields[0].AsInteger));
              end;
            end;
         end;
@@ -330,6 +371,7 @@ begin
         begin
            for Att in RTP.GetAttributes do
            begin
+             { se for propriedade 1-1, for atualizavel, não for nil e não estiver vazia, salva}
              if (Att is HasOne) and (HasOne(Att).Upgradeable) and assigned((RTP.GetValue(Self).AsObject as TPersistentObject))
              and not (RTP.GetValue(Self).AsObject as TPersistentObject).isEmpty then
                (RTP.GetValue(Self).AsObject as TPersistentObject).Save(HasOne(Att).ChildPropertyName, qry.Fields[0].AsString);
@@ -366,8 +408,35 @@ begin
 end;
 
 function TPersistentObject.isEmpty: Boolean;
+var  RTT: TRttiType;
+     CTX: TRttiContext;
+     RTP: TRttiProperty;
+     Att: TCustomAttribute;
 begin
-  raise Exception.Create('Método isEmpty deve ser implementado');
+  CTX := TRttiContext.Create;
+  RTT := CTX.GetType(ClassType);
+
+  for RTP in RTT.GetProperties do
+  begin
+    for Att in RTP.GetAttributes do
+      if Att is FieldName then
+      begin
+        if (RTP.GetValue(Self).TypeInfo = TypeInfo(TDateTime)) and (RTP.GetValue(Self).AsExtended > 0) then
+          exit(false)
+        else if (RTP.GetValue(Self).TypeInfo = TypeInfo(TDate)) and (RTP.GetValue(Self).AsExtended > 0) then
+          exit(false)
+        else if (RTP.GetValue(Self).TypeInfo = TypeInfo(TTime)) and (RTP.GetValue(Self).AsExtended > 0) then
+          exit(false)
+        else if (RTP.GetValue(Self).TypeInfo = TypeInfo(Real)) and (RTP.GetValue(Self).AsCurrency > 0) then
+          exit(false)
+        else if (RTP.GetValue(Self).TypeInfo = TypeInfo(Integer)) and (RTP.GetValue(Self).AsInteger > 0) then
+          exit(false)
+        else if (RTP.GetValue(Self).TypeInfo = TypeInfo(String)) and (RTP.GetValue(Self).AsString <> '') then
+          exit(false);
+      end;
+  end;
+
+  exit(true);
 end;
 
 function TPersistentObject.isLoaded: Boolean;
@@ -512,7 +581,7 @@ begin
         First;
         while not EOF do
         begin
-          Result.Add( getInstancia(Ctx, RTT, []) );
+          Result.Add( T.Create );
 
           TPersistentObject(Result.items[Result.count-1]).Load( FieldByName('ID').Value );
 
@@ -564,10 +633,8 @@ begin
         First;
         while not EOF do
         begin
-          Result.Add( getInstancia(Ctx, RTT, []) );
-
+          Result.Add( T.Create );
           TPersistentObject(Result.items[Result.count-1]).Load( FieldByName('ID').Value );
-
           Next;
         end;
       end;
@@ -616,9 +683,7 @@ begin
       with Reader do
       begin
         First;
-
-        Result := T( getInstancia(Ctx, RTT, []) );
-
+        Result := T.Create;
         TPersistentObject(Result).Load( FieldByName('ID').Value );
       end;
     end;
@@ -654,7 +719,7 @@ begin
       begin
         First;
 
-        Result := T( getInstancia(Ctx, RTT, []) );
+        Result := T.Create;
 
         TPersistentObject(Result).Load( FieldByName('ID').Value );
       end;
